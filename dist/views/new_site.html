@@ -1,0 +1,157 @@
+<div class="container site-container">
+	<div class="container site-content">
+		<div class="row">
+			<div class="col-md-12 container-title">
+				SITES/<u>CREATE NEW SITE</u>
+			</div>
+		</div>
+		<div class="row">
+		<div class="form-left-container">
+		<div class="col-md-6 site-info-form form-left">
+			<div class="form-title">
+				<span class="badge">1</span>
+				<span>step 1: ENTER SITE INFORMATION</span>
+			</div>	
+			<div class="form-container">
+				<div class="form-group col-lg-6">
+					<label>Address 1<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteAddress.address1">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Address 2</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteAddress.address2">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>City<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteAddress.city">
+				</div>
+								
+				<div class="form-group col-lg-6">
+					<label>State<sup>*</sup></label>
+					<select type="" name="" class="form-control" id="" value="" ng-model="siteAddress.state_id" >
+						<option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+					</select>
+				</div>
+				<div class="form-group col-lg-6">
+					<label>Zip<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteAddress.zipcode">
+				</div>
+			
+			</div>
+		</div>
+		<div class="col-md-6 site-detail-form form-left">
+			<div class="form-title">
+				<span class="badge">2</span>
+				<span>step 2: ENTER SITE DETAILS</span>
+			</div>	
+			<div class="form-container">
+				<div class="form-group col-lg-6">
+					<label>Site Name</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.name" >
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Managers</label>
+					<input type="" name="" class="form-control" id="" value="" >
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Site Contact Name</label>
+					<input type="email" name="" class="form-control" id="" value="" ng-model="siteDetail.contact_name">
+				</div>
+								
+				<div class="form-group col-lg-6">
+					<label>Site Contact Phone</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.contact_phone">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Source</label>
+					<select type="" name="" class="form-control" id="" value="" ng-model="siteDetail.source">
+						<option ng-repeat="source in siteSource" value="{{$index+1}}">{{source}}</option>
+					</select>
+				</div>
+
+				<div class="form-group col-lg-6">
+					<label>Source Info</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.source_info">
+				</div>
+
+				<div class="form-group col-lg-6">
+					<label>Damage</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.damage">
+				</div>
+
+				<div class="form-group col-lg-6">
+					<label>Oppurtunity Priority</label>
+					<select type="" name="" class="form-control" id="" value="" ng-model="siteDetail.status">
+						<option value="1">Good</option>
+						<option value="2">Bad</option>
+						<option value-"3">New</option>
+						<option value="4">Dead</option>
+					</select>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 bill-info-form form-right">
+			<div class="form-title">
+				<span class="badge">3</span>
+				<span>step 3: ENTER BILLING INFORMATION</span>
+				<span class="pull-right"><input type="checkbox" id="samebill" ng-model="billingIsSameAsSite" ><label for="samebill">Same as Site Address?</label></span>
+			</div>	
+			<div class="form-container">
+				<div class="form-group col-lg-6">
+					<label>Address 1<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="billAddress.address1"  ng-disabled="billingIsSameAsSite">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Address 2</label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="billAddress.address2"  ng-disabled="billingIsSameAsSite">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>City<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="billAddress.city"  ng-disabled="billingIsSameAsSite">
+				</div>
+								
+				<div class="form-group col-lg-6">
+					<label>State<sup>*</sup></label>
+					<select type="" name="" class="form-control" id="" value="" ng-model="billAddress.state_id"  ng-disabled="billingIsSameAsSite">
+						<option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Zip<sup>*</sup></label>
+					<input type="" name="" class="form-control" id="" value="" ng-model="billAddress.zipcode"  ng-disabled="billingIsSameAsSite">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 form-right">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 save-form ">
+						<div class="form-title">
+							<span class="badge">4</span>
+							<span>step 4: SAVE </span>
+							
+						</div>
+						<div class="form-container">
+							<div class="form-group col-lg-12">
+								<input type="submit" class="btn save-btn" value="SAVE SITE" ng-click="newSite(siteAddress,siteDetail,billAddress)">
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+	

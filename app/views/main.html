@@ -1,0 +1,208 @@
+<div class="container dashboard-container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 recent-sites pull-left">
+      <div class="sub-container__header">
+        <div class="heading">
+          RECENT SITES
+        </div>
+      </div>
+      <div class="sub-container__body">
+        <ul class="site-list">
+          <a ui-sref="overview.project">
+              <li ng-repeat="site in recent_sites.sites">
+              <span class="site_title pull-left">{{site.name}}</span>
+              <span class="site_info pull-right">{{site.address.address1}}, {{site.address.city}}, {{state_abb[site.address.state.id - 1]}},80301<i class="glyphicon glyphicon-triangle-right"></i></span>
+              </li>
+          </a>
+        </ul>
+      </div>
+      <div class="sub_container__footer">
+        <a ui-sref="newsite"><button class="btn btn-success pull-right">CREATE SITE</button></a>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 quick-links pull-right" >
+      <div class="sub-container__body">
+        <div class="info-header">QUICK LINKS</div>
+          <div class="info-container">
+            <ul class="links-list">
+              <li>
+                <span class="link_title pull-left">
+                  <img src="images/Clock.png"> 
+                  Create Appointment
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                </span>
+                <span class="site_info pull-right"></span>
+              </li>
+              <li>
+                <span class="link_title pull-left">
+                  <img src="images/Calendar.png">
+                  View Calender
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                </span>
+                <span class="site_info pull-right"></span>
+              </li>
+              <li>
+                <a ui-sref="sites">
+                  <span class="link_title pull-left">
+                  <img src="images/Folder.png">
+
+                  Create Document
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                  </span>
+                </a>
+                <span class="site_info pull-right"></span>
+              </li>
+              <li>
+                <span class="link_title pull-left">
+                  <img src="images/Search Icon.png">
+                  <input type="text" class="form-control" placeholder="Search By PO number" aria-describedby="sizing-addon1">
+                  Search
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                </span>
+                <span class="site_info pull-right"></span>
+              </li>
+              <li>
+                <span class="link_title pull-left">
+                  <img src="images/Search Icon.png">
+                  <input type="text" class="form-control" placeholder="Search By Address" aria-describedby="sizing-addon1">
+                  Search
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                </span>
+                <span class="site_info pull-right"></span>
+              </li>
+              <li>
+                <span class="link_title pull-left">
+                  <img src="images/Search Icon.png">
+                      <input type="text" class="form-control" placeholder="Search By Contact Name" aria-describedby="sizing-addon1">
+                  Search
+                  <i class="glyphicon glyphicon-triangle-right"></i>
+                </span>
+                <span class="site_info pull-right"></span>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container pipeline-container">
+  <div class="container pipeline-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pipe opp-pipe">
+          <div class="pipe-title">
+            OPPORTUNITY
+            <span class="pipe-number">
+              - {{oppurtunities.sites.length}}
+            </span>
+          </div>
+            <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="oppurtunities.sites">
+              <a ui-sref="newcust"><div class="pipe-card create-opp">
+                <img src="images/write.png">
+                <span>Create oppurtunity</span>
+              </div>
+            </a>
+              <a ui-sref="overview.project"><div class="pipe-card" ng-repeat="oppurtunity in oppurtunities.sites">
+                <div class="pipe-info">
+                  <span class="info-title">{{oppurtunity.customer.firstname}} {{oppurtunity.customer.lastname}}
+                   <!--- Company Name--></span>
+                  <span class="info-data">{{oppurtunity.address.address1}}</br>{{oppurtunity.address.city}},{{state_abb[oppurtunity.address.state.id - 1]}},{{oppurtunity.address.zipcode}}</span>
+                </div>
+              </div>
+          </div>
+        </a>
+        </div>
+        <div class="pipe contract-pipe">
+          <div class="pipe-title">
+            UNDER CONTRACT
+            <span class="pipe-number">
+              - {{contracts.sites.length}}
+            </span>
+          </div>
+            <a ui-sref="overview.project"><div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.sites"> 
+            <div class="pipe-card" ng-repeat="contract in contracts.sites">
+              <div class="pipe-info">
+                <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
+                 </span>
+                <span class="info-data">{{contract.address.address1}}</br>{{contract.address.city}},{{state_abb[contract.address.state.id - 1]}},{{contract.address.zipcode}}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+        <div class="pipe pro-pipe">
+          <div class="pipe-title">
+            PRODUCTION
+            <span class="pipe-number">
+              - {{productions.sites.length}}
+            </span>
+          </div>
+          <a ui-sref="overview.project"><div class="pipe-card-container" ui-sortable="sortableOptionsList[2]" id="pro-cards" ng-model="productions.sites">
+            <div class="pipe-card" ng-repeat="production in productions.sites">
+              <div class="pipe-info">
+                <span class="info-title">{{production.customer.firstname}} {{production.customer.lastname}} - PO# {{production.po_number}}</span>
+                <span class="info-data">{{production.address.address1}}</br>{{production.address.city}},{{state_abb[production.address.state.id - 1]}},{{production.address.zipcode}}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+        <div class="pipe post-pipe">
+          <div class="pipe-title">
+            BILLING
+            <span class="pipe-number">
+              - {{billings.sites.length}}
+            </span>
+          </div>
+          <a ui-sref="overview.project"><div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards"ng-model="billings.sites" >
+            <div class="pipe-card" ng-repeat="billing in billings.sites">
+              <div class="pipe-info">
+                <span class="info-title">{{billing.customer.firstname}} {{billing.customer.lastname}}</span>
+                <span class="info-data">PO# {{billing.po_number}}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+        <div class="pipe close-pipe">
+          <div class="pipe-title">
+            COLLECTIONS
+            <span class="pipe-number">
+              - 4
+            </span>
+          </div>
+          <div class="pipe-card-container" ui-sortable="sortableOptionsList[4]" id="close-cards">
+            <div class="pipe-card out-amount">
+              <div class="pipe-info">
+                <a ui-sref="overview.project"><span class="">Outstanding Amount</span></a>
+                <span class="info-data">$3000,00</span>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-info">
+                <span class="info-title">John Doe</span>
+                <span class="info-data">PO# 12234321</span>
+                <span class="info-data">$1000,00</span>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-info">
+                <span class="info-title">John Doe</span>
+                <span class="info-data">PO# 12234321</span>
+                <span class="info-data">$1000,00</span>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-info">
+                <span class="info-title">John Doe</span>
+                <span class="info-data">PO# 12234321</span>
+                <span class="info-data">1000,00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

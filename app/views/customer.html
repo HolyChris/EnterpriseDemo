@@ -1,0 +1,64 @@
+<div class="container customer-container">
+	<div class="container customer-content">
+		<div class="row">
+			<div class="col-md-12 container-title">
+				CUSTOMERS/<u>CUSTOMER OVERVIEW</u>
+			</div>
+		</div>
+		<div class="row">
+		<div class="container customers-container">
+			<div class="customers-content">
+					<div class="col-md-12 actn-btn-container">
+						<div class="actn-btn">
+							Batch actions
+							<img src="/images/Forward.png" class="pull-right">
+						</div>
+						<a ui-sref="newcust"><div class="actn-btn pull-right">
+							CREATE CUSTOMER
+							<img src="/images/Plus.png" class="pull-right">
+						</div></a>
+					</div>
+					<div class="col-md-12">
+						<table class="table cust-table" at-table at-list="custList" at-config="config">
+						  <thead>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <td at-implicit at-attribute="firstname" width="180px"></td>
+						      <td at-implicit at-attribute="lastname" width="180px"></td>
+						      <td at-implicit at-attribute="email" ></td>
+						      <td at-implicit at-title="phone" at-attribute="phone_numbers[0].number" width="150px"></td>
+						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="customers.overview"><span>view</span></a><span>edit</span><span>delete</span></td>
+						      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
+						    </tr>
+						     
+						  </tbody>
+						</table>
+						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,customers.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
+					</div>
+				</div>
+				<div class="usr-srchbx">
+					<div class="form-title">SEARCH FOR USER</div>
+						<div class="form-container">
+							<div class="form-group col-lg-12">
+							<label>First Name</label>
+							<input type="" name="" class="form-control" id="" value="">
+						    </div>
+							<div class="form-group col-lg-12">
+							<label>Last Name</label>
+							<input type="" name="" class="form-control" id="" value="">
+						    </div>
+							<div class="form-group col-lg-12">
+							<label>Email</label>
+							<input type="" name="" class="form-control" id="" value="">
+						   </div>
+						   <div class="form-group col-lg-12">
+							<input type="submit" class="btn save-btn" value="SEARCH">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</div> 
