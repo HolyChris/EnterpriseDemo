@@ -22,16 +22,16 @@ angular.module('ersApp')
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
-            stop: function(event, ui) {          
+            stop: function(event, ui) {
                 $location.path('/overview/contract');
             },
-            change: function(event, ui) {  
+            change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             },
 
         connectWith: '#con-cards',
-     
-    
+
+
     },
     {
     	connectWith:'#pro-cards,#opp-cards',
@@ -41,13 +41,13 @@ angular.module('ersApp')
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
-            stop: function(event, ui) {          
+            stop: function(event, ui) {
                 $location.path('/overview/production');
             },
-            change: function(event, ui) {  
+            change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             }
-            
+
     },
     {
     	connectWith:'#con-cards,#post-cards',
@@ -57,11 +57,11 @@ angular.module('ersApp')
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
-            stop: function(event, ui) {          
-                
+            stop: function(event, ui) {
+
 
             },
-            change: function(event, ui) {  
+            change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             }
     },
@@ -73,10 +73,10 @@ angular.module('ersApp')
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
-            stop: function(event, ui) {          
-              
+            stop: function(event, ui) {
+
             },
-            change: function(event, ui) {  
+            change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             }
     },
@@ -89,10 +89,10 @@ angular.module('ersApp')
                 item = ui.item;
                 newList = oldList = ui.item.parent();
             },
-            stop: function(event, ui) {          
-                
+            stop: function(event, ui) {
+
             },
-            change: function(event, ui) {  
+            change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             }
     }
@@ -106,8 +106,8 @@ angular.module('ersApp')
    $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/sites',
-         headers: {
-        'Content-type': 'application/json'
+        headers: {
+            'Content-type': 'application/json'
         }
      }).success(function(data){
         $scope.recent_sites = data;
@@ -118,11 +118,11 @@ angular.module('ersApp')
     $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/sites?stage=Opportunity',
-         headers: {
-        'Content-type': 'application/json'
+        headers: {
+            'Content-type': 'application/json'
         }
      }).success(function(data){
-        $scope.oppurtunities = data;
+        $scope.opportunities = data;
     }).error(function(){
         alert("error");
     });
@@ -130,8 +130,8 @@ angular.module('ersApp')
      $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/sites?stage=UnderContract',
-         headers: {
-        'Content-type': 'application/json'
+        headers: {
+            'Content-type': 'application/json'
         }
      }).success(function(data){
         $scope.contracts = data;
@@ -142,8 +142,8 @@ angular.module('ersApp')
      $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/sites?stage=Production',
-         headers: {
-        'Content-type': 'application/json'
+        headers: {
+            'Content-type': 'application/json'
         }
      }).success(function(data){
         $scope.productions = data;
@@ -154,8 +154,8 @@ angular.module('ersApp')
      $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/sites?stage=Billing',
-         headers: {
-        'Content-type': 'application/json'
+        headers: {
+            'Content-type': 'application/json'
         }
      }).success(function(data){
         $scope.billings = data;
@@ -164,4 +164,4 @@ angular.module('ersApp')
     });
 
 })
-  
+
