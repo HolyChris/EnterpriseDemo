@@ -25,9 +25,9 @@
         <div class="info-header">QUICK LINKS</div>
           <div class="info-container">
             <ul class="links-list">
-              <li>
+              <!-- <li>
                 <span class="link_title pull-left">
-                  <img src="images/Clock.png"> 
+                  <img src="images/Clock.png">
                   Create Appointment
                   <i class="glyphicon glyphicon-triangle-right"></i>
                 </span>
@@ -51,7 +51,7 @@
                   </span>
                 </a>
                 <span class="site_info pull-right"></span>
-              </li>
+              </li> -->
               <li>
                 <span class="link_title pull-left">
                   <img src="images/Search Icon.png">
@@ -79,7 +79,7 @@
                 </span>
                 <span class="site_info pull-right"></span>
               </li>
-              
+
             </ul>
           </div>
         </div>
@@ -94,24 +94,31 @@
           <div class="pipe-title">
             OPPORTUNITY
             <span class="pipe-number">
-              - {{oppurtunities.sites.length}}
+              - {{opportunities.sites.length}}
             </span>
           </div>
-            <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="oppurtunities.sites">
-              <a ui-sref="newcust"><div class="pipe-card create-opp">
-                <img src="images/write.png">
-                <span>Create oppurtunity</span>
+          <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="opportunities.sites">
+            <a ui-sref="newcust">
+              <div class="pipe-card create-opp">
+                <img src="images/write.png" alt="Write Icon">
+                <span>Create opportunity</span>
               </div>
             </a>
-              <a ui-sref="overview.project"><div class="pipe-card" ng-repeat="oppurtunity in oppurtunities.sites">
+            <a ui-sref="overview.project">
+              <div class="pipe-card" ng-repeat="opportunity in opportunities.sites">
                 <div class="pipe-info">
-                  <span class="info-title">{{oppurtunity.customer.firstname}} {{oppurtunity.customer.lastname}}
-                   <!--- Company Name--></span>
-                  <span class="info-data">{{oppurtunity.address.address1}}</br>{{oppurtunity.address.city}},{{state_abb[oppurtunity.address.state.id - 1]}},{{oppurtunity.address.zipcode}}</span>
+                  <span class="info-title">
+                    {{opportunity.customer.firstname}} {{opportunity.customer.lastname}}
+                    <!--- Company Name-->
+                  </span>
+                  <span class="info-data">
+                    {{opportunity.address.address1}}<br />
+                    {{opportunity.address.city}},{{state_abb[opportunity.address.state.id - 1]}},{{opportunity.address.zipcode}}
+                  </span>
                 </div>
               </div>
+            </a>
           </div>
-        </a>
         </div>
         <div class="pipe contract-pipe">
           <div class="pipe-title">
@@ -120,7 +127,7 @@
               - {{contracts.sites.length}}
             </span>
           </div>
-            <a ui-sref="overview.project"><div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.sites"> 
+            <a ui-sref="overview.project"><div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.sites">
             <div class="pipe-card" ng-repeat="contract in contracts.sites">
               <div class="pipe-info">
                 <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
@@ -173,9 +180,11 @@
             </span>
           </div>
           <div class="pipe-card-container" ui-sortable="sortableOptionsList[4]" id="close-cards">
-            <div class="pipe-card out-amount">
+            <div class="pipe-card out-amount collapse"><!-- hidden for now -->
               <div class="pipe-info">
-                <a ui-sref="overview.project"><span class="">Outstanding Amount</span></a>
+                <a ui-sref="overview.project">
+                  <span class="">Outstanding Amount</span>
+                </a>
                 <span class="info-data">$3000,00</span>
               </div>
             </div>
