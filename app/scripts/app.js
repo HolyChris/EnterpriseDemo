@@ -28,13 +28,11 @@ angular
         url:'/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        
       })
       .state('customers', {
         url:'/customers',
         templateUrl: 'views/customer.html',
         controller: 'AboutCtrl',
-        
       })
       .state('newcust', {
         url:'/customers/new',
@@ -55,13 +53,11 @@ angular
         url:'/sites/new',
         templateUrl: 'views/new_site.html',
         controller: 'NewSiteCtrl',
-        
       })
       .state('overview',{
         url:'/overview',
         templateUrl:'views/overview.html',
         controller: 'OverviewCtrl',
-       
       })
       .state('overview.project',{
         url:'/project',

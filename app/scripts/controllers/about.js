@@ -31,7 +31,8 @@ angular.module('ersApp')
     }).error(function(){
         alert("error");
     })
-  } 
+  }
+
   $http({
         method: 'GET',
         url: 'http://54.68.73.69/api/v1/customers',
@@ -39,6 +40,7 @@ angular.module('ersApp')
         'Content-type': 'application/json'
         }
      }).success(function(data){
+
         $scope.customers= data;
         $scope.custList = data.customers;
     }).error(function(){
@@ -51,6 +53,6 @@ angular.module('ersApp')
     return input;
   }
 
-  
+
   });
 

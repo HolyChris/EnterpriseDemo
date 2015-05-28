@@ -274,7 +274,7 @@ module.exports = function (grunt) {
     imagemin: {
       dist: {
         files: [{
-         
+
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
@@ -414,7 +414,7 @@ module.exports = function (grunt) {
   });
   grunt.registerTask('heroku',
     ['compass:dist', 'autoprefixer', 'imagemin']);
-  
+
   grunt.registerTask('test', [
     'clean:server',
     'wiredep',
