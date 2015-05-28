@@ -36,14 +36,16 @@
 				      <td at-attribute="stage"><span class="stg-btn">{{photoList[$index].stage}}</span></td>
 				      <td at-attribute="thumbnail" width="160px"><img src='{{photoList[$index].thumbnail}}'</td>
 				      <td at-implicit at-attribute="title" width="200px"></td>
-				      <td at-title="Alt text" class="cell-center" width="100px"><img src="/images/notes.png"></td>
 				      <td at-title="Notes" class="cell-center" width="100px"><img src="/images/notes.png"></td>
 				      <td at-title="Actions" class="row-actn-btns"><span>view</span><span>edit</span><span>delete</span></td>
 				      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
 				    </tr>
-				     
+
 				  </tbody>
 				</table>
-				<span class="page-container"><span>Select Page:</span><at-pagination at-list="photoList" at-config="config"></at-pagination></span>
+				<span class="page-container">
+					<span>Select Page:</span>
+					<at-pagination at-list="photoList" at-config="config"></at-pagination>
+				</span>
 			</div>
 		</div>
