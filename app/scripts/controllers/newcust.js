@@ -14,7 +14,7 @@ $scope.user={}
         $scope.customers= data;
         $scope.custList = data.customers;
     }).error(function(){
-        alert("error");
+        alert("Error Adding a New Customer. Please Try Again");
     })
   }
   });
