@@ -13,7 +13,7 @@
 							Batch actions
 							<img src="/images/Forward.png" class="pull-right">
 						</div>
-						<a ui-sref="newcust"><div class="actn-btn pull-right">
+						<a ui-sref="newcustomer"><div class="actn-btn pull-right">
 							CREATE CUSTOMER
 							<img src="/images/Plus.png" class="pull-right">
 						</div></a>
@@ -31,7 +31,7 @@
 						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="customers.overview"><span>view</span></a><span>edit</span><span>delete</span></td>
 						      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
 						    </tr>
-						     
+
 						  </tbody>
 						</table>
 						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,customers.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
@@ -59,6 +59,6 @@
 					</div>
 				</div>
 			</div>
-		</div> 
+		</div>
 	</div>
-</div> 
+</div>

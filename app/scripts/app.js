@@ -34,11 +34,10 @@ angular
         templateUrl: 'views/customer.html',
         controller: 'AboutCtrl',
       })
-      .state('newcust', {
+      .state('newcustomer', {
         url:'/customers/new',
         templateUrl: 'views/new_customer.html',
         controller: 'NewCustomerCtrl',
-        
       })
       .state('customers.overview',{
         url:'/overview',
@@ -83,4 +82,4 @@ angular
       $urlRouteProvider.otherwise('/');
 
   }]);
-  
+
