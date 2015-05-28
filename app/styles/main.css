@@ -14,6 +14,12 @@ a, a span{
 a:hover, a:hover span {
   color: #23527c;
 }
+a:hover {
+  text-decoration: none;
+}
+a:hover span {
+  text-decoration: underline;
+}
 
 .ng-scope {
   min-height:100%;
@@ -1187,9 +1193,9 @@ tbody td{
   line-height: 12px;
 }
 .table tbody .row-actn-btns span{
-  color:  #277cea;
+  color: #277cea;
+  margin-right: 20px;
   text-decoration: underline;
-  margin-right:20px;
 }
 .photo-table tbody .row-actn-btns span:last-child{
   margin-right:0px;
