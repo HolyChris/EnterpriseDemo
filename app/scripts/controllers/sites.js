@@ -19,6 +19,7 @@ angular.module('ersApp')
                       "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                       "NY","SC","AK","WV","AA","AE","AP"];
   $scope.selected = 1;
+
   $scope.isActive = function(index) {
     return $scope.selected === index;
   };
@@ -26,25 +27,27 @@ angular.module('ersApp')
   $scope.gotopage = function(index){
     $scope.selected = index;
 
-      $http({
-        method: 'GET',
-        url: 'http://54.68.73.69/api/v1/sites?page='+index,
-         headers: {
+    $http({
+      method: 'GET',
+      url: 'http://54.68.73.69/api/v1/sites?page=' + index,
+      headers: {
         'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.sites= data;
-        $scope.siteList = data.sites;
+      }
+    })
+    .success(function(data){
+      $scope.sites= data;
+      $scope.siteList = data.sites;
     }).error(function(){
-        alert("error");
+      alert("error");
     })
   }
+
   $scope.pagerange = function(min, max, step){
     step = step || 1;
     var input = [];
     for (var i = min; i <= max; i += step) input.push(i);
     return input;
-  }
+  };
 
   $http({
     method: 'GET',
