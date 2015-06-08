@@ -20,7 +20,8 @@ angular
     'ngTouch',
     'ui.sortable',
     'ui.router',
-    'angular-table'
+    'angular-table',
+    'flash'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
     $stateProvider
