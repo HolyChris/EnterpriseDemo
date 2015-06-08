@@ -1346,3 +1346,10 @@ tbody td{
   margin-right:15px ;
 }
 /*****end*****/
+
+/*****Alerts style*****/
+.close{
+  float: none;
+  font-size: 14px;
+}
+/*****end*****/

@@ -8,11 +8,12 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AboutCtrl', function ($scope,$http) {
+  .controller('AboutCtrl', function ($scope,$http,Flash) {
    $scope.config = {
     itemsPerPage: 10
 	}
   $scope.selected = 1;
+  $scope.Flash=Flash;
   $scope.isActive = function(index) {
         return $scope.selected === index;
  };
