@@ -21,7 +21,8 @@ angular
     'ui.sortable',
     'ui.router',
     'angular-table',
-    'flash'
+    'flash',
+    'config'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
     $stateProvider

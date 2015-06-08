@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AboutCtrl', function ($scope,$http,Flash) {
+  .controller('AboutCtrl', function ($scope,$http,ENV,Flash) {
    $scope.config = {
     itemsPerPage: 10
 	}
@@ -22,7 +22,7 @@ angular.module('ersApp')
 
       $http({
         method: 'GET',
-        url: 'http://54.68.73.69/api/v1/customers?page='+index,
+        url: ENV.apiEndpoint + '/api/v1/customers?page='+index,
          headers: {
         'Content-type': 'application/json'
         }
@@ -36,7 +36,7 @@ angular.module('ersApp')
 
   $http({
         method: 'GET',
-        url: 'http://54.68.73.69/api/v1/customers',
+        url: ENV.apiEndpoint + '/api/v1/customers',
          headers: {
         'Content-type': 'application/json'
         }

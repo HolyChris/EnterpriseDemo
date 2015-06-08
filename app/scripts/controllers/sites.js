@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('SitesCtrl', function ($scope,$http) {
+  .controller('SitesCtrl', function ($scope,$http,ENV) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -29,7 +29,7 @@ angular.module('ersApp')
 
     $http({
       method: 'GET',
-      url: 'http://54.68.73.69/api/v1/sites?page=' + index,
+      url: ENV.apiEndpoint + '/api/v1/sites?page=' + index,
       headers: {
         'Content-type': 'application/json'
       }
@@ -51,7 +51,7 @@ angular.module('ersApp')
 
   $http({
     method: 'GET',
-    url: 'http://54.68.73.69/api/v1/sites',
+    url: ENV.apiEndpoint + '/api/v1/sites',
     headers: {
       'Content-type': 'application/json'
     }
