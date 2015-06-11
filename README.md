@@ -11,7 +11,7 @@
 ##Deployment
 1. Run 'grunt build --force' (Force is needed for now to ignore at-table error)
 2. Commit dist folder updates
-
+3. grunt bitballoon:dev
 
 ##Review Site
-1. http://static.ers.com.s3-website-us-east-1.amazonaws.com/
+1. http://eco-roof-and-solar.bitballoon.com/#/
