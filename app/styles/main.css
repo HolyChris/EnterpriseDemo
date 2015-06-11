@@ -864,13 +864,19 @@ a:hover span {
   }
   .form-container input,.form-container textarea{
     background:#eee;
+/*  Rodolfo Leyes: Both commented out because it prevents the red border
+ *  of an input to appear when marked with has-error bootstrap class
     border:none !important;
     outline:none !important;
+*/ 
   }
   input:focus,textarea:focus{
     box-shadow: none !important;
+/*  Rodolfo Leyes: Both commented out because it prevents the red border
+ *  of an input to appear when marked with has-error bootstrap class
     border:none!important;
     outline:none !important;
+*/
   }
   .form-container .textarea{
     width:100%;

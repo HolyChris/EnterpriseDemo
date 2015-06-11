@@ -20,8 +20,9 @@ $scope.user={}
         $scope.custList = data.customers;
         $location.path("/customers/overview")
     }).error(function(data){
-		$scope.errors= data;
-        alert("Error Adding a New Customer. Please Try Again");
+        $scope.errors= data.errors;
+        Flash.create('danger', "Customer was not created see errors below");
+
     })
   }
   });
