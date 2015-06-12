@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function ($scope) {
+  .controller('OverviewCtrl', function ($scope, ENV) {
    $scope.config = {
     itemsPerPage: 10
   }

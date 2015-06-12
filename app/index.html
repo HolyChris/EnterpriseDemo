@@ -94,23 +94,29 @@
     <script src="bower_components/at-table/dist/angular-table.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    
-    
-
     <!-- endbower -->
+    <!-- endbuild -->
+    
+    
+    
+    <!-- build:js({.tmp,app}) scripts/utilities.js -->
+    <script src="scripts/utilities/angular-flash.js"></script>
+    
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/utilities/angular-flash.js"></script>
-    
-    
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+    
     <script src="scripts/controllers/sites.js"></script>
+    <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/newsite.js"></script>
     <script src="scripts/controllers/newcust.js"></script>
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/overview.js"></script>
+
+    <script src="scripts/config.js" />
     <!-- endbuild -->
+    
+    
 </body>
 </html>
