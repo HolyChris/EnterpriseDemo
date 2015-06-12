@@ -34,8 +34,8 @@
 					<input type="" name="" class="form-control" id="" value="" ng-model="user.spouse">
 				</div>
 				
-				<div class="form-group col-lg-6" ng-class="{'has-error' : errors.phone_numbers.number}">
-					<label class="control-label">Phone number<sup>*</sup></label>
+				<div class="form-group col-lg-6" ng-class="{'has-error' : errors['phone_numbers.number']}">
+					<label class="control-label">Phone number<sup>*</sup> {{errors['phone_numbers.number'][0]}} </label>
 					<input type="" name="" class="form-control" id="" value="" ng-model="phone_number.number">
 				</div>			
 				
@@ -56,9 +56,17 @@
 							
 						</div>
 						<div class="form-container">
-							<div class="form-group col-lg-12">
-								<input type="submit" class="btn save-btn" value="SAVE NEW CUSTOMER" ng-click="newCustomer(user,phone_number)">
-							</div>
+              <div class="row">
+                <div class="form-group col-lg-12">
+                  <input type="submit" class="btn save-btn" value="SAVE NEW CUSTOMER" ng-click="newCustomer(user,phone_number)">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="form-group col-lg-12">
+                  <input type="submit" class="btn save-btn" value="SAVE AND CREATE SITE" ng-click="newCustomerThenSite(user,phone_number)">
+                </div>
+              </div>
 
 						</div>
 					</div>
