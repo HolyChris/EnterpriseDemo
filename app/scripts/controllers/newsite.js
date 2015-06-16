@@ -41,6 +41,12 @@ angular.module('ersApp')
      }).success(function(data){
        Flash.create('success', 'Site created succesfully');
        $location.path("/sites")
+       
+       var url_params= {
+            siteId: data.site.id
+        };
+        $location.path("/overview/project").search(url_params);
+        
     }).error(function(data){
        $scope.errors=data.errors;
        Flash.create('danger', 'Site was not created');

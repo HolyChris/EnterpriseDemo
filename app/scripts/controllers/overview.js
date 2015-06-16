@@ -8,10 +8,41 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function ($scope, ENV) {
+  .controller('OverviewCtrl', function ($scope, $location, $http, ENV) {
    $scope.config = {
     itemsPerPage: 10
   }
+  
+  //Here we find out if the url is passing a siteId
+  if ($location.search().siteId)
+  {
+    $http({
+      method: 'GET',
+      url: ENV.apiEndpoint + '/api/v1/sites/' + $location.search().siteId,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    .success(function(data){
+      $scope.project = data.site;
+      
+      $scope.project_title= $scope.project.customer.firstname + 
+          " " + 
+          $scope.project.customer.lastname;
+      
+      if ($scope.project.customer.bussinessname)
+      {
+        $scope.project_title=$scope.project.customer.bussinessname + ' - ' +
+          $scope.project_title;
+      }
+      
+      
+    }).error(function(){
+      alert("error");
+    })
+  }
+  
+  
   $scope.photoList = [
     {
       stage: 'contract',
