@@ -42,31 +42,35 @@
 					<div class="form-title">SEARCH FOR SITE</div>
 						<div class="form-container">
 							<div class="form-group col-lg-12">
-							<label>Manager</label>
-							<input type="" name="" class="form-control" id="" value="">
+							<label class="control-label">Manager</label>
+							<input type="" name="" class="form-control" id="" ng-model="search_by_manager">
 						    </div>
 							<div class="form-group col-lg-12">
-							<label>Site name</label>
-							<input type="" name="" class="form-control" id="" value="">
+							<label class="control-label">Site name</label>
+							<input type="" name="" class="form-control" id="" ng-model="search_by_name">
 						    </div>
 							<div class="form-group col-lg-12">
-							<label>Addreess</label>
-							<input type="" name="" class="form-control" id="" value="">
+							<label class="control-label">Address</label>
+							<input type="" name="" class="form-control" id="" ng-model="search_by_address">
 						   </div>
 						   <div class="form-group col-lg-12">
-							<label>City</label>
-							<input type="" name="" class="form-control" id="" value="">
+							<label class="control-label">City</label>
+							<input type="" name="" class="form-control" id="" ng-model="search_by_city">
+						   </div>
+						  
+               <div class="form-group col-lg-12">
+                <label class="control-label">State<sup>*</sup></label>
+                <select type="" name="" class="form-control" id="" value="" ng-model="search_by_state_id" >
+                  <option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+                </select>
+                </div>
+						  
+               <div class="form-group col-lg-12">
+							<label class="control-label">Zip</label>
+							<input type="" name="" class="form-control" id="" ng-model="search_by_zipcode">
 						   </div>
 						   <div class="form-group col-lg-12">
-							<label>State</label>
-							<input type="" name="" class="form-control" id="" value="">
-						   </div>
-						   <div class="form-group col-lg-12">
-							<label>Zip</label>
-							<input type="" name="" class="form-control" id="" value="">
-						   </div>
-						   <div class="form-group col-lg-12">
-							<input type="submit" class="btn save-btn" value="SEARCH">
+							<input type="submit" class="btn save-btn" value="SEARCH" ng-click="findSites(search_by_manager,search_by_name,search_by_address,search_by_city,search_by_state_id,search_by_zipcode)">
 							</div>
 						</div>
 					</div>
