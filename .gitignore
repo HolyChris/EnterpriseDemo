@@ -2,3 +2,5 @@
 grunt-bitballoon.json
 /app/scripts/config.js
 /bower_components
+/dist
+/.tmp
