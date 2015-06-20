@@ -55,7 +55,7 @@ angular.module('ersApp')
   }
 
 
-  $scope.findCustomers = function(search_by_firstname,search_by_lastname,search_by_email){
+  $scope.findCustomers = function(search_by_firstname,search_by_lastname,search_by_email,search_by_phone){
     var query_params=[];
     
     if (!angular.isUndefined(search_by_firstname) && search_by_firstname.trim()!="" )
@@ -71,6 +71,11 @@ angular.module('ersApp')
     if (!angular.isUndefined(search_by_email) && search_by_email.trim()!="" )
     {
       query_params.push('q[email_eq]=' + search_by_email);
+    }
+    
+    if (!angular.isUndefined(search_by_phone) && search_by_phone.trim()!="" )
+    {
+      query_params.push('q[phone_numbers_number_cont]=' + search_by_phone);
     }
     
     var query_string=""
