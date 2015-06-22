@@ -8,45 +8,33 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AboutCtrl', function ($scope,$http,ENV,Flash) {
+  .controller('AboutCtrl', function ($scope, $http, Customer, ENV, Flash) {
    $scope.config = {
     itemsPerPage: 10
-	}
+	};
+
   $scope.selected = 1;
   $scope.Flash=Flash;
+
+  // Retrieves pages 1
+  Customer.query(function(data) {
+    $scope.customers = data;
+    $scope.custList = data.customers;
+  });
+
   $scope.isActive = function(index) {
         return $scope.selected === index;
- };
+  };
+
+  // Paginate
   $scope.gotopage = function(index){
     $scope.selected = index;
+    Customer.query({page: index}, function(data) {
+      $scope.customers = data;
+      $scope.custList = data.customers;
+    });
+  };
 
-      $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/customers?page='+index,
-         headers: {
-        'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.customers= data;
-        $scope.custList = data.customers;
-    }).error(function(){
-        alert("error");
-    })
-  }
-
-  $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/customers',
-         headers: {
-        'Content-type': 'application/json'
-        }
-     }).success(function(data){
-
-        $scope.customers= data;
-        $scope.custList = data.customers;
-    }).error(function(){
-        alert("error");
-    })
   $scope.pagerange = function(min, max, step){
     step = step || 1;
     var input = [];
@@ -54,61 +42,29 @@ angular.module('ersApp')
     return input;
   }
 
-
   $scope.findCustomers = function(search_by_firstname,search_by_lastname,search_by_email,search_by_phone){
-    var query_params=[];
+    var params = {};
     
-    if (!angular.isUndefined(search_by_firstname) && search_by_firstname.trim()!="" )
-    {
-      query_params.push('q[firstname_cont]=' + search_by_firstname);
+    if (!angular.isUndefined(search_by_firstname) && search_by_firstname.trim()!="" ) {
+      params['q[firstname_cont]'] = search_by_firstname;
     }
     
-    if (!angular.isUndefined(search_by_lastname) && search_by_lastname.trim()!="" )
-    {
-      query_params.push('q[lastname_cont]=' + search_by_lastname);
+    if (!angular.isUndefined(search_by_lastname) && search_by_lastname.trim()!="" ) {
+      params['q[lastname_cont]'] = search_by_lastname;
     }
     
-    if (!angular.isUndefined(search_by_email) && search_by_email.trim()!="" )
-    {
-      query_params.push('q[email_eq]=' + search_by_email);
+    if (!angular.isUndefined(search_by_email) && search_by_email.trim()!="" ) {
+      params['q[email_eq]'] = search_by_email;
     }
     
-    if (!angular.isUndefined(search_by_phone) && search_by_phone.trim()!="" )
-    {
-      query_params.push('q[phone_numbers_number_cont]=' + search_by_phone);
+    if (!angular.isUndefined(search_by_phone) && search_by_phone.trim()!="" ) {
+      params['q[phone_numbers_number_cont]'] = search_by_phone;
     }
     
-    var query_string=""
-    var i=0;
-    for (i=0;i<query_params.length;i++)
-    {
-      if (i>0)
-      {
-        query_string=query_string + "&";
-      }
-      query_string+= query_params[i];
-    }
-
-    if (query_string!="")
-    {
-      query_string="?" + query_string;
-    }
-    
-    
-    $http({
-      method: 'GET',
-      url: ENV.apiEndpoint + '/api/v1/customers' + query_string,
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-    .success(function(data){
-      $scope.customers= data;
+    Customer.search(params, function(data) {
+      $scope.customers = data;
       $scope.custList = data.customers;
-    }).error(function(){
-      alert("error");
-    })
-    
+    });
   };
-  });
+});
 
