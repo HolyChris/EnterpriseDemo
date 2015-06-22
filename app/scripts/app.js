@@ -20,6 +20,7 @@ angular
     'ngTouch',
     'ui.sortable',
     'ui.router',
+    'ui.bootstrap',
     'angular-table',
     'flash',
     'sitesService',

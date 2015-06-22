@@ -9,8 +9,26 @@
  */
 angular.module('ersApp')
   .controller('OverviewCtrl', function ($scope, $location, $http, ENV) {
-   $scope.config = {
+  $scope.config = {
     itemsPerPage: 10
+  }
+  $scope.contract = {};
+
+  $scope.saveContract = function() {
+    console.log($scope.contract);
+    var siteId = 3;
+    if ($scope.contract.work_types) {
+      var urlFragment = '';
+      var types = $scope.contract.work_types;
+      for (var key in types) {
+        console.log(key);
+        var value = key.replace('work_type_', '');
+        urlFragment += '&work_type_ids[]=' + value;
+      }
+    }
+    
+    var url = ENV.apiEndpoint + '/api/v1/sites/' + siteId + '/contract?document=' + $scope.contract.document + '&signed_at=' + $scope.contract.signed_at + '&price=' + $scope.contract.price + '&notes=' + $scope.contract.notes + urlFragment;
+    console.log(url);
   }
   
   //Here we find out if the url is passing a siteId
@@ -36,7 +54,7 @@ angular.module('ersApp')
           $scope.project_title;
       }
       
-      
+      console.log($scope.project);
     }).error(function(){
       alert("error");
     })
