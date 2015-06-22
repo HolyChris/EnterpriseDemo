@@ -3,6 +3,16 @@ angular.module('ersApp')
   
   $scope.user = {};
   $scope.phone_number = [];
+
+  if ($scope.phone_number.length <= 0) { // if no phone numbers exist
+    $scope.phone_number.push({
+      'type': '',
+      'number': '',
+      'primary': true, // only 1 primary can exist
+      'remove': false, // to remove from backend
+      'newPhone': false // new phone added from front end
+    });
+  }
   
   $scope.addPhone = function() {
     var newItemNo = $scope.phone_number.length + 1;
