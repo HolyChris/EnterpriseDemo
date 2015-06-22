@@ -22,6 +22,8 @@ angular
     'ui.router',
     'angular-table',
     'flash',
+    'sitesService',
+    'customersService',
     'config'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
