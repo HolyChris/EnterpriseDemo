@@ -11,7 +11,7 @@ angular.module('ersApp')
 .run(function($http) {
   $http.defaults.headers.common= { 'X-Auth-Token' : 'D2EdWKgbs8cq9PHyLhrA' };
 })
-  .controller('MainCtrl', function ($scope,$http,$window,$location,ENV) {
+  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV) {
     var oldList, newList, item;
     $scope.sortableOptionsList = [
     {
@@ -30,8 +30,6 @@ angular.module('ersApp')
             },
 
         connectWith: '#con-cards',
-
-
     },
     {
     	connectWith:'#pro-cards,#opp-cards',
@@ -47,7 +45,6 @@ angular.module('ersApp')
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
             }
-
     },
     {
     	connectWith:'#con-cards,#post-cards',
@@ -58,8 +55,6 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
-
-
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -74,7 +69,6 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
-
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -90,7 +84,6 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
-
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -103,65 +96,11 @@ angular.module('ersApp')
                         "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                         "NY","SC","AK","WV","AA","AE","AP"];
 
-   $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/sites',
-        headers: {
-            'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.recent_sites = data;
-    }).error(function(){
-        alert("error");
-    });
-
-    $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/sites?stage=Opportunity',
-        headers: {
-            'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.opportunities = data;
-    }).error(function(){
-        alert("error");
-    });
-
-     $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/sites?stage=UnderContract',
-        headers: {
-            'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.contracts = data;
-    }).error(function(){
-        alert("error");
-    });
-
-     $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/sites?stage=Production',
-        headers: {
-            'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.productions = data;
-    }).error(function(){
-        alert("error");
-    });
-
-     $http({
-        method: 'GET',
-        url: ENV.apiEndpoint + '/api/v1/sites?stage=Billing',
-        headers: {
-            'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.billings = data;
-    }).error(function(){
-        alert("error");
-    });
-
-})
+    // Site listings
+    $scope.recent_sites = Sites.query();
+    $scope.opportunities = Sites.query({stage: 'Opportunity'});
+    $scope.contracts = Sites.query({stage: 'UnderContract'});
+    $scope.productions = Sites.query({stage: 'Production'});
+    $scope.billings = Sites.query({stage: 'Billing'});
+});
 
