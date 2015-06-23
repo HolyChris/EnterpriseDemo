@@ -25,6 +25,7 @@ angular
     'flash',
     'sitesService',
     'customersService',
+    'overviewService',
     'config'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {

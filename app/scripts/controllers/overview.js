@@ -8,56 +8,79 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function ($scope, $location, $http, ENV) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract) {
   $scope.config = {
     itemsPerPage: 10
   }
+  var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
+  $scope.newContract = true;
   $scope.contract = {};
+  $scope.work_types = {};
 
   $scope.saveContract = function() {
-    console.log($scope.contract);
-    var siteId = 3;
-    if ($scope.contract.work_types) {
-      var urlFragment = '';
-      var types = $scope.contract.work_types;
+    var siteId = $scope.project.id;
+    var workTypesUrlFragment = '';
+    if ($scope.work_types) {
+      $scope.contract.work_type_ids = [];
+      var types = $scope.work_types;
       for (var key in types) {
-        console.log(key);
         var value = key.replace('work_type_', '');
-        urlFragment += '&work_type_ids[]=' + value;
+        $scope.contract.work_type_ids.push(value);
       }
     }
-    
-    var url = ENV.apiEndpoint + '/api/v1/sites/' + siteId + '/contract?document=' + $scope.contract.document + '&signed_at=' + $scope.contract.signed_at + '&price=' + $scope.contract.price + '&notes=' + $scope.contract.notes + urlFragment;
-    console.log(url);
+    $scope.contract.price = parseFloat($scope.contract.price.replace(/\$/g, ''));
+
+    if ($scope.newContract) {
+      Contract.post({siteId:siteId},$scope.contract)
+        .$promise.then(function(data) {
+          console.log(data);
+        });
+    } else { 
+      Contract.put({siteId:siteId}, $scope.contract)
+        .$promise.then(function(data) {
+          console.log(data);
+        });
+    }
+    // $http({
+    //   method: method,
+    //   url: ENV.apiEndpoint + '/api/v1/sites/' + siteId + '/contract?' + workTypesUrlFragment,
+    //   params: $scope.contract,
+    //   headers: {
+    //     'Content-type': 'application/json'
+    //   }
+    // }).success(function(data) {
+    //   Flash.create('success', 'Contract successfully saved!');
+    // }).error(function(data) {
+    //   Flash.create('danger', JSON.stringify(data.errors));
+    // })
+  }
+
+  function prepareContractView(contract) {
+    $scope.contract = contract;
+    $scope.contract.signed_at = new Date(contract.signed_at);
+    $scope.contract.contract_type = workTypeValues[contract.contract_type];
+
+    for (var i = 0; i < contract.work_types.length; i++) {
+      var workType = 'work_type_' + contract.work_types[i].id;
+      $scope.work_types[workType] = true;
+    }
+    $scope.newContract = false;
   }
   
   //Here we find out if the url is passing a siteId
-  if ($location.search().siteId)
-  {
-    $http({
-      method: 'GET',
-      url: ENV.apiEndpoint + '/api/v1/sites/' + $location.search().siteId,
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-    .success(function(data){
-      $scope.project = data.site;
-      
-      $scope.project_title= $scope.project.customer.firstname + 
-          " " + 
-          $scope.project.customer.lastname;
-      
-      if ($scope.project.customer.bussinessname)
-      {
-        $scope.project_title=$scope.project.customer.bussinessname + ' - ' +
-          $scope.project_title;
-      }
-      
-      console.log($scope.project);
-    }).error(function(){
-      alert("error");
-    })
+  if ($location.search().siteId) {
+    Overview.query({siteId: $location.search().siteId})
+      .$promise.then(function(overview) {
+        $scope.project = overview.site;
+        
+        prepareContractView($scope.project.contract);
+        
+        $scope.project_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
+        
+        if ($scope.project.customer.bussinessname) {
+          $scope.project_title = $scope.project.customer.bussinessname + ' - ' + $scope.project_title;
+        }
+      });
   }
   
   

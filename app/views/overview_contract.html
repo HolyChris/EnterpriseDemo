@@ -1,19 +1,19 @@
 <div class="container proj-over-container">
+  <div flash-message="30000"></div>
+  
 	<div class="proj-over-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
-				CUSTOMERS / <u>CREATE NEW CUSTOMER</u>
+				SITES / OVERVIEW / <u>CONTRACT</u>
 			</div>
-			<div class="col-md-12 container-note">
+			<div class="col-md-12 container-note" ng-show="newContract">
 				<span class="note">
 					<img src="/images/pin.png">
 					Note: There's currently no contract signed. Fill out the fields below.
 				</span>
 			</div>
 			<div class="col-md-12 container-head">
-				<span class="head">
-					ADD CONTRACT
-				</span>
+				<span class="head">{{newContract ? 'ADD' : 'UPDATE'}} CONTRACT</span>
 			</div>
 		</div>
 		<div class="row">
@@ -23,14 +23,23 @@
 				<span>step 1: CONTRACT INFO</span>
 			</div>	
 			<div class="form-container">
+				<div class="form-group col-sm-6" ng-hide="newContract">
+					<label>PO Number: <b class="text-muted">{{ contract.po_number }}</b></label>
+				</div>
+				<div class="form-group col-sm-6" ng-hide="newContract">
+					<label>Contract ID: <b class="text-muted">{{ contract.id }}</b></label>
+				</div>
 				<div class="form-group col-lg-6">
 					<label>Document<sup>*</sup></label>
-					<div class="attachment">
+					<div class="attachment" ng-hide="contract.document_url.length > 0">
 						<label for="upload">
 							<img src="/images/clip.png">
 							<span>ADD ATTACHMENT</span>
 						</label>
 						<input type="file" id="upload" class="form-control" ng-model="contract.document" value="">
+					</div>
+					<div class="" ng-show="contract.document_url.length > 0">
+						<a href="{{contract.document_url}}" target="_blank">View Document</a>
 					</div>
 				</div>
 				
@@ -66,16 +75,16 @@
 							</div>
 							<div class="form-group col-lg-6">
 								<label>Price</label>
-								<input type="number" step="0.01" name="" class="form-control" id="" ng-model="contract.price">
+								<input type="text" name="" class="form-control" id="" ng-model="contract.price">
 							</div>
 							<div class="form-group col-lg-12">
 								<label>Type of work to be completed</label>
 								<div>
-									<small><input id="" name="" type="checkbox" value="1" ng-model="contract.work_types.work_type_1"> Roof </small> &nbsp; 
-									<small><input id="" name="" type="checkbox" value="2" ng-model="contract.work_types.work_type_2"> Gutters </small> &nbsp; 
-									<small><input id="" name="" type="checkbox" value="3" ng-model="contract.work_types.work_type_3"> Solar </small> &nbsp; 
-									<small><input id="" name="" type="checkbox" value="4" ng-model="contract.work_types.work_type_4"> Skylights </small> &nbsp; 
-									<small><input id="" name="" type="checkbox" value="5" ng-model="contract.work_types.work_type_5"> Other </small> &nbsp; 
+									<small><input id="" name="" type="checkbox" value="1" ng-model="work_types.work_type_1"> Roof </small> &nbsp; 
+									<small><input id="" name="" type="checkbox" value="2" ng-model="work_types.work_type_2"> Gutters </small> &nbsp; 
+									<small><input id="" name="" type="checkbox" value="3" ng-model="work_types.work_type_3"> Solar </small> &nbsp; 
+									<small><input id="" name="" type="checkbox" value="4" ng-model="work_types.work_type_4"> Skylights </small> &nbsp; 
+									<small><input id="" name="" type="checkbox" value="5" ng-model="work_types.work_type_5"> Other </small> &nbsp; 
 								</div>
 							</div>
 							<div class="form-group col-lg-12">
