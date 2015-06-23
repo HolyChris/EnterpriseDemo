@@ -14,45 +14,35 @@ angular.module('ersApp')
   }
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.newContract = true;
-  $scope.contract = {};
-  $scope.work_types = {};
 
-  $scope.saveContract = function() {
+  $scope.saveContract = function(contract) {
+    $scope.contract = contract ? contract : {};
     var siteId = $scope.project.id;
-    var workTypesUrlFragment = '';
     if ($scope.work_types) {
-      $scope.contract.work_type_ids = [];
+      $scope.contract.work_type_ids = new Array();
       var types = $scope.work_types;
       for (var key in types) {
         var value = key.replace('work_type_', '');
         $scope.contract.work_type_ids.push(value);
       }
     }
-    $scope.contract.price = parseFloat($scope.contract.price.replace(/\$/g, ''));
+    $scope.contract.price = $scope.contract.price ? parseFloat($scope.contract.price.replace(/\$/g, '')) : undefined;
 
     if ($scope.newContract) {
-      Contract.post({siteId:siteId},$scope.contract)
-        .$promise.then(function(data) {
-          console.log(data);
+      Contract.post({siteId:siteId},$scope.contract, function(data) {
+          Flash.create('success', 'Contract successfully saved!');
+        }, function(error) {
+          $scope.contractErrors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
         });
     } else { 
-      Contract.put({siteId:siteId}, $scope.contract)
-        .$promise.then(function(data) {
-          console.log(data);
+      Contract.put({siteId:siteId}, $scope.contract, function(data) {
+          Flash.create('success', 'Contract successfully saved!');
+        }, function(error) {
+          $scope.contractErrors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
         });
     }
-    // $http({
-    //   method: method,
-    //   url: ENV.apiEndpoint + '/api/v1/sites/' + siteId + '/contract?' + workTypesUrlFragment,
-    //   params: $scope.contract,
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   }
-    // }).success(function(data) {
-    //   Flash.create('success', 'Contract successfully saved!');
-    // }).error(function(data) {
-    //   Flash.create('danger', JSON.stringify(data.errors));
-    // })
   }
 
   function prepareContractView(contract) {
@@ -69,18 +59,17 @@ angular.module('ersApp')
   
   //Here we find out if the url is passing a siteId
   if ($location.search().siteId) {
-    Overview.query({siteId: $location.search().siteId})
-      .$promise.then(function(overview) {
-        $scope.project = overview.site;
-        
-        prepareContractView($scope.project.contract);
-        
-        $scope.project_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
-        
-        if ($scope.project.customer.bussinessname) {
-          $scope.project_title = $scope.project.customer.bussinessname + ' - ' + $scope.project_title;
-        }
-      });
+    Overview.query({siteId: $location.search().siteId}, function(overview) {
+      $scope.project = overview.site;
+      
+      if ($scope.project.contract) prepareContractView($scope.project.contract);
+      
+      $scope.project_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
+      
+      if ($scope.project.customer.bussinessname) {
+        $scope.project_title = $scope.project.customer.bussinessname + ' - ' + $scope.project_title;
+      }
+    });
   }
   
   

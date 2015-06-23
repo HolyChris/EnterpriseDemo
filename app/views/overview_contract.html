@@ -24,13 +24,13 @@
 			</div>	
 			<div class="form-container">
 				<div class="form-group col-sm-6" ng-hide="newContract">
-					<label>PO Number: <b class="text-muted">{{ contract.po_number }}</b></label>
+					<label class="control-label">PO Number: <b class="text-muted">{{ contract.po_number }}</b></label>
 				</div>
 				<div class="form-group col-sm-6" ng-hide="newContract">
-					<label>Contract ID: <b class="text-muted">{{ contract.id }}</b></label>
+					<label class="control-label">Contract ID: <b class="text-muted">{{ contract.id }}</b></label>
 				</div>
-				<div class="form-group col-lg-6">
-					<label>Document<sup>*</sup></label>
+				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.document}">
+					<label class="control-label">Document<sup>*</sup> {{contractErrors.document[0]}}</label>
 					<div class="attachment" ng-hide="contract.document_url.length > 0">
 						<label for="upload">
 							<img src="/images/clip.png">
@@ -43,13 +43,13 @@
 					</div>
 				</div>
 				
-				<div class="form-group col-lg-6">
-					<label>Signed on<sup>*</sup></label>
+				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at}">
+					<label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
 					<input type="date" class="form-control" datepicker-popup ng-model="contract.signed_at" is-open="opened" ng-required="true" close-text="Close" />
 				</div>
 
 				<div class="form-group col-sm-12">
-					<label>Notes</label>
+					<label class="control-label">Notes</label>
 					<textarea class="form-control textarea" ng-model="contract.notes"></textarea>
 				</div>
 			
@@ -74,11 +74,11 @@
 								</select>
 							</div>
 							<div class="form-group col-lg-6">
-								<label>Price</label>
+								<label class="control-label">Price</label>
 								<input type="text" name="" class="form-control" id="" ng-model="contract.price">
 							</div>
 							<div class="form-group col-lg-12">
-								<label>Type of work to be completed</label>
+								<label class="control-label">Type of work to be completed</label>
 								<div>
 									<small><input id="" name="" type="checkbox" value="1" ng-model="work_types.work_type_1"> Roof </small> &nbsp; 
 									<small><input id="" name="" type="checkbox" value="2" ng-model="work_types.work_type_2"> Gutters </small> &nbsp; 
@@ -88,7 +88,7 @@
 								</div>
 							</div>
 							<div class="form-group col-lg-12">
-								<label>Special Instructions</label>
+								<label class="control-label">Special Instructions</label>
 								<textarea class="form-control textarea" ng-model="contract.special_instructions"></textarea>
 							</div>
 						</div>
@@ -102,7 +102,7 @@
 						<div class="form-container">
 							<div class="form-group col-lg-12">
 								<span>When you’re done - click the save button below.</span>
-								<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract()">
+								<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)">
 							</div>
 						</div>
 					</div>
