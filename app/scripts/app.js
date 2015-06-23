@@ -20,11 +20,13 @@ angular
     'ngTouch',
     'ui.sortable',
     'ui.router',
+    'ui.bootstrap',
     'angular-table',
     'flash',
     'ui.bootstrap',
     'sitesService',
     'customersService',
+    'overviewService',
     'config'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {

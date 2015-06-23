@@ -943,14 +943,12 @@ a:hover span {
   margin-left:240px;
   min-height:100vh;
 }
-.proj-over-container,.proj-doc-container{
+.proj-over-container,
+.proj-doc-container {
   width:auto !important;
   margin-left:0;
   margin-right:auto;
   min-height:431px;
-}
-.proj-over-container .col-lg-6 input{
-  width:226px;
 }
 .core-info-container{
   margin-left:30px;
@@ -1032,11 +1030,9 @@ a:hover span {
   margin:0px;
 }
 .proj-over-content .form-left{
-  min-height:0px;
-  height:auto;
+  min-height: 0px;
+  height: auto;
   border-radius: 4px;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-
 }
 .proj-over-content .form-left:last-child{
   margin-bottom:30px;
@@ -1046,7 +1042,8 @@ a:hover span {
 }
 .proj-over-content .form-right{
   float:left;
-  margin-left:10px;
+  margin-bottom: 2em;
+  margin-left: 10px;
   border-radius: 4px;
 }
 .contract-sign-form, .save-form{
@@ -1056,7 +1053,7 @@ a:hover span {
   height:151px;
 }
 .contract-sign-form{
-  height:251px;
+  height: auto;
 }
 .proj-over-container .form-container{
   width:497px;
