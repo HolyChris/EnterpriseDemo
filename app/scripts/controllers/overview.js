@@ -19,12 +19,13 @@ angular.module('ersApp')
     $scope.contract = contract ? contract : {};
     var siteId = $scope.project.id;
     if ($scope.work_types) {
-      $scope.contract.work_type_ids = new Array();
+      var work_type_ids = new Array();
       var types = $scope.work_types;
       for (var key in types) {
         var value = key.replace('work_type_', '');
-        $scope.contract.work_type_ids.push(value);
+        work_type_ids.push(value);
       }
+      $scope.contract.work_type_ids = work_type_ids;
     }
     $scope.contract.price = $scope.contract.price ? parseFloat($scope.contract.price.replace(/\$/g, '')) : undefined;
 
