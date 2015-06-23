@@ -22,7 +22,8 @@ angular
     'ui.router',
     'angular-table',
     'flash',
-    'config'
+    'config',
+    'ui.bootstrap'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
     $stateProvider

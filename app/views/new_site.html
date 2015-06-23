@@ -1,5 +1,5 @@
 <div class="container site-container">
-  <div flash-message="30000" ></div>
+  	<div flash-message="30000" ></div>
 	<div class="container site-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
@@ -133,16 +133,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 form-right">
+		<div class="col-md-6 bill-info-form form-right">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12 save-form ">
+					<div class="col-md-12">
 						<div class="form-title">
 							<span class="badge">4</span>
-							<span>step 4: SAVE </span>
+							<span>step 4: Linked customer </span>
 							
 						</div>
 						<div class="form-container">
+              
+							<!-- Customer info when already linked-->
+							<div class="form-group col-lg-8" ng-show="customer">
+								<span>Linked customer: {{customer.firstname + ' ' + customer.lastname }}
+								</span> 
+								<a class="btn" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Select a different customer</a>
+							</div>
+
+							<!-- Searching for a customer to link -->
+							<div class="form-group col-lg-8" ng-show="!customer">
+								<a class="btn" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Search customer</a>
+							</div>
 							<div class="form-group col-lg-12">
 								<input type="submit" class="btn save-btn" value="SAVE SITE" ng-click="newSite(siteAddress,siteDetail,billAddress)">
 							</div>
@@ -153,6 +165,5 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </div>
-</div>
-	

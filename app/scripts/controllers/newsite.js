@@ -3,7 +3,7 @@ angular.module('ersApp')
 .run(function($http) {
   $http.defaults.headers.common= { 'X-Auth-Token' : 'D2EdWKgbs8cq9PHyLhrA' };
 })
-  .controller('NewSiteCtrl', function ($scope,$location,$http,ENV,Flash) {
+  .controller('NewSiteCtrl', function ($scope,$location,$http,ENV,Flash,$modal) {
     
   //Here we find out if the url is passing a customerId
   if ($location.search().customerId)
@@ -11,6 +11,25 @@ angular.module('ersApp')
     $scope.customer_id=$location.search().customerId;
   }
   
+  $scope.show_search_customer_dialog=function (){
+    var modalInstance = $modal.open({
+      animation: true,
+      templateUrl: 'views/customerSeachModal.html',
+      controller: 'CustomerSearchModalInstanceCtrl',
+      size: 'lg',
+      resolve: {
+        
+      }
+    });
+
+    modalInstance.result.then(function (customer) {
+      $scope.customer = customer;
+      $scope.customer_id = customer.id;
+    }, function () {
+      
+    });
+  };
+
   $scope.flag=0;
   $scope.siteAddress={};
   $scope.billAddress={};

@@ -1202,6 +1202,14 @@ tbody td{
   margin-right: 20px;
   text-decoration: underline;
 }
+
+.table-modal{
+  width:850px;
+  margin-top:0px;
+}
+
+
+
 .photo-table tbody .row-actn-btns span:last-child{
   margin-right:0px;
 }

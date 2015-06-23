@@ -1,0 +1,53 @@
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <strong>SEARCH FOR CUSTOMER</strong>
+        <div class="form-container">
+          <div class="form-group col-md-6">
+            <label class="control-label">First Name</label class="control-label">
+            <input type="" name="" class="form-control" id="" ng-model="search_by_firstname">
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Last Name</label class="control-label">
+            <input type="" name="" class="form-control" id="" ng-model="search_by_lastname">
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Bussiness Name</label class="control-label">
+            <input type="" name="" class="form-control" id="" ng-model="search_by_bussinessname">
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Phone Number</label class="control-label">
+            <input type="" name="" class="form-control" id="" ng-model="search_by_phonenumber">
+          </div>
+          <div class="form-group col-md-3">
+            <input type="submit" class="btn save-btn" value="SEARCH" ng-click="findCustomers(search_by_firstname,search_by_lastname,search_by_bussiness_name,search_by_phonenumber)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-show="showResults">
+    
+      <div class="col-md-3">
+        <table class="table table-modal" at-table at-list="custList">
+          <thead>
+          </thead>
+          <tbody>
+            <tr>
+              <td at-implicit at-attribute="firstname" width="90px"></td>
+              <td at-implicit at-attribute="lastname" width="90px"></td>
+              <td at-implicit at-attribute="business_name" width="90px"></td>
+              <td at-implicit at-title="phone" at-attribute="phone_numbers[0].number">
+              <td at-title="Actions"><a ng-click="selectCustomer(item)"><span>Select</span></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>    
+    
+  </div>
+</div>  
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+</div>
