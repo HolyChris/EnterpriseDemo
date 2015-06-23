@@ -13,10 +13,9 @@ angular.module('ersApp')
     itemsPerPage: 10
   }
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
-  $scope.newContract = true;
+  $scope.contract = {};
 
-  $scope.saveContract = function(contract) {
-    $scope.contract = contract ? contract : {};
+  $scope.saveContract = function() {
     var siteId = $scope.project.id;
     if ($scope.work_types) {
       var work_type_ids = new Array();
@@ -55,7 +54,6 @@ angular.module('ersApp')
       var workType = 'work_type_' + contract.work_types[i].id;
       $scope.work_types[workType] = true;
     }
-    $scope.newContract = false;
   }
   
   //Here we find out if the url is passing a siteId
@@ -63,7 +61,12 @@ angular.module('ersApp')
     Overview.query({siteId: $location.search().siteId}, function(overview) {
       $scope.project = overview.site;
       
-      if ($scope.project.contract) prepareContractView($scope.project.contract);
+      if ($scope.project.contract) {
+        prepareContractView($scope.project.contract);
+        $scope.newContract = false;
+      } else {
+        $scope.newContract = true;
+      }
       
       $scope.project_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
       
