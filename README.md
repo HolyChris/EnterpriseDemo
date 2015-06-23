@@ -11,7 +11,7 @@
 
 ##Deployment
 1. Run 'grunt build'
-2. Commit dist folder updates
+2. add grunt-bitballoon.json file with proper token
 3. grunt bitballoon:dev
 
 ##Review Site
