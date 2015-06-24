@@ -36,14 +36,15 @@
 							<img src="/images/clip.png">
 							<span>ADD ATTACHMENT</span>
 						</label>
-						<input type="file" id="upload" class="form-control" ng-model="contract.document" value="">
+						<input type="file" name="upload" id="upload" class="form-control" onchange="angular.element(this).scope().uploadFile(this.files)">
 					</div>
+					<label>{{ contract.document.name }}</label>
 					<div class="" ng-show="contract.document_url.length > 0">
 						<a href="{{contract.document_url}}" target="_blank">View Document</a>
 					</div>
 				</div>
 				
-				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at}">
+				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
 					<label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
 					<input type="date" class="form-control" datepicker-popup ng-model="contract.signed_at" is-open="opened" ng-required="true" close-text="Close" />
 				</div>

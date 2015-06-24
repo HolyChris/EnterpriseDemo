@@ -14,8 +14,18 @@ angular.module('ersApp')
   }
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.contract = {};
+  $scope.work_types = {};
+  $scope.newContract = true;
+
+  $scope.uploadFile = function(files) {
+    var fd = new FormData();
+    fd.append("file", files[0]);
+    $scope.contract.document = files[0];
+    $scope.$apply();
+  };
 
   $scope.saveContract = function() {
+    
     var siteId = $scope.project.id;
     if ($scope.work_types) {
       var work_type_ids = new Array();
@@ -28,19 +38,24 @@ angular.module('ersApp')
     }
     $scope.contract.price = $scope.contract.price ? parseFloat($scope.contract.price.replace(/\$/g, '')) : undefined;
 
+    console.log(JSON.stringify($scope.contract));
+    console.log($scope.contract);
+
     if ($scope.newContract) {
       Contract.post({siteId:siteId},$scope.contract, function(data) {
           Flash.create('success', 'Contract successfully saved!');
         }, function(error) {
           $scope.contractErrors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
+          console.log(error);
         });
     } else { 
-      Contract.put({siteId:siteId}, $scope.contract, function(data) {
+      Contract.put({siteId:siteId},$scope.contract, function(data) {
           Flash.create('success', 'Contract successfully saved!');
         }, function(error) {
           $scope.contractErrors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
+          console.log(error);
         });
     }
   }
