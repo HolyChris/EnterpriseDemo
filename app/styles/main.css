@@ -1355,6 +1355,10 @@ tbody td{
   background: #fff;
   height:336px;
 }
+.search-customer-form{
+  background: #fff;
+  height:200px;
+}
 .site-detail-form{
   height:415px;
 }
