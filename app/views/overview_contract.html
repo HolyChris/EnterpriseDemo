@@ -38,7 +38,7 @@
 						</label>
 						<input type="file" name="upload" id="upload" class="form-control" onchange="angular.element(this).scope().uploadFile(this.files)">
 					</div>
-					<label>{{ contract.document.name }}</label>
+					<label ng-hide="contract.document_url.length > 0">{{ contract.document.name }}</label>
 					<div class="" ng-show="contract.document_url.length > 0">
 						<a href="{{contract.document_url}}" target="_blank">View Document</a>
 					</div>

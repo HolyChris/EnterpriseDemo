@@ -18,8 +18,6 @@ angular.module('ersApp')
   $scope.newContract = true;
 
   $scope.uploadFile = function(files) {
-    var fd = new FormData();
-    fd.append("file", files[0]);
     $scope.contract.document = files[0];
     $scope.$apply();
   };
@@ -27,6 +25,15 @@ angular.module('ersApp')
   $scope.saveContract = function() {
     
     var siteId = $scope.project.id;
+    if ($scope.contract.price) {
+      $scope.contract.price = parseFloat($scope.contract.price.replace(/\$/g, ''));
+    }
+
+    var fd = new FormData(); // prepare as form data to handle files.
+    for (var key in $scope.contract) {
+      fd.append(key, $scope.contract[key]);
+    }
+
     if ($scope.work_types) {
       var work_type_ids = new Array();
       var types = $scope.work_types;
@@ -34,29 +41,32 @@ angular.module('ersApp')
         var value = key.replace('work_type_', '');
         work_type_ids.push(value);
       }
+      for (var i =0; i < work_type_ids.length; i++) {
+        fd.append('work_type_ids[]', work_type_ids[i]);
+      }
       $scope.contract.work_type_ids = work_type_ids;
     }
-    $scope.contract.price = $scope.contract.price ? parseFloat($scope.contract.price.replace(/\$/g, '')) : undefined;
-
-    console.log(JSON.stringify($scope.contract));
-    console.log($scope.contract);
 
     if ($scope.newContract) {
-      Contract.post({siteId:siteId},$scope.contract, function(data) {
-          Flash.create('success', 'Contract successfully saved!');
-        }, function(error) {
-          $scope.contractErrors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-          console.log(error);
-        });
+      Contract.post({siteId:siteId},fd, function(data) {
+        Flash.create('success', 'Contract successfully saved!');
+        $scope.contract.document_url = data.contract.document_url;
+        $scope.contract.id = data.contract.id;
+        $scope.contract.po_number = data.contract.po_number;
+        $scope.newContract = false;
+      }, function(error) {
+        $scope.contractErrors = error.data.errors;
+        Flash.create('danger', 'Something happened. See errors below.');
+        console.log(error);
+      });
     } else { 
       Contract.put({siteId:siteId},$scope.contract, function(data) {
-          Flash.create('success', 'Contract successfully saved!');
-        }, function(error) {
-          $scope.contractErrors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-          console.log(error);
-        });
+        Flash.create('success', 'Contract successfully saved!');
+      }, function(error) {
+        $scope.contractErrors = error.data.errors;
+        Flash.create('danger', 'Something happened. See errors below.');
+        console.log(error);
+      });
     }
   }
 

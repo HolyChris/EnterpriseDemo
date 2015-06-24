@@ -12,6 +12,6 @@ overviewService.factory('Contract', function($resource, ENV, $location) {
   return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/contract/', {siteId:'@siteId'}, {
     query: {method: "GET", isArray: false},
     put: {method: "PUT"},
-    post: {method: "POST"},
+    post: {method: "POST", headers: { 'Content-Type': undefined }},
   });
 });
