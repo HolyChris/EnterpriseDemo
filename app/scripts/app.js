@@ -27,6 +27,7 @@ angular
     'sitesService',
     'customersService',
     'overviewService',
+    'managersService',
     'config'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {

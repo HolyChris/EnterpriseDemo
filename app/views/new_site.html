@@ -55,7 +55,13 @@
 				
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
 					<label class="control-label">Managers</label>
-					<input type="" name="" class="form-control" id="" value="" >
+					<input type="text" class="form-control" ng-model="managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" >
+					<div>
+						<p class="selected-manager" ng-repeat="manager in managers">
+							<span class="manager-email">{{ manager.email }}</span>
+							<span class="glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)"></span>
+						</p>
+					</div>
 				</div>
 				
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">

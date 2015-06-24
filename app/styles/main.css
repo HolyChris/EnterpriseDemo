@@ -1369,3 +1369,28 @@ tbody td{
   font-size: 14px;
 }
 /*****end*****/
+
+/*****Managers Select*****/
+.selected-manager {
+  background: #eee;
+  border-radius: 3px;
+  margin: 0.5em 0;
+  overflow: hidden;
+  padding: 3px 6px;
+}
+.selected-manager .manager-email {
+  float: left;
+  overflow: hidden;
+  width: calc(100% - 20px);
+}
+.selected-manager .remove {
+  cursor: pointer;
+  float: right;
+  line-height: 20px;
+  opacity: 0.5;
+}
+.selected-manager .remove:hover,
+.selected-manager .remove:focus {
+  opacity: 1;
+}
+/*****end*****/
