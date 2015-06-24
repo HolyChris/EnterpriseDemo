@@ -8,7 +8,7 @@ angular.module('ersApp')
   $scope.customer_from_previous_page_flag=false;
 
   $scope.lookupLinkedCustomerInfo=function(customer_id){
-    Customer.query({customerId: customer_id},
+    Customer.query({id: customer_id},
       function(data) {
         $scope.customer = data.customer;
       }

@@ -217,6 +217,7 @@ a:hover span {
 }
 .quick-links .sub-container__body{
   height:350px;
+  overflow-y: auto; 
 }
 .datepicker{
   width:40%;
@@ -277,6 +278,7 @@ a:hover span {
 }
 .quick-links .info-container {
   height:300px;
+  overflow: auto;
 }
 .site-list,.links-list{
   margin-bottom: 0px;
@@ -943,14 +945,12 @@ a:hover span {
   margin-left:240px;
   min-height:100vh;
 }
-.proj-over-container,.proj-doc-container{
+.proj-over-container,
+.proj-doc-container {
   width:auto !important;
   margin-left:0;
   margin-right:auto;
   min-height:431px;
-}
-.proj-over-container .col-lg-6 input{
-  width:226px;
 }
 .core-info-container{
   margin-left:30px;
@@ -1032,11 +1032,9 @@ a:hover span {
   margin:0px;
 }
 .proj-over-content .form-left{
-  min-height:0px;
-  height:auto;
+  min-height: 0px;
+  height: auto;
   border-radius: 4px;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-
 }
 .proj-over-content .form-left:last-child{
   margin-bottom:30px;
@@ -1046,7 +1044,8 @@ a:hover span {
 }
 .proj-over-content .form-right{
   float:left;
-  margin-left:10px;
+  margin-bottom: 2em;
+  margin-left: 10px;
   border-radius: 4px;
 }
 .contract-sign-form, .save-form{
@@ -1056,7 +1055,7 @@ a:hover span {
   height:151px;
 }
 .contract-sign-form{
-  height:251px;
+  height: auto;
 }
 .proj-over-container .form-container{
   width:497px;
@@ -1376,3 +1375,26 @@ tbody td{
   font-size: 14px;
 }
 /*****end*****/
+
+.customer-form .update-form  {
+  font-size: 9px;
+  font-family: 'Montserrat-Bold';
+  width: 120px;
+  color: #fff;
+  height: 25px;
+  background: #499c4b;
+  margin-left: 33px;
+}
+
+.customers-container .core-info-container {
+  margin: 0;
+  margin-top: 25px;
+}
+
+.customers-container .core-info-card {
+  margin-bottom: 10px;
+}
+
+.customers-container .form-left {
+  padding-bottom: 20px;
+}
