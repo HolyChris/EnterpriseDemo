@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer) {
   $scope.config = {
     itemsPerPage: 10
   }
@@ -71,6 +71,22 @@ angular.module('ersApp')
     }
   }
 
+  function prepareCustomerDetails(customer)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.customer=customer;
+
+
+    $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
+    
+    if ($scope.project.customer.bussinessname) {
+      $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
+    }
+
+    fillEditableCustomerInfoFromApiData();
+
+  }
+
   function prepareContractView(contract) {
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
@@ -88,8 +104,8 @@ angular.module('ersApp')
   //Here we find out if the url is passing a siteId
   if ($location.search().siteId) {
     Overview.query({siteId: $location.search().siteId}, function(overview) {
-      $scope.project = overview.site;
       
+      $scope.project = overview.site;
       if ($scope.project.contract) {
         prepareContractView($scope.project.contract);
         $scope.newContract = false;
@@ -97,13 +113,44 @@ angular.module('ersApp')
         $scope.newContract = true;
       }
       
-      $scope.project_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
-      
-      if ($scope.project.customer.bussinessname) {
-        $scope.project_title = $scope.project.customer.bussinessname + ' - ' + $scope.project_title;
-      }
+      prepareCustomerDetails($scope.project.customer);
+
     });
   }
+
+  function fillEditableCustomerInfoFromApiData()
+  {
+    //$scope.customer holds editable values
+    //$scope.project.customer holds values from last API request
+    $scope.customer=angular.copy($scope.project.customer);
+    
+    //we delete the phone_numbers element so that customer update does not include this object in request
+    delete $scope.customer.phone_numbers;
+  }
+
+  $scope.customer_info_edition_enabled=false;
+  $scope.enable_customer_info_edition = function (){
+    $scope.customer_info_edition_enabled=true; 
+  }
+
+  $scope.cancel_customer_info_edition = function (){
+    $scope.customer_info_edition_enabled=false;
+    fillEditableCustomerInfoFromApiData();
+  }
+
+  $scope.save_customer_info_edition = function (){
+    $scope.customer_info_edition_enabled=false;
+    Customer.save({customerId: $scope.customer.id}, $scope.customer, function(data) {
+          Flash.create('success', 'Customer details successfully saved!');
+          prepareCustomerDetails(data.customer);
+        }, function(error) {
+          $scope.customerErrors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        });
+
+  }
+
+
   
   
   $scope.photoList = [
