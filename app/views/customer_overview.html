@@ -1,78 +1,65 @@
+<div class="container site-container">	
+	<div class="row">
+		<div flash-message="30000"></div>
+	</div>
+	<div class="row">
+		<div class="container container customers-container">
+			<div class="container site-content">
+				<div class="col-md-6 cust-detail-form form-left">
+					<div class="form-title">
+						<span>CUSTOMER DETAILS</span>
+					</div>
+					<div class="form-container customer-form">
+						<div class="row">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.firstname}">
+								<label class="control-label">First Name <sup>*</sup> {{customerErrors.firstname[0]}}</label>
+								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.firstname">
+							</div>
 
-		<div class="col-md-6 cust-detail-form form-left">
-			<div class="form-title">
-				<span class="badge">1</span>
-				<span>CUSTOMER DETAILS</span>
-			</div>
-			<div class="form-container">
-				<div class="form-group col-lg-6">
-					<label>First Name</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
+							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.lastname}">
+								<label class="control-label">Last Name <sup>*</sup> {{customerErrors.lastname[0]}}</label>
+								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.lastname">
+							</div>
 
-				<div class="form-group col-lg-6">
-					<label>Last Name</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
+							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.email}">
+								<label class="control-label">Email <sup>*</sup> {{customerErrors.email[0]}}</label>
+								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.email">
+							</div>
 
-				<div class="form-group col-lg-6">
-					<label>Email</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
+							<div class="form-group col-lg-6">
+								<label class="control-label">Spouse</label>
+								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.spouse">
+							</div>
 
-				<div class="form-group col-lg-6">
-					<label>Spouse</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
+							<div class="form-group col-lg-6" ng-repeat="phone in model.customer.phone_numbers">
+								<label class="control-label">Phone number</label>
+								<input type="" name="" class="form-control" id="" value="" ng-model="phone.number">
+							</div>
 
-				<div class="form-group col-lg-6">
-					<label>Phone number</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-
-				<div class="col-sm-12">
-					<label>Other business information</label>
-					<textarea class="form-control textarea"></textarea>
-				</div>
-
-			</div>
-		</div>
-		<div class="col-md-6 form-right">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 bill-add-form ">
-						<div class="form-title">
-							<span class="badge">2</span>
-							<span>BILLING ADDRESS</span>
+							<div class="form-group col-lg-12">
+								<label class="control-label">Other business information</label>
+								<textarea class="form-control textarea" ng-model="model.customer.other_business_info"></textarea>
+							</div>
 						</div>
-						<div class="form-container">
-							<div class="form-group col-lg-6">
-								<label>Address 1</label>
-								<input type="" name="" class="form-control" id="" value="">
-							</div>
 
-							<div class="form-group col-lg-6">
-								<label>Address 2</label>
-								<input type="password" name="" class="form-control" id="" value="">
-							</div>
-
-							<div class="form-group col-lg-6">
-								<label>City</label>
-								<input type="password" name="" class="form-control" id="" value="">
-							</div>
-
-							<div class="form-group col-lg-6">
-								<label>Zipcode</label>
-								<input type="" name="" class="form-control" id="" value="">
-							</div>
-
-							<div class="form-group col-lg-6">
-								<label>State</label>
-								<input type="" name="" class="form-control" id="" value="">
-							</div>
+						<div class="row text-right">
+							<input type="button" class="btn update-form" ng-click="updateUser()" value="Update">
 						</div>
 					</div>
 				</div>
+				<div class="col-md-6 core-info-container">
+					<span>CUSTOMER SITES</span>
+					<div class="core-info-card" ng-repeat="site in model.customer.sites">
+						<div class="core-info">
+							<span class="info-title">{{site.name}}</span>
+							<span class="info-address">{{site.address.address1}},</br> {{site.address.city}},{{site.address.state.name}},{{site.address.zipcode}}</span></br>
+							<span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
+						</div>
+	        </div>
+				</div>
 			</div>
 		</div>
+	</div>
+
+</div>
 

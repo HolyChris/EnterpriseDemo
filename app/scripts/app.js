@@ -41,15 +41,17 @@ angular
         templateUrl: 'views/customer.html',
         controller: 'AboutCtrl',
       })
+      .state('customersdetails',{
+        url:'/customers/details/:id',
+        templateUrl:'views/customer_overview.html',
+        controller: "CustomerCtrl"
+      })
       .state('newcustomer', {
         url:'/customers/new',
         templateUrl: 'views/new_customer.html',
         controller: 'NewCustomerCtrl',
       })
-      .state('customers.overview',{
-        url:'/overview',
-        templateUrl:'views/customer_overview.html',
-      })
+
       .state('sites',{
         url:'/sites',
         templateUrl: 'views/sites.html',

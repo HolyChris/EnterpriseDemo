@@ -1369,3 +1369,26 @@ tbody td{
   font-size: 14px;
 }
 /*****end*****/
+
+.customer-form .update-form  {
+  font-size: 9px;
+  font-family: 'Montserrat-Bold';
+  width: 120px;
+  color: #fff;
+  height: 25px;
+  background: #499c4b;
+  margin-left: 33px;
+}
+
+.customers-container .core-info-container {
+  margin: 0;
+  margin-top: 25px;
+}
+
+.customers-container .core-info-card {
+  margin-bottom: 10px;
+}
+
+.customers-container .form-left {
+  padding-bottom: 20px;
+}
