@@ -217,6 +217,7 @@ a:hover span {
 }
 .quick-links .sub-container__body{
   height:350px;
+  overflow-y: auto; 
 }
 .datepicker{
   width:40%;
@@ -277,6 +278,7 @@ a:hover span {
 }
 .quick-links .info-container {
   height:300px;
+  overflow: auto;
 }
 .site-list,.links-list{
   margin-bottom: 0px;
