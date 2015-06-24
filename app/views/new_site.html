@@ -139,7 +139,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 bill-info-form form-right">
+		<div class="col-md-6 search-customer-form form-right">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -154,7 +154,7 @@
 							<div class="form-group col-lg-8" ng-show="customer">
 								<span>Linked customer: {{customer.firstname + ' ' + customer.lastname }}
 								</span> 
-								<a class="btn" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Select a different customer</a>
+								<a class="btn" ng-show="!customer_from_previous_page_flag" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Select a different customer</a>
 							</div>
 
 							<!-- Searching for a customer to link -->
