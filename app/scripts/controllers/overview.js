@@ -72,7 +72,6 @@ angular.module('ersApp')
   }
 
   function prepareContractView(contract) {
-    console.log(contract);
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
     $scope.contract.contract_type = workTypeValues[contract.contract_type];
