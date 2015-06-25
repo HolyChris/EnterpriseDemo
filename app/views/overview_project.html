@@ -137,7 +137,7 @@
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 						<label class="control-label">State<sup>*</sup></label>
 						<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
-							<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index==address.state.id-1">{{state}}</option>
+							<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index+1==address.state.id">{{state}}</option>
 						</select>
 					</div>
 					
@@ -151,48 +151,64 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title">
 				<span>{{customer_title}} / DETAILS</span>
-				<span class="edit-btn pull-right">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
+				<div class="pull-right">
+					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
+	  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
+					</button>
+				</div>
+
+				<div class="pull-right">
+					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="site_info_edition_enabled" ng-click="save_site_info_edition()">
+	  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
+					</button>
+
+					<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="site_info_edition_enabled" ng-click="cancel_site_info_edition()">
+	  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
+					</button>
+
+				</div>
 			</div>	
 			<div class="form-container">
-				<div class="form-group col-lg-6">
-					<label class="control-label">Site name</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.name">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label class="control-label">Managers</label>
-          <!--
-					<input type="" name="" class="form-control" id="" value="priyankgupta1988@gmail.com, christopher.b.meyer@gmail.com, sales@ers.com">
-          -->
-          <input type="" name="" class="form-control" id="" value="">
-          
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label class="control-label">Site contact name</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.contact_name">
-				</div>
-								
-				<div class="form-group col-lg-6">
-					<label class="control-label">Site contact phone</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.contact_phone">
-				</div>
-				<div class="form-group col-lg-6">
-					<label class="control-label">Source</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.source">
-				</div>
-				<div class="form-group col-lg-6">
-					<label class="control-label">Source info</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.source_info">
-				</div>
-				<div class="form-group col-lg-6">
-					<label class="control-label">Stage</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.stage">
-				</div>
-			
+				<fieldset ng-disabled="!site_info_edition_enabled">
+					<div class="form-group col-lg-6">
+						<label class="control-label">Site name</label>
+						<input type="" name="" class="form-control" id="" ng-model="site.name">
+					</div>
+					
+					<div class="form-group col-lg-6">
+						<label class="control-label">Managers</label>
+	          <!--
+						<input type="" name="" class="form-control" id="" value="priyankgupta1988@gmail.com, christopher.b.meyer@gmail.com, sales@ers.com">
+	          -->
+	          			<input type="" name="" class="form-control" id="" value="">
+	          
+					</div>
+					
+					<div class="form-group col-lg-6">
+						<label class="control-label">Site contact name</label>
+						<input type="" name="" class="form-control" id="" ng-model="site.contact_name">
+					</div>
+									
+					<div class="form-group col-lg-6">
+						<label class="control-label">Site contact phone</label>
+						<input type="" name="" class="form-control" id="" ng-model="site.contact_phone">
+					</div>
+
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
+						<label class="control-label">Source</label>
+						<select type="" name="" class="form-control" id="" value="" ng-model="site.source">
+							<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="source==site.source" >{{source}}</option>
+						</select>
+					</div>
+					<div class="form-group col-lg-6">
+						<label class="control-label">Source info</label>
+						<input type="" name="" class="form-control" id="" ng-model="site.source_info">
+					</div>
+					<div class="form-group col-lg-6">
+						<label class="control-label">Stage</label>
+						<input type="" name="" class="form-control" id="" ng-model="site.stage" disabled>
+					</div>
+				</fieldset>
 			</div>
 		</div>
 	</div>

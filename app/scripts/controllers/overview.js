@@ -19,7 +19,7 @@ angular.module('ersApp')
                         "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
                         "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                         "NY","SC","AK","WV","AA","AE","AP"];
-
+  $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.contract = {};
   $scope.work_types = {};
@@ -95,33 +95,10 @@ angular.module('ersApp')
   {
     prepareCustomerDetails(site.customer);
     prepareAddressDetails(site.address);
+    prepareSiteDetails(site);
   }
 
-  function prepareCustomerDetails(customer)
-  {
-    //customer input param comes from API query or as a result of a put
-    $scope.project.customer=customer;
-
-
-    $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
-    
-    if ($scope.project.customer.bussinessname) {
-      $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
-    }
-
-    fillEditableCustomerInfoFromApiData();
-
-  }
-
-  function prepareAddressDetails(address)
-  {
-    //customer input param comes from API query or as a result of a put
-    $scope.project.address=address;
-
-    fillEditableAddressInfoFromApiData();
-
-  }
-
+  
   function prepareContractView(contract) {
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
@@ -151,6 +128,22 @@ angular.module('ersApp')
       
       
     });
+  }
+
+  function prepareCustomerDetails(customer)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.customer=customer;
+
+
+    $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
+    
+    if ($scope.project.customer.bussinessname) {
+      $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
+    }
+
+    fillEditableCustomerInfoFromApiData();
+
   }
 
   function fillEditableCustomerInfoFromApiData()
@@ -193,6 +186,15 @@ angular.module('ersApp')
     Flash.dismiss();
   }
 
+  function prepareAddressDetails(address)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.address=address;
+
+    fillEditableAddressInfoFromApiData();
+
+  }
+
   function fillEditableAddressInfoFromApiData()
   {
     
@@ -230,6 +232,61 @@ angular.module('ersApp')
           Flash.create('success', 'Address successfully saved!');
           prepareAddressDetails(data.site.address);
           $scope.address_edition_enabled=false;
+        }, function(error) {
+          $scope.errors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        });
+  }
+
+
+  function prepareSiteDetails(site)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project=site;
+
+    fillEditableSiteInfoFromApiData();
+
+  }
+
+  function fillEditableSiteInfoFromApiData()
+  {
+    //$scope.site holds editable values
+    //$scope.project.customer holds values from last API request
+    $scope.site=angular.copy($scope.project);
+    
+    //we delete all other inner object we want
+    //to make sure is not sent to the update API
+    delete $scope.site.customer;
+    delete $scope.site.address;
+    delete $scope.site.bill_address;
+    delete $scope.site.appointments;
+    delete $scope.site.assets;
+    delete $scope.site.contract;
+
+
+    clearErrors();
+    
+  }
+
+  $scope.site_info_edition_enabled=false;
+  $scope.enable_site_info_edition = function (){
+    $scope.site_info_edition_enabled=true; 
+  }
+
+  $scope.cancel_site_info_edition = function (){
+    $scope.site_info_edition_enabled=false;
+    fillEditableSiteInfoFromApiData();
+  }
+
+  $scope.save_site_info_edition = function (){
+    
+    //The API to update source information recieves an integer BUT information
+    //returned or queried from site.. returns the actual string
+    //We invoke the sites update api with only address information to be updated
+    Sites.save({siteId: $scope.project.id}, $scope.site, function(data) {
+          Flash.create('success', 'Site information successfully saved!');
+          prepareSiteDetails(data.site);
+          $scope.site_info_edition_enabled=false;
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
