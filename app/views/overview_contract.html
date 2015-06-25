@@ -4,7 +4,7 @@
 	<div class="proj-over-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
-				SITES / OVERVIEW / <u>CONTRACT</u>
+				{{project_title}} / <u>CONTRACT</u>
 			</div>
 			<div class="col-md-12 container-note" ng-show="newContract">
 				<span class="note">
@@ -46,7 +46,12 @@
 				
 				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
 					<label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
-					<input type="date" class="form-control" datepicker-popup ng-model="contract.signed_at" is-open="opened" ng-required="true" close-text="Close" />
+					<p class="input-group">
+						<input type="date" class="form-control" datepicker-popup="" ng-model="contract.signed_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
+						<span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+					</p>
 				</div>
 
 				<div class="form-group col-sm-12">
@@ -98,12 +103,12 @@
 						<div class="form-title">
 							<span class="badge">3</span>
 							<span>step 3: SAVE </span>
-							
 						</div>
 						<div class="form-container">
 							<div class="form-group col-lg-12">
 								<span>When you’re done - click the save button below.</span>
 								<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)">
+								<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-1"></span>
 							</div>
 						</div>
 					</div>

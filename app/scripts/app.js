@@ -28,7 +28,8 @@ angular
     'customersService',
     'overviewService',
     'managersService',
-    'config'
+    'config',
+    'angularSpinner'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
     $stateProvider

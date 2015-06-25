@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract, usSpinnerService) {
   $scope.config = {
     itemsPerPage: 10
   }
@@ -22,7 +22,15 @@ angular.module('ersApp')
     $scope.$apply();
   };
 
+  $scope.openDate = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  }
+
   $scope.saveContract = function() {
+    usSpinnerService.spin('spinner-1');
     
     var siteId = $scope.project.id;
     if ($scope.contract.price) {
@@ -49,6 +57,7 @@ angular.module('ersApp')
 
     if ($scope.newContract) {
       Contract.post({siteId:siteId},fd, function(data) {
+        usSpinnerService.stop('spinner-1');
         Flash.create('success', 'Contract successfully saved!');
         $scope.contract.document_url = data.contract.document_url;
         $scope.contract.id = data.contract.id;
@@ -56,14 +65,17 @@ angular.module('ersApp')
         $scope.contract.documentName = $scope.contract.document.name;
         $scope.newContract = false;
       }, function(error) {
+        usSpinnerService.stop('spinner-1');
         $scope.contractErrors = error.data.errors;
         Flash.create('danger', 'Something happened. See errors below.');
         console.log(error);
       });
     } else { 
       Contract.put({siteId:siteId},$scope.contract, function(data) {
+        usSpinnerService.stop('spinner-1');
         Flash.create('success', 'Contract successfully saved!');
       }, function(error) {
+        usSpinnerService.stop('spinner-1');
         $scope.contractErrors = error.data.errors;
         Flash.create('danger', 'Something happened. See errors below.');
         console.log(error);

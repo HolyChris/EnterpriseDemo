@@ -36,6 +36,8 @@ module.exports = function(config) {
       'bower_components/at-table/dist/angular-table.min.js',
       'bower_components/angular-pickadate/src/angular-pickadate.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/spin.js/spin.js',
+      'bower_components/angular-spinner/angular-spinner.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

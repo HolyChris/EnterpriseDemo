@@ -1060,8 +1060,9 @@ a:hover span {
 .proj-over-container .form-container{
   width:497px;
 }
-.proj-over-content .form-container .form-control{
-  height:45px;
+.proj-over-content .form-container .form-control,
+.proj-over-content .form-container .input-group-btn .btn {
+  height: 45px;
 }
 .proj-over-content .form-container .textarea{
   width:474px;
@@ -1096,6 +1097,11 @@ input[type="file"]{
   text-align: left;
   display:block;
   margin-bottom:18px;
+}
+.save-form .form-container span.us-spinner {
+  display: inline-block;
+  margin-bottom: 4px;
+  margin-left: 1em;
 }
 /***end***/
 /*****project-doc******/
