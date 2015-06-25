@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -129,6 +129,33 @@ angular.module('ersApp')
       
     });
   }
+
+  $scope.managersArray = Managers.query();
+  $scope.managers = [];
+  var manage_ids = [];
+  $scope.addManager = function($item, $model, $label) {
+    for (var i = 0; i < $scope.managersArray.users.length; i++) {
+      if ($scope.managersArray.users[i].id === $item.id) {
+        $scope.managersArray.users.splice(i, 1);
+      }
+    }
+    $scope.managers.push($item);
+    manage_ids.push('&manager_ids[]='+$item.id);
+    $scope.managersSelected = undefined; // clear input
+  }
+  $scope.removeManager = function(id) {
+    manage_ids.splice(manage_ids.indexOf('&manager_ids[]='+id), 1);
+    for (var i = 0; i < $scope.managers.length; i++) {
+      if ($scope.managers[i].id === id) {
+        $scope.managersArray.users.push($scope.managers[i]);
+        $scope.managers.splice(i, 1);
+      }
+    }
+  }
+  setTimeout(function() {
+    console.log($scope.managersArray.users);
+  }, 1000)
+  
 
   function prepareCustomerDetails(customer)
   {
@@ -262,6 +289,18 @@ angular.module('ersApp')
     delete $scope.site.appointments;
     delete $scope.site.assets;
     delete $scope.site.contract;
+
+    //TODO WARNING, API returns source as string but expects Id as input for update 
+    if ($scope.site.source)
+    {
+      //TODO We need to move siteSource array somewhere.. relying on this lookup here is a very bad idea
+      
+      //We will set in $scope.site.source the id that API for update is expecting
+      //On source_description we'll store the actual text
+      $scope.site.source_description = $scope.site.source
+      $scope.site.source = $scope.siteSource.indexOf($scope.site.source)+1;
+
+    }
 
 
     clearErrors();
