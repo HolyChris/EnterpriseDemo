@@ -53,6 +53,7 @@ angular.module('ersApp')
         $scope.contract.document_url = data.contract.document_url;
         $scope.contract.id = data.contract.id;
         $scope.contract.po_number = data.contract.po_number;
+        $scope.contract.documentName = $scope.contract.document.name;
         $scope.newContract = false;
       }, function(error) {
         $scope.contractErrors = error.data.errors;
@@ -71,9 +72,13 @@ angular.module('ersApp')
   }
 
   function prepareContractView(contract) {
+    console.log(contract);
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
     $scope.contract.contract_type = workTypeValues[contract.contract_type];
+    var path = contract.document_url.substring(contract.document_url.lastIndexOf('/') + 1);
+    var filename = path.substring(0, path.lastIndexOf('?'));
+    $scope.contract.documentName = filename;
 
     for (var i = 0; i < contract.work_types.length; i++) {
       var workType = 'work_type_' + contract.work_types[i].id;

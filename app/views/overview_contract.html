@@ -40,7 +40,7 @@
 					</div>
 					<label ng-hide="contract.document_url.length > 0">{{ contract.document.name }}</label>
 					<div class="" ng-show="contract.document_url.length > 0">
-						<a href="{{contract.document_url}}" target="_blank">View Document</a>
+						Filename: <a href="{{contract.document_url}}" target="_blank">{{contract.documentName}}</a>
 					</div>
 				</div>
 				
