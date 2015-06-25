@@ -1419,6 +1419,14 @@ tbody td{
   margin-bottom: 10px;
 }
 
+.customers-container .core-info-card:hover {
+  background-color: #eee;
+}
+
+.customers-container .core-info-card a:hover span{
+  text-decoration: none;
+}
+
 .customers-container .form-left {
   padding-bottom: 20px;
 }
