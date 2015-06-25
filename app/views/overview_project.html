@@ -11,25 +11,7 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title">
 				<span>{{customer_title}} / CUSTOMER INFO</span>
-				
-				<!--
-				<span class="edit-btn pull-right" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
 
-
-
-				<span class="edit-btn" ng-show="customer_info_edition_enabled">
-					<img src="/images/Write-white.png"/>
-					SAVE
-				</span>
-
-				<span class="edit-btn" ng-show="customer_info_edition_enabled">
-					<img src="/images/Write-white.png"/>
-					CANCEL
-				</span>
-				-->
 				<div class="pull-right">
 					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
 	  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
@@ -51,32 +33,32 @@
 			</div>	
 			<div class="form-container" ng>
 				<fieldset ng-disabled="!customer_info_edition_enabled">
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
 						<label class="control-label">Customer first Name</label>
 						<input type="" name="" class="form-control" id="" ng-model="customer.firstname">
 					</div>
 					
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.lastname}">
 						<label class="control-label">Customer Last Name</label>
 						<input type="" name="" class="form-control" id="" ng-model="customer.lastname">
 					</div>
 					
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.email}">
 						<label class="control-label">Email</label>
 						<input type="" name="" class="form-control" id="" ng-model="customer.email">
 					</div>
 									
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.spouse}">
 						<label class="control-label">Spouse</label>
 						<input type="" name="" class="form-control" id="" ng-model="customer.spouse">
 					</div>
 					
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.business_name}">
 						<label class="control-label">Business name</label>
 						<input type="" name="" class="form-control" id="" ng-model="customer.business_name">
 					</div>			
 					
-					<div class="form-group col-sm-12">
+					<div class="form-group col-sm-12" ng-class="{'has-error' : errors.other_business_info}">
 						<label class="control-label">Other business information</label>
 						<input tyoe="text" class="form-control" ng-model="customer.other_business_info"></input>
 					</div>
@@ -112,37 +94,58 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title">
 				<span>{{customer_title}} / ADDRESS</span>
-				<span class="edit-btn pull-right">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
+				<div class="pull-right">
+                    <button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
+                        <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
+                    </button>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="address_edition_enabled" ng-click="save_address_edition()">
+                        <span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
+                    </button>
+
+                    <button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="address_edition_enabled" ng-click="cancel_address_edition()">
+                        <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
+                    </button>
+
+                </div>
 			</div>	
 			<div class="form-container">
-				<div class="form-group col-lg-6">
-					<label class="control-label">Address 1</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.address.address1">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label class="control-label">Address 2</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.address.address2">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label class="control-label">City</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.address.city">
-				</div>
-								
-				<div class="form-group col-lg-6">
-					<label class="control-label">State</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.address.state.name">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label class="control-label">Zip</label>
-					<input type="" name="" class="form-control" id="" ng-model="project.address.zipcode">
-				</div>
-			
+				<fieldset ng-disabled="!address_edition_enabled">
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1']}" >
+						<label class="control-label">Address 1</label>
+						<input type="" name="" class="form-control" id="" ng-model="address.address1">
+					</div>
+					
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address2']}">
+						<label class="control-label">Address 2</label>
+						<input type="" name="" class="form-control" id="" ng-model="address.address2">
+					</div>
+					
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city']}">
+						<label class="control-label">City</label>
+						<input type="" name="" class="form-control" id="" ng-model="address.city">
+					</div>
+					
+					<!--			
+					<div class="form-group col-lg-6">
+						<label class="control-label">State</label>
+						<input type="" name="" class="form-control" id="" ng-model="address.state.name">
+					</div>
+					-->
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
+						<label class="control-label">State<sup>*</sup></label>
+						<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
+							<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index==address.state.id-1">{{state}}</option>
+						</select>
+					</div>
+					
+					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode']}">
+						<label class="control-label">Zip</label>
+						<input type="" name="" class="form-control" id="" ng-model="address.zipcode">
+					</div>
+				</fieldset>
 			</div>
 		</div>
 		<div class="col-md-6 form-left">
