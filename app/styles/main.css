@@ -1402,13 +1402,12 @@ tbody td{
 /*****end*****/
 
 .customer-form .update-form  {
-  font-size: 9px;
+  font-size: 12px;
   font-family: 'Montserrat-Bold';
-  width: 120px;
+  min-width: 120px;
   color: #fff;
-  height: 25px;
   background: #499c4b;
-  margin-left: 33px;
+  margin-left: 20px;
 }
 
 .customers-container .core-info-container {
@@ -1418,6 +1417,14 @@ tbody td{
 
 .customers-container .core-info-card {
   margin-bottom: 10px;
+}
+
+.customers-container .core-info-card:hover {
+  background-color: #eee;
+}
+
+.customers-container .core-info-card a:hover span{
+  text-decoration: none;
 }
 
 .customers-container .form-left {
