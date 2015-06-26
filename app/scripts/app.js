@@ -32,11 +32,11 @@ angular
     'angularSpinner',
     'satellizer'
     ])
-  .config(['$stateProvider','$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouteProvider, $authProvider) {
+  .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
     
     // Parametros de configuración
-    $authProvider.loginUrl = 'http://54.68.73.69' + '/api/v1/sign_in';
-    $authProvider.signupUrl = 'http://54.68.73.69' + '/api/v1/sign_up';
+    $authProvider.loginUrl = ENV.apiEndpoint + '/api/v1/sign_in';
+    $authProvider.signupUrl = ENV.apiEndpoint + '/api/v1/sign_up';
     $authProvider.logoutRedirect = "/login";
     $authProvider.tokenName = 'auth_token';
     $authProvider.tokenPrefix = 'ersA';
