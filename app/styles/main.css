@@ -22,7 +22,6 @@ a:hover span {
 
 .ng-scope {
   min-height:100%;
-  position:relative;
 }
 
 @media (min-width: 1200px){
@@ -556,7 +555,13 @@ a:hover span {
   /* Space out the masthead */
   .header {
     margin-bottom: 0px;
+    display: none;
   }
+
+  .header.show {
+    display: block;
+  }
+  
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
