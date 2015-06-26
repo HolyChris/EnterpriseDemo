@@ -137,15 +137,15 @@ angular.module('ersApp')
         $scope.managersArray.users.splice(i, 1);
       }
     }
-    $scope.managers.push($item);
-    $scope.site.managersSelected = undefined; // clear input
+    $scope.site_edit.managers.push($item);
+    $scope.site_edit.managersSelected = undefined; // clear input
     
   }
   $scope.removeManager = function(id) {
-    for (var i = 0; i < $scope.managers.length; i++) {
-      if ($scope.managers[i].id === id) {
-        $scope.managersArray.users.push($scope.managers[i]);
-        $scope.managers.splice(i, 1);
+    for (var i = 0; i < $scope.site_edit.managers.length; i++) {
+      if ($scope.site_edit.managers[i].id === id) {
+        $scope.managersArray.users.push($scope.site_edit.managers[i]);
+        $scope.site_edit.managers.splice(i, 1);
       }
     }
   }
@@ -274,33 +274,30 @@ angular.module('ersApp')
 
   function fillEditableSiteInfoFromApiData()
   {
-    //$scope.site holds editable values
+    //$scope.site_edit holds editable values
     //$scope.project.customer holds values from last API request
-    $scope.site=angular.copy($scope.project);
+    $scope.site_edit=angular.copy($scope.project);
     
     //we delete all other inner object we want
     //to make sure is not sent to the update API
-    delete $scope.site.customer;
-    delete $scope.site.address;
-    delete $scope.site.bill_address;
-    delete $scope.site.appointments;
-    delete $scope.site.assets;
-    delete $scope.site.contract;
+    delete $scope.site_edit.customer;
+    delete $scope.site_edit.address;
+    delete $scope.site_edit.bill_address;
+    delete $scope.site_edit.appointments;
+    delete $scope.site_edit.assets;
+    delete $scope.site_edit.contract;
 
     //TODO WARNING, API returns source as string but expects Id as input for update 
-    if ($scope.site.source)
+    if ($scope.site_edit.source)
     {
       //TODO We need to move siteSource array somewhere.. relying on this lookup here is a very bad idea
       
-      //We will set in $scope.site.source the id that API for update is expecting
+      //We will set in $scope.site_edit.source the id that API for update is expecting
       //On source_description we'll store the actual text
-      $scope.site.source_description = $scope.site.source
-      $scope.site.source = $scope.siteSource.indexOf($scope.site.source)+1;
+      $scope.site_edit.source_description = $scope.site_edit.source
+      $scope.site_edit.source = $scope.siteSource.indexOf($scope.site_edit.source)+1;
 
     }
-
-    //We set $scope managers to point to the actual array from API
-    $scope.managers = $scope.site.managers;
 
     clearErrors();
     
@@ -326,13 +323,13 @@ angular.module('ersApp')
     //where 11 and 221 are the ids of the Users, complete list should be provided every time
     
     var manager_ids=[];
-    angular.forEach($scope.managers, function(value, key) {
+    angular.forEach($scope.site_edit.managers, function(value, key) {
         manager_ids.push(value.id);
     });
 
-    $scope.site.manager_ids=manager_ids;
+    $scope.site_edit.manager_ids=manager_ids;
 
-    Sites.save({siteId: $scope.project.id}, $scope.site, function(data) {
+    Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
           Flash.create('success', 'Site information successfully saved!');
           prepareSiteDetails(data.site);
           $scope.site_info_edition_enabled=false;

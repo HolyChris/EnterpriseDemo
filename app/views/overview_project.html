@@ -172,15 +172,15 @@
 				<fieldset ng-disabled="!site_info_edition_enabled">
 					<div class="form-group col-lg-6">
 						<label class="control-label">Site name</label>
-						<input type="" name="" class="form-control" id="" ng-model="site.name">
+						<input type="" name="" class="form-control" id="" ng-model="site_edit.name">
 					</div>
 					
 					<div class="form-group col-lg-6">
 
 	          			<label class="control-label">Managers</label>
-						<input type="text" class="form-control" ng-model="site.managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" ng-show="site_info_edition_enabled">
+						<input type="text" class="form-control" ng-model="site_edit.managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" ng-show="site_info_edition_enabled">
 						<div>
-							<p class="selected-manager" ng-repeat="manager in site.managers">
+							<p class="selected-manager" ng-repeat="manager in site_edit.managers">
 								<span class="manager-email">{{ manager.email }}
 									<span class="btn btn-xs glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)" ng-show="site_info_edition_enabled"></span>
 								</span>
@@ -191,27 +191,27 @@
 					
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_name}">
 						<label class="control-label">Site contact name</label>
-						<input type="" name="" class="form-control" id="" ng-model="site.contact_name">
+						<input type="" name="" class="form-control" id="" ng-model="site_edit.contact_name">
 					</div>
 									
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_phone}">
 						<label class="control-label">Site contact phone</label>
-						<input type="" name="" class="form-control" id="" ng-model="site.contact_phone">
+						<input type="" name="" class="form-control" id="" ng-model="site_edit.contact_phone">
 					</div>
 
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source}">
 						<label class="control-label">Source</label>
-						<select type="" name="" class="form-control" id="" value="" ng-model="site.source">
-							<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="$index+1==site.source" >{{source}}</option>
+						<select type="" name="" class="form-control" id="" value="" ng-model="site_edit.source">
+							<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="$index+1==site_edit.source" >{{source}}</option>
 						</select>
 					</div>
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source_info}">
 						<label class="control-label">Source info</label>
-						<input type="" name="" class="form-control" id="" ng-model="site.source_info">
+						<input type="" name="" class="form-control" id="" ng-model="site_edit.source_info">
 					</div>
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.stage}">
 						<label class="control-label">Stage</label>
-						<input type="" name="" class="form-control" id="" ng-model="site.stage" disabled>
+						<input type="" name="" class="form-control" id="" ng-model="site_edit.stage" disabled>
 					</div>
 				</fieldset>
 			</div>
