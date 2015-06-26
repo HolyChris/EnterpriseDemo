@@ -178,7 +178,7 @@
 					<div class="form-group col-lg-6">
 
 	          			<label class="control-label">Managers</label>
-						<input type="text" class="form-control" ng-model="managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" ng-show="site_info_edition_enabled">
+						<input type="text" class="form-control" ng-model="site.managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" ng-show="site_info_edition_enabled">
 						<div>
 							<p class="selected-manager" ng-repeat="manager in site.managers">
 								<span class="manager-email">{{ manager.email }}

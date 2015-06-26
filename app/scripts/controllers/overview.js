@@ -131,8 +131,6 @@ angular.module('ersApp')
   }
 
   $scope.managersArray = Managers.query();
-  $scope.managers = [];
-  var manage_ids = [];
   $scope.addManager = function($item, $model, $label) {
     for (var i = 0; i < $scope.managersArray.users.length; i++) {
       if ($scope.managersArray.users[i].id === $item.id) {
@@ -140,11 +138,10 @@ angular.module('ersApp')
       }
     }
     $scope.managers.push($item);
-    manage_ids.push('&manager_ids[]='+$item.id);
-    $scope.managersSelected = undefined; // clear input
+    $scope.site.managersSelected = undefined; // clear input
+    
   }
   $scope.removeManager = function(id) {
-    manage_ids.splice(manage_ids.indexOf('&manager_ids[]='+id), 1);
     for (var i = 0; i < $scope.managers.length; i++) {
       if ($scope.managers[i].id === id) {
         $scope.managersArray.users.push($scope.managers[i]);
@@ -302,6 +299,8 @@ angular.module('ersApp')
 
     }
 
+    //We set $scope managers to point to the actual array from API
+    $scope.managers = $scope.site.managers;
 
     clearErrors();
     
@@ -322,6 +321,17 @@ angular.module('ersApp')
     //The API to update source information recieves an integer BUT information
     //returned or queried from site.. returns the actual string
     //We invoke the sites update api with only address information to be updated
+
+    //Manager array should be provided as manager_ids[11,221] 
+    //where 11 and 221 are the ids of the Users, complete list should be provided every time
+    
+    var manager_ids=[];
+    angular.forEach($scope.managers, function(value, key) {
+        manager_ids.push(value.id);
+    });
+
+    $scope.site.manager_ids=manager_ids;
+
     Sites.save({siteId: $scope.project.id}, $scope.site, function(data) {
           Flash.create('success', 'Site information successfully saved!');
           prepareSiteDetails(data.site);
