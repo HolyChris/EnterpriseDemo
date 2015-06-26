@@ -1,10 +1,5 @@
 angular.module('ersApp')
-
-.run(function($http) {
-  $http.defaults.headers.common= { 'X-Auth-Token' : 'D2EdWKgbs8cq9PHyLhrA' };
-})
   .controller('NewSiteCtrl', function ($scope,$location,$http,Customer,ENV,Flash,$modal,Managers) {
-
   $scope.customer_from_previous_page_flag=false;
 
   $scope.lookupLinkedCustomerInfo=function(customer_id){

@@ -8,11 +8,9 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-.run(function($http) {
-  $http.defaults.headers.common= { 'X-Auth-Token' : 'D2EdWKgbs8cq9PHyLhrA' };
-})
-  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV) {
+  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $auth) {
     var oldList, newList, item;
+
     $scope.sortableOptionsList = [
     {
  		placeholder: 'card-highlight',
