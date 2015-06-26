@@ -6,12 +6,14 @@ angular.module('ersApp')
         Flash.create('danger', 'Please provide Email and Password');
         return;
       }
-      
+
       $auth.login({
           email: $scope.model.email,
           password: $scope.model.password
       })
       .then(function(response) {
+        console.log(response);
+          $rootScope.userEmail = response.data.email;
           $location.path("/");
       })
       .catch(function(response) {
@@ -33,7 +35,7 @@ angular.module('ersApp')
     };
 
   })
-  .controller('LogoutCtrl', function($scope, $auth, $location, $state, $http, ENV) {
+  .controller('LogoutCtrl', function($scope, $auth, $location, $state, $http, ENV, $rootScope) {
     $scope.logout = function() {
       // first delete token from server, do it before .logout() so it sends
       // auth headers for this api
