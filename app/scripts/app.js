@@ -31,7 +31,7 @@ angular
     'assetsService',
     'config',
     'angularSpinner',
-    'uploadModule'
+    'uploadModule',
     'satellizer'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
