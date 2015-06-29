@@ -34,7 +34,7 @@ angular.module('ersApp')
       // phone_numbers_attributes[0][primary]:true
 
       angular.forEach($scope.model.customer.phone_numbers, function(value, key) {
-        customer.customer['phone_numbers_attributes[' + key + '][id]'] = key;
+        customer.customer['phone_numbers_attributes[' + key + '][id]'] = value.id;
         customer.customer['phone_numbers_attributes[' + key + '][number]'] = value.number;
         customer.customer['phone_numbers_attributes[' + key + '][num_type]'] = value.num_type;
         customer.customer['phone_numbers_attributes[' + key + '][primary]'] = value.primary;

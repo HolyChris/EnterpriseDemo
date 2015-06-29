@@ -29,7 +29,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" ng-class="{'show': isAuthenticated}">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -61,8 +61,8 @@
               </div>
               <button type="submit" class="btn btn-success">SEARCH</button>
             </form>
-            <div class="nav navbar-nav pull-right">
-              sven@umber.me<a href='#'> (log out) </a>
+            <div class="nav navbar-nav pull-right" ng-controller="LogoutCtrl">
+              <span ng-model="userEmail"></span><a ng-click="logout()" href='#'> (log out) </a>
             </div>
           </div>
         </div>
@@ -116,6 +116,7 @@
     
     <!-- build:js({.tmp,app}) scripts/utilities.js -->
     <script src="scripts/utilities/angular-flash.js"></script>
+    <script src="scripts/utilities/satellizer.js"></script>
     
     <!-- endbuild -->
 
@@ -130,6 +131,7 @@
     <script src="scripts/controllers/overview.js"></script>
     <script src="scripts/controllers/customer_search_dialog.js"></script>
     <script src="scripts/controllers/customer.js"></script>
+    <script src="scripts/controllers/authentication.js"></script>
     <script src="scripts/services/sitesService.js"></script>
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>

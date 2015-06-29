@@ -32,8 +32,19 @@ angular
     'config',
     'angularSpinner',
     'uploadModule'
+    'satellizer'
     ])
-  .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
+  .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
+    
+    // Parametros de configuración
+    $authProvider.loginUrl = ENV.apiEndpoint + '/api/v1/sign_in';
+    $authProvider.signupUrl = ENV.apiEndpoint + '/api/v1/sign_up';
+    $authProvider.logoutRedirect = "/login";
+    $authProvider.tokenName = 'auth_token';
+    $authProvider.tokenPrefix = 'ersA';
+    $authProvider.authHeader = 'X-Auth-Token';
+    $authProvider.authToken = '';
+
     $stateProvider
       .state('main', {
         url:'/',
@@ -91,8 +102,28 @@ angular
         url:'/production',
         templateUrl:'views/overview_production.html',
       })
-      ;
+
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        // by default all controllers are required to be logged
+        // do this for having a public page
+        requireLogin: false
+      });
       $urlRouteProvider.otherwise('/');
-
-  }]);
-
+  }])
+  .run(function ($rootScope, $state, $auth, $location) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+      if ($auth.isAuthenticated()) {
+        $rootScope.isAuthenticated = true;
+      } else {
+        $rootScope.isAuthenticated = false;
+      }
+      if (toState.name !== "login" && $rootScope.isAuthenticated === false) {
+        // If not authenticated go to login state, if not already there
+        $state.go("login");
+        event.preventDefault();
+      } 
+    });
+});
