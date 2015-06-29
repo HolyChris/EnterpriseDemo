@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -19,7 +19,7 @@ angular.module('ersApp')
                         "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
                         "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                         "NY","SC","AK","WV","AA","AE","AP"];
-
+  $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.contract = {};
   $scope.work_types = {};
@@ -95,33 +95,10 @@ angular.module('ersApp')
   {
     prepareCustomerDetails(site.customer);
     prepareAddressDetails(site.address);
+    prepareSiteDetails(site);
   }
 
-  function prepareCustomerDetails(customer)
-  {
-    //customer input param comes from API query or as a result of a put
-    $scope.project.customer=customer;
-
-
-    $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
-    
-    if ($scope.project.customer.bussinessname) {
-      $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
-    }
-
-    fillEditableCustomerInfoFromApiData();
-
-  }
-
-  function prepareAddressDetails(address)
-  {
-    //customer input param comes from API query or as a result of a put
-    $scope.project.address=address;
-
-    fillEditableAddressInfoFromApiData();
-
-  }
-
+  
   function prepareContractView(contract) {
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
@@ -151,6 +128,46 @@ angular.module('ersApp')
       
       
     });
+  }
+
+  $scope.managersArray = Managers.query();
+  $scope.addManager = function($item, $model, $label) {
+    for (var i = 0; i < $scope.managersArray.users.length; i++) {
+      if ($scope.managersArray.users[i].id === $item.id) {
+        $scope.managersArray.users.splice(i, 1);
+      }
+    }
+    $scope.site_edit.managers.push($item);
+    $scope.site_edit.managersSelected = undefined; // clear input
+    
+  }
+  $scope.removeManager = function(id) {
+    for (var i = 0; i < $scope.site_edit.managers.length; i++) {
+      if ($scope.site_edit.managers[i].id === id) {
+        $scope.managersArray.users.push($scope.site_edit.managers[i]);
+        $scope.site_edit.managers.splice(i, 1);
+      }
+    }
+  }
+  setTimeout(function() {
+    console.log($scope.managersArray.users);
+  }, 1000)
+  
+
+  function prepareCustomerDetails(customer)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.customer=customer;
+
+
+    $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
+    
+    if ($scope.project.customer.bussinessname) {
+      $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
+    }
+
+    fillEditableCustomerInfoFromApiData();
+
   }
 
   function fillEditableCustomerInfoFromApiData()
@@ -193,6 +210,15 @@ angular.module('ersApp')
     Flash.dismiss();
   }
 
+  function prepareAddressDetails(address)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.address=address;
+
+    fillEditableAddressInfoFromApiData();
+
+  }
+
   function fillEditableAddressInfoFromApiData()
   {
     
@@ -230,6 +256,83 @@ angular.module('ersApp')
           Flash.create('success', 'Address successfully saved!');
           prepareAddressDetails(data.site.address);
           $scope.address_edition_enabled=false;
+        }, function(error) {
+          $scope.errors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        });
+  }
+
+
+  function prepareSiteDetails(site)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project=site;
+
+    fillEditableSiteInfoFromApiData();
+
+  }
+
+  function fillEditableSiteInfoFromApiData()
+  {
+    //$scope.site_edit holds editable values
+    //$scope.project.customer holds values from last API request
+    $scope.site_edit=angular.copy($scope.project);
+    
+    //we delete all other inner object we want
+    //to make sure is not sent to the update API
+    delete $scope.site_edit.customer;
+    delete $scope.site_edit.address;
+    delete $scope.site_edit.bill_address;
+    delete $scope.site_edit.appointments;
+    delete $scope.site_edit.assets;
+    delete $scope.site_edit.contract;
+
+    //TODO WARNING, API returns source as string but expects Id as input for update 
+    if ($scope.site_edit.source)
+    {
+      //TODO We need to move siteSource array somewhere.. relying on this lookup here is a very bad idea
+      
+      //We will set in $scope.site_edit.source the id that API for update is expecting
+      //On source_description we'll store the actual text
+      $scope.site_edit.source_description = $scope.site_edit.source
+      $scope.site_edit.source = $scope.siteSource.indexOf($scope.site_edit.source)+1;
+
+    }
+
+    clearErrors();
+    
+  }
+
+  $scope.site_info_edition_enabled=false;
+  $scope.enable_site_info_edition = function (){
+    $scope.site_info_edition_enabled=true; 
+  }
+
+  $scope.cancel_site_info_edition = function (){
+    $scope.site_info_edition_enabled=false;
+    fillEditableSiteInfoFromApiData();
+  }
+
+  $scope.save_site_info_edition = function (){
+    
+    //The API to update source information recieves an integer BUT information
+    //returned or queried from site.. returns the actual string
+    //We invoke the sites update api with only address information to be updated
+
+    //Manager array should be provided as manager_ids[11,221] 
+    //where 11 and 221 are the ids of the Users, complete list should be provided every time
+    
+    var manager_ids=[];
+    angular.forEach($scope.site_edit.managers, function(value, key) {
+        manager_ids.push(value.id);
+    });
+
+    $scope.site_edit.manager_ids=manager_ids;
+
+    Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
+          Flash.create('success', 'Site information successfully saved!');
+          prepareSiteDetails(data.site);
+          $scope.site_info_edition_enabled=false;
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
