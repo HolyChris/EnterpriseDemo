@@ -62,18 +62,22 @@ angular.module('ersApp')
   }
 
   angular.element(window).bind('fileuploadsend', function (e, data) {
-    data.data = new FormData();
-    angular.forEach(data.files, function(value, key) {
-      console.log(key + value);
-      // data.data.append('attachment_attributes[]' = [];
-      data.data.append('attachment_attributes[]["file"]', value);
-    });
+    var fd = new FormData();
+    // angular.forEach(data.files, function(value, key) {
+    //   console.log(key + value);
+    //   //data.data.append('attachment_attributes[]', );
+    //   fd.append('attachment_attributes[0]["file"]', value);
+    // });
     
-    data.data.append('doc_type', 2);
-    data.data.append('title', 'test');
-    data.url = ENV.apiEndpoint + '/api/v1/sites/' + $scope.project.id + '/documents';
+    fd.append('attachments_attributes[]["file"]', data.files[0]);
+    fd.append('attachment_format', 'png');
+    fd.append('stage', 2);
+    fd.append('title', 'test');
+    fd.append('notes', 'testing');
+    data.url = ENV.apiEndpoint + '/api/v1/sites/' + $scope.project.id + '/images';
+    data.formData = fd;
     console.log(data);
-  })
+  });
 
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');
