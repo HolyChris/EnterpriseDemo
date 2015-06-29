@@ -32,7 +32,7 @@ angular
     'angularSpinner',
     'satellizer'
     ])
-  .config(['$httpProvider', '$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($httpProvider, $stateProvider, $urlRouteProvider, $authProvider, ENV) {
+  .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
   
     // Parametros de configuración
     $authProvider.loginUrl = ENV.apiEndpoint + '/api/v1/sign_in';
