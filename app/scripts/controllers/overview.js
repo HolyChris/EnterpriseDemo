@@ -168,6 +168,22 @@ angular.module('ersApp')
   setTimeout(function() {
     console.log($scope.managersArray.users);
   }, 1000)
+
+
+  $scope.addPhone = function(evt) {
+      // By just adding one value to model
+      // we add one more phone item to the view 
+      $scope.phone_numbers_edit.push({
+        id: null, 
+        number: "", 
+        primary: false, 
+        num_type: 1
+      });
+    };
+
+  $scope.removePhone = function(item) {
+    item["_destroy"] = 1;
+  };
   
 
   function prepareCustomerDetails(customer)
@@ -355,7 +371,6 @@ angular.module('ersApp')
         });
   }
   
-  //RL! DESDE AQUI
   function preparePhoneNumbersDetails(phone_numbers)
   {
     //customer input param comes from API query or as a result of a put
@@ -390,11 +405,13 @@ angular.module('ersApp')
     var phone_numbers_attributes_update ={
         phone_numbers_attributes: {}
     };
+    phone_numbers_attributes_update.phone_numbers_attributes=$scope.phone_numbers_edit;
+    phone_numbers_attributes_update.id=$scope.customer.id;
 
     Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
-          Flash.create('success', 'Customer details successfully saved!');
-          prepareCustomerDetails(data.customer);
-          $scope.customer_info_edition_enabled=false;
+          Flash.create('success', 'Customer phone numbers successfully saved!');
+          preparePhoneNumbersDetails(data.customer.phone_numbers);
+          $scope.phone_numbers_info_edition_enabled=false;
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
