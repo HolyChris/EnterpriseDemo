@@ -44,7 +44,7 @@ angular.module('ersApp')
         }
       });
 
-      customer.$save({id: $scope.model.customer.id}, function (data) {
+      customer.$save($scope.model.customer, function (data) {
         Flash.create('success', 'Customer updated successfully!');
       }, function (error) {
         $scope.customerErrors = error.data.errors;
