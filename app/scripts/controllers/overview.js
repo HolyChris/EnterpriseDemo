@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Documents,Images) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -30,12 +30,50 @@ angular.module('ersApp')
     $scope.$apply();
   };
 
+  $scope.queue = [];
+  $scope.documents = Documents.query({siteId: $location.search().siteId}, function(data) {
+    console.log(data);
+    angular.forEach(data.documents, function(value,key) {
+      $scope.queue.push(value);
+    });
+  }, function(error) {
+    console.log(error);
+  });
+  $scope.images = Images.query({siteId: $location.search().siteId}, function(data) {
+    console.log(data);
+    angular.forEach(data.images, function(value,key) {
+      $scope.queue.push(value);
+    });
+  }, function(error) {
+    console.log(error);
+  });
+
+  setTimeout(function() {
+    console.log($scope.queue);
+    console.log($scope);
+  }, 500);
+  
+
   $scope.openDate = function($event) {
     $event.preventDefault();
     $event.stopPropagation();
 
     $scope.opened = true;
   }
+
+  angular.element(window).bind('fileuploadsend', function (e, data) {
+    data.data = new FormData();
+    angular.forEach(data.files, function(value, key) {
+      console.log(key + value);
+      // data.data.append('attachment_attributes[]' = [];
+      data.data.append('attachment_attributes[]["file"]', value);
+    });
+    
+    data.data.append('doc_type', 2);
+    data.data.append('title', 'test');
+    data.url = ENV.apiEndpoint + '/api/v1/sites/' + $scope.project.id + '/documents';
+    console.log(data);
+  })
 
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');
@@ -236,173 +274,5 @@ angular.module('ersApp')
         });
   }
   
-  
-  $scope.photoList = [
-    {
-      stage: 'contract',
-      thumbnail: '/images/thumb1.png',
-      title: 'john doe-roof 1',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    }
-  ]
-  $scope.docList = [
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    }
-  ]
-  });
+});
 

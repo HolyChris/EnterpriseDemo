@@ -28,8 +28,10 @@ angular
     'customersService',
     'overviewService',
     'managersService',
+    'assetsService',
     'config',
-    'angularSpinner'
+    'angularSpinner',
+    'uploadModule'
     ])
   .config(['$stateProvider','$urlRouterProvider',function ($stateProvider,$urlRouteProvider) {
     $stateProvider

@@ -1,21 +1,21 @@
 <div class="container proj-doc-container">
 	<div class="proj-doc-content">
-		<div class="row" ui-view>
+		<div class="row content" ui-view>
 			<div class="col-md-12 container-title">
-				{{customer_title}} / <u>VIEW DOCUMENTS</u>
+				{{customer_title}} / <u>VIEW ASSETS</u>
 			</div>
-			<div class="col-md-12">
-				<a ui-sref="overview.project_doc"><div class="doc-btns active">
-					<img src="/images/clip.png">
-					<span>VIEW DOCUMENTS</span>
-				</div>
-				</a>
-				<a ui-sref="overview.project_doc.photos"><div class="doc-btns">
-					<img src="/images/album.png">
-					<span>VIEW PHOTOS</span>
-				</div>
-				</a>
-			</div>
+			
+			
+			<!--  -->
+			<ul class="list-unstyled col-md-12" data-tabs="tabs">
+				<li class="active doc-btns">
+					<a ng-click="documents.active = true" data-toggle="tab"><img src="/images/clip.png"><span>VIEW DOCUMENTS</span></a>
+				</li>
+				<li class="doc-btns">
+					<a ng-click="images.active = true" data-toggle="tab"><img src="/images/album.png"><span>VIEW PHOTOS</span></a>
+				</li>
+			</ul>
+
 			<div class="col-md-12 actn-btn-container">
 				<div class="actn-btn">
 					Filter on doc type
@@ -25,27 +25,52 @@
 					Batch actions
 					<img src="/images/Forward.png" class="pull-right">
 				</div>
-				<div class="actn-btn pull-right">
-					NEW DOCUMENT 
-					<img src="/images/Plus.png" class="pull-right">
-				</div>
 			</div>
-			<div class="col-md-12">
-				<table class="table doc-table" at-table at-paginated at-list="docList" at-config="config">
-				  <thead>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <td at-title="Doc type" at-attribute="doc_type"><span class="stg-btn">{{docList[$index].doc_type}}</span></td>
-				      <td at-implicit at-attribute="doc_name" at-title="Document name" width="400px"></td>
-				      <td at-title="Actions" class="row-actn-btns"><span>download</span></td>
-				      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
-				    </tr>
-				     
-				  </tbody>
-				</table>
-				<span class="page-container"><span>Select Page:</span><at-pagination at-list="docList" at-config="config"></at-pagination></span>
+
+			<div class="col-xs-12">
+				<ng-upload-form url="/" ng-model="documents"></ng-upload-form>
 			</div>
+
+			<tabset id="my-tab-content" class="tab-content">
+			  
+				
+
+				<!-- DOCUMENTS -->
+				<tab class="col-md-12 tab-pane active documents" id="documents" active="documents.active">
+					<table class="table doc-table" at-table at-paginated at-list="documents.documents" at-config="config">
+					  <thead>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td at-title="Doc type" at-attribute="doc_type"><span class="stg-btn">{{documents.documents[$index].doc_type}}</span></td>
+					      <td at-implicit at-attribute="doc_name" at-title="Document name" width="400px">{{documents.documents[$index].title}}</td>
+					      <td at-title="Actions" class="row-actn-btns"><span>download</span></td>
+					      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
+					    </tr>
+					  </tbody>
+					</table>
+					<span class="page-container"><span>Select Page:</span><at-pagination at-list="docList" at-config="config"></at-pagination></span>
+				</tab>
+
+				<!-- IMAGES -->
+				<tab class="col-md-12 tab-pane images" id="images" active="images.active">
+					<table class="table doc-table" at-table at-paginated at-list="images.images" at-config="config">
+					  <thead>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td at-title="Stage" at-attribute="doc_type">{{images.images[$index].stage}}</td>
+					      <td at-implicit at-attribute="doc_name" at-title="Title" width="400px">{{images.images[$index].title}}</td>
+					      <td at-title="Actions" class="row-actn-btns"><span>download</span></td>
+					      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
+					    </tr>
+					  </tbody>
+					</table>
+					<span class="page-container"><span>Select Page:</span><at-pagination at-list="docList" at-config="config"></at-pagination></span>
+				</tab>
+
+			</tabset>
+
 		</div>
 	</div>
 </div>  

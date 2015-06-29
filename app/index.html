@@ -9,8 +9,14 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    
-    
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="bower_components/blueimp-gallery/css/blueimp-gallery.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-ui-noscript.css"></noscript>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -100,6 +106,11 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/spin.js/spin.js"></script>
     <script src="bower_components/angular-spinner/angular-spinner.js"></script>
+    <script src="bower_components/blueimp-load-image/js/load-image.all.min.js"></script>
+    <script src="bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
+    <script src="bower_components/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="bower_components/angular-jqfile-upload/dist/uploader.js"></script>
+    <script src="bower_components/angular-jqfile-upload/js/app.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
@@ -123,6 +134,7 @@
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>
     <script src="scripts/services/managersService.js"></script>
+    <script src="scripts/services/assetsService.js"></script>
 
     <script src="scripts/config.js" />
     <!-- endbuild -->
