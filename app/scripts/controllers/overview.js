@@ -20,6 +20,21 @@ angular.module('ersApp')
                         "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                         "NY","SC","AK","WV","AA","AE","AP"];
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
+
+  $scope.phoneTypes = [{
+      value: 1,
+      label: 'Business',
+    }, {
+      value: 2,
+      label: 'Home',
+    }, {
+      value: 3,
+      label: 'Mobile',
+    }, {
+      value: 0,
+      label: 'Other',
+    }];
+
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.contract = {};
   $scope.work_types = {};
@@ -96,6 +111,7 @@ angular.module('ersApp')
     prepareCustomerDetails(site.customer);
     prepareAddressDetails(site.address);
     prepareSiteDetails(site);
+    preparePhoneNumbersDetails(site.customer.phone_numbers);
   }
 
   
@@ -339,7 +355,53 @@ angular.module('ersApp')
         });
   }
   
-  
+  //RL! DESDE AQUI
+  function preparePhoneNumbersDetails(phone_numbers)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.customer.phone_numbers=phone_numbers;
+
+    fillEditablePhoneNumbersInfoFromApiData();
+
+  }
+
+  function fillEditablePhoneNumbersInfoFromApiData()
+  {
+    //$scope.phone_numbers_edit holds editable values
+    //$scope.project.customer.phone_numbers holds values from last API request
+    $scope.phone_numbers_edit=angular.copy($scope.project.customer.phone_numbers);
+    
+    clearErrors();
+  }
+
+  $scope.phone_numbers_info_edition_enabled=false;
+  $scope.enable_phone_numbers_info_edition = function (){
+    $scope.phone_numbers_info_edition_enabled=true; 
+  }
+
+  $scope.cancel_phone_numbers_info_edition = function (){
+    $scope.phone_numbers_info_edition_enabled=false;
+    fillEditablePhoneNumbersInfoFromApiData();
+  }
+
+  $scope.save_phone_numbers_info_edition = function (){
+    //TODO complete and test API update
+
+    var phone_numbers_attributes_update ={
+        phone_numbers_attributes: {}
+    };
+
+    Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
+          Flash.create('success', 'Customer details successfully saved!');
+          prepareCustomerDetails(data.customer);
+          $scope.customer_info_edition_enabled=false;
+        }, function(error) {
+          $scope.errors = error.data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        });
+
+  }
+
   $scope.photoList = [
     {
       stage: 'contract',
