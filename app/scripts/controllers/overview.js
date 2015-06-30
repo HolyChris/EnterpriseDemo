@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Documents,Images) {
+  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -44,7 +44,6 @@ angular.module('ersApp')
     $scope.contract.document = files[0];
     $scope.$apply();
   };
-  
 
   $scope.openDate = function($event) {
     $event.preventDefault();
@@ -420,173 +419,5 @@ angular.module('ersApp')
 
   }
 
-  $scope.photoList = [
-    {
-      stage: 'contract',
-      thumbnail: '/images/thumb1.png',
-      title: 'john doe-roof 1',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb2.png",
-      title: 'john doe-roof 2',
-    },
-    {
-      stage: "lead",
-      thumbnail: "/images/thumb3.png",
-      title: 'john doe-roof 3',
-    }
-  ]
-  $scope.docList = [
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    },
-    {
-      doc_type: "material list",
-      doc_name: "johndoe_materialist.docx"
-    }
-  ]
-  });
-
+});
 
