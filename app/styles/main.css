@@ -300,6 +300,14 @@ a:hover span {
   overflow: hidden;
   width: 100%;
 }
+
+.links-list li a.quick-search {
+  width: auto;
+  display: inline;
+}
+.links-list li a.quick-search:hover {
+  background-color: transparent;
+}
 .site-list li a, .links-list li {
   padding-left: 20px;
   padding-right: 20px;
