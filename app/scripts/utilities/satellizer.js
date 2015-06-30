@@ -317,7 +317,8 @@
 
           if (!token) {
             var tokenPath = config.tokenRoot ? config.tokenRoot + '.' + config.tokenName : config.tokenName;
-            throw new Error('Expecting a token named "' + tokenPath + '" but instead got: ' + JSON.stringify(response.data));
+            // throw new Error('Expecting a token named "' + tokenPath + '" but instead got: ' + JSON.stringify(response.data));
+            return false;
           }
 
           storage.set(tokenName, token);
@@ -424,9 +425,7 @@
           return $http.put(loginUrl, user)
             .then(function(response) {
               // Hacked here to be able to parse object from response
-              var data = response;
-              angular.extend(response.data, response.data.user);
-              shared.setToken(data, redirect);
+              shared.setToken(response, redirect);
               return response;
             });
         };
