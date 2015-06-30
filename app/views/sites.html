@@ -44,8 +44,8 @@
 							<div class="form-container">
 								<div class="form-group col-lg-12">
 									<label class="control-label">Manager</label>
-									<input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq">
-							  	<!-- <input type="text" class="form-control" ng-model="selected_manager" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue"> -->
+									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
+							  	<input type="text" class="form-control" ng-model="searchForm.managers_email_eq" typeahead="manager.email as manager.email for manager in managersArray.users | filter:$viewValue">
 							  </div>
 								<div class="form-group col-lg-12">
 								<label class="control-label">Site name</label>
