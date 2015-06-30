@@ -44,32 +44,6 @@ angular.module('ersApp')
     $scope.contract.document = files[0];
     $scope.$apply();
   };
-
-  $scope.queue = [];
-  $scope.documents = Documents.query({siteId: $location.search().siteId}, function(data) {
-    angular.forEach(data.documents, function(value,key) {
-      $scope.queue.push(value);
-    });
-  }, function(error) {
-    console.log(error);
-  });
-  $scope.images = Images.query({siteId: $location.search().siteId}, function(data) {
-    angular.forEach(data.images, function(value,key) {
-      $scope.queue.push(value);
-    });
-  }, function(error) {
-    console.log(error);
-  });
-
-  // setTimeout(function() {
-  //   var fu = $('#fileupload').data('files'), 
-  //       template;
-  //   template = fu._renderDownload($scope.queue)
-  //     .appendTo($('#fileupload .files'));
-  //   // Force reflow:
-  //   fu._reflow = fu._transition && template.length && template[0].offsetWidth;
-  //   template.addClass('in');
-  // }, 500);
   
 
   $scope.openDate = function($event) {
@@ -78,30 +52,6 @@ angular.module('ersApp')
 
     $scope.opened = true;
   }
-
-  $('#fileupload').fileupload({
-    dataType: 'json'
-  });
-
-  $scope.$on('fileuploadsubmit', function (e, data) {
-    var siteId = $scope.project.id;
-    var fd = new FormData();
-    
-    angular.forEach(data.files, function(value, key) {
-      fd.append('attachments_attributes[][file]', value);
-    });
-
-    fd.append('title', 'test');
-    data.dataType = undefined;
-    data.url = ENV.apiEndpoint + '/api/v1/sites/' + $scope.project.id + '/images';
-    data.formData = fd;
-    console.log(data);
-    Images.save({siteId:siteId},fd, function(data) {
-      console.log(data);
-    }, function(error) {
-      console.log(error);
-    });
-  });
 
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');

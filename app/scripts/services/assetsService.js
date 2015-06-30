@@ -13,3 +13,10 @@ assetsService.factory('Images', function($resource, ENV) {
     save: {method: "POST", headers: { 'Content-Type': undefined }},
   });
 });
+
+assetsService.factory('Assets', function($resource, ENV) {
+  return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/assets', {siteId:'@siteId'}, {
+    query: {method: "GET", isArray: false},
+    save: {method: "POST"},
+  });
+});

@@ -21,7 +21,10 @@ a:hover span {
 }
 
 .ng-scope {
-  min-height:100%;
+  min-height: 100%;
+}
+.btn.ng-scope {
+  min-height: 0;
 }
 
 @media (min-width: 1200px){
@@ -909,6 +912,9 @@ a:hover span {
   }
   .btn-small.btn-warning {
     background: #f0ad4e;
+  }
+  .btn-small.btn-danger {
+    background-color: #d9534f;
   }
   .document-action .btn {
     margin-bottom: 1em;

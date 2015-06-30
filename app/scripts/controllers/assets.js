@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AssetsCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Documents,Images) {
+  .controller('AssetsCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Documents,Images,Assets) {
 
 })
 
@@ -24,16 +24,57 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents) {
-      $scope.$on('fileuploaddone', function (e, data) {
-        fileUpload.addFieldData($scope.name, data._response.result.files[0].result);
+    controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
+      $scope.$on('fileuploadsend', function (e, data) {
+        var fd = new FormData();
+        
+        angular.forEach(data.files, function(value, key) {
+          fd.append('attachments_attributes[file]', value);
+        });
+        fd.append('title', 'test');
+        fd.append('type', 'Image');
+        fd.append('stage', 1);
+        fd.append('site_id', projectId);
+
+        data.contentType = 'undefined';
+        data.data = fd;
+        console.log(data);
+        // Assets.save({siteId:projectId},fd, function(data) {
+        //   console.log(data)
+        // }, function(error) {
+        //   console.log(error)
+        // })
+      }, function(error) {
+        console.log('error', error);
       });
 
+      $scope.$on('fileuploaddone', function (e, data) {
+        fileUpload.addFieldData($scope.name, data._response.result.files[0].result);
+        console.log('hola');
+      });
+
+      $scope.show = 'All';
+      $scope.showImages = function() {
+        $scope.show = 'Image';
+        console.log($scope.show);
+      }
+      $scope.showDocuments = function() {
+        $scope.show = 'Document';
+        console.log($scope.show);
+      }
+      $scope.showAll = function() {
+        $scope.show = 'All';
+        console.log($scope.show);
+      }
+
+      var projectId = $scope.$parent.project.id;
+      var url = ENV.apiEndpoint + '/api/v1/sites/' + projectId + '/assets';
+
       $scope.options = {
-        url: $scope.url,
+        url: url,
         dropZone: $element,
         maxFileSize: $scope.sizeLimit,
-        autoUpload: $scope.autoUpload
+        autoUpload: false
       };
       $scope.loadingFiles = false;
       $scope.docTypes = [
@@ -59,25 +100,9 @@ angular.module('ersApp')
         {title:'Billing',id:'5'}
       ]
 
-      function findDocType(docType) {
-        angular.forEach($scope.docTypes, function(value, key) {
-          console.log(docType + ' ' + value)
-          if (docType === value.title) {
-            console.log('match');
-            return value.title;
-          }
-        });
-      }
-
-      $scope.documents = Documents.query({siteId: $scope.$parent.project.id}, function(data) {
+      $scope.assets = Assets.query({siteId: projectId}, function(data) {
         console.log(data);
-        prepareFileObject(data.documents);
-      }, function(error) {
-        console.log(error);
-      });
-      $scope.images = Images.query({siteId: $scope.$parent.project.id}, function(data) {
-        console.log(data);
-        prepareFileObject(data.images);
+        generateFileObject(data.assets);
       }, function(error) {
         console.log(error);
       });
@@ -89,40 +114,36 @@ angular.module('ersApp')
       var generateFileObject = function generateFileObjects(objects) {
         angular.forEach(objects, function (value, key) {
           var fileObject = {
-            name: value.filename,
-            size: value.length,
-            url: '/file/' + value._id,
-            thumbnailUrl: '/file/' + value._id,
-            deleteUrl: '/file/' + value._id,
-            deleteType: 'DELETE',
+            name: value.title,
+            file_name: value.attachments[0].file_name,
+            url: value.attachments[0].url,
+            thumbnailUrl: value.attachments[0].url,
+            deleteUrl: url + '/' + value.id,
+            deleteType: 'POST',
+            doc_type: value.doc_type,
+            notes: value.notes,
+            stage: value.stage,
+            type: value.type,
             result: value
           };
           $scope.queue[key] = fileObject;
         });
       };
 
-      var prepareFileObject = function prepareFileObjects(objects) {
-        angular.forEach(objects, function (value, key) {
-          console.log(value.doc_type);
-          var docType = findDocType(value.doc_type);
-          var fileObject = {
-            name: value.title,
-            size: value.length,
-            url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].url,
-            deleteUrl: value.attachments[0].url,
-            deleteType: 'DELETE',
-            doc_type: value.doc_type,
-            notes: value.notes,
-            stage: value.stage,
-            result: value
-          };
-          $scope.queue.push(fileObject);
-        });
-      };
-
       fileUpload.registerField($scope.name);
       $scope.filequeue = fileUpload.fieldData[$scope.name];
+
+      fileUpload.registerField($scope.stage);
+      $scope.filequeue = fileUpload.fieldData[$scope.stage];
+
+      fileUpload.registerField($scope.notes);
+      $scope.filequeue = fileUpload.fieldData[$scope.notes];
+
+      fileUpload.registerField($scope.doc_type);
+      $scope.filequeue = fileUpload.fieldData[$scope.doc_type];
+
+      fileUpload.registerField($scope.type);
+      $scope.filequeue = fileUpload.fieldData[$scope.type];
 
       $scope.$watchCollection('filequeue', function (newval) {
         generateFileObject(newval);
@@ -148,6 +169,9 @@ angular.module('ersApp')
     file.$state = function () {
       return state;
     };
+    file.$update = function () {
+      console.log('lets edit :)');
+    }
     file.$destroy = function () {
       state = 'pending';
       return $http({
