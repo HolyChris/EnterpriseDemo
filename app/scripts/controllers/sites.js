@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('SitesCtrl', function ($scope, $stateParams, $http, Sites, Managers, ENV) {
+  .controller('SitesCtrl', function ($scope, $stateParams, Sites, Managers, ENV) {
 
   $scope.config = {
     itemsPerPage: 10
