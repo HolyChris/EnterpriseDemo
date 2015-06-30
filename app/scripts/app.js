@@ -35,7 +35,7 @@ angular
     'satellizer'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
-    
+  
     // Parametros de configuración
     $authProvider.loginUrl = ENV.apiEndpoint + '/api/v1/sign_in';
     $authProvider.signupUrl = ENV.apiEndpoint + '/api/v1/sign_up';
@@ -44,6 +44,7 @@ angular
     $authProvider.tokenPrefix = 'ersA';
     $authProvider.authHeader = 'X-Auth-Token';
     $authProvider.authToken = '';
+    $authProvider.tokenRoot = 'user';
 
     $stateProvider
       .state('main', {
@@ -110,8 +111,38 @@ angular
         // by default all controllers are required to be logged
         // do this for having a public page
         requireLogin: false
+      })
+      .state('logout', {
+        url: '/logout',
+        templateUrl: 'views/login.html',
+        controller: 'LogoutCtrl',
+        // by default all controllers are required to be logged
+        // do this for having a public page
+        requireLogin: false
       });
+
       $urlRouteProvider.otherwise('/');
+  }])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push(['$location', '$q', function($location, $q) {
+      return {
+       'responseError': function (response) {
+          // Actually not logged in should be a 401
+          // this is error prone as it meand resource not found
+          // but our API doensnt sent something good for
+          if (response.status === 404) {
+            if (response.data.message && response.data.message === "User not authorized to perform the operation") {
+              $location.path('/login');
+              return $q.reject(response);
+            }
+          }
+          if (response.status === 422) {
+            return response;
+          }
+          return $q.reject(response);
+        }
+      }
+    }]);
   }])
   .run(function ($rootScope, $state, $auth, $location) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
