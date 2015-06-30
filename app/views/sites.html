@@ -35,7 +35,7 @@
 						     
 						  </tbody>
 						</table>
-						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
+						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sitesResponse.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
 					</div>
 				</div>
 				<div class="usr-srchbx">
