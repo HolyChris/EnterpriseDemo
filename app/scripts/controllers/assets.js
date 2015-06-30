@@ -15,7 +15,7 @@ angular.module('ersApp')
 .directive('ngUploadForm', ['$rootScope', 'fileUpload', function () {
   return {
     restrict: 'E',
-    templateUrl: './templates/fileform.html',
+    templateUrl: './views/fileform.html',
     scope: {
       allowed: '@',
       url: '@',
