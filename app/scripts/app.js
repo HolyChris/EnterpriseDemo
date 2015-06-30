@@ -28,8 +28,10 @@ angular
     'customersService',
     'overviewService',
     'managersService',
+    'assetsService',
     'config',
     'angularSpinner',
+    'blueimp.fileupload',
     'satellizer'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
