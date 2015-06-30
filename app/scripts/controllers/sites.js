@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('SitesCtrl', function ($scope,Sites,ENV) {
+  .controller('SitesCtrl', function ($scope,Sites,Managers,ENV) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -51,9 +51,9 @@ angular.module('ersApp')
     
     $scope.query_params={};
     
-    if (!angular.isUndefined(search_by_manager) && search_by_manager.trim()!="" )
+    if ($scope.selected_manager)
     {
-      $scope.query_params['q[managers_email_eq]'] = search_by_manager;
+      $scope.query_params['q[managers_email_eq]'] = $scope.selected_manager.email;
     }
 
     if (!angular.isUndefined(search_by_name) && search_by_name.trim()!="" )
@@ -104,6 +104,8 @@ angular.module('ersApp')
       }
     );
 
+  //We also query managers to make them available on the writeahead Manager search field
+  $scope.managersArray = Managers.query();
 
 });
 
