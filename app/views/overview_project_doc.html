@@ -5,8 +5,6 @@
 				{{customer_title}} / <u>VIEW ASSETS</u>
 			</div>
 			
-			
-			<!--  -->
 			<ul class="list-unstyled col-md-12" data-tabs="tabs">
 				<li class="active doc-btns">
 					<a ng-click="documents.active = true" data-toggle="tab"><img src="/images/clip.png"><span>VIEW DOCUMENTS</span></a>
@@ -16,7 +14,7 @@
 				</li>
 			</ul>
 
-			<div class="col-md-12 actn-btn-container">
+<!-- 			<div class="col-md-12 actn-btn-container">
 				<div class="actn-btn">
 					Filter on doc type
 					<img src="/images/Forward.png" class="pull-right">
@@ -25,51 +23,56 @@
 					Batch actions
 					<img src="/images/Forward.png" class="pull-right">
 				</div>
-			</div>
+			</div> -->
 
 			<div class="col-xs-12">
-				<ng-upload-form url="/" ng-model="documents"></ng-upload-form>
+				<ng-upload-form url="/"></ng-upload-form>
 			</div>
 
-			<tabset id="my-tab-content" class="tab-content">
-			  
-				
+<!-- 			<tabset id="my-tab-content" class="tab-content">
+				<h4>Attached Documents/Images</h4>
 
-				<!-- DOCUMENTS -->
 				<tab class="col-md-12 tab-pane active documents" id="documents" active="documents.active">
 					<table class="table doc-table" at-table at-paginated at-list="documents.documents" at-config="config">
 					  <thead>
 					  </thead>
 					  <tbody>
 					    <tr>
-					      <td at-title="Doc type" at-attribute="doc_type"><span class="stg-btn">{{documents.documents[$index].doc_type}}</span></td>
-					      <td at-implicit at-attribute="doc_name" at-title="Document name" width="400px">{{documents.documents[$index].title}}</td>
-					      <td at-title="Actions" class="row-actn-btns"><span>download</span></td>
-					      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
+					      <td at-implicit at-attribute="title" at-title="Title"></td>
+					      <td at-title="Doc type" at-attribute="doc_type">{{documents.documents[$index].doc_type}}</td>
+					      <td at-title="Stage" at-attribute="stage">{{documents.documents[$index].stage}}</td>
+								<td at-title="Notes" at-attribute="notes">{{documents.documents[$index].notes}}</td>
+					      <td at-title="Actions" class="row-actn-btns">
+					      	<span ng-click="download(documents.documents[$index].attachments[0].url)">download</span><br>
+					      	<span>edit</span>
+					      </td>
 					    </tr>
 					  </tbody>
 					</table>
-					<span class="page-container"><span>Select Page:</span><at-pagination at-list="docList" at-config="config"></at-pagination></span>
+					<span class="page-container"><span>Select Page:</span><at-pagination at-list="documents.documents" at-config="config"></at-pagination></span>
 				</tab>
 
-				<!-- IMAGES -->
 				<tab class="col-md-12 tab-pane images" id="images" active="images.active">
-					<table class="table doc-table" at-table at-paginated at-list="images.images" at-config="config">
+					<table class="table doc-table" at-table at-paginated at-list="images.images" at-config="images">
 					  <thead>
 					  </thead>
 					  <tbody>
 					    <tr>
-					      <td at-title="Stage" at-attribute="doc_type">{{images.images[$index].stage}}</td>
-					      <td at-implicit at-attribute="doc_name" at-title="Title" width="400px">{{images.images[$index].title}}</td>
-					      <td at-title="Actions" class="row-actn-btns"><span>download</span></td>
-					      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
+					    	<td at-title="Image"><a href="{{images.images[$index].attachments[0].url}}" target="_blank"><img src="{{images.images[$index].attachments[0].url}}" alt="{{images.images[$index].attachments[0].file_name}}" style="width: 80px;"><br>{{images.images[$index].attachments[0].file_name}}</a></td>
+					      <td at-title="Stage" at-attribute="stage">{{images.images[$index].stage}}</td>
+					      <td at-implicit at-attribute="title" at-title="Title"></td>
+					      <td at-title="Notes" at-attribute="notes">{{images.images[$index].notes}}</td>
+					      <td at-title="Actions" class="row-actn-btns">
+					      	<span ng-click="download(images.images[$index].attachments[0].url)">download</span><br>
+					      	<span>edit</span>
+					      </td>
 					    </tr>
 					  </tbody>
 					</table>
-					<span class="page-container"><span>Select Page:</span><at-pagination at-list="docList" at-config="config"></at-pagination></span>
+					<span class="page-container"><span>Select Page:</span><at-pagination at-list="images.images" at-config="images"></at-pagination></span>
 				</tab>
 
-			</tabset>
+			</tabset> -->
 
 		</div>
 	</div>

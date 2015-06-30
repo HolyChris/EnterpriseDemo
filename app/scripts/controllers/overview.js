@@ -32,7 +32,6 @@ angular.module('ersApp')
 
   $scope.queue = [];
   $scope.documents = Documents.query({siteId: $location.search().siteId}, function(data) {
-    console.log(data);
     angular.forEach(data.documents, function(value,key) {
       $scope.queue.push(value);
     });
@@ -40,7 +39,6 @@ angular.module('ersApp')
     console.log(error);
   });
   $scope.images = Images.query({siteId: $location.search().siteId}, function(data) {
-    console.log(data);
     angular.forEach(data.images, function(value,key) {
       $scope.queue.push(value);
     });
@@ -48,10 +46,15 @@ angular.module('ersApp')
     console.log(error);
   });
 
-  setTimeout(function() {
-    console.log($scope.queue);
-    console.log($scope);
-  }, 500);
+  // setTimeout(function() {
+  //   var fu = $('#fileupload').data('files'), 
+  //       template;
+  //   template = fu._renderDownload($scope.queue)
+  //     .appendTo($('#fileupload .files'));
+  //   // Force reflow:
+  //   fu._reflow = fu._transition && template.length && template[0].offsetWidth;
+  //   template.addClass('in');
+  // }, 500);
   
 
   $scope.openDate = function($event) {
@@ -61,22 +64,28 @@ angular.module('ersApp')
     $scope.opened = true;
   }
 
-  angular.element(window).bind('fileuploadsend', function (e, data) {
+  $('#fileupload').fileupload({
+    dataType: 'json'
+  });
+
+  $scope.$on('fileuploadsubmit', function (e, data) {
+    var siteId = $scope.project.id;
     var fd = new FormData();
-    // angular.forEach(data.files, function(value, key) {
-    //   console.log(key + value);
-    //   //data.data.append('attachment_attributes[]', );
-    //   fd.append('attachment_attributes[0]["file"]', value);
-    // });
     
-    fd.append('attachments_attributes[]["file"]', data.files[0]);
-    fd.append('attachment_format', 'png');
-    fd.append('stage', 2);
+    angular.forEach(data.files, function(value, key) {
+      fd.append('attachments_attributes[][file]', value);
+    });
+
     fd.append('title', 'test');
-    fd.append('notes', 'testing');
+    data.dataType = undefined;
     data.url = ENV.apiEndpoint + '/api/v1/sites/' + $scope.project.id + '/images';
     data.formData = fd;
     console.log(data);
+    Images.save({siteId:siteId},fd, function(data) {
+      console.log(data);
+    }, function(error) {
+      console.log(error);
+    });
   });
 
   $scope.saveContract = function() {

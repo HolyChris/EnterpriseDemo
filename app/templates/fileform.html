@@ -1,4 +1,4 @@
-<form id="fileupload" class="fileupload" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+<form id="fileupload" class="fileupload" method="POST" enctype="undefined" data-ng-app="AssetsCtrl" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
 
   <div class="row fileupload-buttonbar">
 
@@ -29,12 +29,12 @@
     </div>
   </div>
   <!-- The table listing the files available for upload/download -->
+
   <table class="table table-striped files ng-cloak">
-    {{queue}}
     <tr data-ng-repeat="file in queue">
       <td data-ng-switch data-on="!!file.thumbnailUrl">
         <div class="preview" data-ng-switch-when="true">
-          <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
+          <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.thumbnailUrl}}" alt="" style="width: 70px;"></a>
         </div>
         <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
       </td>
@@ -51,24 +51,18 @@
         <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
       </td>
       <td>
-        <label for="doc_type">Doc Type:</label>
-        <select name="doc_type" id="doc_type" ng-model="document.doc_type" class="form-control">
-          <option value="1">test</option>
-          <option value="2">tester</option>
-          <option value="3">testing</option>
+        <label for="doc_type">Doc Type: {{file.doc_type}}</label>
+        <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes">
         </select>
       </td>
       <td>
-        <label for="stage" class="control-label">Stage</label>
-        <select name="stage" id="stage" ng-model="document.stage" class="form-control">
-          <option value="1">choose one</option>
-          <option value="2">tesing</option>
-          <option value="3">test</option>
+        <label for="stage" class="control-label">Stage:</label>
+        <select name="stage" id="stage" ng-model="file.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages">
         </select>
       </td>
       <td>
         <label for="notes">Additional Notes:</label>
-        <textarea id="notes" name="notes" ng-model="document.notes" class="form-control"></textarea>
+        <textarea id="notes" name="notes" ng-model="file.notes" class="form-control"></textarea>
       </td>
       <td>
         <label for="size">Filesize:</label>
