@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $auth) {
+  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $state) {
     var oldList, newList, item;
 
     $scope.sortableOptionsList = [
@@ -100,5 +100,15 @@ angular.module('ersApp')
     $scope.contracts = Sites.query({stage: 'UnderContract'});
     $scope.productions = Sites.query({stage: 'Production'});
     $scope.billings = Sites.query({stage: 'Billing'});
+
+    $scope.quickSearch = function(key) {
+        var params = {};
+        params[key] = $scope[key];
+        if ($scope[key]) {
+            $state.go("sites", params);
+        }
+
+
+    }
 });
 

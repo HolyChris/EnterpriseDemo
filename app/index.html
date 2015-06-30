@@ -29,7 +29,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header" ng-class="{'show': isAuthenticated}">
+    <div class="header" ng-class="{'show': isAuthenticated}" ng-controller="headerCtrl">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -52,11 +52,11 @@
               <li><a ui-sref="sites">Sites</a></li>
               <li><a ng-href="/">Settings</a></li>
             </ul>
-            <form class="navbar-form" role="search">
+            <form class="navbar-form" role="search" ng-submit="searchSites()">
               <div class="form-group">
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                  <input type="text" class="form-control" placeholder="Search By PO Number" aria-describedby="sizing-addon1">
+                  <input type="text" class="form-control" ng-model="contract_po_number_equals" placeholder="Search By PO Number" aria-describedby="sizing-addon1">
                 </div>
               </div>
               <button type="submit" class="btn btn-success">SEARCH</button>
@@ -133,6 +133,7 @@
     <script src="scripts/controllers/customer_search_dialog.js"></script>
     <script src="scripts/controllers/customer.js"></script>
     <script src="scripts/controllers/authentication.js"></script>
+    <script src="scripts/controllers/header.js"></script>
     <script src="scripts/services/sitesService.js"></script>
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>

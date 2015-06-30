@@ -35,45 +35,52 @@
 						     
 						  </tbody>
 						</table>
-						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sitesResponse.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
+						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
 					</div>
 				</div>
 				<div class="usr-srchbx">
 					<div class="form-title">SEARCH FOR SITE</div>
-						<div class="form-container">
-							<div class="form-group col-lg-12">
-								<label class="control-label">Manager</label>
-								<input type="text" class="form-control" ng-model="selected_manager" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue">
-							</div>
-
-							<div class="form-group col-lg-12">
+						<form ng-submit="search()">
+							<div class="form-container">
+								<div class="form-group col-lg-12">
+									<label class="control-label">Manager</label>
+									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
+							  	<input type="text" class="form-control" ng-model="searchForm.managers_email_eq" typeahead="manager.email as manager.email for manager in managersArray.users | filter:$viewValue">
+							  </div>
+								<div class="form-group col-lg-12">
 								<label class="control-label">Site name</label>
-								<input type="" name="" class="form-control" id="" ng-model="search_by_name">
-						    </div>
-							<div class="form-group col-lg-12">
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.name_cont">
+							    </div>
+								<div class="form-group col-lg-12">
 								<label class="control-label">Address</label>
-								<input type="" name="" class="form-control" id="" ng-model="search_by_address">
-						   </div>
-						   <div class="form-group col-lg-12">
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.address_address1_cont">
+							   </div>
+							   <div class="form-group col-lg-12">
 								<label class="control-label">City</label>
-								<input type="" name="" class="form-control" id="" ng-model="search_by_city">
-						   </div>
-						  
-               <div class="form-group col-lg-12">
-                <label class="control-label">State<sup>*</sup></label>
-                <select type="" name="" class="form-control" id="" value="" ng-model="search_by_state_id" >
-                  <option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
-                </select>
-                </div>
-						  
-               <div class="form-group col-lg-12">
-							<label class="control-label">Zip</label>
-							<input type="" name="" class="form-control" id="" ng-model="search_by_zipcode">
-						   </div>
-						   <div class="form-group col-lg-12">
-							<input type="submit" class="btn save-btn" value="SEARCH" ng-click="findSites(search_by_manager,search_by_name,search_by_address,search_by_city,search_by_state_id,search_by_zipcode)">
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.address_city_cont">
+							   </div>
+							  
+	               <div class="form-group col-lg-12">
+	                <label class="control-label">State<sup>*</sup></label>
+	                <select type="" name="" class="form-control" id="" value="" ng-model="searchForm.address_state_id_eq" >
+	                  <option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+	                </select>
+	                </div>
+							  
+	               <div class="form-group col-lg-12">
+									<label class="control-label">Zip</label>
+									<input type="" name="" class="form-control" id="" ng-model="searchForm.address_zipcode_eq">
+							   </div>
+							  
+	               <div class="form-group col-lg-12">
+									<label class="control-label">PO Number</label>
+									<input type="" name="" class="form-control" id="" ng-model="searchForm.contract_po_number_equals">
+							   </div>
+							   <div class="form-group col-lg-12">
+								<input type="submit" class="btn save-btn" value="SEARCH">
+								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

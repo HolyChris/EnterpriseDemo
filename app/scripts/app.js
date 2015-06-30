@@ -67,11 +67,11 @@ angular
         templateUrl: 'views/new_customer.html',
         controller: 'NewCustomerCtrl',
       })
-
       .state('sites',{
         url:'/sites',
         templateUrl: 'views/sites.html',
         controller: 'SitesCtrl',
+        params: {'contract_po_number_equals': null, 'address_address1_cont': null, 'contact_name_cont': null}
       })
       .state('newsite', {
         url:'/sites/new',
