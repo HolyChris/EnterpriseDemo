@@ -89,7 +89,7 @@
           <i class="glyphicon glyphicon-upload"></i>
           <span>Start</span>
         </button>
-        <button type="button" class="btn btn-small update" data-ng-click="file.$update()" data-ng-hide="!file.$update" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+        <button type="button" class="btn btn-small update" data-ng-click="file.$update(file)" data-ng-hide="!file.$update" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
           <i class="glyphicon glyphicon-upload"></i>
           <span>Update</span>
         </button>

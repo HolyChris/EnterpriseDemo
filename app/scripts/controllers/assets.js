@@ -26,6 +26,7 @@ angular.module('ersApp')
     },
     controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
       $scope.$on('fileuploadsend', function (e, data) {
+        console.log($rootScope);
         var fd = new FormData();
         
         angular.forEach(data.files, function(value, key) {
@@ -38,6 +39,7 @@ angular.module('ersApp')
 
         data.contentType = 'undefined';
         data.data = fd;
+        data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"}
         console.log(data);
         // Assets.save({siteId:projectId},fd, function(data) {
         //   console.log(data)
@@ -118,12 +120,13 @@ angular.module('ersApp')
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
             thumbnailUrl: value.attachments[0].url,
-            deleteUrl: url + '/' + value.id,
+            deleteUrl: url + '/' + value.attachments[0].id,
             deleteType: 'POST',
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
             type: value.type,
+            siteId: projectId,
             result: value
           };
           $scope.queue[key] = fileObject;
@@ -151,7 +154,7 @@ angular.module('ersApp')
     }
   };
 }])
-.controller('FileDestroyController', ['$rootScope', '$scope', '$http', 'fileUpload', function ($rootScope, $scope, $http, fileUpload) {
+.controller('FileDestroyController', ['$rootScope', '$scope', '$http', 'fileUpload', 'Assets', function ($rootScope, $scope, $http, fileUpload, Assets) {
   var file = $scope.file,
     state;
 
@@ -169,14 +172,30 @@ angular.module('ersApp')
     file.$state = function () {
       return state;
     };
-    file.$update = function () {
+    file.$update = function (file) {
       console.log('lets edit :)');
+      console.log(file);
+      var fd = {};
+      fd.id = file.result.id;
+      fd.title = file.title;
+
+      return Assets.put({siteId: file.siteId}, fd, function(data) {
+        console.log(data)
+      }, function(error) {
+        console.log(error);
+      });
     }
     file.$destroy = function () {
       state = 'pending';
       return $http({
         url: file.deleteUrl,
-        method: file.deleteType
+        method: file.deleteType,
+        headers: {
+          "X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"
+        },
+        data: {
+          "attachments_attributes[_destroy]": true,
+        }
       }).then(
         function () {
           state = 'resolved';

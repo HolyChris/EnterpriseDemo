@@ -17,6 +17,7 @@ assetsService.factory('Images', function($resource, ENV) {
 assetsService.factory('Assets', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/assets', {siteId:'@siteId'}, {
     query: {method: "GET", isArray: false},
-    save: {method: "POST"},
+    save: {method: "POST", headers: { 'Content-Type': undefined }},
+    put: {method: "PUT"}
   });
 });
