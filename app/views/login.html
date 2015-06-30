@@ -38,34 +38,33 @@
 </div>
 
 <!-- RESET PASSWORD -->
-	<div class="bg-container" ng-show="resetPassword">
-		<div class="login-container">
-			<form ng-submit="sendDesetPassword()">
+<div class="bg-container" ng-show="resetPassword">
+	<div class="login-container">
+		<form ng-submit="sendDesetPassword()">
 
-				<div class="login-box">
-					<div class="login-box_header">
-						LOG IN
-					</div>
-					<div class="login-box_body">
-						<div class="container">
-							<div class="row">
-									<div class="form-container">
-										<div class="form-group col-lg-12">
-											<label>Email Address<sup>*</sup></label>
-											<input type="email" name="resetemail" autocomplete="off" class="form-control">
-										</div>
+			<div class="login-box">
+				<div class="login-box_header">
+					LOG IN
+				</div>
+				<div class="login-box_body">
+					<div class="container">
+						<div class="row">
+								<div class="form-container">
+									<div class="form-group col-lg-12">
+										<label>Email Address<sup>*</sup></label>
+										<input type="email" name="resetemail" autocomplete="off" class="form-control">
 									</div>
-								</form>
-							</div>
+								</div>
 						</div>
 					</div>
 				</div>
-				<div class="btn login-btn" ng-click="sendDesetPassword()">
-					<span>RESET PASSWORD</span>
-					<img src="/images/West.png">
-					<input type="submit" style="display:none;">
-				</div>
-			</form>
 			</div>
+			<div class="btn login-btn" ng-click="sendDesetPassword()">
+				<span>RESET PASSWORD</span>
+				<img src="/images/West.png">
+				<input type="submit" style="display:none;">
+			</div>
+		</form>
 		</div>
 	</div>
+</div>
