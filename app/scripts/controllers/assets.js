@@ -25,27 +25,31 @@ angular.module('ersApp')
       name: '@'
     },
     controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
-      $scope.$on('fileuploadsend', function (e, data) {
-        console.log($rootScope);
+      $scope.$on('fileuploadadd', function (e, data) {
+        data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"};
+      });
+
+      $scope.$on('fileuploadsend', function (e, data) { // prepare for upload
         var fd = new FormData();
+        console.log(e);
+        console.log(data);
         
         angular.forEach(data.files, function(value, key) {
-          fd.append('attachments_attributes[file]', value);
+          var file = {file: value}
+          fd.append('attachments_attributes[][file]', value);
         });
         fd.append('title', 'test');
         fd.append('type', 'Image');
         fd.append('stage', 1);
-        fd.append('site_id', projectId);
 
-        data.contentType = 'undefined';
+        data.contentType = undefined;
         data.data = fd;
-        data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"}
-        console.log(data);
-        // Assets.save({siteId:projectId},fd, function(data) {
-        //   console.log(data)
+        // data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi", "Content-Type": undefined, };
+        // Assets.save({siteId: projectId}, fd, function(data) {
+        //   console.log(data);
         // }, function(error) {
         //   console.log(error)
-        // })
+        // });
       }, function(error) {
         console.log('error', error);
       });
@@ -69,14 +73,27 @@ angular.module('ersApp')
         console.log($scope.show);
       }
 
+      $scope.isImage = function(fileType) {
+        if (fileType && typeof fileType ==='string' && (fileType === 'Image' || fileType.indexOf('jpeg') > -1 || fileType.indexOf('gif') > -1 || fileType.indexOf('png') > -1)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
       var projectId = $scope.$parent.project.id;
       var url = ENV.apiEndpoint + '/api/v1/sites/' + projectId + '/assets';
+      var dropzone = angular.element('#drop-zone');
 
       $scope.options = {
         url: url,
-        dropZone: $element,
+        dropZone: $('#drop-zone'),
         maxFileSize: $scope.sizeLimit,
-        autoUpload: false
+        autoUpload: false,
+        headers: {
+          "X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi", 
+          "Content-Type": 'undefined', 
+        }
       };
       $scope.loadingFiles = false;
       $scope.docTypes = [
@@ -103,7 +120,6 @@ angular.module('ersApp')
       ]
 
       $scope.assets = Assets.query({siteId: projectId}, function(data) {
-        console.log(data);
         generateFileObject(data.assets);
       }, function(error) {
         console.log(error);
@@ -121,7 +137,7 @@ angular.module('ersApp')
             url: value.attachments[0].url,
             thumbnailUrl: value.attachments[0].url,
             deleteUrl: url + '/' + value.attachments[0].id,
-            deleteType: 'POST',
+            deleteType: 'DELETE',
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
@@ -135,18 +151,6 @@ angular.module('ersApp')
 
       fileUpload.registerField($scope.name);
       $scope.filequeue = fileUpload.fieldData[$scope.name];
-
-      fileUpload.registerField($scope.stage);
-      $scope.filequeue = fileUpload.fieldData[$scope.stage];
-
-      fileUpload.registerField($scope.notes);
-      $scope.filequeue = fileUpload.fieldData[$scope.notes];
-
-      fileUpload.registerField($scope.doc_type);
-      $scope.filequeue = fileUpload.fieldData[$scope.doc_type];
-
-      fileUpload.registerField($scope.type);
-      $scope.filequeue = fileUpload.fieldData[$scope.type];
 
       $scope.$watchCollection('filequeue', function (newval) {
         generateFileObject(newval);
@@ -173,49 +177,88 @@ angular.module('ersApp')
       return state;
     };
     file.$update = function (file) {
-      console.log('lets edit :)');
-      console.log(file);
-      var fd = {};
-      fd.id = file.result.id;
-      fd.title = file.title;
+      state = 'pending';
+      var stage = findStage(file.stage);
+      var fd = new FormData();
+      fd.append('title', file.name);
+      fd.append('type', file.type);
+      fd.append('notes', file.notes);
+      fd.append('stage', stage);
+      if (file.type === 'Document') {
+        var docType = findDocType(file.doc_type)
+        fd.append('doc_type', docType);
+      }
 
-      return Assets.put({siteId: file.siteId}, fd, function(data) {
-        console.log(data)
+      Assets.update({siteId: file.siteId, assetId: file.result.id}, fd, function(data) {
+        console.log(data);
+        state = 'resolved';
       }, function(error) {
         console.log(error);
+        state = 'rejected';
       });
     }
-    file.$destroy = function () {
+    file.$destroy = function (file) {
       state = 'pending';
-      return $http({
-        url: file.deleteUrl,
-        method: file.deleteType,
-        headers: {
-          "X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"
-        },
-        data: {
-          "attachments_attributes[_destroy]": true,
-        }
-      }).then(
-        function () {
-          state = 'resolved';
-          fileUpload.removeFieldData($scope.fieldname, file.result._id);
-          $scope.clear(file);
-        },
-        function () {
-          state = 'rejected';
-          fileUpload.removeFieldData($scope.fieldname, file.result._id);
-          $scope.clear(file);
-        }
-      );
-
-
+      var fd = new FormData();
+      fd.append('type', file.type);
+      angular.forEach(file.result.attachments, function(key, value) {
+        var destroy = {_destroy: 1};
+        fd.append('attachments_attributes[]', destroy);
+      });
+      Assets.delete({siteId: file.siteId, assetId: file.result.id}, fd, function(data) {
+        console.log(data);
+        state = 'resolved';
+      }, function(error) {
+        console.log(error);
+        state = 'rejected';
+      });
     };
   } else if (!file.$cancel && !file._index) {
     file.$cancel = function () {
       $scope.clear(file);
     };
   }
-}
-]);
+
+  var docTypes = [
+    {title:'Billing Reference Document',id:'1'},
+    {title:'Completion Payment Check',id:'2'},
+    {title:'Customer Invoice',id:'3'},
+    {title:'Deductive Check',id:'4'},
+    {title:'EagleView',id:'5'},
+    {title:'HOA Approval Document',id:'6'},
+    {title:'Initial Payment Check',id:'7'},
+    {title:'Insurance scope document',id:'8'},
+    {title:'Material List',id:'9'},
+    {title:'Supplement Documentation',id:'10'},
+    {title:'Trade work Bid',id:'11'},
+    {title:'Xactmate',id:'12'},
+    {title:'Other',id:'13'}
+  ]
+  function findDocType(docType) {
+    var id = 0;
+    angular.forEach(docTypes, function(value, key) {
+      if (value.title === docType) {
+        id = value.id;
+      }
+    });
+    return id;
+  }
+
+  var stages = [
+    {title:'Lead',id:'1'},
+    {title:'Contract',id:'2'},
+    {title:'Project',id:'3'},
+    {title:'Production',id:'4'},
+    {title:'Billing',id:'5'}
+  ]
+  function findStage(stage) {
+    var id = 0;
+    angular.forEach(stages, function(value, key) {
+      if (value.title === stage) {
+        id = value.id;
+      }
+    });
+    return id;
+  }
+}]);
 

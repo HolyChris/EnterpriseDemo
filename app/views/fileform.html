@@ -1,4 +1,4 @@
-<form id="fileupload" class="fileupload" method="POST" enctype="undefined" data-ng-app="AssetsCtrl" data-file-upload="options">
+<form id="fileupload" class="fileupload" method="POST" data-file-upload="options" ng-controller="AssetsCtrl">
 
   <div class="row fileupload-buttonbar">
 
@@ -40,23 +40,27 @@
       <div class="progress-extended">&nbsp;</div>
     </div>
   </div>
+  <div id="drop-zone"></div>
   <!-- The table listing the files available for upload/download -->
   <table class="table table-striped files ng-cloak">
     <tr data-ng-repeat="file in queue" ng-show="show === 'All' || show === '{{file.type}}'">
       <td data-ng-switch data-on="!!file.thumbnailUrl">
         <div class="preview" data-ng-switch-when="true">
-          <label for="file" class="control-label">File</label>
+          <label for="file" class="control-label">File:</label>
           <br>
           <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">
-            <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="width: 90px;" ng-hide="file.type == 'Document'">
-            <span ng-show="{{file.type == 'Document'}}">{{file.file_name}}</span>
+            <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="isImage(file.type)">
+            <span ng-hide="{{isImage(file.type)}}">{{file.file_name}}</span>
           </a>
         </div>
         <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+        <div ng-hide="{{isImage(file.type) || file.file_name.length}}">
+          <span>{{file.name}}</span>
+        </div>
       </td>
       <td>
         <p class="name" data-ng-switch data-on="!!file.url">
-          <label for="title" class="control-label">Title</label>
+          <label for="title" class="control-label">Title:</label>
           <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
               <!-- <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a> -->
               <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.name" class="form-control">
@@ -67,8 +71,8 @@
         <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
       </td>
       <td>
-        <label for="doc_type" ng-show="file.type == 'Document'">Doc Type:</label>
-        <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-show="file.type == 'Document'">
+        <label for="doc_type" ng-show="!isImage(file.type)">Doc Type:</label>
+        <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-show="!isImage(file.type)">
         </select>
       </td>
       <td>
@@ -97,7 +101,7 @@
           <i class="glyphicon glyphicon-ban-circle"></i>
           <span>Cancel</span>
         </button>
-        <button type="button" class="btn btn-danger btn-small destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy" data-ng-controller="FileDestroyController">
+        <button type="button" class="btn btn-danger btn-small destroy" data-ng-click="file.$destroy(file)" data-ng-hide="!file.$destroy" data-ng-controller="FileDestroyController">
           <i class="glyphicon glyphicon-trash"></i>
           <span>Delete</span>
         </button>
