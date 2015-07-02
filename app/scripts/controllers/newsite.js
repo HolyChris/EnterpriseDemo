@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('NewSiteCtrl', function ($scope,$location,$http,Customer,ENV,Flash,$modal,Managers) {
+  .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,ENV,Flash,$modal,Managers) {
   $scope.customer_from_previous_page_flag=false;
 
   $scope.lookupLinkedCustomerInfo=function(customer_id){
@@ -66,12 +66,8 @@ angular.module('ersApp')
         }
      }).success(function(data){
        Flash.create('success', 'Site created succesfully');
-       $location.path("/sites")
-       
-       var url_params= {
-            siteId: data.site.id
-        };
-        $location.path("/overview/project").search(url_params);
+
+        $state.go("project.overview",{projectId: data.site.id})
         
     }).error(function(data){
        $scope.errors=data.errors;

@@ -254,6 +254,10 @@
             return shared.getToken();
           };
 
+          $auth.getEmail = function() {
+            return shared.getEmail();
+          };
+
           $auth.setToken = function(token, redirect) {
             shared.setToken({ access_token: token }, redirect);
           };
@@ -298,6 +302,10 @@
           }
         };
 
+        shared.getEmail = function() {
+          return storage.get('email');
+        };
+
         shared.setToken = function(response, redirect) {
           var accessToken = response && response.access_token;
           var token;
@@ -322,6 +330,8 @@
           }
 
           storage.set(tokenName, token);
+          // store user email
+          storage.set('email', response.data.user.email);
 
           if (config.loginRedirect && !redirect) {
             $location.path(config.loginRedirect);

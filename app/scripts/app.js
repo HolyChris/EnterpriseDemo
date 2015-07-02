@@ -29,6 +29,7 @@ angular
     'overviewService',
     'managersService',
     'assetsService',
+    'usersService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
@@ -67,43 +68,56 @@ angular
         templateUrl: 'views/new_customer.html',
         controller: 'NewCustomerCtrl',
       })
-
       .state('sites',{
         url:'/sites',
         templateUrl: 'views/sites.html',
         controller: 'SitesCtrl',
+        params: {'contract_po_number_equals': null, 'address_address1_cont': null, 'contact_name_cont': null}
       })
       .state('newsite', {
         url:'/sites/new',
         templateUrl: 'views/new_site.html',
         controller: 'NewSiteCtrl',
       })
-      .state('overview',{
-        url:'/overview',
+      .state('project',{
+        url:'/projects/:projectId',
         templateUrl:'views/overview.html',
-        controller: 'OverviewCtrl',
+        controller: function($stateParams,$scope){
+                      $scope.project_id = $stateParams.projectId;
+                    }
       })
-      .state('overview.project',{
-        url:'/project',
-        templateUrl:'views/overview_project.html',
+      .state('project.overview',{
+        url:'/overview/',
+        views:{
+          "overview-content-view" : {templateUrl: 'views/overview_project.html',controller: 'OverviewCtrl'}
+        }
+        
       })
-      .state('overview.contract',{
+      .state('project.contract',{
         url:'/contract',
-        templateUrl:'views/overview_contract.html',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_contract.html', controller: 'OverviewCtrl'}
+        }
       })
-      .state('overview.project_doc',{
-        url:'/project-documents',
-        templateUrl:'views/overview_project_doc.html',
+      .state('project.documents',{
+        url:'/documents',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_project_doc.html'}
+        }
       })
-      .state('overview.project_doc.photos',{
-        url:'/photos',
-        templateUrl:'views/overview_project_doc-photos.html',
+      .state('project.appointments',{
+        url:'/appointments',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_appointments.html', controller: 'AppointmentsCtrl'}
+        }
+        
       })
-      .state('overview.production',{
+      .state('project.production',{
         url:'/production',
-        templateUrl:'views/overview_production.html',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_production.html'}
+        }
       })
-
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -119,6 +133,11 @@ angular
         // by default all controllers are required to be logged
         // do this for having a public page
         requireLogin: false
+      })
+      .state('settings', {
+        url: '/settings',
+        templateUrl: 'views/settings.html',
+        controller: 'SettingsCtrl',
       });
 
       $urlRouteProvider.otherwise('/');

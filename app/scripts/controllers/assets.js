@@ -24,12 +24,8 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
-      $scope.$on('fileuploadadd', function (e, data) {
-        data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi"};
-      });
-
-      $scope.$on('fileuploadsend', function (e, data) { // prepare for upload
+    controller: function ($rootScope, $stateParams, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
+      $scope.$on('fileuploadsubmit', function (e, data) {
         var fd = new FormData();
         console.log(e);
         console.log(data);
@@ -81,7 +77,7 @@ angular.module('ersApp')
         }
       }
 
-      var projectId = $scope.$parent.project.id;
+      var projectId = $stateParams.projectId;
       var url = ENV.apiEndpoint + '/api/v1/sites/' + projectId + '/assets';
       var dropzone = angular.element('#drop-zone');
 
