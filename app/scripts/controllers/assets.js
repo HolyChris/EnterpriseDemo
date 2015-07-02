@@ -24,12 +24,13 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
+    controller: function ($rootScope, $stateParams, $scope, $element, $auth, fileUpload, Images, Documents, Assets, ENV) {
+      var authToken = $auth.getToken();
+      console.log(authToken);
+
       $scope.$on('fileuploadsubmit', function (e, data) {
         var fd = new FormData();
-        console.log(e);
-        console.log(data);
-        
+
         angular.forEach(data.files, function(value, key) {
           var file = {file: value}
           fd.append('attachments_attributes[][file]', value);
@@ -40,7 +41,7 @@ angular.module('ersApp')
 
         data.contentType = undefined;
         data.data = fd;
-        // data.headers = {"X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi", "Content-Type": undefined, };
+        // data.headers = {"X-Auth-Token": authToken, "Content-Type": undefined, };
         // Assets.save({siteId: projectId}, fd, function(data) {
         //   console.log(data);
         // }, function(error) {
@@ -87,7 +88,7 @@ angular.module('ersApp')
         maxFileSize: $scope.sizeLimit,
         autoUpload: false,
         headers: {
-          "X-Auth-Token": "FzaP5pH6zCa5WSsgpAzi", 
+          "X-Auth-Token": authToken, 
           "Content-Type": 'undefined', 
         }
       };
