@@ -1467,7 +1467,7 @@ tbody td{
 
 /*****file uploads*****/
 .fileinput-button {
-  /*position: relative;*/
+  position: relative;
   overflow: hidden;
 }
 .fileinput-button input {
@@ -1477,7 +1477,7 @@ tbody td{
   margin: 0;
   opacity: 0;
   -ms-filter: 'alpha(opacity=0)';
-  font-size: 200px;
+  font-size: 24px;
   direction: ltr;
   cursor: pointer;
 }

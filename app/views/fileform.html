@@ -40,7 +40,7 @@
       <div class="progress-extended">&nbsp;</div>
     </div>
   </div>
-  <div id="drop-zone"></div>
+  
   <!-- The table listing the files available for upload/download -->
   <table class="table table-striped files ng-cloak">
     <tr data-ng-repeat="file in queue" ng-show="show === 'All' || show === '{{file.type}}'">
@@ -69,6 +69,7 @@
           <input data-ng-switch-default type="text" id="title" name="title" ng-model="file.name" class="form-control">
         </p>
         <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+        <strong data-ng-show="file.message" class="text-success">{{file.message}}</strong>
       </td>
       <td>
         <label for="doc_type" ng-show="!isImage(file.type)">Doc Type:</label>

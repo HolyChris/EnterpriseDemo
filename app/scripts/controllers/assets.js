@@ -26,22 +26,19 @@ angular.module('ersApp')
     },
     controller: function ($rootScope, $stateParams, $scope, $element, $auth, fileUpload, Images, Documents, Assets, ENV) {
       var authToken = $auth.getToken();
-      console.log(authToken);
 
-      $scope.$on('fileuploadsubmit', function (e, data) {
-        var fd = new FormData();
+      $scope.$on('fileuploadadd', function (e, data) {
+        console.log(data);
+        // var fd = new FormData();
 
-        angular.forEach(data.files, function(value, key) {
-          var file = {file: value}
-          fd.append('attachments_attributes[][file]', value);
-        });
-        fd.append('title', 'test');
-        fd.append('type', 'Image');
-        fd.append('stage', 1);
-
-        data.contentType = undefined;
-        data.data = fd;
-        // data.headers = {"X-Auth-Token": authToken, "Content-Type": undefined, };
+        // angular.forEach(data.files, function(value, key) {
+        //   var file = {file: value}
+        //   fd.append('attachments_attributes[]', file);
+        // });
+        // fd.append('title', 'test');
+        // fd.append('type', 'Image');
+        // fd.append('stage', 1);
+        
         // Assets.save({siteId: projectId}, fd, function(data) {
         //   console.log(data);
         // }, function(error) {
@@ -56,18 +53,16 @@ angular.module('ersApp')
         console.log('hola');
       });
 
+      // filters for showing/hiding documents or images.
       $scope.show = 'All';
       $scope.showImages = function() {
         $scope.show = 'Image';
-        console.log($scope.show);
       }
       $scope.showDocuments = function() {
         $scope.show = 'Document';
-        console.log($scope.show);
       }
       $scope.showAll = function() {
         $scope.show = 'All';
-        console.log($scope.show);
       }
 
       $scope.isImage = function(fileType) {
@@ -80,11 +75,11 @@ angular.module('ersApp')
 
       var projectId = $stateParams.projectId;
       var url = ENV.apiEndpoint + '/api/v1/sites/' + projectId + '/assets';
-      var dropzone = angular.element('#drop-zone');
+      var dropzone = angular.element(document);
 
       $scope.options = {
         url: url,
-        dropZone: $('#drop-zone'),
+        dropZone: dropzone,
         maxFileSize: $scope.sizeLimit,
         autoUpload: false,
         headers: {
@@ -133,8 +128,6 @@ angular.module('ersApp')
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
             thumbnailUrl: value.attachments[0].url,
-            deleteUrl: url + '/' + value.attachments[0].id,
-            deleteType: 'DELETE',
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
@@ -188,27 +181,29 @@ angular.module('ersApp')
 
       Assets.update({siteId: file.siteId, assetId: file.result.id}, fd, function(data) {
         console.log(data);
+        file.message = 'Updated!';
         state = 'resolved';
       }, function(error) {
         console.log(error);
+        file.error = 'Please try again.';
         state = 'rejected';
       });
     }
     file.$destroy = function (file) {
+      console.log(file);
       state = 'pending';
-      var fd = new FormData();
-      fd.append('type', file.type);
-      angular.forEach(file.result.attachments, function(key, value) {
-        var destroy = {_destroy: 1};
-        fd.append('attachments_attributes[]', destroy);
-      });
-      Assets.delete({siteId: file.siteId, assetId: file.result.id}, fd, function(data) {
-        console.log(data);
+      var result = confirm('Are you sure you wish to delete the asset ' + file.file_name + '?');
+      if (result) {
+        Assets.delete({siteId: file.siteId, assetId: file.result.id}, function(data) {
+          state = 'resolved';
+          $scope.clear(file);
+        }, function(error) {
+          file.error = 'Please try again.';
+          state = 'rejected';
+        });
+      } else {
         state = 'resolved';
-      }, function(error) {
-        console.log(error);
-        state = 'rejected';
-      });
+      }
     };
   } else if (!file.$cancel && !file._index) {
     file.$cancel = function () {

@@ -19,6 +19,6 @@ assetsService.factory('Assets', function($resource, ENV) {
     query: {method: "GET", isArray: false},
     save: {method: "POST", headers: { 'Content-Type': undefined }},
     update: {method: "PUT", headers: { 'Content-Type': undefined }},
-    delete: {method: "DELETE", headers: { 'Content-Type': undefined }}
+    delete: {method: "DELETE"}
   });
 });
