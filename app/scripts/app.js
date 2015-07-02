@@ -29,6 +29,7 @@ angular
     'overviewService',
     'managersService',
     'assetsService',
+    'usersService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
@@ -132,6 +133,11 @@ angular
         // by default all controllers are required to be logged
         // do this for having a public page
         requireLogin: false
+      })
+      .state('settings', {
+        url: '/settings',
+        templateUrl: 'views/settings.html',
+        controller: 'SettingsCtrl',
       });
 
       $urlRouteProvider.otherwise('/');

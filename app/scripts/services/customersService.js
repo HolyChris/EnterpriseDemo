@@ -1,6 +1,6 @@
-var sitesService = angular.module('customersService', ['ngResource']);
+var customerService = angular.module('customersService', ['ngResource']);
 
-sitesService.factory('Customer', function($resource, ENV) {
+customerService.factory('Customer', function($resource, ENV) {
   return $resource(ENV.apiEndpoint + '/api/v1/customers/:id', {id: '@id'}, {
     query: {method: "GET", isArray: false},
     save: {
