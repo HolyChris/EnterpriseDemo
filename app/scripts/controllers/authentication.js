@@ -23,8 +23,7 @@ angular.module('ersApp')
       .catch(function(response) {
         // API doesn't return proper validation messages
         // so I'm unable to highlight the input here
-        console.log(response);
-        Flash.create('danger', response.message);
+        Flash.create('danger', response.data.message);
         return;
       });
     };

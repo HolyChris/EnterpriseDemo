@@ -72,7 +72,7 @@ angular
         url:'/sites',
         templateUrl: 'views/sites.html',
         controller: 'SitesCtrl',
-        params: {'contract_po_number_equals': null, 'address_address1_cont': null, 'contact_name_cont': null}
+        params: {'contract_po_number_contains': null, 'address_address1_cont': null, 'contact_name_contains': null}
       })
       .state('newsite', {
         url:'/sites/new',

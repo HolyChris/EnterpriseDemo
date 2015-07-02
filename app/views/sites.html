@@ -1,5 +1,5 @@
 <div class="container site-container">
-  <div flash-message="30000" ></div>
+  <div flash-message="5000" ></div>
 	<div class="container site-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
@@ -10,10 +10,6 @@
 		<div class="container sites-container">
 			<div class="sites-content">
 					<div class="col-md-12 actn-btn-container">
-						<div class="actn-btn">
-							Batch actions
-							<img src="/images/Forward.png" class="pull-right">
-						</div>
 						<a ui-sref="newsite"><div class="actn-btn pull-right">
 							CREATE SITE
 							<img src="/images/Plus.png" class="pull-right">
@@ -30,7 +26,6 @@
 						      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
 						      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
 						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
-						      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
 						    </tr>
 						     
 						  </tbody>
@@ -46,6 +41,11 @@
 									<label class="control-label">Manager</label>
 									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
 							  	<input type="text" class="form-control" ng-model="searchForm.managers_email_eq" typeahead="manager.email as manager.email for manager in managersArray.users | filter:$viewValue">
+							  </div>
+								<div class="form-group col-lg-12">
+									<label class="control-label">Contact Name</label>
+									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
+							  	<input type="text" class="form-control" ng-model="searchForm.contact_name_contains">
 							  </div>
 								<div class="form-group col-lg-12">
 								<label class="control-label">Site name</label>
@@ -74,7 +74,7 @@
 							  
 	               <div class="form-group col-lg-12">
 									<label class="control-label">PO Number</label>
-									<input type="" name="" class="form-control" id="" ng-model="searchForm.contract_po_number_equals">
+									<input type="" name="" class="form-control" id="" ng-model="searchForm.contract_po_number_contains">
 							   </div>
 							   <div class="form-group col-lg-12">
 								<input type="submit" class="btn save-btn" value="SEARCH">
