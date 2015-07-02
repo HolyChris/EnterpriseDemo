@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('SettingsCtrl', function($scope, User, Flash) {
+  .controller('SettingsCtrl', function($scope, User, Flash, $auth) {
     $scope.data = {};
     // This is not ideall but it's the only way to retrieve userd data
     // we dont have a client id in frontend
@@ -17,15 +17,15 @@ angular.module('ersApp')
         }
       })
       User.save(params, function(data) {
+        if (data.user && data.user.auth_token) {
+          $auth.setToken({data: {user: data.user}});
+        }
+
         if (data.errors) {
           $scope.errors = {};
-          console.log("has errors", data.errors)
-
           angular.forEach(data.errors, function(value, key) {
             $scope.errors[key] = value[0];
-          })
-        
-          console.log($scope.errors)
+          });
         }
       });
     }
