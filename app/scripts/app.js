@@ -104,6 +104,13 @@ angular
           "overview-content-view" : {templateUrl:'views/overview_project_doc.html'}
         }
       })
+      .state('project.appointments',{
+        url:'/appointments',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_appointments.html', controller: 'AppointmentsCtrl'}
+        }
+        
+      })
       .state('project.production',{
         url:'/production',
         views:{
