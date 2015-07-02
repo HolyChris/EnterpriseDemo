@@ -11,10 +11,6 @@
 		<div class="container customers-container">
 			<div class="customers-content">
 					<div class="col-md-12 actn-btn-container">
-						<div class="actn-btn">
-							Batch actions
-							<img src="/images/Forward.png" class="pull-right">
-						</div>
 						<a ui-sref="newcustomer"><div class="actn-btn pull-right">
 							CREATE CUSTOMER
 							<img src="/images/Plus.png" class="pull-right">
@@ -31,7 +27,6 @@
 						      <td at-implicit at-attribute="email" ></td>
 						      <td at-implicit at-title="phone" at-attribute="phone_numbers[0].number" width="150px"></td>
 						      <td at-implicit at-title="ACTIONS" class="row-actn-btns"><a ng-href="#/customers/details/{{item.id}}"><span>view/edit</span></a></td>
-						      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
 						    </tr>
 						  </tbody>
 						</table>
