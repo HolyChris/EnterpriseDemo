@@ -1,43 +1,43 @@
 <div class="sidebar">
 	<ul class="sidebar-menu">
 		<li class="item">
-			<a ui-sref="overview.project">
+			<a ui-sref="project.overview({projectId: project_id})">
 				<img src="images/overview-browser.png" alt="Overview Browser Icon">
-				<span class="title">PROJECT OVERVIEW</span>
+				<span class="title">OVERVIEW</span>
 			</a>
 		</li>
 		<li class="item">
-			<a ui-sref="overview.project_doc">
+			<a ui-sref="project.documents({projectId: project_id})">
 				<img src="images/overview-documents.png" alt="Overview Documets Icon">
-				<span class="title">PROJECT DOCUMENTS</span>
+				<span class="title">DOCUMENTS</span>
 			</a>
 		</li>
 		<li class="item">
-			<a ui-sref="overview.project">
-				<img src="images/overview-billing.png" alt="Overview Billing Icon">
-				<span class="title">PROJECT BILLING</span>
-			</a>
-		</li>
-		<li class="item">
-			<a ui-sref="overview.contract">
+			<a ui-sref="project.contract({projectId: project_id})">
 				<img src="images/overview-folder.png" alt="Overview Folder Icon">
 				<span class="title">CONTRACT</span>
 			</a>
 		</li>
 		<li class="item">
 			<img src="images/overview-box.png">
-			<span class="title">PROJECT</span>
+			<span class="title">PROJECT DETAILS</span>
 		</li>
 		<li class="item">
-			<a ui-sref="overview.production">
+			<a ui-sref="project.production({projectId: project_id})">
 				<img src="images/overview-home.png" alt="Overview Home Icon">
 				<span class="title">PRODUCTION</span>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="overview.project">
+				<img src="images/overview-billing.png" alt="Overview Billing Icon">
+				<span class="title">BILLING</span>
 			</a>
 		</li>
 	</ul>
 </div>
 <div class="overview-content">
-	<div ui-view>
+	<div ui-view="overview-content-view">
 	</div>
 
 </div>

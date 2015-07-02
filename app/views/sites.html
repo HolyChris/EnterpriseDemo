@@ -29,7 +29,7 @@
 						      <td at-title="address" width="180px">{{siteList[$index].address.address1}},</br>{{siteList[$index].address.city}},{{state_abb[siteList[$index].address.state.id - 1]}},{{siteList[$index].address.zipcode}}</td>
 						      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
 						      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
-						      <td at-title="Actions" class="row-actn-btns"><a ng-href="#/overview/project?siteId={{siteList[$index].id}}"><span>view/edit</span></a></td>
+						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
 						      <td at-title="<input type='checkbox'></input>"><input type='checkbox'></input></td>
 						    </tr>
 						     

@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
+  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -130,8 +130,8 @@ angular.module('ersApp')
   }
   
   //Here we find out if the url is passing a siteId
-  if ($location.search().siteId) {
-    Overview.query({siteId: $location.search().siteId}, function(overview) {
+  if ($stateParams.projectId){
+    Overview.query({siteId: $stateParams.projectId}, function(overview) {
       $scope.project = overview.site;
       prepareProjectSectionsToBeEdited(overview.site);
       

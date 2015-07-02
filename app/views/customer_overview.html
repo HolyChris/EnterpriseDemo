@@ -98,7 +98,7 @@
 				<div class="col-md-6 core-info-container">
 					<span>CUSTOMER SITES</span>
 					<div class="core-info-card" ng-repeat="site in model.customer.sites">
-						<a ng-href="#/overview/project?siteId={{site.id}}" class="core-info">
+						<a  ui-sref="project.overview({projectId: site.id})" class="core-info">
 							<span class="info-title">{{site.name}}</span>
 							<span class="info-address">{{site.address.address1}},</br> {{site.address.city}},{{site.address.state.name}},{{site.address.zipcode}}</span></br>
 							<span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>

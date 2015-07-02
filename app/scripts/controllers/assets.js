@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
+    controller: function ($rootScope, $stateParams, $scope, $element, fileUpload, Images, Documents, Assets, ENV) {
       $scope.$on('fileuploadsend', function (e, data) {
         var fd = new FormData();
         
@@ -67,7 +67,7 @@ angular.module('ersApp')
         console.log($scope.show);
       }
 
-      var projectId = $scope.$parent.project.id;
+      var projectId = $stateParams.projectId;
       var url = ENV.apiEndpoint + '/api/v1/sites/' + projectId + '/assets';
 
       $scope.options = {
