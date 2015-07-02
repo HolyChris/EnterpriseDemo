@@ -1492,3 +1492,13 @@ tbody td{
   background: #499c4b;
   margin-left: 20px;
 }
+
+.user-email-ellipsis {
+  max-width: 119px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: normal;
+  vertical-align: middle;
+}
