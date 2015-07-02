@@ -12,23 +12,27 @@
           <div class="form-title">
             <span class="ng-binding">Change Password</span>
           </div>
-          <form ng-submit="changePassword">
+          <form ng-submit="changePassword()">
             <div class="form-container reset-password-form">
-              <div class="form-group col-md-12">
-                <label class="control-label">Old Password</label>
-                <input type="password" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="password" tabindex="0" aria-invalid="false">
+              <div class="form-group col-md-12" ng-class="{'has-error' : errors.fullname}">
+                <label class="control-label">Full Name <sup>*</sup> {{errors.fullname}}</label>
+                <input type="text" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="data.fullname" tabindex="0" aria-invalid="false">
               </div>
-              <div class="form-group col-md-12">
-                <label class="control-label">New Password</label>
-                <input type="password" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="newPassword" tabindex="0" aria-invalid="false">
+              <div class="form-group col-md-12" ng-class="{'has-error' : errors.email}">
+                <label class="control-label">Email <sup>*</sup> {{errors.email}}</label>
+                <input type="text" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="data.email" tabindex="0" aria-invalid="false">
               </div>
-              <div class="form-group col-md-12">
-                <label class="control-label">Confirm Password</label>
-                <input type="password" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="confirmPassword" tabindex="0" aria-invalid="false">
+              <div class="form-group col-md-12" ng-class="{'has-error' : errors.password}">
+                <label class="control-label">Password span <sup>*</sup> {{errors.password}}</label>
+                <input type="password" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="data.password" tabindex="0" aria-invalid="false">
+              </div>
+              <div class="form-group col-md-12" ng-class="{'has-error' : errors.password_confirmation}">
+                <label class="control-label">Confirm Password <sup>*</sup> {{errors.password_confirmation}}</label>
+                <input type="password" name="" class="form-control ng-pristine ng-untouched ng-valid" id="" ng-model="data.password_confirmation" tabindex="0" aria-invalid="false">
               </div>
               <div class="text-right">
                 <div class="col-md-12 text-right">
-                  <input type="submit" class="btn update-form ng-click-active" value="Change Password" tabindex="0">
+                  <input type="submit" class="btn update-form ng-click-active" value="Update" tabindex="0">
                 </div>
               </div>
             </div>
