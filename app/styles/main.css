@@ -1497,6 +1497,10 @@ tbody td{
   margin-top: 0;
   width: 100%;
 }
+.fileinput-button i, 
+.fileinput-button span {
+  display: inline;
+}
 /*****end file uploads*****/
 
 .form-left.reset-password {
