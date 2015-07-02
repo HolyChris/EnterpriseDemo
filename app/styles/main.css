@@ -1473,3 +1473,22 @@ tbody td{
   width: 100%;
 }
 /*****end file uploads*****/
+
+.form-left.reset-password {
+  width: auto;
+  padding: 0 15px;
+  padding-bottom: 15px;
+}
+.reset-password-form .form-group {
+  width: 50%;  
+  float: none;
+}
+
+.reset-password-form .update-form {
+  font-size: 12px;
+  font-family: 'Montserrat-Bold';
+  min-width: 120px;
+  color: #fff;
+  background: #499c4b;
+  margin-left: 20px;
+}
