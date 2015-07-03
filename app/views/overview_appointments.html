@@ -108,6 +108,7 @@
 						<div class="form-container col-lg-6 well" ng-repeat="followup in appointment.follow_ups">
 							<div class="form-title">
 								<span> FOLLOW UP </span>
+								<span class="label label-warning" ng-show="followup.isNew">NEW</span>
 								<div class="pull-right" ng-show="!followup.edition_enabled">
 									<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_followup_edition(followup)">
 					  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
@@ -122,7 +123,7 @@
 					  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
 									</button>
 
-									<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_followup_edition(followup,$index)">
+									<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_followup_edition(appointment,followup,$index)">
 					  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
 									</button>
 

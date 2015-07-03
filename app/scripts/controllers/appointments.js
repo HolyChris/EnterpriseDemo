@@ -69,8 +69,16 @@ angular.module('ersApp')
 		followup.edition_enabled=true;
 	}
 
-	$scope.cancel_followup_edition=function(followup,$index){
-		followup.edition_enabled=false;
+	$scope.cancel_followup_edition=function(appointment,followup,index){
+		if (followup.isNew)
+		{
+			//We have to remove it from array
+			appointment.follow_ups.splice(index,1);
+		}
+		else
+		{
+			followup.edition_enabled=false;	
+		}
 	}
 
 	$scope.save_followup=function(followup){
@@ -78,11 +86,11 @@ angular.module('ersApp')
 	}
 
 	$scope.add_followup=function(appointment){
-
+		appointment.follow_ups.unshift({isNew: true,edition_enabled: true})
 	}
 
 	$scope.remove_followup=function(appointment,followup,$index){
-		
+
 	}
 
 	$scope.outcomes_arr=[
