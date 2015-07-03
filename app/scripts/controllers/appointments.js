@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AppointmentsCtrl', function($scope, $rootScope,$stateParams,  Flash, Overview, Managers) {
+  .controller('AppointmentsCtrl', function($scope, $rootScope,$stateParams, Appointment, Flash, Overview, Managers) {
 
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
@@ -28,12 +28,12 @@ angular.module('ersApp')
      	});
 	}
 
-	$scope.enable_edition=function(appointment)
+	$scope.enable_appointment_edition=function(appointment)
 	{
 		appointment.edition_enabled=true;
 	}
 
-	$scope.cancel_edition=function(appointment,index)
+	$scope.cancel_appointment_edition=function(appointment,index)
 	{
 		if (appointment.isNew)
 		{
@@ -47,9 +47,42 @@ angular.module('ersApp')
 		
 	}
 
+	$scope.save_appointment=function(appointment)
+	{
+		if (appointment.isNew)
+		{
+			//Appointment.create
+		}
+		else
+		{
+			//Appointment.save
+		}
+	}
+
 	$scope.add_appointment=function ()
 	{
 		$scope.project.appointments.unshift({isNew: true,edition_enabled: true})
+	}
+
+
+	$scope.enable_followup_edition=function(followup){
+		followup.edition_enabled=true;
+	}
+
+	$scope.cancel_followup_edition=function(followup,$index){
+		followup.edition_enabled=false;
+	}
+
+	$scope.save_followup=function(followup){
+
+	}
+
+	$scope.add_followup=function(appointment){
+
+	}
+
+	$scope.remove_followup=function(appointment,followup,$index){
+		
 	}
 
 	$scope.outcomes_arr=[
