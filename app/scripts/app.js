@@ -30,6 +30,7 @@ angular
     'managersService',
     'assetsService',
     'usersService',
+    'appointmentsService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
