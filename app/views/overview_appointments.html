@@ -16,7 +16,7 @@
 			</div>
 			
 			<div class="col-md-12 actn-btn-container">
-				<div class="actn-btn" ng-click="add_appointment()">
+				<div class="actn-btn" ng-click="add_appointment(project)">
 					ADD APPOINTMENT
 					<img src="/images/Plus.png" class="pull-right">
 				</div>
@@ -39,7 +39,7 @@
 						</div>
 
 						<div class="pull-right" ng-show="appointment.edition_enabled">
-							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_appointment(appointment)">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_appointment(appointment,$index)">
 			  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
 							</button>
 
@@ -84,17 +84,11 @@
 								<textarea class="form-control textarea" ng-model="appointment.notes"></textarea>
 							</div>
 
-							<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.user}">
 								<label class="control-label">Assigned to</label>
-								<input type="text" class="form-control" ng-model="appointment.assigned_to.email" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue">
+								<input type="text" class="form-control" ng-model="appointment.assigned_to" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue">
 							</div>
 
-							<div class="col-md-12 container-note" ng-show="appointment.follow_ups.length==0">
-								<span class="note">
-									Note: There are currently no followups defined.
-								</span>
-							</div>
-							
 							<div class="col-md-12 actn-btn-container" ng-hide="appointment.isNew">
 								<div class="actn-btn" ng-click="add_followup(appointment)">
 									ADD FOLLOWUP

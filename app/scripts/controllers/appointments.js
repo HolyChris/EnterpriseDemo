@@ -21,11 +21,23 @@ angular.module('ersApp')
 	    });
 	}
 
+	function clearErrors()
+	{
+		$scope.errors={};
+        Flash.dismiss();
+	}
+
 	function prepareAppointmentsView(appointments)
 	{
 		angular.forEach(appointments, function(appointment, key) {
 			appointment.scheduled_at=new Date(appointment.scheduled_at);
      	});
+	}
+
+	function prepareAppointment(appointment,index)
+	{
+		$scope.project.appointments[index]=appointment;
+		appointment.scheduled_at=new Date(appointment.scheduled_at);
 	}
 
 	$scope.enable_appointment_edition=function(appointment)
@@ -47,10 +59,38 @@ angular.module('ersApp')
 		
 	}
 
-	$scope.save_appointment=function(appointment)
+
+	$scope.save_appointment=function(appointment,index)
 	{
+		if (appointment.assigned_to)
+		{
+			//This means that a mail got selected, we fill the attribute value 
+			//that API's expecting
+			appointment.user_id=appointment.assigned_to.id;
+		}
+
 		if (appointment.isNew)
 		{
+
+			Appointment.create({}, appointment, function(data) {
+
+				//TODO Not sure why request returns a 422 error but ends up in success function
+				if (data.errors){
+					$scope.errors = data.errors;
+	          		Flash.create('danger', 'Something happened. See errors below.');
+				}
+				else{
+					Flash.create('success', 'Appointment was successfully saved!');
+					prepareAppointment(data.appointment,index);
+					$scope.customer_info_edition_enabled=false;
+					clearErrors();
+				}
+				
+	        }, function(error) {
+	          $scope.errors = error.data.errors;
+	          Flash.create('danger', 'Something happened. See errors below.');
+	        });
+
 			//Appointment.create
 		}
 		else
@@ -59,9 +99,10 @@ angular.module('ersApp')
 		}
 	}
 
-	$scope.add_appointment=function ()
+	$scope.add_appointment=function (project)
 	{
-		$scope.project.appointments.unshift({isNew: true,edition_enabled: true})
+		var new_appointment={site_id: project.id,isNew: true,edition_enabled: true};
+		$scope.project.appointments.unshift(new_appointment);
 	}
 
 
@@ -105,5 +146,7 @@ angular.module('ersApp')
 		'Gaco Bid', 
 		'Rescheduled', 
 		'Wrong Address'];
-
+	
+	$scope.managersArray = Managers.query();
+	
 });
