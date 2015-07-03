@@ -91,11 +91,22 @@ angular.module('ersApp')
 	          Flash.create('danger', 'Something happened. See errors below.');
 	        });
 
-			//Appointment.create
+			
 		}
 		else
 		{
-			//Appointment.save
+			//TODO Solve issue with outcome that gets returned as string but should be passed in as number second save sends the string
+			Appointment.save({id: appointment.id}, appointment, function(data) {
+
+				Flash.create('success', 'Appointment was successfully saved!');
+				prepareAppointment(data.appointment,index);
+				$scope.customer_info_edition_enabled=false;
+				clearErrors();
+				
+	        }, function(error) {
+	          $scope.errors = error.data.errors;
+	          Flash.create('danger', 'Something happened. See errors below.');
+	        });
 		}
 	}
 
