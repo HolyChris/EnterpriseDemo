@@ -105,6 +105,26 @@ angular.module('ersApp')
 		$scope.project.appointments.unshift(new_appointment);
 	}
 
+	$scope.delete_appointment=function(appointment){
+		Appointment.delete({id: appointment.id}, appointment, function(data) {
+			//TODO Not sure why request returns a 422 error but ends up in success function
+			if (data.errors){
+				$scope.errors = data.errors;
+	      		Flash.create('danger', 'Something happened. See errors below.');
+			}
+			else{
+				Flash.create('success', 'Appointment was successfully saved!');
+				prepareAppointment(data.appointment,index);
+				$scope.customer_info_edition_enabled=false;
+				clearErrors();
+			}
+			
+	    }, function(error) {
+	      $scope.errors = error.data.errors;
+	      Flash.create('danger', 'Appointment could not be deleted. Something happened.');
+	    });
+	}
+
 
 	$scope.enable_followup_edition=function(followup){
 		followup.edition_enabled=true;
