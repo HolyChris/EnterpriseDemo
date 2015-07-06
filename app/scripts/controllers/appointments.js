@@ -72,7 +72,7 @@ angular.module('ersApp')
 		if (appointment.isNew)
 		{
 
-			Appointment.create({}, appointment, function(data) {
+			Appointment.resource.create({}, appointment, function(data) {
 
 				//TODO Not sure why request returns a 422 error but ends up in success function
 				if (data.errors){
@@ -96,7 +96,7 @@ angular.module('ersApp')
 		else
 		{
 			//TODO Solve issue with outcome that gets returned as string but should be passed in as number second save sends the string
-			Appointment.save({id: appointment.id}, appointment, function(data) {
+			Appointment.resource.save({id: appointment.id}, appointment, function(data) {
 
 				Flash.create('success', 'Appointment was successfully saved!');
 				prepareAppointment(data.appointment,index);
@@ -117,7 +117,7 @@ angular.module('ersApp')
 	}
 
 	$scope.delete_appointment=function(appointment){
-		Appointment.delete({id: appointment.id}, appointment, function(data) {
+		Appointment.resource.delete({id: appointment.id}, appointment, function(data) {
 			//TODO Not sure why request returns a 422 error but ends up in success function
 			if (data.errors){
 				$scope.errors = data.errors;
@@ -165,18 +165,7 @@ angular.module('ersApp')
 
 	}
 
-	$scope.outcomes_arr=[
-		'Vendor Packet',
-		'Meet and Greet',
-		'Demo - No Sale',
-		'No Demo - No Need', 
-		'No Demo - Future Need',
-		'No Show', 
-		'No Entry', 
-		'SOLD', 
-		'Gaco Bid', 
-		'Rescheduled', 
-		'Wrong Address'];
+	$scope.outcomes_arr=Appointment.outcomes;
 	
 	$scope.managersArray = Managers.query();
 	
