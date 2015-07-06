@@ -27,17 +27,21 @@ angular.module('ersApp')
     controller: function ($rootScope, $stateParams, $scope, $element, $auth, fileUpload, Images, Documents, Assets, ENV) {
       var authToken = $auth.getToken();
 
-      $scope.$on('fileuploadadd', function (e, data) {
+      $scope.$on('fileuploadsubmit', function (e, data) {
         console.log(data);
-        // var fd = new FormData();
+        data.formData = {
+          type: 'Image',
+        };
 
-        // angular.forEach(data.files, function(value, key) {
-        //   var file = {file: value}
-        //   fd.append('attachments_attributes[]', file);
-        // });
-        // fd.append('title', 'test');
-        // fd.append('type', 'Image');
-        // fd.append('stage', 1);
+        var fd = new FormData();
+
+        angular.forEach(data.files, function(value, key) {
+          var file = {file: value}
+          fd.append('attachments_attributes[]', file);
+        });
+        fd.append('title', 'test');
+        fd.append('type', 'Image');
+        fd.append('stage', 1);
         
         // Assets.save({siteId: projectId}, fd, function(data) {
         //   console.log(data);
