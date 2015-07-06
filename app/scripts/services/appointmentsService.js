@@ -24,9 +24,49 @@ appointmentsService.factory('Appointment', function($resource, ENV) {
 		'Rescheduled', 
 		'Wrong Address'];
 
+	var addNewFollowUpToAppointment=function(appointment,followup,successFunction, errorFunction)
+	{
+		var followUpsAttributes={
+			"follow_ups_attributes":
+				{"0" : followup}
+	    };
+		resource.save({id: appointment.id},followUpsAttributes,successFunction,errorFunction);
+	}
+
+	var updateFollowUp=function(appointment,followup,successFunction, errorFunction){
+		var followUpsAttributes={
+			"follow_ups_attributes":
+				{"0" : followup}	        
+	    };
+
+	    //TODO some validations could be included here
+    	resource.save({id: appointment.id},followUpsAttributes,successFunction,errorFunction);	
+	    
+	}
+
+	var removeFollowUp=function(appointment,followup,successFunction, errorFunction){
+
+		var followUpsAttributes={
+			"follow_ups_attributes":
+				{"0" : 
+					{
+						id: followup.id,
+						"_destroy" : "1"
+					}
+				}
+	    };
+
+	    //TODO some validations could be included here
+    	resource.save({id: appointment.id},followUpsAttributes,successFunction,errorFunction);	
+	    
+	}
+
 	return {
 		resource: resource,
-		outcomes: outcomes
+		outcomes: outcomes,
+		addNewFollowUpToAppointment: addNewFollowUpToAppointment,
+		updateFollowUp: updateFollowUp,
+		removeFollowUp: removeFollowUp
 	};
 	
 });
