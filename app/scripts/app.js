@@ -31,6 +31,7 @@ angular
     'assetsService',
     'usersService',
     'appointmentsService',
+    'projectService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
@@ -110,6 +111,13 @@ angular
         url:'/appointments',
         views:{
           "overview-content-view" : {templateUrl:'views/overview_appointments.html', controller: 'AppointmentsCtrl'}
+        }
+        
+      })
+      .state('project.project_details',{
+        url:'/project_details',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_project_details.html', controller: 'ProjectCtrl'}
         }
         
       })

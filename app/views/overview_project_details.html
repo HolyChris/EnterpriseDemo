@@ -1,0 +1,43 @@
+<div class="container proj-over-container overview-appointments">
+  <div flash-message="5000"></div>
+  
+	<div class="proj-over-content">
+		<div class="row">
+			<div class="col-md-12 container-title">
+				<u>PROJECT DETAILS</u>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 container-note" ng-show="project">
+				<span class="note">
+					
+					Note: A project is not yet defined for this site.
+				</span>
+			</div>
+			
+			<div class="col-md-12 actn-btn-container">
+				<div class="actn-btn" ng-click="add_appointment(project)">
+					CREATE PROJECT
+					<img src="/images/Plus.png" class="pull-right">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 core-info-container">
+				<span>PROJECT CORE INFORMATION</span>
+				<div class="core-info-card">
+		          <div class="core-info">
+		            <span class="info-title">{{site.name}}</span>
+		            <span class="info-address">{{site.contact_name}},</br> {{site.contact_phone}}</span></br>
+		            <span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
+		          </div>
+		        </div>
+			</div>
+		</div>
+		
+
+	</div>
+
+	
+</div>  
