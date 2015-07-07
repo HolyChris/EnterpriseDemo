@@ -11,6 +11,12 @@ projectService.factory('Project', function($resource, ENV) {
 		    }
 		  });
 
+	var priorities=
+		['High'
+		,'Medium'
+		,'Low'
+		];
+
 	var colors=
 		['Almond'
 		,'Amber'
@@ -90,7 +96,8 @@ projectService.factory('Project', function($resource, ENV) {
 
 	return {
 		resource: resource,
-		colors: colors,
+		Colors: colors,
+		Priorities: priorities,
 		getProjectDetailFromSite: getProjectDetailFromSite
 	};
 	

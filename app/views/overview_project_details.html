@@ -7,23 +7,101 @@
 				<u>PROJECT DETAILS</u>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12 container-note" ng-show="project">
+		<div class="row" ng-show="!project">
+			<div class="col-md-12 container-note" >
 				<span class="note">
-					
 					Note: A project is not yet defined for this site.
 				</span>
-			</div>
-			
-			<div class="col-md-12 actn-btn-container">
-				<div class="actn-btn" ng-click="add_appointment(project)">
-					CREATE PROJECT
-					<img src="/images/Plus.png" class="pull-right">
-				</div>
 			</div>
 		</div>
 
 		<div class="row">
+
+			<div class="form-left-container">
+				<div class="col-md-6 contract-detail-form form-left">
+					<div class="form-title">
+						<span> PROJECT </span>
+						<div class="pull-right" ng-show="!project.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_project_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
+							</button>
+						</div>
+
+						<div class="pull-right" ng-show="project.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_project()">
+			  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
+							</button>
+
+							<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_project_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
+							</button>
+
+						</div>
+					</div>
+
+					<div class="form-container">
+						<fieldset ng-disabled="!project.edition_enabled">
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.po_number}">
+								<label class="control-label">PO Number {{errors.po_number}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="project.po_number">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.po_legacy}">
+								<label class="control-label">Legacy PO Number {{errors.po_legacy}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="project.po_legacy">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.existing_roof_material}">
+								<label class="control-label">Existing Roof Material {{errors.existing_roof_material}}</label>
+								<div class="input-group col-lg-9">
+									<textarea class="form-control" ng-model="project.existing_roof_material"></textarea>
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.code_coverage_confirmed}">
+								<label class="control-label">Code coverage confirmed {{errors.code_coverage_confirmed}}</label>
+								<div class="input-group col-lg-9">
+									<input type="checkbox" name="" id="" ng-model="project.code_coverage_confirmed" >
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.hoa_approval_date}">
+								<label class="control-label">Hoa Approval date {{errors.hoa_approval_date}}</label>
+								<div class="input-group col-lg-9">
+
+									<input type="date" class="form-control" datepicker-popup="" ng-model="project.hoa_approval_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<span class="input-group-btn">
+						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						            </span>
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.last_roof_built_date}">
+								<label class="control-label">Roof built date {{errors.last_roof_built_date}}</label>
+								<div class="input-group col-lg-9">
+									<input type="date" class="form-control" datepicker-popup="" ng-model="project.last_roof_built_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<span class="input-group-btn">
+						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						            </span>
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.priority}">
+								<label class="control-label">Priority {{errors.priority}}</label>
+
+								<select name="" ng-model="project.priority" convert-to-number class="form-control">
+						  				<option ng-repeat="priority in priorities_arr" value="{{$index+1}}" ng-selected="$index+1==project.priority">{{priority}}</option>
+								</select>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+			</div>
 			<div class="col-md-6 core-info-container">
 				<span>PROJECT CORE INFORMATION</span>
 				<div class="core-info-card">
@@ -33,6 +111,486 @@
 		            <span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
 		          </div>
 		        </div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-left-container">
+				<div class="col-md-6 contract-detail-form form-left">
+					<div class="form-title">
+						<span> INSURANCE AND MORTGAGE INFO </span>
+						<div class="pull-right" ng-show="!insurance_and_mortgage_info.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_insurance_and_mortgage_info_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
+							</button>
+						</div>
+
+						<div class="pull-right" ng-show="insurance_and_mortgage_info.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_insurance_and_mortgage_info()">
+			  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
+							</button>
+
+							<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_insurance_and_mortgage_info_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
+							</button>
+
+						</div>
+					</div>
+
+					<div class="form-container">
+						<fieldset ng-disabled="!insurance_and_mortgage_info.edition_enabled">
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.insurance_carrier}">
+								<label class="control-label">PO Number {{errors.insurance_carrier}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.insurance_carrier">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.claim_number}">
+								<label class="control-label">Claim number {{errors.claim_number}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.claim_number">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.loan_tracking_number}">
+								<label class="control-label">Loan Tracking Number {{errors.loan_tracking_number}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.loan_tracking_number">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.mortgage_company}">
+								<label class="control-label">Mortgage Company {{errors.mortgage_company}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.mortgage_company">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.deductible}">
+								<label class="control-label">Deductible {{errors.deductible}}</label>
+								<div class="input-group col-lg-9">
+									<div class="input-group-addon">$</div>
+									<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.deductible">
+								</div>
+							</div>
+
+							
+						</fieldset>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-left-container">
+				<div class="col-md-6 contract-detail-form form-left">
+					<div class="form-title">
+						<span> JOB SUBMISSION </span>
+						<div class="pull-right" ng-show="!job_submission.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_job_submission_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
+							</button>
+						</div>
+
+						<div class="pull-right" ng-show="job_submission.edition_enabled">
+							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_job_submission()">
+			  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
+							</button>
+
+							<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_job_submission_edition()">
+			  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
+							</button>
+
+						</div>
+					</div>
+
+					<div class="form-container">
+						<fieldset ng-disabled="!job_submission.edition_enabled">
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.shingle_color}">
+								<label class="control-label">Shingle Color {{errors.shingle_color}}</label>
+
+								<select name="" ng-model="job_submission.shingle_color" convert-to-number class="form-control">
+						  				<option ng-repeat="color in colors_arr" value="{{$index+1}}" ng-selected="$index+1==job_submission.shingle_color">{{color}}</option>
+								</select>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.drip_color}">
+								<label class="control-label">Drip Color {{errors.drip_color}}</label>
+								<select name="" ng-model="job_submission.drip_color" convert-to-number class="form-control">
+						  				<option ng-repeat="color in colors_arr" value="{{$index+1}}" ng-selected="$index+1==job_submission.drip_color">{{color}}</option>
+								</select>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.shingle_manufacturer}">
+								<label class="control-label">Shingle Manufacturer {{errors.shingle_manufacturer}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="job_submission.shingle_manufacturer">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.shingle_type}">
+								<label class="control-label">Shingle Type {{errors.shingle_type}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="job_submission.shingle_type">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.work_type}">
+								<label class="control-label">Type Of Work To Be Completed {{errors.work_type}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="job_submission.work_type">
+								</div>
+							</div>
+
+							<div class="row col-lg-12">
+
+								<div class="form-group col-lg-6" ng-class="{'has-error' : errors.roof_work_rcv}">
+									<label class="control-label">Roof Work Rcv {{errors.roof_work_rcv}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.roof_work_rcv">
+									</div>
+								</div>
+
+
+								<div class="form-group col-lg-6" ng-class="{'has-error' : errors.roof_work_acv}">
+									<label class="control-label">Roof Work Acv {{errors.roof_work_acv}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.roof_work_acv">
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.roof_type_special_instructions}">
+								<label class="control-label">Roof Type Special Instructions {{errors.roof_type_special_instructions}}</label>
+								<div class="input-group col-lg-9">
+									<input type="text" class="form-control" ng-model="job_submission.roof_type_special_instructions">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.initial_cost_per_sq}">
+								<label class="control-label">Initial Cost Per Sq {{errors.initial_cost_per_sq}}</label>
+								<div class="input-group col-lg-9">
+									<div class="input-group-addon">$</div>
+									<input type="text" class="form-control" ng-model="job_submission.initial_cost_per_sq">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.job_submission.redeck}">
+								<label class="control-label">Redeck {{errors.job_submission.redeck}}</label>
+								<div class="input-group col-lg-9">
+									<input type="checkbox" name="" id="" ng-model="job_submission.redeck" >
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> ROOF DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.roof_work_rcv}">
+										<label class="control-label">Roof Work Rcv {{errors.roof_work_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.roof_work_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.roof_work_acv}">
+										<label class="control-label">Roof Work Acv {{errors.roof_work_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.roof_work_acv">
+										</div>
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> GUTTER DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.gutters_rcv}">
+										<label class="control-label">Gutters Rcv {{errors.gutters_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.gutters_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.gutters_acv}">
+										<label class="control-label">Gutters Acv {{errors.gutters_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.gutters_acv">
+										</div>
+									</div>
+								</div>
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.gutters_upgrade_cost}">
+										<label class="control-label">Gutters Upgrade Cost {{errors.gutters_upgrade_cost}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.gutters_upgrade_cost">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.gutters_discount}">
+										<label class="control-label">Gutters Discount {{errors.gutters_discount}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.gutters_discount">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.gutters_total}">
+									<label class="control-label">Gutters Total {{errors.gutters_total}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.gutters_total">
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+
+
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> SIDING DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.siding_rcv}">
+										<label class="control-label">Siding Rcv {{errors.siding_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.siding_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.siding_acv}">
+										<label class="control-label">Siding Acv {{errors.siding_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.siding_acv">
+										</div>
+									</div>
+								</div>
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.siding_upgrade_cost}">
+										<label class="control-label">Siding Upgrade Cost {{errors.siding_upgrade_cost}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.siding_upgrade_cost">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.siding_discount}">
+										<label class="control-label">Siding Discount {{errors.siding_discount}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.siding_discount">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.siding_total}">
+									<label class="control-label">Siding Total {{errors.siding_total}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.siding_total">
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+
+
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> WINDOW DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.windows_rcv}">
+										<label class="control-label">Windows Rcv {{errors.windows_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.windows_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.windows_acv}">
+										<label class="control-label">Windows Acv {{errors.windows_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.windows_acv">
+										</div>
+									</div>
+								</div>
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.windows_upgrade_cost}">
+										<label class="control-label">Windows Upgrade Cost {{errors.windows_upgrade_cost}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.windows_upgrade_cost">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.windows_discount}">
+										<label class="control-label">Windows Discount {{errors.windows_discount}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.windows_discount">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.windows_total}">
+									<label class="control-label">Windows Total {{errors.windows_total}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.windows_total">
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> PAINT DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.paint_rcv}">
+										<label class="control-label">Paint Rcv {{errors.paint_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.paint_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.paint_acv}">
+										<label class="control-label">Paint Acv {{errors.paint_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.paint_acv">
+										</div>
+									</div>
+								</div>
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.paint_upgrade_cost}">
+										<label class="control-label">Paint Upgrade Cost {{errors.paint_upgrade_cost}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.paint_upgrade_cost">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.paint_discount}">
+										<label class="control-label">Paint Discount {{errors.paint_discount}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.paint_discount">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.paint_total}">
+									<label class="control-label">Paint Total {{errors.paint_total}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.paint_total">
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+
+						<div class="form-container col-lg-6 well">
+							<div class="form-title">
+								<span> HVAC DETAILS </span>
+							</div>
+							<fieldset ng-disabled="!job_submission.edition_enabled">
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.hvac_rcv}">
+										<label class="control-label">Hvac Rcv {{errors.hvac_rcv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.hvac_rcv">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.hvac_acv}">
+										<label class="control-label">Hvac Acv {{errors.hvac_acv}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.hvac_acv">
+										</div>
+									</div>
+								</div>
+								<div class="row col-lg-12">
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.hvac_upgrade_cost}">
+										<label class="control-label">Hvac Upgrade Cost {{errors.hvac_upgrade_cost}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.hvac_upgrade_cost">
+										</div>
+									</div>
+
+
+									<div class="form-group col-lg-6" ng-class="{'has-error' : errors.hvac_discount}">
+										<label class="control-label">Hvac Discount {{errors.hvac_discount}}</label>
+										<div class="input-group col-lg-9">
+											<div class="input-group-addon">$</div>
+											<input type="text" class="form-control" ng-model="job_submission.hvac_discount">
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.hvac_total}">
+									<label class="control-label">Hvac Total {{errors.hvac_total}}</label>
+									<div class="input-group col-lg-9">
+										<div class="input-group-addon">$</div>
+										<input type="text" class="form-control" ng-model="job_submission.hvac_total">
+									</div>
+								</div>
+
+							</fieldset>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		
