@@ -22,21 +22,21 @@
         <input type="file" name="files" multiple ng-disabled="disabled">
         <input type="hidden" name="type" value="Image">
       </span>
-      <button type="button" class="btn btn-primary start" data-ng-click="submit()">
+      <button type="button" class="btn btn-primary start" data-ng-click="multipleUploads()">
         <i class="glyphicon glyphicon-upload"></i>
         <span>Start upload</span>
       </button>
-      <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
+      <!-- <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
         <i class="glyphicon glyphicon-ban-circle"></i>
         <span>Cancel upload</span>
-      </button>
+      </button> -->
       <!-- The global file processing state -->
       <span class="fileupload-process"></span>
     </div>
     <!-- The global progress state -->
-    <div class="col-lg-12 fade" data-ng-class="{in: active()}">
+    <div class="col-lg-12 fade" data-ng-class="{in: uploading}">
       <!-- The global progress bar -->
-      <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+      <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: '100%'}"></div></div>
       <!-- The extended global progress state -->
       <div class="progress-extended">&nbsp;</div>
     </div>
@@ -44,7 +44,7 @@
   
   <!-- The table listing the files available for upload/download -->
   <table class="table table-striped files ng-cloak">
-    <tr data-ng-repeat="file in queue" ng-show="show === 'All' || show === '{{file.type}}'">
+    <tr data-ng-repeat="file in queue" ng-show="show === 'All' || show === '{{file.type}}'" ng-class="'file-' + $index">
       <td data-ng-switch data-on="!!file.thumbnailUrl">
         <div class="preview" data-ng-switch-when="true">
           <label for="file" class="control-label">File:</label>
@@ -64,10 +64,10 @@
           <label for="title" class="control-label">Title:</label>
           <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
               <!-- <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a> -->
-              <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.name" class="form-control">
+              <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.title" class="form-control">
               <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
           </span>
-          <input data-ng-switch-default type="text" id="title" name="title" ng-model="file.name" class="form-control">
+          <input data-ng-switch-default type="text" id="title" name="title" ng-model="file.title" class="form-control">
         </p>
         <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
         <strong data-ng-show="file.message" class="text-success">{{file.message}}</strong>
@@ -91,7 +91,7 @@
         <p class="size">{{file.size | formatFileSize}}</p>
       </td> -->
       <td class="document-action">
-        <button type="button" class="btn btn-small start" data-ng-click="file.$submit(file)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+        <button type="button" class="btn btn-small start" data-ng-click="fileUpload(file, $index)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
           <i class="glyphicon glyphicon-upload"></i>
           <span>Start</span>
         </button>
@@ -107,19 +107,8 @@
           <i class="glyphicon glyphicon-trash"></i>
           <span>Delete</span>
         </button>
-        <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+        <div class="progress progress-striped active fade" data-ng-class="{in: file.$state() == 'pending' || file.state == 'pending'}" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: '100%'}"></div></div>
       </td>
     </tr>
   </table>
 </form>
-
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-  <div class="slides"></div>
-  <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
-  <ol class="indicator"></ol>
-  <div class="comments"></div>
-</div>
