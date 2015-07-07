@@ -10,13 +10,16 @@
 angular.module('ersApp')
   .controller('AppointmentsCtrl', function($scope, $rootScope,$stateParams, Appointment, Flash, Overview, Managers) {
 
+	$scope.outcomes_arr=Appointment.outcomes;
+	$scope.managersArray = Managers.query();
+
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
 		Overview.query({siteId: $stateParams.projectId}, function(data) {
 	      $scope.project = data.site;
 	      $rootScope.project_id=$scope.project.id;
 
-	      prepareAppointmentsView($scope.project.appointments);
+	      prepareAppointmentsForView($scope.project.appointments);
 	      
 	    });
 	}
@@ -27,17 +30,22 @@ angular.module('ersApp')
         Flash.dismiss();
 	}
 
-	function prepareAppointmentsView(appointments)
+	function prepareAppointmentsForView(appointments)
 	{
 		angular.forEach(appointments, function(appointment, key) {
-			appointment.scheduled_at=new Date(appointment.scheduled_at);
+			prepareAppointmentForView(appointment);
      	});
 	}
 
-	function prepareAppointment(appointment,index)
+	function prepareAppointmentForView(appointment)
 	{
-		$scope.project.appointments[index]=appointment;
 		appointment.scheduled_at=new Date(appointment.scheduled_at);
+
+		//API returns description but expects id
+		appointment.outcome=$scope.outcomes_arr.indexOf(appointment.outcome) +1;
+		angular.forEach(appointment.follow_ups, function(followup,key){
+			followup.scheduled_at=new Date(followup.scheduled_at);
+		});
 	}
 
 	$scope.enable_appointment_edition=function(appointment)
@@ -60,8 +68,9 @@ angular.module('ersApp')
 	}
 
 
-	$scope.save_appointment=function(appointment,index)
+	$scope.save_appointment=function(appointment,appointmentIndex)
 	{
+		$scope.appointmentIndex=appointmentIndex;
 		if (appointment.assigned_to)
 		{
 			//This means that a mail got selected, we fill the attribute value 
@@ -72,7 +81,7 @@ angular.module('ersApp')
 		if (appointment.isNew)
 		{
 
-			Appointment.create({}, appointment, function(data) {
+			Appointment.resource.create({}, appointment, function(data) {
 
 				//TODO Not sure why request returns a 422 error but ends up in success function
 				if (data.errors){
@@ -81,9 +90,9 @@ angular.module('ersApp')
 				}
 				else{
 					Flash.create('success', 'Appointment was successfully saved!');
-					prepareAppointment(data.appointment,index);
-					$scope.customer_info_edition_enabled=false;
-					clearErrors();
+					prepareAppointmentForView(data.appointment);
+					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
+					
 				}
 				
 	        }, function(error) {
@@ -96,12 +105,12 @@ angular.module('ersApp')
 		else
 		{
 			//TODO Solve issue with outcome that gets returned as string but should be passed in as number second save sends the string
-			Appointment.save({id: appointment.id}, appointment, function(data) {
+			Appointment.resource.save({id: appointment.id}, appointment, function(data) {
 
 				Flash.create('success', 'Appointment was successfully saved!');
-				prepareAppointment(data.appointment,index);
-				$scope.customer_info_edition_enabled=false;
-				clearErrors();
+				prepareAppointmentForView(data.appointment);
+				$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
+				
 				
 	        }, function(error) {
 	          $scope.errors = error.data.errors;
@@ -116,26 +125,17 @@ angular.module('ersApp')
 		$scope.project.appointments.unshift(new_appointment);
 	}
 
-	$scope.delete_appointment=function(appointment){
-		Appointment.delete({id: appointment.id}, appointment, function(data) {
-			//TODO Not sure why request returns a 422 error but ends up in success function
-			if (data.errors){
-				$scope.errors = data.errors;
-	      		Flash.create('danger', 'Something happened. See errors below.');
-			}
-			else{
-				Flash.create('success', 'Appointment was successfully saved!');
-				prepareAppointment(data.appointment,index);
-				$scope.customer_info_edition_enabled=false;
-				clearErrors();
-			}
-			
+	$scope.delete_appointment=function(appointment,appointmentIndex){
+		$scope.appointmentIndex=appointmentIndex;
+
+		Appointment.resource.delete({id: appointment.id}, appointment, function(data) {
+			$scope.project.appointments.splice(appointmentIndex,1);
+			Flash.create('success', 'Appointment was successfully deleted!');
 	    }, function(error) {
 	      $scope.errors = error.data.errors;
 	      Flash.create('danger', 'Appointment could not be deleted. Something happened.');
 	    });
 	}
-
 
 	$scope.enable_followup_edition=function(followup){
 		followup.edition_enabled=true;
@@ -153,31 +153,60 @@ angular.module('ersApp')
 		}
 	}
 
-	$scope.save_followup=function(followup){
-
+	$scope.save_followup=function(appointment,followup,appointmentIndex){
+		$scope.appointmentIndex=appointmentIndex;
+		if (followup.isNew)
+		{
+			Appointment.addNewFollowUpToAppointment(appointment,followup,
+				function(data){
+					Flash.create('success', 'Followup was successfully created!');
+					prepareAppointmentForView(data.appointment);
+					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
+					
+				},
+				function(data){
+	          		Flash.create('danger', 'Something happened. See errors below.');
+	          		//TODO make errors available for visual feedback
+				}
+			);
+			
+		}
+		else
+		{
+			Appointment.updateFollowUp(appointment,followup,
+				function(data){
+					Flash.create('success', 'Followup was successfully saved!');
+					prepareAppointmentForView(data.appointment);
+					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
+					
+				},
+				function(data){
+	          		Flash.create('danger', 'Followup could not be updated. Something happened. See errors below.');
+	          		//TODO make errors available for visual feedback
+				}
+			);
+			//TODO Add save followup details
+		}
 	}
 
 	$scope.add_followup=function(appointment){
 		appointment.follow_ups.unshift({isNew: true,edition_enabled: true})
 	}
 
-	$scope.remove_followup=function(appointment,followup,$index){
-
+	$scope.remove_followup=function(appointment,followup,appointmentIndex){
+		$scope.appointmentIndex=appointmentIndex;
+		Appointment.removeFollowUp(appointment,followup,
+				function(data){
+					Flash.create('success', 'Followup was successfully deleted!');
+					prepareAppointmentForView(data.appointment);
+					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
+					
+				},
+				function(data){
+	          		Flash.create('danger', 'Followup could not be deleted. Something happened. See errors below.');
+	          		//TODO make errors available for visual feedback
+				}
+			);
 	}
-
-	$scope.outcomes_arr=[
-		'Vendor Packet',
-		'Meet and Greet',
-		'Demo - No Sale',
-		'No Demo - No Need', 
-		'No Demo - Future Need',
-		'No Show', 
-		'No Entry', 
-		'SOLD', 
-		'Gaco Bid', 
-		'Rescheduled', 
-		'Wrong Address'];
-	
-	$scope.managersArray = Managers.query();
 	
 });

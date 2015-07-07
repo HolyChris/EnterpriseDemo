@@ -4,7 +4,7 @@
 	<div class="proj-over-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
-				{{customer_title}} / <u>APPOINTMENTS</u>
+				<u>APPOINTMENTS</u>
 			</div>
 		</div>
 		<div class="row">
@@ -33,7 +33,7 @@
 							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_appointment_edition(appointment)">
 			  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
 							</button>
-							<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="delete_appointment(appointment)">
+							<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="delete_appointment(appointment,$index)">
 			  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
 							</button>
 						</div>
@@ -76,7 +76,7 @@
 								<label class="control-label">Outcome<sup>*</sup></label>
 											  	
 						  		<select name="" ng-model="appointment.outcome" convert-to-number class="form-control">
-						  				<option ng-repeat="outcome in outcomes_arr" value="{{$index+1}}" ng-selected="outcome==appointment.outcome">{{outcome}}</option>
+						  				<option ng-repeat="outcome in outcomes_arr" value="{{$index+1}}" ng-selected="$index+1==appointment.outcome">{{outcome}}</option>
 								</select>
 							</div>
 							<div class="form-group col-sm-12">
@@ -107,13 +107,13 @@
 									<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_followup_edition(followup)">
 					  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
 									</button>
-									<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="remove_followup(appointment,followup,$index)">
+									<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="remove_followup(appointment,followup,$parent.$index)">
 				  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
 								</button>
 								</div>
 
 								<div class="pull-right" ng-show="followup.edition_enabled">
-									<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_followup(followup)">
+									<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_followup(appointment,followup,$parent.$index)">
 					  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
 									</button>
 
@@ -126,8 +126,22 @@
 							<fieldset ng-disabled="!followup.edition_enabled">
 								<div class="form-group col-sm-12">
 									<div class="input-group ">
-										<label class="control-label"> Scheduled at </label>
-										<input type="text" class="form-control" ng-model="followup.scheduled_at">
+										
+										<label class="control-label">Scheduled at<sup>*</sup> {{errors.signed_at[0]}}</label>
+										<div class="form-inline" ng-show="followup.edition_enabled">
+											<div class="input-group col-xs-2">
+												<input type="date" class="form-control" datepicker-popup="" ng-model="followup.scheduled_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
+												<span class="input-group-btn">
+									              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+									            </span>
+											</div>
+											<div class="input-group col-xs-2">
+												<timepicker ng-model="followup.scheduled_at" ng-change="changed()" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+											</div>
+										</div>
+
+
+										<input type="text" class="form-control" ng-model="followup.scheduled_at" ng-hide="followup.edition_enabled">
 									</div>
 									<div class="input-group">
 										<label class="control-label">Notes</label>
