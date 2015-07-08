@@ -1501,7 +1501,7 @@ tbody td{
 .fileinput-button span {
   display: inline;
 }
-fileupload-buttonbar .btn,
+.fileupload-buttonbar .btn,
 .fileupload-buttonbar .toggle {
   margin-bottom: 5px;
 }
