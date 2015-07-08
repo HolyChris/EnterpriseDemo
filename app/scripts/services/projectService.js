@@ -93,12 +93,45 @@ projectService.factory('Project', function($resource, ENV) {
 		return resource.get({id:siteId},{},successFunction,errorFunction);
 	}
 
+	var updateProjectDetails=function(siteId,projectDetails,successFunction, errorFunction)
+	{
+		//We could check that none of the other sub objects such as insurance_and_mortgage_info
+		//are present here as this function is only meant to update base attributes of project
+
+		return resource.save({id:siteId},projectDetails,successFunction, errorFunction);
+	}
+
+	var updateInsuranceAndMortgageInfo=function(siteId,project_id,insurance_and_mortgage_info,successFunction, errorFunction)
+	{
+		var upd_insurance_and_mortgage_info_attrs={
+			id: project_id,
+			insurance_and_mortgage_info_attributes: insurance_and_mortgage_info
+		}
+
+		return resource.save({id:siteId},upd_insurance_and_mortgage_info_attrs,successFunction, errorFunction);
+	}
+
+	var updateJobSubmission=function(siteId,project_id,job_submission,successFunction, errorFunction)
+	{
+		var upd_job_submission_attrs={
+			id: project_id,
+			job_submission_attributes: job_submission
+		}
+
+		return resource.save({id:siteId},upd_job_submission_attrs,successFunction, errorFunction);
+	}
+
+
+	
 
 	return {
 		resource: resource,
 		Colors: colors,
 		Priorities: priorities,
-		getProjectDetailFromSite: getProjectDetailFromSite
+		getProjectDetailFromSite: getProjectDetailFromSite,
+		updateProjectDetails: updateProjectDetails,
+		updateInsuranceAndMortgageInfo: updateInsuranceAndMortgageInfo,
+		updateJobSubmission: updateJobSubmission
 	};
 	
 });
