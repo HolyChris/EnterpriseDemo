@@ -8,7 +8,7 @@
 			</div>
 			<div class="col-md-12 container-note" ng-show="newContract">
 				<span class="note">
-					<img src="/images/pin.png">
+					<img src="images/pin.png">
 					Note: There's currently no contract signed. Fill out the fields below.
 				</span>
 			</div>
@@ -47,7 +47,7 @@
 				<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
 					<label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
 					<p class="input-group">
-						<input type="date" class="form-control" datepicker-popup="" ng-model="contract.signed_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
+						<input type="date" class="form-control" datepicker-popup="" ng-model="contract.signed_at" is-open="opened" ng-required="true" close-text="Close" />
 						<span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
