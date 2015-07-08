@@ -10,13 +10,12 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/blueimp-gallery/css/blueimp-gallery.css">
-    <link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-ui.css">
-    <noscript><link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-noscript.css"></noscript>
-    <noscript><link rel="stylesheet" href="bower_components/angular-jqfile-upload/css/jquery.fileupload-ui-noscript.css"></noscript>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <noscript><link rel="stylesheet" href="styles/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="styles/jquery.fileupload-ui-noscript.css"></noscript>
     <!-- endbuild -->
   </head>
   <body ng-app="ersApp">
@@ -105,20 +104,20 @@
     <script src="bower_components/blueimp-load-image/js/load-image.all.min.js"></script>
     <script src="bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
     <script src="bower_components/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <script src="bower_components/angular-jqfile-upload/dist/uploader.js"></script>
-    <!--<script src="bower_components/angular-jqfile-upload/js/app.js"></script>-->
+    
     <!-- endbower -->
     <!-- endbuild -->
     
     <!-- build:js({.tmp,app}) scripts/utilities.js -->
     <script src="scripts/utilities/angular-flash.js"></script>
     <script src="scripts/utilities/satellizer.js"></script>
-    
+    <script src="scripts/utilities/uploader.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     
+
     <script src="scripts/controllers/sites.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/assets.js"></script>
