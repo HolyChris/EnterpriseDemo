@@ -1580,3 +1580,7 @@ tbody td{
   word-wrap: normal;
   vertical-align: middle;
 }
+
+.input-group.date-picker input {
+  width: auto;
+}

@@ -1,0 +1,129 @@
+<div class="container proj-over-container">
+  <div class="proj-over-content">
+    <div class="row">
+      <div class="col-md-12 container-title">
+        LINDA HIGGINS(LEAD) /<u> PROJECT BILLING</u>
+      </div>
+    </div>
+    <div class="row">
+    <div class="form-left-container">
+    <div class="col-md-6 form-left">
+      <form ng-submit="updateLocation()">
+        <input type="hidden" ng-model="location.id">
+        <div class="form-title">
+          <span>LOCATION BILLING INFO</span>
+          <span class="edit-btn pull-right">
+            <img src="/images/Write-white.png"/>
+            EDIT
+            <button type="submit">submit</button>
+          </span>
+        </div>  
+        
+        <div class="form-container">
+
+          <div class="form-group col-lg-6">
+            <label>Initial payment</label>
+            <input type="" name="" class="form-control" id="" value="" ng-model="location.initial_payment">
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Initial payment date</label>
+            <p class="input-group date-picker">
+              <input class="form-control" id="" value="" ng-model="location.initial_payment_date" datepicker-popup="" is-open="opened.initial_payment_date">
+              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'initial_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </p>
+          </div>
+          
+          <div class="form-group col-lg-6">
+            <label>Final invoice submitted at</label>
+            <p class="input-group date-picker">
+              <input class="form-control" id="" value="" ng-model="location.final_invoice_submitted_at" datepicker-popup="" is-open="opened.final_invoice_submitted_at">
+              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'final_invoice_submitted_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </p>
+          </div>
+                  
+          <div class="form-group col-lg-6">
+            <label>Customer invoice notes</label>
+            <textarea name="" class="form-control" ng-model="location.customer_invoice_notes"></textarea>
+          </div>
+          
+          <div class="form-group col-lg-6">
+            <label>Invoice sent to Project Manager (Date)</label>
+            <input type="" name="" class="form-control" id="" value="" ng-model="location.invoice_send_to_manager_at" datepicker-popup="" is-open="opened.invoice_send_to_manager_at">
+            <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'invoice_send_to_manager_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+          </div>
+          <div class="form-group col-lg-6">
+            <label>Invoice sent to customer method</label>
+            <input type="" name="" class="form-control" id="" ng-model="location.invoice_sent_to_customer_method">
+          </div>      
+          
+          <div class="form-group col-sm-12">
+            <label>Completion payment</label>
+            <input tye="text" class="form-control" ng-model="location.completion_payment">
+          </div>
+        
+          <div class="form-group col-sm-12">
+            <label>Completion payment date</label>
+            <input tye="text" class="form-control" ng-model="location.completion_payment_date" datepicker-popup="" is-open="opened.completion_payment_date">
+            <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'completion_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+          </div>
+        </div>
+          
+      </form>
+    </div>
+    <div class="col-md-6 form-left">
+      <div class="form-title">
+        <span>INSURANCE INFO</span>
+        <span class="edit-btn pull-right">
+          <img src="/images/Write-white.png"/>
+          EDIT
+        </span>
+      </div>  
+      <div class="form-container">
+        <div class="form-group col-lg-6">
+          <label>Mortgage process notes</label>
+          <textarea type="" name="" class="form-control" ng-model="insurance.mortgage_process_notes"></textarea>
+        </div>
+        
+        <div class="form-group col-lg-6">
+          <label>Mortgage check location</label>
+          <input type="" name="" class="form-control" ng-model="insurance.mortgage_check_location">
+        </div>
+        
+        <div class="form-group col-lg-6">
+          <label>Deductible paid date</label>
+          <input type="" name="" class="form-control" ng-model="insurance.deductible_paid_date">
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Settled RCV</label>
+          <input type="" name="" class="form-control" ng-model="insurance.settled_rcv">
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Settled RCV date</label>
+          <input type="" name="" class="form-control" ng-model="insurance.settled_rcv_date">
+        </div>
+        <div class="form-group col-lg-6">
+          <label>Settled scope paperwork notes</label>
+          <textarea type="" name="" class="form-control" ng-model="insurance.settled_scope_paperwork_notes"></textarea>
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Final check received amount</label>
+          <input type="" name="" class="form-control" ng-model="insurance.final_check_received_amount">
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Check released date</label>
+          <input type="" name="" class="form-control" ng-model="insurance.check_released_date">
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Final check received date</label>
+          <input type="" name="" class="form-control" ng-model="insurance.final_check_received_date">
+        </div>
+        <div class="form-group col-lg-12">
+          <label>Invoice sent to customer at</label>
+          <input type="" name="" class="form-control" ng-model="insurance.invoice_sent_to_customer_at">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>  
