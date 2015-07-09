@@ -175,42 +175,55 @@
 
                 </div>
 			</div>	
-			<div class="form-container">
-				<fieldset ng-disabled="!address_edition_enabled">
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1']}" >
-						<label class="control-label">Address 1</label>
-						<input type="" name="" class="form-control" id="" ng-model="address.address1">
-					</div>
-					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address2']}">
-						<label class="control-label">Address 2</label>
-						<input type="" name="" class="form-control" id="" ng-model="address.address2">
-					</div>
-					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city']}">
-						<label class="control-label">City</label>
-						<input type="" name="" class="form-control" id="" ng-model="address.city">
-					</div>
-					
-					<!--			
-					<div class="form-group col-lg-6">
-						<label class="control-label">State</label>
-						<input type="" name="" class="form-control" id="" ng-model="address.state.name">
-					</div>
-					-->
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
-						<label class="control-label">State<sup>*</sup></label>
-						<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
-							<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index+1==address.state.id">{{state}}</option>
-						</select>
-					</div>
-					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode']}">
-						<label class="control-label">Zip</label>
-						<input type="" name="" class="form-control" id="" ng-model="address.zipcode">
-					</div>
-				</fieldset>
-			</div>
+			<form name="address_form">
+				<div class="form-container">
+					<fieldset ng-disabled="!address_edition_enabled">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1'] || !address_form.address1.$valid}" >
+							<label class="control-label">
+								Address 1
+								<small class="text-danger" ng-show="address_form.address1.$error.required">
+									Required!
+								</small>
+							</label>
+							<input type="text" name="address1" class="form-control" id="" ng-model="address.address1" required>
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address2']}">
+							<label class="control-label">
+								Address 2
+							</label>
+							<input type="text" name="address2" class="form-control" id="" ng-model="address.address2">
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city'] || !address_form.city.$valid}">
+							<label class="control-label">
+								City
+								<small class="text-danger" ng-show="address_form.city.$error.required">
+									Required!
+								</small>
+							</label>
+							<input type="text" name="city" class="form-control" id="" ng-model="address.city" required>
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
+							<label class="control-label">State<sup>*</sup></label>
+							<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
+								<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index+1==address.state.id">{{state}}</option>
+							</select>
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode'] || !address_form.zipcode.$valid}">
+							<label class="control-label">
+								Zip
+								<small class="text-danger" ng-show="address_form.zipcode.$error.required">
+									Required!
+								</small>
+							</label>
+							<input type="text" name="zipcode" class="form-control" id="" ng-model="address.zipcode" required>
+						</div>
+					</fieldset>
+				</div>
+			</form>
 		</div>
 		<div class="col-md-6 form-left">
 			<div class="form-title">

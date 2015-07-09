@@ -288,26 +288,42 @@ angular.module('ersApp')
   }
 
   $scope.save_address_edition = function (){
-    //This is the way API is expecting address values to be passed
-    //object structure with address_attributes inner empty object is created
-    var addressAttributesUpdate={
-        address_attributes: {}
-    };
-    //then edited values are copied over to the object
-    angular.copy($scope.address,addressAttributesUpdate.address_attributes);
-    
-    //State id has also to be provided in a different way 
-    addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
+    if ($scope.address_form.$valid){
 
-    //We invoke the sites update api with only address information to be updated
-    Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
-          Flash.create('success', 'Address successfully saved!');
-          prepareAddressDetails(data.site.address);
-          $scope.address_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+      //This is the way API is expecting address values to be passed
+      //object structure with address_attributes inner empty object is created
+      var addressAttributesUpdate={
+          address_attributes: {}
+      };
+      //then edited values are copied over to the object
+      angular.copy($scope.address,addressAttributesUpdate.address_attributes);
+      
+      //State id has also to be provided in a different way 
+      addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
+
+      //We invoke the sites update api with only address information to be updated
+      Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
+
+            if (!data.errors){
+
+              Flash.create('success', 'Address successfully saved!');
+              prepareAddressDetails(data.site.address);
+              $scope.address_edition_enabled=false;
+
+            }
+            else{
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else
+    {
+      Flash.create('danger', 'Address information changes were not submitted. Check errors below.');
+    }
   }
 
 
