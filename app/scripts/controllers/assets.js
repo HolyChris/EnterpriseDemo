@@ -85,6 +85,12 @@ angular.module('ersApp')
         $scope.show = 'All';
       }
 
+      $scope.filter = {};
+      $scope.clearFilters = function() {
+        $scope.filter = {};
+        return false;
+      }
+
       $scope.isImage = function(fileType) {
         if (fileType && typeof fileType ==='string' && (fileType === 'Image' || fileType.indexOf('jpeg') > -1 || fileType.indexOf('gif') > -1 || fileType.indexOf('png') > -1)) {
           return true;

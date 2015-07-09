@@ -1549,6 +1549,10 @@ tbody td{
     max-width: 100%;
   }
 }
+p.clear-filters {
+  cursor: pointer;
+  line-height: 34px;
+}
 
 /*****end file uploads*****/
 
