@@ -21,7 +21,10 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
-                $location.path('/overview/contract');
+                var siteId = getSiteId(ui.item[0].id);
+                if (ui.position.left - ui.originalPosition.left > 150) {
+                    $location.path('/projects/' + siteId + '/contract');
+                }
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -38,7 +41,10 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
-                $location.path('/overview/production');
+                var siteId = getSiteId(ui.item[0].id);
+                if (ui.position.left - ui.originalPosition.left > 150) {
+                    $location.path('/projects/' + siteId + '/production');
+                }
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -53,6 +59,10 @@ angular.module('ersApp')
                 newList = oldList = ui.item.parent();
             },
             stop: function(event, ui) {
+                var siteId = getSiteId(ui.item[0].id);
+                if (ui.position.left - ui.originalPosition.left > 150) {
+                    $location.path('/projects/' + siteId + '/billing');
+                }
             },
             change: function(event, ui) {
                 if(ui.sender) newList = ui.placeholder.parent();
@@ -88,6 +98,20 @@ angular.module('ersApp')
             }
     }
     ];
+
+    $scope.statusOrder = function(opportunity) {
+        var order = 2;
+        var status = opportunity.status;
+        if (status === 'Good') {
+            order = 1;
+        } else if (status === 'Bad') {
+            order = 3;
+        } else if (status === 'Dead') {
+            order = 4;
+        }
+        return order;
+    }
+
     $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
                         "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
                         "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
@@ -109,6 +133,11 @@ angular.module('ersApp')
         }
 
 
+    }
+
+    function getSiteId(id) {
+        var siteId = id.replace('site-', '');
+        return siteId;
     }
 });
 
