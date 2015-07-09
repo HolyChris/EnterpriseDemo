@@ -98,53 +98,62 @@
 					</button>
 
 				</div>
-			</div>	
-			<div class="form-container">
-				<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
-					<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
-					<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
-					<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
-					<hr>
-
-					<fieldset data-ng-repeat="number in phone_numbers_edit | filter:{_destroy: '!1'}" ng-disabled="!phone_numbers_info_edition_enabled">
-						<div class="form-group">
-						  <div class="row">
-						  	<div class="col-sm-4"><label class="control-label">Number<sup>*</sup></label></div>
-						  	<div class="col-sm-8">
-						  		<input type="tel" name="" class="form-control" value="" ng-model="number.number">
-						  	</div>
-						  </div>
-						</div>
-
-						<div class="form-group">
-						  <div class="row">
-						  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
-						  	<div class="col-sm-8">
-						  		<select name="" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
-										<option value=""></option>
-									</select>
-						  	</div>
-						  </div>
-						</div>
-
-						<div class="form-group">
-							<label><input type="checkbox" name="" id="" ng-model="number.primary"> Primary</label>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-small pull-right ng-click-active" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</button>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
-						</div>
-						<div class="clearfix"></div>
+			</div>
+			<form name="phone_numbers_form" novalidate>
+				<div class="form-container">
+					<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
+						<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
+						<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
+						<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
 						<hr>
-					</fieldset>
 
-					<div class="form-group">
-						<button class="btn btn-small" ng-click="addPhone()" ng-disabled="!phone_numbers_info_edition_enabled">Add New Phone Number</button>
+						<fieldset data-ng-repeat="number in phone_numbers_edit | filter:{_destroy: '!1'}" ng-disabled="!phone_numbers_info_edition_enabled" ng-init="number_field_name = 'number_' + $index">
+							
+							<div class="form-group" ng-class="{'has-error' : phone_numbers_form.{{number_field_name}}.$error.required}">
+							  <div class="row">
+							  	<div class="col-sm-4">
+							  		<label class="control-label">
+							  			Number<sup>*<span class="text-danger" ng-show="phone_numbers_form.{{number_field_name}}.$error.required">Required!</span></sup>
+							  		</label>
+							  	</div>
+							  	<div class="col-sm-8">
+							  		<input type="tel" name="{{number_field_name}}" class="form-control" value="" ng-model="number.number"required>
+							  	</div>
+							  </div>
+							</div>
+
+							<div class="form-group">
+							  <div class="row">
+							  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
+							  	<div class="col-sm-8">
+							  		<select name="num_type" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
+											<option value=""></option>
+										</select>
+							  	</div>
+							  </div>
+							</div>
+
+							<div class="form-group">
+								<label><input type="checkbox" name="primary" id="" ng-model="number.primary"> Primary</label>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-small pull-right ng-click-active" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</button>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
+							</div>
+							<div class="clearfix"></div>
+							<hr>
+							
+						</fieldset>
+
+						<div class="form-group">
+							<button class="btn btn-small" ng-click="addPhone()" ng-disabled="!phone_numbers_info_edition_enabled">Add New Phone Number</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
+			
 		</div>
 		<div class="col-md-6 form-left">
 			<div class="form-title">

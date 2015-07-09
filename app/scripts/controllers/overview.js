@@ -246,7 +246,7 @@ angular.module('ersApp')
           });
     }
     else{
-      Flash.create('danger', 'Customer informacion changes were not submitted. Check errors below.');
+      Flash.create('danger', 'Customer information changes were not submitted. Check errors below.');
     }
 
 
@@ -416,29 +416,35 @@ angular.module('ersApp')
   }
 
   $scope.save_phone_numbers_info_edition = function (){
-    //TODO complete and test API update
+    //WE have to check that all phone_numbers forms are valid
+    if ($scope.phone_numbers_form.$valid){
 
-    var phone_numbers_attributes_update ={
-        phone_numbers_attributes: {}
-    };
-    phone_numbers_attributes_update.phone_numbers_attributes=$scope.phone_numbers_edit;
-    phone_numbers_attributes_update.id=$scope.customer.id;
 
-    Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
+      var phone_numbers_attributes_update ={
+          phone_numbers_attributes: {}
+      };
+      phone_numbers_attributes_update.phone_numbers_attributes=$scope.phone_numbers_edit;
+      phone_numbers_attributes_update.id=$scope.customer.id;
 
-          if (!data.errors){
-            Flash.create('success', 'Customer phone numbers successfully saved!');
-            preparePhoneNumbersDetails(data.customer.phone_numbers);
-            $scope.phone_numbers_info_edition_enabled=false;
-          }
-          else{
-            $scope.errors = data.errors;
+      Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
+
+            if (!data.errors){
+              Flash.create('success', 'Customer phone numbers successfully saved!');
+              preparePhoneNumbersDetails(data.customer.phone_numbers);
+              $scope.phone_numbers_info_edition_enabled=false;
+            }
+            else{
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
             Flash.create('danger', 'Something happened. See errors below.');
-          }
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+          });
+    }
+    else{
+      Flash.create('danger', 'Phone numbers information changes were not submitted. Check errors below.');
+    }
 
   }
 
