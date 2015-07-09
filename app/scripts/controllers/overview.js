@@ -225,14 +225,30 @@ angular.module('ersApp')
   }
 
   $scope.save_customer_info_edition = function (){
-    Customer.save({customerId: $scope.customer.id}, $scope.customer, function(data) {
-          Flash.create('success', 'Customer details successfully saved!');
-          prepareCustomerDetails(data.customer);
-          $scope.customer_info_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+    if ($scope.customer_form.$valid)
+    {
+      Customer.save({customerId: $scope.customer.id}, $scope.customer, function(data) {
+          //TODO 422 error ends up here in success function, for the moment we interpret an error when errors object is present
+          if (!data.errors){
+            Flash.create('success', 'Customer details successfully saved!');
+            prepareCustomerDetails(data.customer);
+            $scope.customer_info_edition_enabled=false;
+          }
+          else{
+            $scope.errors = data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          }
+
+            
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else{
+      Flash.create('danger', 'Customer informacion changes were not submitted. Check errors below.');
+    }
+
 
   }
 
@@ -409,9 +425,16 @@ angular.module('ersApp')
     phone_numbers_attributes_update.id=$scope.customer.id;
 
     Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
-          Flash.create('success', 'Customer phone numbers successfully saved!');
-          preparePhoneNumbersDetails(data.customer.phone_numbers);
-          $scope.phone_numbers_info_edition_enabled=false;
+
+          if (!data.errors){
+            Flash.create('success', 'Customer phone numbers successfully saved!');
+            preparePhoneNumbersDetails(data.customer.phone_numbers);
+            $scope.phone_numbers_info_edition_enabled=false;
+          }
+          else{
+            $scope.errors = data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          }
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
