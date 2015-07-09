@@ -378,29 +378,43 @@ angular.module('ersApp')
   }
 
   $scope.save_site_info_edition = function (){
-    
-    //The API to update source information recieves an integer BUT information
-    //returned or queried from site.. returns the actual string
-    //We invoke the sites update api with only address information to be updated
+    if ($scope.site_form.$valid){
 
-    //Manager array should be provided as manager_ids[11,221] 
-    //where 11 and 221 are the ids of the Users, complete list should be provided every time
-    
-    var manager_ids=[];
-    angular.forEach($scope.site_edit.managers, function(value, key) {
-        manager_ids.push(value.id);
-    });
 
-    $scope.site_edit.manager_ids=manager_ids;
+      //The API to update source information recieves an integer BUT information
+      //returned or queried from site.. returns the actual string
+      //We invoke the sites update api with only address information to be updated
 
-    Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
-          Flash.create('success', 'Site information successfully saved!');
-          prepareSiteDetails(data.site);
-          $scope.site_info_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+      //Manager array should be provided as manager_ids[11,221] 
+      //where 11 and 221 are the ids of the Users, complete list should be provided every time
+      
+      var manager_ids=[];
+      angular.forEach($scope.site_edit.managers, function(value, key) {
+          manager_ids.push(value.id);
+      });
+
+      $scope.site_edit.manager_ids=manager_ids;
+
+      Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
+            if (!data.errors){
+
+              Flash.create('success', 'Site information successfully saved!');
+              prepareSiteDetails(data.site);
+              $scope.site_info_edition_enabled=false;
+            }
+            else
+            {
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else{
+      Flash.create('danger', 'Site information changes were not submitted. Check errors below.');
+    }
   }
   
   function preparePhoneNumbersDetails(phone_numbers)
