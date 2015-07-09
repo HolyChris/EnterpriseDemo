@@ -1,12 +1,14 @@
 angular.module('ersApp')
-  .controller('BillingCtrl', function($scope, $stateParams, Billing) {
+  .controller('BillingCtrl', function($scope, $location, $anchorScroll, $stateParams, Billing) {
 
-    $scope.format = "yyyy-MM-dd"
+    $scope.format = "yyyy-MM-dd";
     $scope.location = {};
     $scope.insurance = {};
+    $scope.site = {};
     $scope.opened = [];
 
     Billing.query({siteId: $stateParams.projectId}, function(data) {
+      $scope.site = data.site;
       if (data.site.billing) {
         $scope.location = data.site.billing;
         $scope.insurance = data.site.billing;
@@ -21,7 +23,7 @@ angular.module('ersApp')
     function toDate(string) {
       if (string) {
         var date = new Date(Date.parse(string));
-        string = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+        string = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       }
       return string;
     }
@@ -58,4 +60,11 @@ angular.module('ersApp')
       $event.stopPropagation();
       $scope.opened[instance] = true;
     };
+
+    // Required to do hasbang to an element id
+    $scope.scrollTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+    };
+
   });
