@@ -29,7 +29,7 @@
           <div class="form-group col-lg-6">
             <label>Initial payment date</label>
             <p class="input-group date-picker">
-              <input class="form-control" id="" value="" ng-model="location.initial_payment_date" datepicker-popup="yyyy/MM/dd" is-open="opened.initial_payment_date">
+              <input class="form-control" id="" value="" ng-model="location.initial_payment_date" datepicker-popup="{{format}}" is-open="opened.initial_payment_date">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'initial_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -38,7 +38,7 @@
           <div class="form-group col-lg-6">
             <label>Final invoice submitted at</label>
               <p class="input-group date-picker">
-                <input class="form-control" id="" value="" ng-model="location.final_invoice_submitted_at" datepicker-popup="yyyy/MM/dd" is-open="opened.final_invoice_submitted_at">
+                <input class="form-control" id="" value="" ng-model="location.final_invoice_submitted_at" datepicker-popup="{{format}}" is-open="opened.final_invoice_submitted_at">
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'final_invoice_submitted_at')"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -51,7 +51,7 @@
           <div class="form-group col-lg-6">
             <label>Invoice sent to Project Manager (Date)</label>
             <p class="input-group date-picker">
-              <input type="" name="" class="form-control" id="" value="" ng-model="location.invoice_send_to_manager_at" datepicker-popup="yyyy/MM/dd" is-open="opened.invoice_send_to_manager_at">
+              <input type="" name="" class="form-control" id="" value="" ng-model="location.invoice_send_to_manager_at" datepicker-popup="{{format}}" is-open="opened.invoice_send_to_manager_at">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'invoice_send_to_manager_at')"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -68,7 +68,7 @@
           <div class="form-group col-sm-6">
             <label>Completion payment date</label>
             <p class="input-group date-picker">
-              <input tye="text" class="form-control" ng-model="location.completion_payment_date" datepicker-popup="yyyy/MM/dd" is-open="opened.completion_payment_date">
+              <input tye="text" class="form-control" ng-model="location.completion_payment_date" datepicker-popup="{{format}}" is-open="opened.completion_payment_date">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'completion_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -102,7 +102,7 @@
         <div class="form-group col-lg-6">
           <label>Deductible paid date</label>
           <p class="input-group date-picker">
-            <input class="form-control" ng-model="insurance.deductible_paid_date" datepicker-popup="yyyy/MM/dd" is-open="opened.deductible_paid_date">
+            <input class="form-control" ng-model="insurance.deductible_paid_date" datepicker-popup="{{format}}" is-open="opened.deductible_paid_date">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event, 'deductible_paid_date')"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -115,7 +115,7 @@
         <div class="form-group col-lg-6">
           <label>Settled RCV date</label>
           <p class="input-group date-picker">
-            <input class="form-control" ng-model="insurance.settled_rcv_date" datepicker-popup="yyyy/MM/dd" is-open="opened.settled_rcv_date">
+            <input class="form-control" ng-model="insurance.settled_rcv_date" datepicker-popup="{{format}}" is-open="opened.settled_rcv_date">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event, 'settled_rcv_date')"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -132,7 +132,7 @@
         <div class="form-group col-lg-6">
           <label>Check released date</label>
           <p class="input-group date-picker">
-            <input class="form-control" ng-model="insurance.check_released_date" datepicker-popup="yyyy/MM/dd" is-open="opened.check_released_date">
+            <input class="form-control" ng-model="insurance.check_released_date" datepicker-popup="{{format}}" is-open="opened.check_released_date">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event, 'check_released_date')"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -141,7 +141,7 @@
         <div class="form-group col-lg-6">
           <label>Final check received date</label>
           <p class="input-group date-picker">
-            <input class="form-control" ng-model="insurance.final_check_received_date" datepicker-popup="yyyy/MM/dd" is-open="opened.final_check_received_date">
+            <input class="form-control" ng-model="insurance.final_check_received_date" datepicker-popup="{{format}}" is-open="opened.final_check_received_date">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event, 'final_check_received_date')"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -150,7 +150,7 @@
         <div class="form-group col-lg-6">
           <label>Invoice sent to customer at</label>
           <p class="input-group date-picker">
-            <input class="form-control" ng-model="insurance.invoice_sent_to_customer_at" datepicker-popup="yyyy/MM/dd" is-open="opened.invoice_sent_to_customer_at">
+            <input class="form-control" ng-model="insurance.invoice_sent_to_customer_at" datepicker-popup="{{format}}" is-open="opened.invoice_sent_to_customer_at">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="openDate($event, 'invoice_sent_to_customer_at')"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>

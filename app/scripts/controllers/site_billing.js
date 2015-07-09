@@ -1,6 +1,7 @@
 angular.module('ersApp')
   .controller('BillingCtrl', function($scope, $stateParams, Billing) {
 
+    $scope.format = "yyyy-MM-dd"
     $scope.location = {};
     $scope.insurance = {};
     $scope.opened = [];
@@ -15,26 +16,39 @@ angular.module('ersApp')
       }
     });
 
-    $scope.updateLocation = function () {
-      if (!$scope.billExist) {
-        var params =  angular.copy($scope.location);
-        params.siteId = $stateParams.projectId;
+    // Takes an ISO date formated string
+    // and returns YYY-MM-DD
+    function toDate(string) {
+      if (string) {
+        var date = new Date(Date.parse(string));
+        string = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+      }
+      return string;
+    }
 
+    $scope.updateLocation = function () {
+      var params =  angular.copy($scope.location);
+      angular.forEach(params, function(value, key) {
+        if(key.indexOf("_date") !== -1 || key.indexOf("_at") !== -1) {
+          params[key] = toDate(params[key]);
+        }
+      });
+      if (!$scope.billExist) {
+        params.siteId = $stateParams.projectId;
         Billing.save(params, function(data) {
           $scope.location = data.billing;
           $scope.insurance = data.billing;
         }); 
       } else {
-        var params =  angular.copy($scope.location);
         params.siteId = $stateParams.projectId;
         params.billingId = $scope.location.id;
 
         delete params.id;
 
         Billing.update(params, function(data) {
-          console.log(data);
           $scope.location = data.billing;
           $scope.insurance = data.billing;
+          $scope.billExist = true;
         }); 
       };
     };
