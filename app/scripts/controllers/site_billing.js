@@ -5,32 +5,43 @@ angular.module('ersApp')
     $scope.insurance = {};
     $scope.opened = [];
 
-
     Billing.query({siteId: $stateParams.projectId}, function(data) {
-      $scope.location = data.site.billing;
-      $scope.insurance = data.site.billing;
+      if (data.site.billing) {
+        $scope.location = data.site.billing;
+        $scope.insurance = data.site.billing;
+        $scope.billExist = true;
+      } else {
+        $scope.billExist = false;
+      }
     });
 
     $scope.updateLocation = function () {
+      if (!$scope.billExist) {
+        var params =  angular.copy($scope.location);
+        params.siteId = $stateParams.projectId;
 
-      console.log("Save", $scope.location)
+        Billing.save(params, function(data) {
+          $scope.location = data.billing;
+          $scope.insurance = data.billing;
+        }); 
+      } else {
+        var params =  angular.copy($scope.location);
+        params.siteId = $stateParams.projectId;
+        params.billingId = $scope.location.id;
 
-      var params =  angular.copy($scope.location);
-      params.siteId = $stateParams.projectId;
-      params.billingId = $scope.location.id;
+        delete params.id;
 
-      delete params.id;
-
-      Billing.update(params, function(data) {
-        console.log(data);
-      $scope.location = data.billing;
-      $scope.insurance = data.billing;
-      });
+        Billing.update(params, function(data) {
+          console.log(data);
+          $scope.location = data.billing;
+          $scope.insurance = data.billing;
+        }); 
+      };
     };
+
     $scope.openDate = function($event, instance) {
       $event.preventDefault();
       $event.stopPropagation();
-
       $scope.opened[instance] = true;
-    }
+    };
   });
