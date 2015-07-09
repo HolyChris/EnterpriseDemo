@@ -225,14 +225,30 @@ angular.module('ersApp')
   }
 
   $scope.save_customer_info_edition = function (){
-    Customer.save({customerId: $scope.customer.id}, $scope.customer, function(data) {
-          Flash.create('success', 'Customer details successfully saved!');
-          prepareCustomerDetails(data.customer);
-          $scope.customer_info_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+    if ($scope.customer_form.$valid)
+    {
+      Customer.save({customerId: $scope.customer.id}, $scope.customer, function(data) {
+          //TODO 422 error ends up here in success function, for the moment we interpret an error when errors object is present
+          if (!data.errors){
+            Flash.create('success', 'Customer details successfully saved!');
+            prepareCustomerDetails(data.customer);
+            $scope.customer_info_edition_enabled=false;
+          }
+          else{
+            $scope.errors = data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          }
+
+            
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else{
+      Flash.create('danger', 'Customer information changes were not submitted. Check errors below.');
+    }
+
 
   }
 
@@ -272,26 +288,42 @@ angular.module('ersApp')
   }
 
   $scope.save_address_edition = function (){
-    //This is the way API is expecting address values to be passed
-    //object structure with address_attributes inner empty object is created
-    var addressAttributesUpdate={
-        address_attributes: {}
-    };
-    //then edited values are copied over to the object
-    angular.copy($scope.address,addressAttributesUpdate.address_attributes);
-    
-    //State id has also to be provided in a different way 
-    addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
+    if ($scope.address_form.$valid){
 
-    //We invoke the sites update api with only address information to be updated
-    Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
-          Flash.create('success', 'Address successfully saved!');
-          prepareAddressDetails(data.site.address);
-          $scope.address_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+      //This is the way API is expecting address values to be passed
+      //object structure with address_attributes inner empty object is created
+      var addressAttributesUpdate={
+          address_attributes: {}
+      };
+      //then edited values are copied over to the object
+      angular.copy($scope.address,addressAttributesUpdate.address_attributes);
+      
+      //State id has also to be provided in a different way 
+      addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
+
+      //We invoke the sites update api with only address information to be updated
+      Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
+
+            if (!data.errors){
+
+              Flash.create('success', 'Address successfully saved!');
+              prepareAddressDetails(data.site.address);
+              $scope.address_edition_enabled=false;
+
+            }
+            else{
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else
+    {
+      Flash.create('danger', 'Address information changes were not submitted. Check errors below.');
+    }
   }
 
 
@@ -346,29 +378,43 @@ angular.module('ersApp')
   }
 
   $scope.save_site_info_edition = function (){
-    
-    //The API to update source information recieves an integer BUT information
-    //returned or queried from site.. returns the actual string
-    //We invoke the sites update api with only address information to be updated
+    if ($scope.site_form.$valid){
 
-    //Manager array should be provided as manager_ids[11,221] 
-    //where 11 and 221 are the ids of the Users, complete list should be provided every time
-    
-    var manager_ids=[];
-    angular.forEach($scope.site_edit.managers, function(value, key) {
-        manager_ids.push(value.id);
-    });
 
-    $scope.site_edit.manager_ids=manager_ids;
+      //The API to update source information recieves an integer BUT information
+      //returned or queried from site.. returns the actual string
+      //We invoke the sites update api with only address information to be updated
 
-    Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
-          Flash.create('success', 'Site information successfully saved!');
-          prepareSiteDetails(data.site);
-          $scope.site_info_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+      //Manager array should be provided as manager_ids[11,221] 
+      //where 11 and 221 are the ids of the Users, complete list should be provided every time
+      
+      var manager_ids=[];
+      angular.forEach($scope.site_edit.managers, function(value, key) {
+          manager_ids.push(value.id);
+      });
+
+      $scope.site_edit.manager_ids=manager_ids;
+
+      Sites.save({siteId: $scope.project.id}, $scope.site_edit, function(data) {
+            if (!data.errors){
+
+              Flash.create('success', 'Site information successfully saved!');
+              prepareSiteDetails(data.site);
+              $scope.site_info_edition_enabled=false;
+            }
+            else
+            {
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else{
+      Flash.create('danger', 'Site information changes were not submitted. Check errors below.');
+    }
   }
   
   function preparePhoneNumbersDetails(phone_numbers)
@@ -400,22 +446,35 @@ angular.module('ersApp')
   }
 
   $scope.save_phone_numbers_info_edition = function (){
-    //TODO complete and test API update
+    //WE have to check that all phone_numbers forms are valid
+    if ($scope.phone_numbers_form.$valid){
 
-    var phone_numbers_attributes_update ={
-        phone_numbers_attributes: {}
-    };
-    phone_numbers_attributes_update.phone_numbers_attributes=$scope.phone_numbers_edit;
-    phone_numbers_attributes_update.id=$scope.customer.id;
 
-    Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
-          Flash.create('success', 'Customer phone numbers successfully saved!');
-          preparePhoneNumbersDetails(data.customer.phone_numbers);
-          $scope.phone_numbers_info_edition_enabled=false;
-        }, function(error) {
-          $scope.errors = error.data.errors;
-          Flash.create('danger', 'Something happened. See errors below.');
-        });
+      var phone_numbers_attributes_update ={
+          phone_numbers_attributes: {}
+      };
+      phone_numbers_attributes_update.phone_numbers_attributes=$scope.phone_numbers_edit;
+      phone_numbers_attributes_update.id=$scope.customer.id;
+
+      Customer.save({customerId: $scope.customer.id}, phone_numbers_attributes_update, function(data) {
+
+            if (!data.errors){
+              Flash.create('success', 'Customer phone numbers successfully saved!');
+              preparePhoneNumbersDetails(data.customer.phone_numbers);
+              $scope.phone_numbers_info_edition_enabled=false;
+            }
+            else{
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else{
+      Flash.create('danger', 'Phone numbers information changes were not submitted. Check errors below.');
+    }
 
   }
 
