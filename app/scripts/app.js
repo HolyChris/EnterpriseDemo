@@ -31,6 +31,8 @@ angular
     'assetsService',
     'usersService',
     'appointmentsService',
+    'projectService',
+    'billingService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
@@ -113,10 +115,23 @@ angular
         }
         
       })
+      .state('project.project_details',{
+        url:'/project_details',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_project_details.html', controller: 'ProjectCtrl'}
+        }
+        
+      })
       .state('project.production',{
         url:'/production',
         views:{
           "overview-content-view" : {templateUrl:'views/overview_production.html'}
+        }
+      })
+      .state('project.billing',{
+        url:'/billing',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_billing.html', controller: 'BillingCtrl'}
         }
       })
       .state('login', {
