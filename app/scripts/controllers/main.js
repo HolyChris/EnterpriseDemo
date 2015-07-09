@@ -23,7 +23,7 @@ angular.module('ersApp')
             stop: function(event, ui) {
                 var siteId = getSiteId(ui.item[0].id);
                 if (ui.position.left - ui.originalPosition.left > 150) {
-                    $location.path('/projects/' + siteId + '/contract');
+                    $state.go("project.contract",{projectId: siteId})
                 }
             },
             change: function(event, ui) {
@@ -43,7 +43,7 @@ angular.module('ersApp')
             stop: function(event, ui) {
                 var siteId = getSiteId(ui.item[0].id);
                 if (ui.position.left - ui.originalPosition.left > 150) {
-                    $location.path('/projects/' + siteId + '/production');
+                    $state.go("project.production",{projectId: siteId})
                 }
             },
             change: function(event, ui) {
@@ -61,7 +61,7 @@ angular.module('ersApp')
             stop: function(event, ui) {
                 var siteId = getSiteId(ui.item[0].id);
                 if (ui.position.left - ui.originalPosition.left > 150) {
-                    $location.path('/projects/' + siteId + '/billing');
+                    $state.go("project.billing",{projectId: siteId})
                 }
             },
             change: function(event, ui) {
