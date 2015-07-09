@@ -109,7 +109,7 @@
                 <span>Create opportunity</span>
               </div>
             </a>
-            <div class="pipe-card" ng-repeat="opportunity in opportunities.sites">
+            <div ng-repeat="opportunity in opportunities.sites | orderBy:statusOrder" class="pipe-card status-{{opportunity.status | lowercase}}" id="site-{{opportunity.id}}">
               <a ui-sref="project.overview({projectId: opportunity.id})">
                 <div class="pipe-info">
                   <span class="info-title">
@@ -133,8 +133,8 @@
             </span>
           </div>
           <div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.sites">
-            <div class="pipe-card" ng-repeat="contract in contracts.sites">
-              <a ui-sref="project.overview({projectId: contract.id})">
+            <div class="pipe-card" ng-repeat="contract in contracts.sites.slice().reverse()" id="site-{{contract.id}}">
+              <a ui-sref="project.contract({projectId: contract.id})">
                 <div class="pipe-info">
                   <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
                    </span>
@@ -153,9 +153,9 @@
             </span>
           </div>
           <div class="pipe-card-container" ui-sortable="sortableOptionsList[2]" id="pro-cards" ng-model="productions.sites">
-            <div class="pipe-card" ng-repeat="production in productions.sites">
+            <div class="pipe-card" ng-repeat="production in productions.sites.slice().reverse()" id="site-{{production.id}}">
 
-              <a ui-sref="project.overview({projectId: production.id})">
+              <a ui-sref="project.production({projectId: production.id})">
                 <div class="pipe-info">
                   <span class="info-title">{{production.customer.firstname}} {{production.customer.lastname}} - PO# {{production.po_number}}</span>
                   <span class="info-data">{{production.address.address1}}</br>{{production.address.city}},{{state_abb[production.address.state.id - 1]}},{{production.address.zipcode}}</span>
@@ -165,16 +165,16 @@
           </div>
         </div>
 
-        <div class="pipe post-pipe">
+        <div class="pipe post-pipe billing-pipe">
           <div class="pipe-title">
             BILLING
             <span class="pipe-number">
               - {{billings.sites.length}}
             </span>
           </div>
-          <div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards"ng-model="billings.sites" >
-            <div class="pipe-card" ng-repeat="billing in billings.sites">
-              <a ui-sref="project.overview({projectId: billing.id})">
+          <div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards" ng-model="billings.sites" >
+            <div class="pipe-card" ng-repeat="billing in billings.sites.slice().reverse()" id="site-{{billing.id}}">
+              <a ui-sref="project.billing({projectId: billing.id})">
                 <div class="pipe-info">
                   <span class="info-title">{{billing.customer.firstname}} {{billing.customer.lastname}}</span>
                   <span class="info-data">PO# {{billing.po_number}}</span>
@@ -184,7 +184,7 @@
           </div>
         </div>
 
-        <div class="pipe close-pipe">
+        <!-- <div class="pipe close-pipe">
           <div class="pipe-title">
             COLLECTIONS
             <span class="pipe-number">
@@ -192,7 +192,7 @@
             </span>
           </div>
           <div class="pipe-card-container" ui-sortable="sortableOptionsList[4]" id="close-cards">
-            <div class="pipe-card out-amount collapse"><!-- hidden for now -->
+            <div class="pipe-card out-amount collapse">
               <div class="pipe-info">
                 <a ui-sref="overview.project">
                   <span class="">Outstanding Amount</span>
@@ -222,7 +222,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

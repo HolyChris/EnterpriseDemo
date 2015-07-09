@@ -32,7 +32,7 @@ angular.module('ersApp')
       $scope.resetPassword = true;
     };
 
-    $scope.sendDesetPassword = function() {
+    $scope.sendResetPassword = function() {
       // call api for sending reset instructions here
       $scope.resetPassword = false;
     };

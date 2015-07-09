@@ -445,21 +445,6 @@ a:hover span {
 .pipe a:hover .pipe-card.create-opp span {
   color: #23527c;
 }
-.opp-pipe .pipe-card:nth-child(1){
-  box-shadow: 0px 2px 0px 0px #277cea;
-}
-.opp-pipe .pipe-card:nth-child(2){
-  box-shadow: 0px 2px 0px 0px #e74c3c;
-}
-.opp-pipe .pipe-card:nth-child(3){
-  box-shadow: 0px 2px 0px 0px #f1c40f;
-}
-.opp-pipe .pipe-card:nth-child(4){
-  box-shadow: 0px 2px 0px 0px #499c4b;
-}
-.opp-pipe .pipe-card:nth-child(5){
-  box-shadow: 0px 2px 0px 0px #95a5a6;
-}
 .pipe-card div{
   color: #3c3d41;
   float: left;
@@ -580,27 +565,23 @@ a:hover span {
   }
 /****login.html*****/
   .bg-container{
-    width:100%;
-    height:100%;
-    background-image:url(../images/bg.png);
-    background-color:rgba(238,238,238,0.9);
-    background-size:cover;
-    background-position:center;
-    background-repeat: no-repeat;
-    background-blend-mode:screen;
+    background-image: url(../images/login_background.jpg);
+    background-size: cover;
   }
   .login-container{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    margin: 0 auto;
+    padding: 10em 0 15em;
+    width: 387px;
   }
   .login-box{
-     border-radius: 4px;
-    background-color:   #ffffff;
+    border-radius: 4px;
+    background-color: #ffffff;
     box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
     width: 388px;
-    height: 259px;
+    height: 279px;
+  }
+  .reset-password {
+    padding-right: 25px;
   }
   .login-box_header{
     height:45px;
@@ -705,7 +686,8 @@ a:hover span {
   height:calc(100% - 45px);
   margin-left:-7.5px;
 }
-.close-pipe .pipe-card-container{
+.close-pipe .pipe-card-container,
+.billing-pipe .pipe-card-container {
   border:none !important;
 }
 .pipe .pipe-title .pipe-number{
@@ -714,7 +696,7 @@ a:hover span {
 }
 .pipe .pipe-card{
   margin-top:30px;
-  width:220px;
+  width:95%;
   height:83px;
   background: #fff;
   border:1px solid #eff2f3;
@@ -731,23 +713,22 @@ a:hover span {
   transform: translateY(-50%);
 }
 
-.opp-pipe .pipe-card:nth-child(1){
-  box-shadow: 0px 2px 0px 0px #277cea;
-}
-.opp-pipe .pipe-card:nth-child(2){
-  box-shadow: 0px 2px 0px 0px #e74c3c;
-}
-.opp-pipe .pipe-card:nth-child(3){
-  box-shadow: 0px 2px 0px 0px #f1c40f;
-}
-.opp-pipe .pipe-card:nth-child(4){
+.opp-pipe .pipe-card,
+.opp-pipe .pipe-card.status-new {
   box-shadow: 0px 2px 0px 0px #499c4b;
 }
-.opp-pipe .pipe-card:nth-child(5){
+.opp-pipe .pipe-card.status-bad {
   box-shadow: 0px 2px 0px 0px #95a5a6;
 }
+.opp-pipe .pipe-card.status-dead {
+  box-shadow: 0px 2px 0px 0px #000;
+}
+.opp-pipe .pipe-card.status-good {
+  box-shadow: 0px 2px 0px 0px #e74c3c;
+}
+
 .pipe-card div{
-   margin-left: 10px;
+  margin-left: 10px;
   float:left;
   position: relative;
   margin-top:12.5px;
@@ -929,7 +910,7 @@ a:hover span {
   }
   .card-highlight{
      margin-top:30px;
-  width:220px;
+  width:95%;
   height:90px;
   background:rgba(0,0,0,0.3);
   padding-left:10px;
