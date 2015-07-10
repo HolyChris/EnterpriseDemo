@@ -1355,26 +1355,20 @@ tbody td{
 /*****/
 /*****new site form*****/
 .form-left-container{
-  float:left;
-  width:570px;
+  float: left;
+  margin-bottom: 60px;
+  width: 570px;
 }
 .form-right-container{
-  float:right;
-  width:570px;
-}
-.site-info-form{
-  height:336px;
+  float: right;
+  margin-bottom: 60px;
+  width: 570px;
 }
 .bill-info-form{
   background: #fff;
-  height:336px;
 }
 .search-customer-form{
   background: #fff;
-  height:200px;
-}
-.site-detail-form{
-  height:415px;
 }
 #samebill+label{
   color:#3b3d40;
