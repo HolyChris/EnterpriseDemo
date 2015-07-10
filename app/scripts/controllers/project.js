@@ -13,6 +13,7 @@ angular.module('ersApp')
 	$scope.colors_arr=Project.Colors;
 	$scope.priorities_arr=Project.Priorities;
 	$scope.site = {};
+	$scope.manufacturers_arr=Project.Manufacturers;
 
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {

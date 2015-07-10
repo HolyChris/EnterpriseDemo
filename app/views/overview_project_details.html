@@ -286,7 +286,9 @@
 							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
 								<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
 								<div class="input-group col-lg-9">
-									<input type="text" class="form-control" ng-model="job_submission.shingle_manufacturer">
+									<select name="" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
+						  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
+									</select>
 								</div>
 							</div>
 
