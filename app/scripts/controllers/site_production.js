@@ -6,17 +6,22 @@ angular.module('ersApp')
     $scope.site = {};
     $scope.opened = [];
     $scope.editMode = false;
+    $scope.enableBilling = false;
 
     var globalData = $scope.$parent.globalData;
     globalData.$promise.then(function() {
-      Production.query({siteId: globalData.site.id, productionId: globalData.site.production.id}, function(data) {
-        $scope.site = $scope.$parent.globalData.site;
-        if (data.production) {
-          $scope.setProductionData(data);
-        } else {
-          $scope.productionExist = false;
-        }
-      }); 
+      $scope.enableBilling = $scope.$parent.enableProduction;
+      if (globalData.site.production) {
+        Production.query({siteId: globalData.site.id, productionId: globalData.site.production.id}, function(data) {
+          $scope.site = $scope.$parent.globalData.site;
+          if (data.production) {
+            $scope.setProductionData(data);
+          } else {
+            $scope.productionExist = false;
+          }
+        });
+        $scope.productionExist = false;
+      }
     });
 
     // Takes an ISO date formated string

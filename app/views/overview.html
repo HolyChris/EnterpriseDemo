@@ -24,22 +24,25 @@
 				<span class="title">CONTRACT</span>
 			</a>
 		</li>
-		<li class="item">
+		<li class="item" ng-class="{'locked': !enableProjectDetails}">
 			<a ui-sref="project.project_details({projectId: project_id})">
 				<img src="images/overview-box.png">
 				<span class="title">PROJECT DETAILS</span>
+				<img class="lock-image" src="images/lock.png" ng-show="!enableProjectDetails">
 			</a>
 		</li>
-		<li class="item">
+		<li class="item" ng-class="{'locked': !enableProduction}">
 			<a ui-sref="project.production({projectId: project_id, productionId: production.id})">
 				<img src="images/overview-home.png" alt="Overview Home Icon">
 				<span class="title">PRODUCTION</span>
+				<img class="lock-image" src="images/lock.png" ng-show="!enableProduction">
 			</a>
 		</li>
-		<li class="item">
+		<li class="item" ng-class="{'locked': !enableBilling}">
 			<a ui-sref="project.billing({projectId: project_id})">
 				<img src="images/overview-billing.png" alt="Overview Billing Icon">
 				<span class="title">BILLING</span>
+				<img class="lock-image" src="images/lock.png" ng-show="!enableBilling">
 			</a>
 		</li>
 	</ul>

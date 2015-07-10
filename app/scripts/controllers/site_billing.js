@@ -6,6 +6,12 @@ angular.module('ersApp')
     $scope.insurance = {};
     $scope.site = {};
     $scope.opened = [];
+    $scope.enableBilling = false;
+
+    var globalData = $scope.$parent.globalData;
+    globalData.$promise.then(function() {
+      $scope.enableBilling = $scope.$parent.enableBilling;
+    });
 
     Billing.query({siteId: $stateParams.projectId}, function(data) {
       $scope.site = data.site;

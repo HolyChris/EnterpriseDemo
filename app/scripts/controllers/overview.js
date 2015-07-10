@@ -40,6 +40,13 @@ angular.module('ersApp')
   $scope.work_types = {};
   $scope.newContract = true;
 
+  $scope.enableProjectDetails = false;
+
+  var globalData = $scope.$parent.globalData;
+  globalData.$promise.then(function() {
+    $scope.enableProjectDetails = $scope.$parent.enableProjectDetails;
+  });
+
   $scope.uploadFile = function(files) {
     $scope.contract.document = files[0];
     $scope.$apply();

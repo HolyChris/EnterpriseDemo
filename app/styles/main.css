@@ -1672,3 +1672,20 @@ p.clear-filters {
 .production-form.proj-over-content .form-title .edit-btn.btn-warning {
   background-color: #f0ad4e;
 }
+
+.sidebar-menu li.locked {
+  background-color: #EEE;
+}
+
+.sidebar-menu li.locked  a span.title{
+  color: #CCC;
+}
+
+.sidebar-menu li.locked  img.lock-image{
+  float: right;
+  margin: 14px;
+}
+
+h3.not-available {
+  font-size: 18px;
+}
