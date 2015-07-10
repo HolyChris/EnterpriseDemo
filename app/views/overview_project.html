@@ -3,13 +3,54 @@
 	<div class="proj-over-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
-				{{customer_title}} /<u> PROJECT OVERVIEW</u>
+				<u> PROJECT OVERVIEW</u>
 			</div>
 		</div>
 		<div class="row">
 		<div class="form-left-container">
+	    <div class="col-md-6 form-left overview-header">
+	      <div class="row">
+	        <div class="col-md-8">
+	          <h3 class="title">PROJECT CORE INFO</h3>
+	          <p><span>SITE:</span> {{project.name}}</p>
+	          <p><span>ADRESS:</span> {{project.address.address1}}, {{project.address.city}} {{project.address.state.name}}, {{project.address.zipcode}}</p>
+	          <p><span>PO:</span> {{project.po_number}}</p>
+	          <p><span>STAGE:</span> <b class="text-uppercase">{{project.stage}}</b></p>
+	        </div>
+	        <div class="col-md-4">
+	          <h3 class="title">NAVIGATE</h3>
+	          <ul class="link-list">
+	            <li>
+	              <a href="" ng-click="scrollTo('customer-info-section')">
+	                <img src="images/chevron-right.png">
+	                <span>CUSTOMER INFO</span>
+	              </a>
+	            </li>
+	            <li>
+	              <a href="" ng-click="scrollTo('customer-phone-section')">
+	                <img src="images/chevron-right.png">
+	                <span>PHONE NUMBER</span>
+	              </a>
+	            </li>
+	            <li>
+	              <a href="" ng-click="scrollTo('customer-address-section')">
+	                <img src="images/chevron-right.png">
+	                <span>ADRESS</span>
+	              </a>
+	            </li> 
+	            <li>
+	              <a href="" ng-click="scrollTo('customer-details-section')">
+	                <img src="images/chevron-right.png">
+	                <span>SITE DETAILS</span>
+	              </a>
+	            </li> 
+	          </ul>
+	        </div>
+	      </div>
+	    </div>
 		<div class="col-md-6 form-left">
-			<div class="form-title">
+
+			<div class="form-title" id="customer-info-section">
 				<span>{{customer_title}} / CUSTOMER INFO</span>
 
 				<div class="pull-right">
@@ -80,7 +121,7 @@
 
 		</div>
 		<div class="col-md-6 form-left">
-			<div class="form-title">
+			<div class="form-title" id="customer-phone-section">
 				<span>{{customer_title}} / PHONE NUMBER</span>
 				<div class="pull-right">
 					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!phone_numbers_info_edition_enabled" ng-click="enable_phone_numbers_info_edition()">
@@ -156,7 +197,7 @@
 			
 		</div>
 		<div class="col-md-6 form-left">
-			<div class="form-title">
+			<div class="form-title" id="customer-address-section">
 				<span>{{customer_title}} / ADDRESS</span>
 				<div class="pull-right">
                     <button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
@@ -226,7 +267,7 @@
 			</form>
 		</div>
 		<div class="col-md-6 form-left">
-			<div class="form-title">
+			<div class="form-title" id="customer-details-section">
 				<span>{{customer_title}} / DETAILS</span>
 				<div class="pull-right">
 					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
@@ -296,39 +337,6 @@
 			</form>
 		</div>
 	</div>
-  
-	<div class="col-md-6 core-info-container">
-			<span>PROJECTS CORE INFORMATION</span>
-			<div class="core-info-card">
-              <div class="core-info">
-                <span class="info-title">{{project.customer.firstname + ' ' + project.customer.lastname}}</span>
-                <span class="info-address">{{project.address.address1}},</br> {{project.address.city}},{{project.address.state.name}},{{project.address.zipcode}}</span></br>
-                <span class="info-stage sub-info">Stage:<span>{{project.stage}}</span></span>
-<!--
-                <span class="info-prod-date sub-info">Production Date:<span>30/05/2015</span></span>
-                <span class="info-amount sub-info">Amount Owned:<span>$1200</span></span>
--->
-              </div>
-            </div>
-			
-		</div>
-<!--
-		<div class="col-md-6 pipe">
-			<span>OTHER PROJECTS FOR LINDA HIGGINS</span>
--->
-			<!--<div class="pipe-card">
-              <div class="pipe-info">
-                <span class="info-title">John Doe - 03/27/2015</span>
-                <span class="info-data">10 N, Main Street,</br>Boulder,CO,80301</span>
-              </div>
-            </div>
-            <div class="pipe-card">
-              <div class="pipe-info">
-                <span class="info-title">John Doe - 03/27/2015</span>
-                <span class="info-data">10 N, Main Street,</br>Boulder,CO,80301</span>
-              </div>
-            </div>-->
-			
 		</div>
 	</div>
 </div>  

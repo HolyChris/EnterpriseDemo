@@ -25,6 +25,18 @@
 
 		<div class="row">
 			<div class="form-left-container">
+		    <div class="col-md-6 form-left overview-header">
+		      <div class="row">
+		        <div class="col-md-12">
+		          <h3 class="title">PROJECT CORE INFO</h3>
+		          <p><span>SITE:</span> {{project.name}}</p>
+		          <p><span>ADRESS:</span> {{project.address.address1}}, {{project.address.city}} {{project.address.state.name}}, {{project.address.zipcode}}</p>
+		          <p><span>PO:</span> {{project.po_number}}</p>
+		          <p><span>STAGE:</span> <b class="text-uppercase">{{project.stage}}</b></p>
+		        </div>
+		      </div>
+		    </div>
+
 				<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
 					<div class="form-title">
 						<span> APPOINTMENT </span>
@@ -155,16 +167,6 @@
 					</div>
 				</div>
 
-			</div>
-			<div class="col-md-6 core-info-container">
-				<span>PROJECT CORE INFORMATION</span>
-				<div class="core-info-card">
-		          <div class="core-info">
-		            <span class="info-title">{{project.customer.firstname + ' ' + project.customer.lastname}}</span>
-		            <span class="info-address">{{project.address.address1}},</br> {{project.address.city}},{{project.address.state.name}},{{project.address.zipcode}}</span></br>
-		            <span class="info-stage sub-info">Stage:<span>{{project.stage}}</span></span>
-		          </div>
-		        </div>
 			</div>
 		</div>
 		
