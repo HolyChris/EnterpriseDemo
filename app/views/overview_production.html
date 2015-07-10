@@ -1,5 +1,5 @@
-<div class="container proj-over-container">
-	<div class="proj-over-content">
+<div class="container proj-over-container ">
+	<div class="proj-over-content production-form">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				LINDA HIGGINS(LEAD) /<u> PROJECT OVERVIEW</u>
@@ -20,97 +20,156 @@
 	          <h3 class="title">NAVIGATE</h3>
 	          <ul class="link-list">
 	            <li>
-	              <a href="" ng-click="scrollTo('project-section')">
+	              <a href="" ng-click="scrollTo('production-section')">
 	                <img src="images/chevron-right.png">
-	                <span>PROJECT</span>
+	                <span>PRODUCTION</span>
 	              </a>
 	            </li>
 	            <li>
-	              <a href="" ng-click="scrollTo('insurance-section')">
+	              <a href="" ng-click="scrollTo('completion-section')">
 	                <img src="images/chevron-right.png">
-	                <span>INSURANCE INFO</span>
+	                <span>COMPLETION INFO</span>
 	              </a>
 	            </li>
 	          </ul>
 	        </div>
 	      </div>
 	    </div>
-			
-		<div class="col-md-6 form-left">
-			<div class="form-title">
-				<span>PRODUCTION INFO</span>
-				<span class="edit-btn pull-right">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-			</div>	
-			<div class="form-container">
-				<div class="form-group col-lg-6">
-					<label>Project Received in Production</label>
-					<input type="" name="" class="form-control" id="" value="15/05/2015">
+		<form>
+			<div class="col-md-6 form-left">
+				<div class="form-title" id="production-section">
+					<span>PRODUCTION INFO</span>
+					<span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="editMode" ng-click="saveProduction()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
+				</div>	
+				<input type="hidden" ng-model="production.id">
+				<div class="form-container">
+					<fieldset ng-disabled="!editMode">
+						<div class="form-group col-lg-6">
+							<label>Project Received in Production at</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.ready_for_production_at" datepicker-popup="{{format}}" is-open="opened.ready_for_production_at">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'ready_for_production_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label>Production date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.production_date" datepicker-popup="{{format}}" is-open="opened.production_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'production_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label>Material delivery date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" id="" ng-model="production.delivery_date" datepicker-popup="{{format}}" is-open="opened.delivery_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'delivery_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+										
+						<div class="form-group col-lg-6">
+							<label>Paid till now</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input class="form-control" ng-model="production.paid_till_now">
+							</div>
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label>Permit number</label>
+							<input class="form-control" ng-model="production.permit_number">
+						</div>
+						<div class="form-group col-lg-6">
+							<label>Permit date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.permit_date" datepicker-popup="{{format}}" is-open="opened.permit_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'permit_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>			
+						
+						<div class="form-group col-sm-12">
+							<label>Permit Department</label>
+							<input tye="text" class="form-control" ng-model="production.permit_department"></input>
+						</div>
+					
+					</fieldset>
 				</div>
-				
-				<div class="form-group col-lg-6">
-					<label>Production date</label>
-					<input type="" name="" class="form-control" id="" value="30/0/5/2015">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label>Material delivery date</label>
-					<input type="" name="" class="form-control" id="" value="29/05/2015">
-				</div>
-								
-				<div class="form-group col-lg-6">
-					<label>Paid till now</label>
-					<input type="" name="" class="form-control" id="" value="$1200">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label>Permit number</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-				<div class="form-group col-lg-6">
-					<label>Permit date</label>
-					<input type="" name="" class="form-control" id="" value="30/05/2015">
-				</div>			
-				
-				<div class="form-group col-sm-12">
-					<label>Permit Department</label>
-					<input tye="text" class="form-control"></input>
-				</div>
-			
 			</div>
-		</div>
-		<div class="col-md-6 form-left">
-			<div class="form-title">
-				<span>COMPLETION INFO</span>
-				<span class="edit-btn pull-right">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-			</div>	
-			<div class="form-container">
-				<div class="form-group col-lg-6">
-					<label>Roof completion date</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label>Product inspection date</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-				
-				<div class="form-group col-lg-6">
-					<label>Production inspection passed date</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-				<div class="form-group col-lg-12">
-					<label>Materials not used</label>
-					<input type="" name="" class="form-control" id="" value="">
-				</div>
-			
+			<div class="col-md-6 form-left">
+				<fieldset ng-disabled="!editMode">
+					<div class="form-title" id="completion-section">
+						<span>COMPLETION INFO</span>
+						<span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+							<img src="/images/Write-white.png"/>
+							EDIT
+						</span>
+						<span class="edit-btn pull-right" ng-show="editMode" ng-click="saveProduction()">
+							<img src="/images/Write-white.png"/>
+							SAVE
+						</span>
+						<span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+							<img src="/images/Write-white.png"/>
+							CANCEL
+						</span>
+					</div>	
+					<div class="form-container">
+						<div class="form-group col-lg-6">
+							<label>Roof completion date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.roof_built_date" datepicker-popup="{{format}}" is-open="opened.roof_built_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'roof_built_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label>Production inspection date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.production_inspection_date" datepicker-popup="{{format}}" is-open="opened.production_inspection_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'production_inspection_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label>Production inspection passed date</label>
+		          <p class="input-group date-picker">
+		            <input class="form-control" ng-model="production.production_inspection_passed_date" datepicker-popup="{{format}}" is-open="opened.production_inspection_passed_date">
+		            <span class="input-group-btn">
+		              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'production_inspection_passed_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+		          </p>
+						</div>
+						<div class="form-group col-lg-12">
+							<label>Materials not used</label>
+							<input type="" name="" class="form-control" ng-model="production.materials_not_used">
+						</div>
+					</div>
+				</fieldset>
 			</div>
-		</div>
+		</form>
 	</div>
 	</div>
 </div>  
