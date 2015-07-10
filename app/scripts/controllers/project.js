@@ -54,15 +54,15 @@ angular.module('ersApp')
 
 	function formatCurrencyForView(currencyValue)
 	{
+		var formattedCurrencyForView=currencyValue;
+		if (currencyValue){
 
-		var formattedCurrencyForView;
+			//First remove currency sign
+			formattedCurrencyForView=currencyValue.substring(1);
 
-		//First remove currency sign
-		formattedCurrencyForView=currencyValue.substring(1);
-
-		//Convert it to a float
-		formattedCurrencyForView = parseFloat(formattedCurrencyForView.replace(/\,/g, ''));
-		
+			//Convert it to a float
+			formattedCurrencyForView = parseFloat(formattedCurrencyForView.replace(/\,/g, ''));
+		}
 
 		return formattedCurrencyForView;
 	};
@@ -77,76 +77,94 @@ angular.module('ersApp')
 		//Now create the editable object copies with additional transformations for the view		
 		var editableSections=fillEditableReferencesFromApi(project);
 
-		//API returns amount with dollar sign
-		editableSections.insurance_and_mortgage_info.deductible=formatCurrencyForView(editableSections.insurance_and_mortgage_info.deductible);
-
 		//WE have to convert string dates to proper dates
-		editableSections.project.hoa_approval_date=new Date(editableSections.project.hoa_approval_date);
-		editableSections.project.last_roof_built_date=new Date(editableSections.project.last_roof_built_date);
+		if (editableSections.project.hoa_approval_date){
+			editableSections.project.hoa_approval_date=new Date(editableSections.project.hoa_approval_date);
+		}
 
+		if (editableSections.project.last_roof_built_date){
+			editableSections.project.last_roof_built_date=new Date(editableSections.project.last_roof_built_date);	
+		}
+		
 		//API returns priority description but expects id
 		editableSections.project.priority=$scope.priorities_arr.indexOf(editableSections.project.priority) +1;
 
+		prepareInsuranceAndMortgageInfoForView(editableSections.insurance_and_mortgage_info);
 		prepareJobSubmissionForView(editableSections.job_submission);
 		
 	};
 
+	function prepareInsuranceAndMortgageInfoForView(insurance_and_mortgage_info)
+	{
+		if (insurance_and_mortgage_info){
+			//API returns amount with dollar sign
+			insurance_and_mortgage_info.deductible=formatCurrencyForView(insurance_and_mortgage_info.deductible);
+		}
+	}
+
 	function prepareJobSubmissionForView(job_submission)
 	{
-		//API RETURNS description of color, but expects id
+		if (job_submission){
+			//API RETURNS description of color, but expects id
 
-		angular.forEach($scope.colors_arr, function(value, key) {
-	      if (value.name==job_submission.shingle_color) {
-	        job_submission.shingle_color = value.id;
-	      }
-	    });
+			if (job_submission.shingle_color){
+				angular.forEach($scope.colors_arr, function(value, key) {
+			      if (value.name==job_submission.shingle_color) {
+			        job_submission.shingle_color = value.id;
+			      }
+			    });
+			}
 
+			if (job_submission.drip_color){
+				angular.forEach($scope.colors_arr, function(value, key) {
+			      if (value.name==job_submission.drip_color) {
+			        job_submission.drip_color = value.id;
+			      }
+			    });
+			}
 
-		angular.forEach($scope.colors_arr, function(value, key) {
-	      if (value.name==job_submission.drip_color) {
-	        job_submission.drip_color = value.id;
-	      }
-	    });
+			//API returns amount with dollar sign
+			job_submission.initial_cost_per_sq=formatCurrencyForView(job_submission.initial_cost_per_sq);
+			job_submission.roof_work_acv=formatCurrencyForView(job_submission.roof_work_acv);
+			job_submission.roof_work_rcv=formatCurrencyForView(job_submission.roof_work_rcv);
+			job_submission.roof_upgrade_cost=formatCurrencyForView(job_submission.roof_upgrade_cost);
+			job_submission.roof_discount=formatCurrencyForView(job_submission.roof_discount);
+			
+			
 
-		//API returns amount with dollar sign
-		job_submission.initial_cost_per_sq=formatCurrencyForView(job_submission.initial_cost_per_sq);
-		job_submission.roof_work_acv=formatCurrencyForView(job_submission.roof_work_acv);
-		job_submission.roof_work_rcv=formatCurrencyForView(job_submission.roof_work_rcv);
-		job_submission.roof_upgrade_cost=formatCurrencyForView(job_submission.roof_upgrade_cost);
-		job_submission.roof_discount=formatCurrencyForView(job_submission.roof_discount);
+			job_submission.gutters_rcv=formatCurrencyForView(job_submission.gutters_rcv);
+			job_submission.gutters_acv=formatCurrencyForView(job_submission.gutters_acv);
+			job_submission.gutters_upgrade_cost=formatCurrencyForView(job_submission.gutters_upgrade_cost);
+			job_submission.gutters_discount=formatCurrencyForView(job_submission.gutters_discount);
+			job_submission.gutters_total=formatCurrencyForView(job_submission.gutters_total);
+
+			
+			job_submission.siding_rcv=formatCurrencyForView(job_submission.siding_rcv);
+			job_submission.siding_acv=formatCurrencyForView(job_submission.siding_acv);
+			job_submission.siding_upgrade_cost=formatCurrencyForView(job_submission.siding_upgrade_cost);
+			job_submission.siding_discount=formatCurrencyForView(job_submission.siding_discount);
+			job_submission.siding_total=formatCurrencyForView(job_submission.siding_total);
+
+			job_submission.windows_rcv=formatCurrencyForView(job_submission.windows_rcv);
+			job_submission.windows_acv=formatCurrencyForView(job_submission.windows_acv);
+			job_submission.windows_upgrade_cost=formatCurrencyForView(job_submission.windows_upgrade_cost);
+			job_submission.windows_discount=formatCurrencyForView(job_submission.windows_discount);
+			job_submission.windows_total=formatCurrencyForView(job_submission.windows_total);
+
+			job_submission.paint_rcv=formatCurrencyForView(job_submission.paint_rcv);
+			job_submission.paint_acv=formatCurrencyForView(job_submission.paint_acv);
+			job_submission.paint_upgrade_cost=formatCurrencyForView(job_submission.paint_upgrade_cost);
+			job_submission.paint_discount=formatCurrencyForView(job_submission.paint_discount);
+			job_submission.paint_total=formatCurrencyForView(job_submission.paint_total);
+
+			job_submission.hvac_rcv=formatCurrencyForView(job_submission.hvac_rcv);
+			job_submission.hvac_acv=formatCurrencyForView(job_submission.hvac_acv);
+			job_submission.hvac_upgrade_cost=formatCurrencyForView(job_submission.hvac_upgrade_cost);
+			job_submission.hvac_discount=formatCurrencyForView(job_submission.hvac_discount);
+			job_submission.hvac_total=formatCurrencyForView(job_submission.hvac_total);
+		}
+
 		
-		
-
-		job_submission.gutters_rcv=formatCurrencyForView(job_submission.gutters_rcv);
-		job_submission.gutters_acv=formatCurrencyForView(job_submission.gutters_acv);
-		job_submission.gutters_upgrade_cost=formatCurrencyForView(job_submission.gutters_upgrade_cost);
-		job_submission.gutters_discount=formatCurrencyForView(job_submission.gutters_discount);
-		job_submission.gutters_total=formatCurrencyForView(job_submission.gutters_total);
-
-		
-		job_submission.siding_rcv=formatCurrencyForView(job_submission.siding_rcv);
-		job_submission.siding_acv=formatCurrencyForView(job_submission.siding_acv);
-		job_submission.siding_upgrade_cost=formatCurrencyForView(job_submission.siding_upgrade_cost);
-		job_submission.siding_discount=formatCurrencyForView(job_submission.siding_discount);
-		job_submission.siding_total=formatCurrencyForView(job_submission.siding_total);
-
-		job_submission.windows_rcv=formatCurrencyForView(job_submission.windows_rcv);
-		job_submission.windows_acv=formatCurrencyForView(job_submission.windows_acv);
-		job_submission.windows_upgrade_cost=formatCurrencyForView(job_submission.windows_upgrade_cost);
-		job_submission.windows_discount=formatCurrencyForView(job_submission.windows_discount);
-		job_submission.windows_total=formatCurrencyForView(job_submission.windows_total);
-
-		job_submission.paint_rcv=formatCurrencyForView(job_submission.paint_rcv);
-		job_submission.paint_acv=formatCurrencyForView(job_submission.paint_acv);
-		job_submission.paint_upgrade_cost=formatCurrencyForView(job_submission.paint_upgrade_cost);
-		job_submission.paint_discount=formatCurrencyForView(job_submission.paint_discount);
-		job_submission.paint_total=formatCurrencyForView(job_submission.paint_total);
-
-		job_submission.hvac_rcv=formatCurrencyForView(job_submission.hvac_rcv);
-		job_submission.hvac_acv=formatCurrencyForView(job_submission.hvac_acv);
-		job_submission.hvac_upgrade_cost=formatCurrencyForView(job_submission.hvac_upgrade_cost);
-		job_submission.hvac_discount=formatCurrencyForView(job_submission.hvac_discount);
-		job_submission.hvac_total=formatCurrencyForView(job_submission.hvac_total);
 	};
 
 	$scope.enable_project_edition=function(){
@@ -180,6 +198,12 @@ angular.module('ersApp')
 	};
 
 	$scope.enable_insurance_and_mortgage_info_edition=function(){
+		if (!$scope.insurance_and_mortgage_info)
+		{
+			//Queried project did not have this object defined
+			//we define an empty object
+			$scope.insurance_and_mortgage_info={};
+		}
 		$scope.insurance_and_mortgage_info.edition_enabled=true;
 	};
 
