@@ -33,6 +33,7 @@ angular
     'appointmentsService',
     'projectService',
     'billingService',
+    'productionService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',
@@ -85,9 +86,10 @@ angular
       .state('project',{
         url:'/projects/:projectId',
         templateUrl:'views/overview.html',
-        controller: function($stateParams,$scope){
-                      $scope.project_id = $stateParams.projectId;
-                    }
+        controller: function($stateParams, $scope, Sites){
+          $scope.globalData = Sites.get({siteId: $stateParams.projectId});
+          $scope.project_id = $stateParams.projectId;
+        }
       })
       .state('project.overview',{
         url:'/overview/',
@@ -125,7 +127,10 @@ angular
       .state('project.production',{
         url:'/production',
         views:{
-          "overview-content-view" : {templateUrl:'views/overview_production.html'}
+          "overview-content-view" : {
+            templateUrl:'views/overview_production.html', 
+            controller: 'ProductionCtrl'
+          }
         }
       })
       .state('project.billing',{
