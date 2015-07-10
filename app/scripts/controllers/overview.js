@@ -54,6 +54,12 @@ angular.module('ersApp')
 
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');
+
+    if ($scope.newContract && !$scope.contract.document || !$scope.contract.signed_at) {
+      Flash.create('danger', 'Document and Signed on date are required');
+      usSpinnerService.stop('spinner-1');
+      return;
+    }
     
     var siteId = $scope.project.id;
     if ($scope.contract.price) {
@@ -165,10 +171,6 @@ angular.module('ersApp')
       }
     }
   }
-  setTimeout(function() {
-    console.log($scope.managersArray.users);
-  }, 1000)
-
 
   $scope.addPhone = function(evt) {
       // By just adding one value to model
