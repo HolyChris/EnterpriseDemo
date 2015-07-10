@@ -63,7 +63,7 @@ angular.module('ersApp')
     
     var siteId = $scope.project.id;
     if ($scope.contract.price) {
-      $scope.contract.price = parseFloat($scope.contract.price.replace(/\$/g, ''));
+      $scope.contract.price = parseFloat($scope.contract.price.replace(/\,/g, ''));
     }
 
     var fd = new FormData(); // prepare as form data to handle files.
@@ -125,6 +125,9 @@ angular.module('ersApp')
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
     $scope.contract.contract_type = workTypeValues[contract.contract_type];
+    if (contract.price) {
+      $scope.contract.price = contract.price.substring(1);  
+    }
     var path = contract.document_url.substring(contract.document_url.lastIndexOf('/') + 1);
     var filename = path.substring(0, path.lastIndexOf('?'));
     $scope.contract.documentName = filename;
