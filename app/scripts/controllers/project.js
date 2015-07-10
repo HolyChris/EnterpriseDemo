@@ -8,20 +8,21 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('ProjectCtrl', function($scope, $rootScope,$stateParams, Flash,Project) {
+  .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $location, $anchorScroll, Flash, Project) {
 
 	$scope.colors_arr=Project.Colors;
 	$scope.priorities_arr=Project.Priorities;
 	$scope.manufacturers_arr=Project.Manufacturers;
 	$scope.shingles_arr=Project.Shingles;
+	$scope.site = {};
 
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
 
 		Project.getProjectDetailFromSite($stateParams.projectId,
 			function(data){
-				prepareProjectForView(data.project);
 				$scope.site = data.project.site;
+				prepareProjectForView(data.project);
 				$rootScope.project_id=data.project.site.id;
 
 			},
@@ -49,7 +50,7 @@ angular.module('ersApp')
 			job_submission: $scope.job_submission,
 			insurance_and_mortgage_info: $scope.insurance_and_mortgage_info
 		};
-	}
+	};
 
 	function formatCurrencyForView(currencyValue)
 	{
@@ -64,7 +65,7 @@ angular.module('ersApp')
 		
 
 		return formattedCurrencyForView;
-	}
+	};
 
 	function prepareProjectForView(project)
 	{
@@ -88,7 +89,7 @@ angular.module('ersApp')
 
 		prepareJobSubmissionForView(editableSections.job_submission);
 		
-	}
+	};
 
 	function prepareJobSubmissionForView(job_submission)
 	{
@@ -146,11 +147,11 @@ angular.module('ersApp')
 		job_submission.hvac_upgrade_cost=formatCurrencyForView(job_submission.hvac_upgrade_cost);
 		job_submission.hvac_discount=formatCurrencyForView(job_submission.hvac_discount);
 		job_submission.hvac_total=formatCurrencyForView(job_submission.hvac_total);
-	}
+	};
 
 	$scope.enable_project_edition=function(){
 		$scope.project.edition_enabled=true;
-	}
+	};
 
 	$scope.save_project=function(){
 		Project.updateProjectDetails($scope.site.id,$scope.project,function(data) {
@@ -171,16 +172,16 @@ angular.module('ersApp')
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
         });
-	}
+	};
 
 	$scope.cancel_project_edition=function(){
 		$scope.project.edition_enabled=false;
 		prepareProjectForView($scope.project_from_api);
-	}
+	};
 
 	$scope.enable_insurance_and_mortgage_info_edition=function(){
 		$scope.insurance_and_mortgage_info.edition_enabled=true;
-	}
+	};
 
 	$scope.save_insurance_and_mortgage_info=function(){
 		Project.updateInsuranceAndMortgageInfo($scope.site.id,$scope.project.id,$scope.insurance_and_mortgage_info,function(data) {
@@ -201,15 +202,15 @@ angular.module('ersApp')
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
         });
-	}
+	};
 	$scope.cancel_insurance_and_mortgage_info_edition=function(){
 		$scope.insurance_and_mortgage_info.edition_enabled=false;
 		prepareProjectForView($scope.project_from_api);
-	}
+	};
 
 	$scope.enable_job_submission_edition=function(){
 		$scope.job_submission.edition_enabled=true;
-	}
+	};
 
 	$scope.save_job_submission=function(){
 		Project.updateJobSubmission($scope.site.id,$scope.project.id,$scope.job_submission,function(data) {
@@ -227,10 +228,16 @@ angular.module('ersApp')
 	$scope.cancel_job_submission_edition=function(){
 		$scope.job_submission.edition_enabled=false;
 		prepareProjectForView($scope.project_from_api);
-	}
+	};
 
 	function clearErrors(){
 		$scope.errors={};
 	}
-	
+
+  // Required to do hasbang to an element id
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  };
+
 });
