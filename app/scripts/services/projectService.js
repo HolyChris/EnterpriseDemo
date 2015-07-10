@@ -96,26 +96,26 @@ projectService.factory('Project', function($resource, ENV) {
 	  ];
 
   	var shingles = [
-  	    {title: 'Timberline HD'			,id:'1'},
-		{title: 'ArmourShield 2 IR'		,id:'2'},
-		{title: 'Grand Sequoia IR'		,id:'2'},
-		{title: 'Grand Sequoia'			,id:'3'},
-		{title: 'Grand Canyon'			,id:'4'},
-		{title: 'Camelot 2'				,id:'5'},
-		{title: 'Sienna'				,id:'6'},
-		{title: 'Woodland'				,id:'7'},
-		{title: 'Monaco'				,id:'8'},
-		{title: 'Duration'				,id:'9'},
-		{title: 'Duration Storm IR'		,id:'10'},
-		{title: 'Woodmoor'				,id:'11'},
-		{title: 'Woodcrest'				,id:'12'},
-		{title: 'Presidential Shake'	,id:'13'},
-		{title: 'Presidential Shake IR'	,id:'14'},
-		{title: 'Presidential TL'		,id:'15'},
-		{title: 'Tile'					,id:'16'},
-		{title: 'Villa Tile'			,id:'17'},
-		{title: 'Shake'					,id:'18'},
-		{title: 'Shake XD'				,id:'19'}
+  	    {title: 'Timberline HD'			,id:'1', manufacturerId: '1'},
+		{title: 'ArmourShield 2 IR'		,id:'2', manufacturerId: '1'},
+		{title: 'Grand Sequoia IR'		,id:'2', manufacturerId: '1'},
+		{title: 'Grand Sequoia'			,id:'3', manufacturerId: '1'},
+		{title: 'Grand Canyon'			,id:'4', manufacturerId: '1'},
+		{title: 'Camelot 2'				,id:'5', manufacturerId: '1'},
+		{title: 'Sienna'				,id:'6', manufacturerId: '1'},
+		{title: 'Woodland'				,id:'7', manufacturerId: '1'},
+		{title: 'Monaco'				,id:'8', manufacturerId: '1'},
+		{title: 'Duration'				,id:'9', manufacturerId: '2'},
+		{title: 'Duration Storm IR'		,id:'10', manufacturerId: '2'},
+		{title: 'Woodmoor'				,id:'11', manufacturerId: '2'},
+		{title: 'Woodcrest'				,id:'12', manufacturerId: '2'},
+		{title: 'Presidential Shake'	,id:'13', manufacturerId: '3'},
+		{title: 'Presidential Shake IR'	,id:'14', manufacturerId: '3'},
+		{title: 'Presidential TL'		,id:'15', manufacturerId: '3'},
+		{title: 'Tile'					,id:'16', manufacturerId: '4'},
+		{title: 'Villa Tile'			,id:'17', manufacturerId: '4'},
+		{title: 'Shake'					,id:'18', manufacturerId: '4'},
+		{title: 'Shake XD'				,id:'19', manufacturerId: '4'}
   		];
 
 
