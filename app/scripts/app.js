@@ -89,6 +89,35 @@ angular
         controller: function($stateParams, $scope, Sites){
           $scope.globalData = Sites.get({siteId: $stateParams.projectId});
           $scope.project_id = $stateParams.projectId;
+
+          $scope.enableProjectDetails = false;
+          $scope.enableProduction = false;
+          $scope.enableBilling = false;
+
+          $scope.globalData.$promise.then(function(data) {
+
+            switch (data.site.stage) {
+              // No Contract yet
+              case "Opportunity":
+                // keep them all locked
+              break;
+              // Contract
+              case "Under Contract":
+                $scope.enableProjectDetails = true;
+                $scope.enableProduction = true;
+              break;
+              case "Production":
+                $scope.enableProjectDetails = true;
+                $scope.enableProduction = true;
+                $scope.enableBilling = true;
+              break;
+              case "Billing":
+                $scope.enableProjectDetails = true;
+                $scope.enableProduction = true;
+                $scope.enableBilling = true;
+              break;
+            }
+          });
         }
       })
       .state('project.overview',{
