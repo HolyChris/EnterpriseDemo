@@ -1665,3 +1665,7 @@ p.clear-filters {
   float: right;
   margin: 14px;
 }
+
+h3.not-available {
+  font-size: 18px;
+}
