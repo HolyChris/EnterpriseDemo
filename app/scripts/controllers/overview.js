@@ -478,5 +478,11 @@ angular.module('ersApp')
 
   }
 
+  // Required to do hasbang to an element id
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  };
+
 });
 

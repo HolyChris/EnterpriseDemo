@@ -18,8 +18,81 @@
 		<div class="row">
 
 			<div class="form-left-container">
+
+		    <div class="col-md-6 form-left overview-header">
+		      <div class="row">
+		        <div class="col-md-8">
+		          <h3 class="title">PROJECT CORE INFO</h3>
+		          <p><span>SITE:</span> {{site.name}}</p>
+		          <p><span>ADRESS:</span> {{site.address.address1}}, {{site.address.city}} {{site.address.state.name}}, {{site.address.zipcode}}</p>
+		          <p><span>PO:</span> {{site.po_number}}</p>
+		          <p><span>STAGE:</span> <b class="text-uppercase">{{site.stage}}</b></p>
+		        </div>
+		        <div class="col-md-4">
+		          <h3 class="title">NAVIGATE</h3>
+		          <ul class="link-list">
+		            <li>
+		              <a href="" ng-click="scrollTo('project-section')">
+		                <img src="images/chevron-right.png">
+		                <span>PROJECT</span>
+		              </a>
+		            </li>
+		            <li>
+		              <a href="" ng-click="scrollTo('insurance-section')">
+		                <img src="images/chevron-right.png">
+		                <span>INSURANCE INFO</span>
+		              </a>
+		            </li>
+		            <li>
+		              <a href="" ng-click="scrollTo('project-job')">
+		                <img src="images/chevron-right.png">
+		                <span>JOB SUBMISSION</span>
+		              </a>
+		            </li>
+		            <li>
+		              <a href="" ng-click="scrollTo('project-roof')">
+		                <img src="images/chevron-right.png">
+		                <span>ROOF DETAILS</span>
+		              </a>
+		            </li>		           
+		            <li>
+		              <a href="" ng-click="scrollTo('project-gutter')">
+		                <img src="images/chevron-right.png">
+		                <span>GUTTER DETAILS</span>
+		              </a>
+		            </li>
+		            <li>
+		              <a href="" ng-click="scrollTo('project-siding')">
+		                <img src="images/chevron-right.png">
+		                <span>SIDING DETAILS</span>
+		              </a>
+		            </li>		            
+		            <li>
+		              <a href="" ng-click="scrollTo('project-window')">
+		                <img src="images/chevron-right.png">
+		                <span>WINDOW DETAILS</span>
+		              </a>
+		            </li>
+		            <li>
+		              <a href="" ng-click="scrollTo('project-paint')">
+		                <img src="images/chevron-right.png">
+		                <span>PAINT DETAILS</span>
+		              </a>
+		            </li>		            
+		            <li>
+		              <a href="" ng-click="scrollTo('project-hvac')">
+		                <img src="images/chevron-right.png">
+		                <span>HVAC DETAILS</span>
+		              </a>
+		            </li>
+
+		          </ul>
+		        </div>
+		      </div>
+		    </div>
+
 				<div class="col-md-6 contract-detail-form form-left">
-					<div class="form-title">
+					<div class="form-title" id="project-section">
 						<span> PROJECT </span>
 						<div class="pull-right" ng-show="!project.edition_enabled">
 							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_project_edition()">
@@ -100,23 +173,12 @@
 						</fieldset>
 					</div>
 				</div>
-
-			</div>
-			<div class="col-md-6 core-info-container">
-				<span>PROJECT CORE INFORMATION</span>
-				<div class="core-info-card">
-		          <div class="core-info">
-		            <span class="info-title">{{site.name}}</span>
-		            <span class="info-address">{{site.contact_name}},</br> {{site.contact_phone}}</span></br>
-		            <span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
-		          </div>
-		        </div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="form-left-container">
 				<div class="col-md-6 contract-detail-form form-left">
-					<div class="form-title">
+					<div class="form-title" id="insurance-section">
 						<span> INSURANCE AND MORTGAGE INFO </span>
 						<div class="pull-right" ng-show="!insurance_and_mortgage_info.edition_enabled">
 							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_insurance_and_mortgage_info_edition()">
@@ -184,7 +246,7 @@
 		<div class="row">
 			<div class="form-left-container">
 				<div class="col-md-6 contract-detail-form form-left">
-					<div class="form-title">
+					<div class="form-title" id="project-job">
 						<span> JOB SUBMISSION </span>
 						<div class="pull-right" ng-show="!job_submission.edition_enabled">
 							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_job_submission_edition()">
@@ -285,7 +347,7 @@
 							</div>
 						</fieldset>
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-roof">
 								<span> ROOF DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
@@ -313,7 +375,7 @@
 						</div>
 
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-gutter">
 								<span> GUTTER DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
@@ -369,7 +431,7 @@
 
 
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-siding">
 								<span> SIDING DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
@@ -425,7 +487,7 @@
 
 
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-window">
 								<span> WINDOW DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
@@ -480,7 +542,7 @@
 						</div>
 
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-paint">
 								<span> PAINT DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
@@ -535,7 +597,7 @@
 						</div>
 
 						<div class="form-container col-lg-6 well">
-							<div class="form-title">
+							<div class="form-title" id="project-hvac">
 								<span> HVAC DETAILS </span>
 							</div>
 							<fieldset ng-disabled="!job_submission.edition_enabled">
