@@ -13,7 +13,9 @@ angular.module('ersApp')
 	$scope.colors_arr=Project.Colors;
 	$scope.priorities_arr=Project.Priorities;
 	$scope.site = {};
-
+	$scope.manufacturers_arr=Project.Manufacturers;
+	$scope.shingles_arr=Project.Shingles;
+	
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
 
@@ -92,8 +94,19 @@ angular.module('ersApp')
 	function prepareJobSubmissionForView(job_submission)
 	{
 		//API RETURNS description of color, but expects id
-		job_submission.shingle_color=$scope.colors_arr.indexOf(job_submission.shingle_color) +1;
-		job_submission.drip_color=$scope.colors_arr.indexOf(job_submission.drip_color) +1;
+
+		angular.forEach($scope.colors_arr, function(value, key) {
+	      if (value.name==job_submission.shingle_color) {
+	        job_submission.shingle_color = value.id;
+	      }
+	    });
+
+
+		angular.forEach($scope.colors_arr, function(value, key) {
+	      if (value.name==job_submission.drip_color) {
+	        job_submission.drip_color = value.id;
+	      }
+	    });
 
 		//API returns amount with dollar sign
 		job_submission.initial_cost_per_sq=formatCurrencyForView(job_submission.initial_cost_per_sq);
