@@ -282,11 +282,11 @@
 								<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
 								<div class="input-group col-lg-9">
 									<select name="" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
-						  				<option ng-repeat="shingle in shingles_arr" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
+						  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
 								<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
 
