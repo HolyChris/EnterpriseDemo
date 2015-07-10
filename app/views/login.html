@@ -5,7 +5,7 @@
 </div>
 <div class="bg-container" ng-show="!resetPassword">
 	<div class="login-container">
-		<form autocomplete="on" ng-submit="signUp()">
+		<form name="loginForm" autocomplete="on" ng-submit="signUp()">
 			<div class="login-box">
 				<div class="login-box_header">
 					LOG IN
@@ -14,13 +14,13 @@
 					<div class="container">
 						<div class="row">
 							<div class="form-container">
-								<div class="form-group col-lg-12">
+								<div class="form-group col-lg-12" ng-class="{ 'has-error': loginForm.email.$invalid }">
 									<label>Email Address<sup>*</sup></label>
-									<input type="email" name="email" class="form-control" ng-model="model.email" tabindex="1">
+									<input type="email" name="email" ng-required="required" class="form-control" ng-model="model.email" tabindex="1">
 								</div>
-								<div class="form-group col-lg-12">
+								<div class="form-group col-lg-12" ng-class="{ 'has-error': loginForm.password.$invalid }">
 									<label>Password<sup>*</sup></label>
-									<input type="password" name="password" class="form-control" ng-model="model.password" tabindex="2">
+									<input type="password" name="password" class="form-control" ng-model="model.password" tabindex="2" ng-required="required">
 								</div>
 							</div>
 						</div>
@@ -28,7 +28,7 @@
 				</div>
 				<p class="text-right col-xs-12 reset-password"><a ng-click="showResetForm()" href="#">forgot password?</a></p>
 			</div>
-			<div class="btn login-btn" ng-click="signUp()" ng-keyup="$event.keyCode == 13 && signUp()" tabindex="3">
+			<div ng-disabled="loginForm.$invalid || !model.password" class="btn login-btn" ng-click="signUp()" ng-keyup="$event.keyCode == 13 && signUp()" tabindex="3">
 				<span>LOG IN</span>
 				<img src="/images/West.png">
 				<input type="submit" style="display:none;">
@@ -40,26 +40,26 @@
 <!-- RESET PASSWORD -->
 <div class="bg-container" ng-show="resetPassword">
 	<div class="login-container">
-		<form ng-submit="sendDesetPassword()">
+		<form name="passwordReset" ng-submit="sendResetPassword()">
 
 			<div class="login-box">
 				<div class="login-box_header">
-					LOG IN
+					RESET PASSWORD
 				</div>
 				<div class="login-box_body">
 					<div class="container">
 						<div class="row">
 								<div class="form-container">
-									<div class="form-group col-lg-12">
+									<div class="form-group col-lg-12" ng-class="{ 'has-error': passwordReset.resetemail.$invalid }">
 										<label>Email Address<sup>*</sup></label>
-										<input type="email" name="resetemail" autocomplete="off" class="form-control">
+										<input type="email" name="resetemail" ng-required="required" autocomplete="off" ng-model="resetemail" class="form-control">
 									</div>
 								</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="btn login-btn" ng-click="sendResetPassword()">
+			<div class="btn login-btn" ng-disabled="passwordReset.$invalid || !resetemail" ng-click="sendResetPassword()">
 				<span>RESET PASSWORD</span>
 				<img src="/images/West.png">
 				<input type="submit" style="display:none;">

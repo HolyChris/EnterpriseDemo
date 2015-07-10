@@ -1355,26 +1355,20 @@ tbody td{
 /*****/
 /*****new site form*****/
 .form-left-container{
-  float:left;
-  width:570px;
+  float: left;
+  margin-bottom: 60px;
+  width: 570px;
 }
 .form-right-container{
-  float:right;
-  width:570px;
-}
-.site-info-form{
-  height:336px;
+  float: right;
+  margin-bottom: 60px;
+  width: 570px;
 }
 .bill-info-form{
   background: #fff;
-  height:336px;
 }
 .search-customer-form{
   background: #fff;
-  height:200px;
-}
-.site-detail-form{
-  height:415px;
 }
 #samebill+label{
   color:#3b3d40;
@@ -1533,6 +1527,32 @@ tbody td{
 p.clear-filters {
   cursor: pointer;
   line-height: 34px;
+}
+.drag-effects {
+  background: rgba(0,0,0,0.75);
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  -webkit-transition: all 0.35s ease;
+     -moz-transition: all 0.35s ease;
+      -ms-transition: all 0.35s ease;
+       -o-transition: all 0.35s ease;
+          transition: all 0.35s ease;
+  width: 100%;
+  z-index: 1000;
+}
+.drag .drag-effects {
+  display: block;
+  opacity: 1;
+}
+.drag-effects h3 {
+  color: #fff;
+  margin-top: 2em;
+  text-align: center;
+  text-shadow: 1px 1px 5px #000;
 }
 
 /*****end file uploads*****/

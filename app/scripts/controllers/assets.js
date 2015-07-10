@@ -73,6 +73,20 @@ angular.module('ersApp')
         return false;
       });
 
+      $(document).bind('dragover', function (e) {
+        var dropZone = $(window),
+            timeout = window.dropZoneTimeout;
+        if (!timeout) {
+          $('body').addClass('drag');
+        } else {
+          clearTimeout(timeout);
+        }
+        window.dropZoneTimeout = setTimeout(function () {
+          window.dropZoneTimeout = null;
+          $('body').removeClass('drag');
+        }, 100);
+      });
+
       // filters for showing/hiding documents or images.
       $scope.show = 'All';
       $scope.showImages = function() {

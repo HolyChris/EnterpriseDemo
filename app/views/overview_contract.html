@@ -8,7 +8,7 @@
 			</div>
 			<div class="col-md-12 container-note" ng-show="newContract">
 				<span class="note">
-					<img src="images/pin.png">
+					<img src="images/pin2.png">
 					Note: There's currently no contract signed. Fill out the fields below.
 				</span>
 			</div>
@@ -107,7 +107,7 @@
 						<div class="form-container">
 							<div class="form-group col-lg-12">
 								<span>When you’re done - click the save button below.</span>
-								<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)">
+								<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)" ng-disabled="(!contract.document && !contract.document_url) || !contract.signed_at">
 								<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-1"></span>
 							</div>
 						</div>
