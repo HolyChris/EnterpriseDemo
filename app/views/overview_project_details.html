@@ -268,6 +268,25 @@
 
 					<div class="form-container">
 						<fieldset ng-disabled="!job_submission.edition_enabled">
+							
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
+								<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
+								<div class="input-group col-lg-9">
+									<select name="" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
+						  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
+								<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
+								<div class="input-group col-lg-9">
+									<select name="" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
+						  				<option ng-repeat="shingle in shingles_arr" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
+									</select>
+								</div>
+							</div>
+							
 							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
 								<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
 
@@ -283,21 +302,7 @@
 								</select>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
-								<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
-								<div class="input-group col-lg-9">
-									<select name="" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
-						  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
-								<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
-								<div class="input-group col-lg-9">
-									<input type="text" class="form-control" ng-model="job_submission.shingle_type">
-								</div>
-							</div>
+							
 
 							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.work_type']}">
 								<label class="control-label">Type Of Work To Be Completed {{errors['job_submission.work_type']}}</label>
