@@ -577,15 +577,20 @@ a:hover span {
     padding: 10em 0 15em;
     width: 387px;
   }
+
+  .login-container .logo-container {
+    text-align: center;
+  }
+
   .login-box{
     border-radius: 4px;
     background-color: #ffffff;
     box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
     width: 388px;
-    height: 279px;
   }
   .reset-password {
     padding-right: 25px;
+    margin-top: 10px;
   }
   .login-box_header{
     height:45px;
