@@ -6,11 +6,11 @@ angular.module('ersApp')
     $scope.site = {};
     $scope.opened = [];
     $scope.editMode = false;
-    $scope.enableBilling = false;
+    $scope.enableProduction = false;
 
     var globalData = $scope.$parent.globalData;
     globalData.$promise.then(function() {
-      $scope.enableBilling = $scope.$parent.enableProduction;
+      $scope.enableProduction = $scope.$parent.enableProduction;
       if (globalData.site.production) {
         Production.query({siteId: globalData.site.id, productionId: globalData.site.production.id}, function(data) {
           $scope.site = $scope.$parent.globalData.site;
