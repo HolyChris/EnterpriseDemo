@@ -8,9 +8,16 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $state) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, Sites, ENV, $state) {
     var oldList, newList, item;
-    angular.element('.main-container').addClass('dashboard-container')
+    angular.element('.main-container').addClass('dashboard-container');
+    $rootScope.$on('$locationChangeStart', function(event) {
+        if ($state.current.url === '/') {
+            angular.element('.main-container').addClass('dashboard-container');
+        } else {
+            angular.element('.main-container').removeClass('dashboard-container');
+        }
+    });
 
     $scope.sortableOptionsList = [
     {
