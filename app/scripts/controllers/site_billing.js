@@ -6,6 +6,7 @@ angular.module('ersApp')
     $scope.insurance = {};
     $scope.site = {};
     $scope.opened = [];
+    $scope.editMode = false;
     $scope.enableBilling = false;
 
     var globalData = $scope.$parent.globalData;
@@ -16,9 +17,7 @@ angular.module('ersApp')
     Billing.query({siteId: $stateParams.projectId}, function(data) {
       $scope.site = data.site;
       if (data.site.billing) {
-        $scope.location = data.site.billing;
-        $scope.insurance = data.site.billing;
-        $scope.billExist = true;
+        $scope.billing = data.site.billing;
       } else {
         $scope.billExist = false;
       }
@@ -34,8 +33,8 @@ angular.module('ersApp')
       return string;
     }
 
-    $scope.updateLocation = function () {
-      var params =  angular.copy($scope.location);
+    $scope.saveBilling = function () {
+      var params =  angular.copy($scope.billing);
       angular.forEach(params, function(value, key) {
         if(key.indexOf("_date") !== -1 || key.indexOf("_at") !== -1) {
           params[key] = toDate(params[key]);
@@ -44,8 +43,7 @@ angular.module('ersApp')
       if (!$scope.billExist) {
         params.siteId = $stateParams.projectId;
         Billing.save(params, function(data) {
-          $scope.location = data.billing;
-          $scope.insurance = data.billing;
+          $scope.billing = data.billing;
         }); 
       } else {
         params.siteId = $stateParams.projectId;
@@ -54,11 +52,29 @@ angular.module('ersApp')
         delete params.id;
 
         Billing.update(params, function(data) {
-          $scope.location = data.billing;
-          $scope.insurance = data.billing;
+          $scope.billing = data.billing;
           $scope.billExist = true;
         }); 
       };
+    };
+
+    $scope.setProductionData = function(data) {
+      $scope.previusBilling = angular.copy(data.billing);
+      $scope.billing = data.billing;
+      $scope.billExist = true;
+    };
+
+    $scope.enableEdition = function() {
+      $scope.editMode = true;
+    };
+
+    $scope.disableEdition = function() {
+      $scope.editMode = false;
+    };
+
+    $scope.discardChanges = function() {
+      $scope.disableEdition();
+      $scope.billing = $scope.previusBilling;
     };
 
     $scope.openDate = function($event, instance) {
