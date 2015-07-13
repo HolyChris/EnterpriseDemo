@@ -10,6 +10,7 @@
 angular.module('ersApp')
   .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $state) {
     var oldList, newList, item;
+    angular.element('.main-container').addClass('.dashboard-container')
 
     $scope.sortableOptionsList = [
     {

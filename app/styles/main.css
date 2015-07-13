@@ -162,11 +162,15 @@ a:hover span {
 .navbar .pull-right a{
   color:#499c4b;
 }
-.main-container{
+.main-container {
   width:100%;
   padding:0px;
   background:#eaeaea;
   min-height:100vh;
+  position: relative;
+}
+.main-container.dashboard-container {
+  position: static;
 }
 /******/
 /****dashboard main.html***/

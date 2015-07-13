@@ -145,7 +145,7 @@ angular.module('ersApp')
           "Content-Type": 'undefined', 
         }
       };
-
+      
       var currentSite = Overview.query({siteId: projectId}, function(data) {
         if (data.site.stage === 'Opportunity') {
           currentStage = 'Lead';
