@@ -94,12 +94,10 @@ angular.module('ersApp')
 
       $('#fileupload').bind('fileuploadadd', function(e, data) {
         
-        $timeout(function() {
+        $timeout(function() { // wait a bit for file to be readied.
             angular.forEach($scope.queue, function(value, key) {
             if (!value.url) {
               $scope.queue[key].stage = currentStage;
-              console.log(value);
-              console.log(key);
             }
           });
           $scope.$apply();
