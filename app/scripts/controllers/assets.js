@@ -24,12 +24,13 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $auth, fileUpload, Images, Documents, Assets, ENV) {
+    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
       $scope.docTypes = Assets.docTypes;
       $scope.stages = Assets.stages;
+      var currentStage = '';
 
       $scope.multipleUploads = function() {
         angular.forEach($scope.queue, function(value, key) {
@@ -65,7 +66,6 @@ angular.module('ersApp')
         }, function(error) {
           $scope.queue[index].state = 'rejected';
           $scope.uploading = false;
-          console.log(error);
         });
       }
 
@@ -87,6 +87,23 @@ angular.module('ersApp')
         }, 100);
       });
 
+      $(document).bind('drop', function (e) { // clear filters when new files are dropped.
+        $('body').removeClass('drag');
+        $scope.clearFilters();
+      });
+
+      $('#fileupload').bind('fileuploadadd', function(e, data) {
+        
+        $timeout(function() { // wait a bit for file to be readied.
+            angular.forEach($scope.queue, function(value, key) {
+            if (!value.url) {
+              $scope.queue[key].stage = currentStage;
+            }
+          });
+          $scope.$apply();
+        }, 250);
+      });
+
       // filters for showing/hiding documents or images.
       $scope.show = 'All';
       $scope.showImages = function() {
@@ -101,6 +118,7 @@ angular.module('ersApp')
 
       $scope.filter = {};
       $scope.clearFilters = function() {
+        $scope.show = 'All';
         $scope.filter = {};
         return false;
       }
@@ -127,12 +145,23 @@ angular.module('ersApp')
           "Content-Type": 'undefined', 
         }
       };
-
+      
+      var currentSite = Overview.query({siteId: projectId}, function(data) {
+        if (data.site.stage === 'Opportunity') {
+          currentStage = 'Lead';
+        } else if (data.site.stage === 'Under Contract') {
+          currentStage = 'Contract';
+        } else {
+          currentStage = data.site.stage;
+        }
+      }, function(error){
+        // error state
+      });
 
       $scope.assets = Assets.resource.query({siteId: projectId}, function(data) {
         generateFileObject(data.assets);
       }, function(error) {
-        console.log(error);
+        // error state
       });
 
       if (!$scope.queue) {

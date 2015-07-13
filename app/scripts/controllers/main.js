@@ -10,6 +10,7 @@
 angular.module('ersApp')
   .controller('MainCtrl', function ($scope, $http, $window, $location, Sites, ENV, $state) {
     var oldList, newList, item;
+    angular.element('.main-container').addClass('dashboard-container')
 
     $scope.sortableOptionsList = [
     {
@@ -17,19 +18,18 @@ angular.module('ersApp')
     	cursor: '-webkit-grabbing',
     	items: '.pipe-card:not(.create-opp)',
         start: function(event, ui) {
-                item = ui.item;
-                newList = oldList = ui.item.parent();
-            },
-            stop: function(event, ui) {
-                var siteId = getSiteId(ui.item[0].id);
-                if (ui.position.left - ui.originalPosition.left > 150) {
-                    $state.go("project.contract",{projectId: siteId})
-                }
-            },
-            change: function(event, ui) {
-                if(ui.sender) newList = ui.placeholder.parent();
-            },
-
+            item = ui.item;
+            newList = oldList = ui.item.parent();
+        },
+        stop: function(event, ui) {
+            var siteId = getSiteId(ui.item[0].id);
+            if (ui.position.left - ui.originalPosition.left > 150) {
+                $state.go("project.contract",{projectId: siteId})
+            }
+        },
+        change: function(event, ui) {
+            if(ui.sender) newList = ui.placeholder.parent();
+        },
         connectWith: '#con-cards',
     },
     {
@@ -37,50 +37,50 @@ angular.module('ersApp')
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
          start: function(event, ui) {
-                item = ui.item;
-                newList = oldList = ui.item.parent();
-            },
-            stop: function(event, ui) {
-                var siteId = getSiteId(ui.item[0].id);
-                if (ui.position.left - ui.originalPosition.left > 150) {
-                    $state.go("project.production",{projectId: siteId})
-                }
-            },
-            change: function(event, ui) {
-                if(ui.sender) newList = ui.placeholder.parent();
+            item = ui.item;
+            newList = oldList = ui.item.parent();
+        },
+        stop: function(event, ui) {
+            var siteId = getSiteId(ui.item[0].id);
+            if (ui.position.left - ui.originalPosition.left > 150) {
+                $state.go("project.production",{projectId: siteId})
             }
+        },
+        change: function(event, ui) {
+            if(ui.sender) newList = ui.placeholder.parent();
+        }
     },
     {
     	connectWith:'#con-cards,#post-cards',
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
         start: function(event, ui) {
-                item = ui.item;
-                newList = oldList = ui.item.parent();
-            },
-            stop: function(event, ui) {
-                var siteId = getSiteId(ui.item[0].id);
-                if (ui.position.left - ui.originalPosition.left > 150) {
-                    $state.go("project.billing",{projectId: siteId})
-                }
-            },
-            change: function(event, ui) {
-                if(ui.sender) newList = ui.placeholder.parent();
+            item = ui.item;
+            newList = oldList = ui.item.parent();
+        },
+        stop: function(event, ui) {
+            var siteId = getSiteId(ui.item[0].id);
+            if (ui.position.left - ui.originalPosition.left > 150) {
+                $state.go("project.billing",{projectId: siteId})
             }
+        },
+        change: function(event, ui) {
+            if(ui.sender) newList = ui.placeholder.parent();
+        }
     },
     {
     	connectWith:'#pro-cards,#close-cards',
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
         start: function(event, ui) {
-                item = ui.item;
-                newList = oldList = ui.item.parent();
-            },
-            stop: function(event, ui) {
-            },
-            change: function(event, ui) {
-                if(ui.sender) newList = ui.placeholder.parent();
-            }
+            item = ui.item;
+            newList = oldList = ui.item.parent();
+        },
+        stop: function(event, ui) {
+        },
+        change: function(event, ui) {
+            if(ui.sender) newList = ui.placeholder.parent();
+        }
     },
     {
     	connectWith:'#post-cards',
@@ -88,14 +88,14 @@ angular.module('ersApp')
     	cursor: '-webkit-grabbing',
     	items: '.pipe-card:not(.out-amount)',
         start: function(event, ui) {
-                item = ui.item;
-                newList = oldList = ui.item.parent();
-            },
-            stop: function(event, ui) {
-            },
-            change: function(event, ui) {
-                if(ui.sender) newList = ui.placeholder.parent();
-            }
+            item = ui.item;
+            newList = oldList = ui.item.parent();
+        },
+        stop: function(event, ui) {
+        },
+        change: function(event, ui) {
+            if(ui.sender) newList = ui.placeholder.parent();
+        }
     }
     ];
 
