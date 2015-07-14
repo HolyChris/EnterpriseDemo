@@ -127,11 +127,10 @@
 								</div>
 							</div>
 
-							<div class="form-group col-sm-12" ng-class="{'has-error' : errors.existing_roof_material}">
+							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.existing_roof_material}">
 								<label class="control-label">Existing Roof Material {{errors.existing_roof_material}}</label>
-								<div class="input-group">
-									<input type="text" class="form-control" ng-model="project.existing_roof_material"></textarea>
-								</div>
+								<textarea rows="5" class="form-control" ng-model="project.existing_roof_material"></textarea>
+							
 							</div>
 
 							<div class="form-group col-lg-12" ng-class="{'has-error' : errors.code_coverage_confirmed}">
@@ -164,11 +163,9 @@
 
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.priority}">
 								<label class="control-label">Priority {{errors.priority}}</label>
-								<div class="input-group">
-									<select name="priority" ng-model="project.priority" convert-to-number class="form-control">
-							  				<option ng-repeat="priority in priorities_arr" value="{{$index+1}}" ng-selected="$index+1==project.priority">{{priority}}</option>
-									</select>
-								</div>
+								<select name="priority" ng-model="project.priority" convert-to-number class="form-control">
+						  				<option ng-repeat="priority in priorities_arr" value="{{$index+1}}" ng-selected="$index+1==project.priority">{{priority}}</option>
+								</select>
 							</div>
 						</fieldset>
 					</div>
@@ -312,11 +309,9 @@
 							</div>
 						</div>
 						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_type_special_instructions']}">
+						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.roof_type_special_instructions']}">
 							<label class="control-label">Roof Type Special Instructions {{errors['job_submission.roof_type_special_instructions']}}</label>
-							<div class="input-group">
-								<input type="text" class="form-control" ng-model="job_submission.roof_type_special_instructions">
-							</div>
+							<textarea rows="5" class="form-control" ng-model="job_submission.roof_type_special_instructions"></textarea>
 						</div>
 
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.initial_cost_per_sq']}">
@@ -341,20 +336,20 @@
 						<fieldset ng-disabled="!job_submission.edition_enabled">
 							<div class="row col-lg-12">
 
-								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_rcv']}">
-									<label class="control-label">Roof Work Rcv {{errors['job_submission.roof_work_rcv']}}</label>
+								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_upgrade_cost']}">
+									<label class="control-label">Roof Upgrade Cost {{errors['job_submission.roof_upgrade_cost']}}</label>
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control" ng-model="job_submission.roof_work_rcv">
+										<input type="number" class="form-control" ng-model="job_submission.roof_upgrade_cost">
 									</div>
 								</div>
 
 
-								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_acv']}">
-									<label class="control-label">Roof Work Acv {{errors['job_submission.roof_work_acv']}}</label>
+								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_discount']}">
+									<label class="control-label">Roof Discount {{errors['job_submission.roof_discount']}}</label>
 									<div class="input-group">
 										<div class="input-group-addon">$</div>
-										<input type="number" class="form-control" ng-model="job_submission.roof_work_acv">
+										<input type="number" class="form-control" ng-model="job_submission.roof_discount">
 									</div>
 								</div>
 							</div>
