@@ -113,7 +113,7 @@
 
 						<div class="form-container">
 							<fieldset ng-disabled="!project.edition_enabled">
-								<div class="form-group col-lg-12" ng-class="{'has-error' : errors.po_number}">
+								<div class="form-group col-lg-6" ng-class="{'has-error' : errors.po_number}">
 									<label class="control-label">PO Number {{errors.po_number}}</label>
 									<div class="input-group col-lg-9">
 										<input type="text" name="po_number" class="form-control" ng-model="project.po_number" disabled>
@@ -180,22 +180,20 @@
 				<div class="col-md-6 contract-detail-form form-left">
 					<div class="form-title" id="insurance-section">
 						<span> INSURANCE AND MORTGAGE INFO </span>
-						<div class="pull-right" ng-show="!insurance_and_mortgage_info.edition_enabled">
-							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_insurance_and_mortgage_info_edition()">
-			  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-							</button>
-						</div>
+						
+						<span class="edit-btn pull-right" ng-show="!insurance_and_mortgage_info.edition_enabled" ng-click="enable_insurance_and_mortgage_info_edition()">
+							<img src="/images/Write-white.png"/>
+							EDIT
+						</span>
+						<span class="edit-btn pull-right" ng-show="insurance_and_mortgage_info.edition_enabled" ng-click="save_insurance_and_mortgage_info()">
+							<img src="/images/Write-white.png"/>
+							SAVE
+						</span>
+						<span class="edit-btn pull-right btn-warning" ng-show="insurance_and_mortgage_info.edition_enabled" ng-click="cancel_insurance_and_mortgage_info_edition()">
+							<img src="/images/Write-white.png"/>
+							CANCEL
+						</span>
 
-						<div class="pull-right" ng-show="insurance_and_mortgage_info.edition_enabled">
-							<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_insurance_and_mortgage_info()">
-			  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-							</button>
-
-							<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_insurance_and_mortgage_info_edition()">
-			  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-							</button>
-
-						</div>
 					</div>
 
 					<div class="form-container">
