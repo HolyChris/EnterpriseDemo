@@ -1,4 +1,4 @@
-<div class="container proj-over-container overview-appointments">
+<div class="container proj-over-container">
   <div flash-message="5000"></div>
   <div class="proj-over-content billing-form" ng-show="!enableProjectDetails">
     <div class="row">
@@ -7,17 +7,10 @@
       </div>
     </div>
   </div>
-	<div class="proj-over-content" ng-show="enableProjectDetails">
+	<div class="proj-over-content project-details-form" ng-show="enableProjectDetails">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				<u>PROJECT DETAILS</u>
-			</div>
-		</div>
-		<div class="row" ng-show="!project">
-			<div class="col-md-12 container-note" >
-				<span class="note">
-					Note: A project is not yet defined for this site.
-				</span>
 			</div>
 		</div>
 
@@ -97,7 +90,7 @@
 		      </div>
 		    </div>
 
-				<div class="col-md-6 contract-detail-form form-left">
+				<div class="col-md-6 form-left">
 					<div class="form-title" id="project-section">
 						<span> PROJECT </span>
 						<div class="pull-right" ng-show="!project.edition_enabled">
