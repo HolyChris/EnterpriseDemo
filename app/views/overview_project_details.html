@@ -198,37 +198,37 @@
 
 				<div class="form-container">
 					<fieldset ng-disabled="!insurance_and_mortgage_info.edition_enabled">
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['insurance_and_mortgage_info.insurance_carrier']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['insurance_and_mortgage_info.insurance_carrier']}">
 							<label class="control-label">PO Number {{errors['insurance_and_mortgage_info.insurance_carrier']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.insurance_carrier">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['insurance_and_mortgage_info.claim_number']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['insurance_and_mortgage_info.claim_number']}">
 							<label class="control-label">Claim number {{errors['insurance_and_mortgage_info.claim_number']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.claim_number">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['insurance_and_mortgage_info.loan_tracking_number']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['insurance_and_mortgage_info.loan_tracking_number']}">
 							<label class="control-label">Loan Tracking Number {{errors['insurance_and_mortgage_info.loan_tracking_number']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.loan_tracking_number">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['insurance_and_mortgage_info.mortgage_company']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['insurance_and_mortgage_info.mortgage_company']}">
 							<label class="control-label">Mortgage Company {{errors['insurance_and_mortgage_info.mortgage_company']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="text" class="form-control" ng-model="insurance_and_mortgage_info.mortgage_company">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['insurance_and_mortgage_info.deductible']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['insurance_and_mortgage_info.deductible']}">
 							<label class="control-label">Deductible {{errors['insurance_and_mortgage_info.deductible'][0]}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<div class="input-group-addon">$</div>
 								<input type="number" class="form-control" ng-model="insurance_and_mortgage_info.deductible">
 							</div>
@@ -261,85 +261,75 @@
 				<div class="form-container">
 					<fieldset ng-disabled="!job_submission.edition_enabled">
 						
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
 							<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
-							<div class="input-group col-lg-9">
-								<select name="" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
-					  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
-								</select>
-							</div>
+							<select name="shingle_manufacturer" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
+				  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
+							</select>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
 							<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
-							<div class="input-group col-lg-9">
-								<select name="" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
-					  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
-								</select>
-							</div>
+							<select name="shingle_type" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
+				  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
+							</select>
 						</div>
 
 						
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
 							<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
-
 							<select name="" ng-model="job_submission.shingle_color" convert-to-number class="form-control">
 					  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.shingle_color">{{color.name}}</option>
 							</select>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.drip_color']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.drip_color']}">
 							<label class="control-label">Drip Color {{errors['job_submission.drip_color']}}</label>
 							<select name="" ng-model="job_submission.drip_color" convert-to-number class="form-control">
 					  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.drip_color">{{color.name}}</option>
 							</select>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.work_type']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.work_type']}">
 							<label class="control-label">Type Of Work To Be Completed {{errors['job_submission.work_type']}}</label>
-							<div class="input-group col-lg-9">
-								<input type="text" class="form-control" ng-model="job_submission.work_type">
+							<input type="text" class="form-control" ng-model="job_submission.work_type">
+						</div>
+
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_rcv']}">
+							<label class="control-label">Roof Work Rcv {{errors['job_submission.roof_work_rcv']}}</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input type="number" class="form-control" ng-model="job_submission.roof_work_rcv">
 							</div>
 						</div>
 
-						<div class="row col-lg-12">
 
-							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_rcv']}">
-								<label class="control-label">Roof Work Rcv {{errors['job_submission.roof_work_rcv']}}</label>
-								<div class="input-group col-lg-9">
-									<div class="input-group-addon">$</div>
-									<input type="number" class="form-control" ng-model="job_submission.roof_work_rcv">
-								</div>
-							</div>
-
-
-							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_acv']}">
-								<label class="control-label">Roof Work Acv {{errors['job_submission.roof_work_acv']}}</label>
-								<div class="input-group col-lg-9">
-									<div class="input-group-addon">$</div>
-									<input type="number" class="form-control" ng-model="job_submission.roof_work_acv">
-								</div>
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_acv']}">
+							<label class="control-label">Roof Work Acv {{errors['job_submission.roof_work_acv']}}</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input type="number" class="form-control" ng-model="job_submission.roof_work_acv">
 							</div>
 						</div>
-
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.roof_type_special_instructions']}">
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_type_special_instructions']}">
 							<label class="control-label">Roof Type Special Instructions {{errors['job_submission.roof_type_special_instructions']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="text" class="form-control" ng-model="job_submission.roof_type_special_instructions">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.initial_cost_per_sq']}">
+						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.initial_cost_per_sq']}">
 							<label class="control-label">Initial Cost Per Sq {{errors['job_submission.initial_cost_per_sq']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<div class="input-group-addon">$</div>
 								<input type="number" class="form-control" ng-model="job_submission.initial_cost_per_sq">
 							</div>
 						</div>
 
-						<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.job_submission.redeck']}">
+						<div class="form-group col-sm-12" ng-class="{'has-error' : errors['job_submission.job_submission.redeck']}">
 							<label class="control-label">Redeck {{errors['job_submission.job_submission.redeck']}}</label>
-							<div class="input-group col-lg-9">
+							<div class="input-group">
 								<input type="checkbox" name="" id="" ng-model="job_submission.redeck" >
 							</div>
 						</div>
@@ -353,7 +343,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_rcv']}">
 									<label class="control-label">Roof Work Rcv {{errors['job_submission.roof_work_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.roof_work_rcv">
 									</div>
@@ -362,7 +352,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.roof_work_acv']}">
 									<label class="control-label">Roof Work Acv {{errors['job_submission.roof_work_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.roof_work_acv">
 									</div>
@@ -381,7 +371,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.gutters_rcv']}">
 									<label class="control-label">Gutters Rcv {{errors['job_submission.gutters_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.gutters_rcv">
 									</div>
@@ -390,7 +380,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.gutters_acv']}">
 									<label class="control-label">Gutters Acv {{errors['job_submission.gutters_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.gutters_acv">
 									</div>
@@ -400,7 +390,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.gutters_upgrade_cost']}">
 									<label class="control-label">Gutters Upgrade Cost {{errors['job_submission.gutters_upgrade_cost']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.gutters_upgrade_cost">
 									</div>
@@ -409,16 +399,16 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.gutters_discount']}">
 									<label class="control-label">Gutters Discount {{errors['job_submission.gutters_discount']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.gutters_discount">
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.gutters_total']}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.gutters_total']}">
 								<label class="control-label">Gutters Total {{errors['job_submission.gutters_total']}}</label>
-								<div class="input-group col-lg-9">
+								<div class="input-group">
 									<div class="input-group-addon">$</div>
 									<input type="number" class="form-control" ng-model="job_submission.gutters_total">
 								</div>
@@ -437,7 +427,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.siding_rcv']}">
 									<label class="control-label">Siding Rcv {{errors['job_submission.siding_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.siding_rcv">
 									</div>
@@ -446,7 +436,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.siding_acv']}">
 									<label class="control-label">Siding Acv {{errors['job_submission.siding_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.siding_acv">
 									</div>
@@ -456,7 +446,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.siding_upgrade_cost']}">
 									<label class="control-label">Siding Upgrade Cost {{errors['job_submission.siding_upgrade_cost']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.siding_upgrade_cost">
 									</div>
@@ -465,16 +455,16 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.siding_discount']}">
 									<label class="control-label">Siding Discount {{errors['job_submission.siding_discount']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.siding_discount">
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.siding_total']}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.siding_total']}">
 								<label class="control-label">Siding Total {{errors['job_submission.siding_total']}}</label>
-								<div class="input-group col-lg-9">
+								<div class="input-group">
 									<div class="input-group-addon">$</div>
 									<input type="number" class="form-control" ng-model="job_submission.siding_total">
 								</div>
@@ -493,7 +483,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.windows_rcv']}">
 									<label class="control-label">Windows Rcv {{errors['job_submission.windows_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.windows_rcv">
 									</div>
@@ -502,7 +492,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.windows_acv']}">
 									<label class="control-label">Windows Acv {{errors['job_submission.windows_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.windows_acv">
 									</div>
@@ -512,7 +502,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.windows_upgrade_cost']}">
 									<label class="control-label">Windows Upgrade Cost {{errors['job_submission.windows_upgrade_cost']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.windows_upgrade_cost">
 									</div>
@@ -521,16 +511,16 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.windows_discount']}">
 									<label class="control-label">Windows Discount {{errors['job_submission.windows_discount']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.windows_discount">
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.windows_total']}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.windows_total']}">
 								<label class="control-label">Windows Total {{errors['job_submission.windows_total']}}</label>
-								<div class="input-group col-lg-9">
+								<div class="input-group">
 									<div class="input-group-addon">$</div>
 									<input type="number" class="form-control" ng-model="job_submission.windows_total">
 								</div>
@@ -548,7 +538,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.paint_rcv']}">
 									<label class="control-label">Paint Rcv {{errors['job_submission.paint_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.paint_rcv">
 									</div>
@@ -557,7 +547,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.paint_acv']}">
 									<label class="control-label">Paint Acv {{errors['job_submission.paint_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.paint_acv">
 									</div>
@@ -567,7 +557,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.paint_upgrade_cost']}">
 									<label class="control-label">Paint Upgrade Cost {{errors['job_submission.paint_upgrade_cost']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.paint_upgrade_cost">
 									</div>
@@ -576,16 +566,16 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.paint_discount']}">
 									<label class="control-label">Paint Discount {{errors['job_submission.paint_discount']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.paint_discount">
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.paint_total']}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.paint_total']}">
 								<label class="control-label">Paint Total {{errors['job_submission.paint_total']}}</label>
-								<div class="input-group col-lg-9">
+								<div class="input-group">
 									<div class="input-group-addon">$</div>
 									<input type="number" class="form-control" ng-model="job_submission.paint_total">
 								</div>
@@ -603,7 +593,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.hvac_rcv']}">
 									<label class="control-label">Hvac Rcv {{errors['job_submission.hvac_rcv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.hvac_rcv">
 									</div>
@@ -612,7 +602,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.hvac_acv']}">
 									<label class="control-label">Hvac Acv {{errors['job_submission.hvac_acv']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.hvac_acv">
 									</div>
@@ -622,7 +612,7 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.hvac_upgrade_cost']}">
 									<label class="control-label">Hvac Upgrade Cost {{errors['job_submission.hvac_upgrade_cost']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.hvac_upgrade_cost">
 									</div>
@@ -631,16 +621,16 @@
 
 								<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.hvac_discount']}">
 									<label class="control-label">Hvac Discount {{errors['job_submission.hvac_discount']}}</label>
-									<div class="input-group col-lg-9">
+									<div class="input-group">
 										<div class="input-group-addon">$</div>
 										<input type="number" class="form-control" ng-model="job_submission.hvac_discount">
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group col-lg-12" ng-class="{'has-error' : errors['job_submission.hvac_total']}">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.hvac_total']}">
 								<label class="control-label">Hvac Total {{errors['job_submission.hvac_total']}}</label>
-								<div class="input-group col-lg-9">
+								<div class="input-group">
 									<div class="input-group-addon">$</div>
 									<input type="number" class="form-control" ng-model="job_submission.hvac_total">
 								</div>
