@@ -8,10 +8,24 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, Sites, ENV, $state) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, ENV, $state) {
+    // Site listings
+    $rootScope.showSite = false;
+    $scope.recent_sites = Sites.query(function() {
+        $rootScope.showSite = true;
+    }, function(error) {
+        $rootScope.showSite = false;
+        $state.go('login');
+    });
+    $scope.opportunities = Sites.query({stage: 'Opportunity'});
+    $scope.contracts = Sites.query({stage: 'UnderContract'});
+    $scope.productions = Sites.query({stage: 'Production'});
+    $scope.billings = Sites.query({stage: 'Billing'});
+
     var oldList, newList, item;
     $rootScope.isFront = true;
     $rootScope.$on('$locationChangeStart', function(event) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         if ($state.current.url === '/') {
             $rootScope.isFront = true;
         } else {
@@ -125,21 +139,12 @@ angular.module('ersApp')
                         "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
                         "NY","SC","AK","WV","AA","AE","AP"];
 
-    // Site listings
-    $scope.recent_sites = Sites.query();
-    $scope.opportunities = Sites.query({stage: 'Opportunity'});
-    $scope.contracts = Sites.query({stage: 'UnderContract'});
-    $scope.productions = Sites.query({stage: 'Production'});
-    $scope.billings = Sites.query({stage: 'Billing'});
-
     $scope.quickSearch = function(key) {
         var params = {};
         params[key] = $scope[key];
         if ($scope[key]) {
             $state.go("sites", params);
         }
-
-
     }
 
     function getSiteId(id) {

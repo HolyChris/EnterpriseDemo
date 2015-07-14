@@ -27,6 +27,10 @@ a:hover span {
   min-height: 0;
 }
 
+.hide-body {
+  display: none !important;
+}
+
 .site-logo {
   max-width: 200px;
 }

@@ -218,6 +218,7 @@ angular
       if ($auth.isAuthenticated()) {
         $rootScope.isAuthenticated = true;
       } else {
+        $state.go('login');
         $rootScope.isAuthenticated = false;
       }
       if (toState.name !== "login" && $rootScope.isAuthenticated === false) {

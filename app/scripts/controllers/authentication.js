@@ -1,6 +1,7 @@
 angular.module('ersApp')
   .controller('LoginCtrl', function($scope, $auth, $location, $rootScope, Flash) {
     $rootScope.isAuthenticated = false;
+    $rootScope.showSite = true;
     $scope.signUp = function() {
       $auth.logout();
       if (!$scope.model) {
