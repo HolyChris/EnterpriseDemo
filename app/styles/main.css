@@ -1582,3 +1582,8 @@ p.clear-filters {
 h3.not-available {
   font-size: 18px;
 }
+
+.action-btn{
+  margin-right: 10px;
+  margin-left: 10px;
+}
