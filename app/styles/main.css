@@ -27,6 +27,10 @@ a:hover span {
   min-height: 0;
 }
 
+.hide-body {
+  display: none !important;
+}
+
 .site-logo {
   max-width: 200px;
 }
@@ -169,7 +173,7 @@ a:hover span {
   min-height:100vh;
   position: relative;
 }
-.main-container.dashboard-container {
+.main-container.dashboard-wrapper {
   position: static;
 }
 /******/

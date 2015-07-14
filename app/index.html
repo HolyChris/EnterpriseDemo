@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <base href="/">
+    <!-- <base href="/"> -->
     <title></title>
     <meta name="description" content="">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -18,7 +18,7 @@
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-ui-noscript.css"></noscript>
   </head>
-  <body ng-app="ersApp">
+  <body ng-app="ersApp" ng-class="{'hide-body': !showSite}">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div class="container main-container">
+    <div class="container main-container" ng-class="{'dashboard-wrapper': isFront}">
       <div ui-view>
       </div>
     </div>
