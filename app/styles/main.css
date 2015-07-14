@@ -169,7 +169,7 @@ a:hover span {
   min-height:100vh;
   position: relative;
 }
-.main-container.dashboard-container {
+.main-container.dashboard-wrapper {
   position: static;
 }
 /******/

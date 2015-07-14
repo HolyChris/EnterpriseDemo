@@ -10,12 +10,12 @@
 angular.module('ersApp')
   .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, Sites, ENV, $state) {
     var oldList, newList, item;
-    angular.element('.main-container').addClass('dashboard-container');
+    $rootScope.isFront = true;
     $rootScope.$on('$locationChangeStart', function(event) {
         if ($state.current.url === '/') {
-            angular.element('.main-container').addClass('dashboard-container');
+            $rootScope.isFront = true;
         } else {
-            angular.element('.main-container').removeClass('dashboard-container');
+            $rootScope.isFront = false;
         }
     });
 
