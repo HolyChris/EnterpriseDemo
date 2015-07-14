@@ -1,6 +1,6 @@
 <div class="container proj-over-container">
   <div flash-message="5000" ></div>
-	<div class="proj-over-content">
+	<div class="proj-over-content billing-form">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				<u> PROJECT OVERVIEW</u>
@@ -52,24 +52,18 @@
 
 			<div class="form-title" id="customer-info-section">
 				<span>{{customer_title}} / CUSTOMER INFO</span>
-
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-					</button>
-				</div>
-
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="customer_info_edition_enabled" ng-click="save_customer_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-					</button>
-
-					<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="customer_info_edition_enabled" ng-click="cancel_customer_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-					</button>
-
-				</div>
-				
+				<span class="edit-btn pull-right" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
+					<img src="/images/Write-white.png"/>
+					EDIT
+				</span>
+				<span class="edit-btn pull-right" ng-show="customer_info_edition_enabled" ng-click="save_customer_info_edition()">
+					<img src="/images/Write-white.png"/>
+					SAVE
+				</span>
+				<span class="edit-btn pull-right btn-warning" ng-show="customer_info_edition_enabled" ng-click="cancel_customer_info_edition()">
+					<img src="/images/Write-white.png"/>
+					CANCEL
+				</span>
 				
 			</div>
 			<form name="customer_form">	
@@ -123,22 +117,19 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title" id="customer-phone-section">
 				<span>{{customer_title}} / PHONE NUMBER</span>
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!phone_numbers_info_edition_enabled" ng-click="enable_phone_numbers_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-					</button>
-				</div>
+				<span class="edit-btn pull-right" ng-show="!phone_numbers_info_edition_enabled" ng-click="enable_phone_numbers_info_edition()">
+					<img src="/images/Write-white.png"/>
+					EDIT
+				</span>
+				<span class="edit-btn pull-right" ng-show="phone_numbers_info_edition_enabled" ng-click="save_phone_numbers_info_edition()">
+					<img src="/images/Write-white.png"/>
+					SAVE
+				</span>
+				<span class="edit-btn pull-right btn-warning" ng-show="phone_numbers_info_edition_enabled" ng-click="cancel_phone_numbers_info_edition()">
+					<img src="/images/Write-white.png"/>
+					CANCEL
+				</span>
 
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="phone_numbers_info_edition_enabled" ng-click="save_phone_numbers_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-					</button>
-
-					<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="phone_numbers_info_edition_enabled" ng-click="cancel_phone_numbers_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-					</button>
-
-				</div>
 			</div>
 			<form name="phone_numbers_form" novalidate>
 				<div class="form-container">
@@ -199,22 +190,19 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title" id="customer-address-section">
 				<span>{{customer_title}} / ADDRESS</span>
-				<div class="pull-right">
-                    <button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
-                        <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-                    </button>
-                </div>
+				<span class="edit-btn pull-right" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
+					<img src="/images/Write-white.png"/>
+					EDIT
+				</span>
+				<span class="edit-btn pull-right" ng-show="address_edition_enabled" ng-click="save_address_edition()">
+					<img src="/images/Write-white.png"/>
+					SAVE
+				</span>
+				<span class="edit-btn pull-right btn-warning" ng-show="address_edition_enabled" ng-click="cancel_address_edition()">
+					<img src="/images/Write-white.png"/>
+					CANCEL
+				</span>
 
-                <div class="pull-right">
-                    <button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="address_edition_enabled" ng-click="save_address_edition()">
-                        <span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-                    </button>
-
-                    <button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="address_edition_enabled" ng-click="cancel_address_edition()">
-                        <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-                    </button>
-
-                </div>
 			</div>	
 			<form name="address_form">
 				<div class="form-container">
@@ -269,22 +257,19 @@
 		<div class="col-md-6 form-left">
 			<div class="form-title" id="customer-details-section">
 				<span>{{customer_title}} / DETAILS</span>
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-					</button>
-				</div>
+				<span class="edit-btn pull-right" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
+					<img src="/images/Write-white.png"/>
+					EDIT
+				</span>
+				<span class="edit-btn pull-right" ng-show="site_info_edition_enabled" ng-click="save_site_info_edition()">
+					<img src="/images/Write-white.png"/>
+					SAVE
+				</span>
+				<span class="edit-btn pull-right btn-warning" ng-show="site_info_edition_enabled" ng-click="cancel_site_info_edition()">
+					<img src="/images/Write-white.png"/>
+					CANCEL
+				</span>
 
-				<div class="pull-right">
-					<button type="button" class="btn btn-xs btn-success" aria-label="Left Align" ng-show="site_info_edition_enabled" ng-click="save_site_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-					</button>
-
-					<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-show="site_info_edition_enabled" ng-click="cancel_site_info_edition()">
-	  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-					</button>
-
-				</div>
 			</div>	
 			<form name="site_form">
 				<div class="form-container">

@@ -1538,12 +1538,26 @@ p.clear-filters {
   margin: 0;
 }
 
-.production-form.proj-over-content .form-title .edit-btn {
+/*PROJECT DETAILS*/  
+.project-details-form.proj-over-content .form-container {
+  width: auto;
+  margin-right: 10px;
+}
+
+.project-details-form.proj-over-content .form-container textarea.form-control {
+   height: auto; 
+}
+
+.project-details-form.proj-over-content p.input-group {
+  margin: 0;
+}
+
+.form-title .edit-btn {
   width: auto;
   padding: 2px 10px;
 }
 
-.production-form.proj-over-content .form-title .edit-btn.btn-warning {
+.form-title .edit-btn.btn-warning {
   background-color: #f0ad4e;
 }
 
@@ -1562,4 +1576,9 @@ p.clear-filters {
 
 h3.not-available {
   font-size: 18px;
+}
+
+.action-btn{
+  margin-right: 10px;
+  margin-left: 10px;
 }
