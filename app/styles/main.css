@@ -1560,6 +1560,9 @@ p.clear-filters {
 .form-title .edit-btn.btn-warning {
   background-color: #f0ad4e;
 }
+.edit-btn.btn-warning {
+  background-color: #f0ad4e !important;
+}
 
 .sidebar-menu li.locked {
   background-color: #EEE;
