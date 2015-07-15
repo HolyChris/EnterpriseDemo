@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AssetsCtrl', function($scope, $location, $http, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Documents,Images,Assets) {
+  .controller('AssetsCtrl', function($scope, $location, $http) {
 
 })
 
@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV) {
+    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -62,10 +62,13 @@ angular.module('ersApp')
           var newFile = [data.asset];
           $scope.queue[index].state = 'resolved';
           $scope.uploading = false;
-          generateFileObject(newFile, index);
-        }, function(error) {
-          $scope.queue[index].state = 'rejected';
-          $scope.uploading = false;
+          if (data.errors) {
+            Flash.create('danger', 'Something happened. Please try again.');
+            $scope.queue.splice(index, 1);
+          } else {
+            generateFileObject(newFile, index);
+            Flash.create('success', 'File/s uploaded!');
+          }
         });
       }
 

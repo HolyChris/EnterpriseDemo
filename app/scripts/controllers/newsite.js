@@ -98,8 +98,5 @@ angular.module('ersApp')
       }
     }
   }
-  setTimeout(function() {
-    console.log($scope.managersArray.users);
-  }, 1000)
   
 });
