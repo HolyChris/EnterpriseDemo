@@ -67,7 +67,7 @@ angular.module('ersApp')
             $scope.queue.splice(index, 1);
           } else {
             generateFileObject(newFile, index);
-            Flash.create('success', 'File/s uploaded!');
+            Flash.create('success', 'File(s) uploaded!');
           }
         });
       }
