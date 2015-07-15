@@ -105,6 +105,24 @@ angular.module('ersApp')
 	function prepareJobSubmissionForView(job_submission)
 	{
 		if (job_submission){
+			
+
+			if (job_submission.shingle_manufacturer){
+				angular.forEach($scope.manufacturers_arr, function(value, key) {
+			      if (value.name==job_submission.shingle_manufacturer) {
+			        job_submission.shingle_manufacturer = value.id;
+			      }
+			    });
+			}
+
+			if (job_submission.shingle_type){
+				angular.forEach($scope.shingles_arr, function(value, key) {
+			      if (value.title==job_submission.shingle_type) {
+			        job_submission.shingle_type = value.id;
+			      }
+			    });
+			}
+
 			//API RETURNS description of color, but expects id
 
 			if (job_submission.shingle_color){
