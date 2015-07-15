@@ -90,9 +90,9 @@ angular
 
           $scope.project_id = $stateParams.projectId;
           $scope.globalData = {};
-          $scope.enableProjectDetails = false;
-          $scope.enableProduction = false;
-          $scope.enableBilling = false;
+          $scope.enableProjectDetails = true;
+          $scope.enableProduction = true;
+          $scope.enableBilling = true;
 
           $scope.refreshNavStatus = function () {
             $scope.globalData = Sites.get({siteId: $stateParams.projectId}, function(data) {
@@ -101,28 +101,13 @@ angular
           };
 
           $scope.setNavStatus = function (site) {
-            switch (site.stage) {
+            if (site.stage === "Opportunity") {
               // No Contract yet
-              case "Opportunity":
-                // keep them all locked
-              break;
-              // Contract
-              case "Under Contract":
-                $scope.enableProjectDetails = true;
-                $scope.enableProduction = true;
-              break;
-              case "Production":
-                $scope.enableProjectDetails = true;
-                $scope.enableProduction = true;
-                $scope.enableBilling = true;
-              break;
-              case "Billing":
-                $scope.enableProjectDetails = true;
-                $scope.enableProduction = true;
-                $scope.enableBilling = true;
-              break;
+              $scope.enableProjectDetails = false;
+              $scope.enableProduction = false;
+              $scope.enableBilling = false;
             }
-          }
+          };
 
           $scope.refreshNavStatus();
         }

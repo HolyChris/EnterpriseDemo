@@ -22,7 +22,6 @@ angular.module('ersApp')
     $scope.productions = Sites.query({stage: 'Production'});
     $scope.billings = Sites.query({stage: 'Billing'});
 
-    var oldList, newList, item;
     $rootScope.isFront = true;
     $rootScope.$on('$locationChangeStart', function(event) {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -33,92 +32,58 @@ angular.module('ersApp')
         }
     });
 
-    $scope.sortableOptionsList = [
-    {
- 		placeholder: 'card-highlight',
-    	cursor: '-webkit-grabbing',
-    	items: '.pipe-card:not(.create-opp)',
-        start: function(event, ui) {
-            item = ui.item;
-            newList = oldList = ui.item.parent();
-        },
-        stop: function(event, ui) {
-            var siteId = getSiteId(ui.item[0].id);
-            if (ui.position.left - ui.originalPosition.left > 150) {
-                $state.go("project.contract",{projectId: siteId})
-            }
-        },
-        change: function(event, ui) {
-            if(ui.sender) newList = ui.placeholder.parent();
-        },
+    function updateStage(siteId, stage) {
+        // Return a promise so then we ca transition the page
+        return Sites.save({
+            siteId: siteId,
+            current_stage: stage
+        });
+    }
+
+    $scope.sortableOptionsList = [{
+        // Card placed in Opportunity Column
         connectWith: '#con-cards',
-    },
-    {
-    	connectWith:'#pro-cards,#opp-cards',
+        placeholder: 'card-highlight',
+        cursor: '-webkit-grabbing',
+        items: '.pipe-card:not(.create-opp)'
+    }, {
+        // Card placed in Contract Column
+    	connectWith:'#pro-cards',
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
-         start: function(event, ui) {
-            item = ui.item;
-            newList = oldList = ui.item.parent();
-        },
-        stop: function(event, ui) {
+        // When recieving a card
+        receive: function(event, ui) {
             var siteId = getSiteId(ui.item[0].id);
-            if (ui.position.left - ui.originalPosition.left > 150) {
-                $state.go("project.production",{projectId: siteId})
-            }
-        },
-        change: function(event, ui) {
-            if(ui.sender) newList = ui.placeholder.parent();
+            updateStage(siteId, 'contract').$promise.then(function() {
+                $state.go("project.contract",{projectId: siteId});
+            });
         }
-    },
-    {
+    }, {
+        // Card placed in Production Column
     	connectWith:'#con-cards,#post-cards',
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
-        start: function(event, ui) {
-            item = ui.item;
-            newList = oldList = ui.item.parent();
-        },
-        stop: function(event, ui) {
+        // When recieving a card
+        receive: function(event, ui) {
             var siteId = getSiteId(ui.item[0].id);
-            if (ui.position.left - ui.originalPosition.left > 150) {
-                $state.go("project.billing",{projectId: siteId})
-            }
-        },
-        change: function(event, ui) {
-            if(ui.sender) newList = ui.placeholder.parent();
+            updateStage(siteId, 'production').$promise.then(function() {
+                $state.go("project.production",{projectId: siteId});
+            });
         }
-    },
-    {
-    	connectWith:'#pro-cards,#close-cards',
+    }, {
+        // Card placed in Billing Column
+    	connectWith:'#pro-cards',
     	placeholder: 'card-highlight',
     	cursor: '-webkit-grabbing',
-        start: function(event, ui) {
-            item = ui.item;
-            newList = oldList = ui.item.parent();
-        },
-        stop: function(event, ui) {
-        },
-        change: function(event, ui) {
-            if(ui.sender) newList = ui.placeholder.parent();
+        // When recieving a card
+        receive: function(event, ui) {
+            var siteId = getSiteId(ui.item[0].id);
+            updateStage(siteId, 'billing').$promise.then(function() {
+                $state.go("project.billing",{projectId: siteId});
+                
+            });
         }
-    },
-    {
-    	connectWith:'#post-cards',
-    	placeholder: 'card-highlight',
-    	cursor: '-webkit-grabbing',
-    	items: '.pipe-card:not(.out-amount)',
-        start: function(event, ui) {
-            item = ui.item;
-            newList = oldList = ui.item.parent();
-        },
-        stop: function(event, ui) {
-        },
-        change: function(event, ui) {
-            if(ui.sender) newList = ui.placeholder.parent();
-        }
-    }
-    ];
+    }];
 
     $scope.statusOrder = function(opportunity) {
         var order = 2;
