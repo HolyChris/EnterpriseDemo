@@ -87,16 +87,21 @@ angular
         url:'/projects/:projectId',
         templateUrl:'views/overview.html',
         controller: function($stateParams, $scope, Sites){
-          $scope.globalData = Sites.get({siteId: $stateParams.projectId});
-          $scope.project_id = $stateParams.projectId;
 
+          $scope.project_id = $stateParams.projectId;
+          $scope.globalData = {};
           $scope.enableProjectDetails = false;
           $scope.enableProduction = false;
           $scope.enableBilling = false;
 
-          $scope.globalData.$promise.then(function(data) {
+          $scope.refreshNavStatus = function () {
+            $scope.globalData = Sites.get({siteId: $stateParams.projectId}, function(data) {
+              $scope.setNavStatus(data.site);
+            });
+          };
 
-            switch (data.site.stage) {
+          $scope.setNavStatus = function (site) {
+            switch (site.stage) {
               // No Contract yet
               case "Opportunity":
                 // keep them all locked
@@ -117,8 +122,11 @@ angular
                 $scope.enableBilling = true;
               break;
             }
-          });
+          }
+
+          $scope.refreshNavStatus();
         }
+        
       })
       .state('project.overview',{
         url:'/overview/',
