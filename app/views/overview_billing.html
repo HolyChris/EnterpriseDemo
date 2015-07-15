@@ -13,36 +13,6 @@
         <u>BILLING</u>
       </div>
     <div class="form-left-container">
-
-    <div class="col-md-6 form-left overview-header">
-      <div class="row">
-        <div class="col-md-8">
-          <h3 class="title">PROJECT CORE INFO</h3>
-          <p><span>SITE:</span> {{site.name}}</p>
-          <p><span>ADDRESS:</span> {{site.address.address1}}, {{site.address.city}} {{site.address.state.name}}, {{site.address.zipcode}}</p>
-          <p><span>PO:</span> {{site.po_number}}</p>
-          <p><span>STAGE:</span> <b class="text-uppercase">{{site.stage}}</b></p>
-        </div>
-        <div class="col-md-4">
-          <h3 class="title">NAVIGATE</h3>
-          <ul class="link-list">
-            <li>
-              <a href="" ng-click="scrollTo('project-section')">
-                <img src="images/chevron-right.png">
-                <span>PROJECT</span>
-              </a>
-            </li>
-            <li>
-              <a href="" ng-click="scrollTo('insurance-section')">
-                <img src="images/chevron-right.png">
-                <span>INSURANCE INFO</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <div class="col-md-6 form-left" id="project-section">
       <form ng-submit="updateLocation()">
         <fieldset ng-disabled="!editMode">
