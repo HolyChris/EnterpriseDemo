@@ -63,7 +63,7 @@
 	               <div class="form-group col-lg-12">
 	                <label class="control-label">State<sup>*</sup></label>
 	                <select type="" name="" class="form-control" id="" value="" ng-model="searchForm.address_state_id_eq" >
-	                  <option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+	                  <option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}">{{state.abbreviation}}</option>
 	                </select>
 	                </div>
 							  

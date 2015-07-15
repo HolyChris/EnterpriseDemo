@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('SitesCtrl', function ($scope, $stateParams, Sites, Managers, ENV) {
+  .controller('SitesCtrl', function ($scope, $stateParams, Sites, Managers, ENV, Address) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -16,11 +16,7 @@ angular.module('ersApp')
 
   $scope.searchForm = {};
 
-  $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
-                      "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
-                      "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
-                      "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
-                      "NY","SC","AK","WV","AA","AE","AP"];
+  $scope.states_array=Address.States;
 
   $scope.selected = 1;
 
