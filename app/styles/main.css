@@ -19,6 +19,10 @@ a:hover {
 a:hover span {
   text-decoration: underline;
 }
+.link {
+  cursor: pointer;
+  font-size: 10px;
+}
 
 .ng-scope {
   min-height: 100%;
