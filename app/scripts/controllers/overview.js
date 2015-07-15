@@ -8,12 +8,14 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
+  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address) {
 
   $scope.config = {
     itemsPerPage: 10
   }
 
+  $scope.states_array=Address.States;
+  
   $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
                         "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
                         "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",

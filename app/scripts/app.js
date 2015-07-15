@@ -34,6 +34,7 @@ angular
     'projectService',
     'billingService',
     'productionService',
+    'addressesService',
     'config',
     'angularSpinner',
     'blueimp.fileupload',

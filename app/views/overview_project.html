@@ -196,7 +196,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 							<label class="control-label">State<sup>*</sup></label>
 							<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
-								<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index+1==address.state.id">{{state}}</option>
+								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==address.state.id">{{state.abbreviation}}</option>
 							</select>
 						</div>
 						
