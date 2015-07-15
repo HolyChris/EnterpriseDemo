@@ -100,6 +100,7 @@ angular.module('ersApp')
         $scope.contract.po_number = data.contract.po_number;
         $scope.contract.documentName = $scope.contract.document.name;
         $scope.newContract = false;
+        $scope.$parent.refreshNavStatus();
       }, function(error) {
         usSpinnerService.stop('spinner-1');
         $scope.contractErrors = error.data.errors;
@@ -110,6 +111,7 @@ angular.module('ersApp')
       Contract.put({siteId:siteId},$scope.contract, function(data) {
         usSpinnerService.stop('spinner-1');
         Flash.create('success', 'Contract successfully saved!');
+        $scope.$parent.refreshNavStatus();
       }, function(error) {
         usSpinnerService.stop('spinner-1');
         $scope.contractErrors = error.data.errors;
@@ -245,6 +247,7 @@ angular.module('ersApp')
             Flash.create('success', 'Customer details successfully saved!');
             prepareCustomerDetails(data.customer);
             $scope.customer_info_edition_enabled=false;
+            $scope.$parent.refreshNavStatus();
           }
           else{
             $scope.errors = data.errors;
@@ -321,6 +324,7 @@ angular.module('ersApp')
               Flash.create('success', 'Address successfully saved!');
               prepareAddressDetails(data.site.address);
               $scope.address_edition_enabled=false;
+              $scope.$parent.refreshNavStatus();
 
             }
             else{
@@ -413,6 +417,7 @@ angular.module('ersApp')
               Flash.create('success', 'Site information successfully saved!');
               prepareSiteDetails(data.site);
               $scope.site_info_edition_enabled=false;
+              $scope.$parent.refreshNavStatus();
             }
             else
             {
@@ -474,6 +479,7 @@ angular.module('ersApp')
               Flash.create('success', 'Customer phone numbers successfully saved!');
               preparePhoneNumbersDetails(data.customer.phone_numbers);
               $scope.phone_numbers_info_edition_enabled=false;
+              $scope.$parent.refreshNavStatus();
             }
             else{
               $scope.errors = data.errors;

@@ -46,12 +46,14 @@ angular.module('ersApp')
       if (!$scope.productionExist) {
         Production.save(params, function(data) {
           $scope.setProductionData(data);
+          $scope.$parent.refreshNavStatus();
         }); 
       } else {
         params.productionId = globalData.site.production.id;
         delete params.id;
         Production.update(params, function(data) {
           $scope.setProductionData(data);
+          $scope.$parent.refreshNavStatus();
         }); 
       }
 

@@ -179,6 +179,7 @@ angular.module('ersApp')
 				Flash.create('success', 'Project was successfully saved!');
 				prepareProjectForView(data.project);
 				$scope.project.edition_enabled=false;
+				$scope.$parent.refreshNavStatus();
 			}
 			else
 			{
@@ -214,6 +215,7 @@ angular.module('ersApp')
 				Flash.create('success', 'Project was successfully saved!');
 				prepareProjectForView(data.project);
 				$scope.insurance_and_mortgage_info.edition_enabled=false;	
+				$scope.$parent.refreshNavStatus();
 			}
 			else
 			{
@@ -242,6 +244,7 @@ angular.module('ersApp')
 			Flash.create('success', 'Project was successfully saved!');
 			prepareProjectForView(data.project);
 			$scope.job_submission.edition_enabled=false;
+			$scope.$parent.refreshNavStatus();
 			
         }, function(error) {
           $scope.errors = error.data.errors;
