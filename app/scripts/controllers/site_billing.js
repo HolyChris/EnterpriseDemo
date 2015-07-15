@@ -45,6 +45,7 @@ angular.module('ersApp')
         Billing.save(params, function(data) {
           $scope.billing = data.billing;
           $scope.$parent.refreshNavStatus();
+          $scope.editMode = false;
         }); 
       } else {
         params.siteId = $stateParams.projectId;
@@ -56,6 +57,7 @@ angular.module('ersApp')
           $scope.billing = data.billing;
           $scope.billExist = true;
           $scope.$parent.refreshNavStatus();
+          $scope.editMode = false;
         }); 
       };
     };
