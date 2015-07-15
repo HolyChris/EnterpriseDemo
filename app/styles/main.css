@@ -1481,10 +1481,6 @@ p.clear-filters {
 .overview-header {
   height: auto;
   border-radius: 4px;
-  margin-top: 25px;
-  margin-left: 25px;
-  width: 570px;
-  background: #fff;
   padding: 10px;
 }
 .overview-header h3.title {

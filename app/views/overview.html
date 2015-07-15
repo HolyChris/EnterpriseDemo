@@ -48,6 +48,7 @@
 	</ul>
 </div>
 <div class="overview-content">
+	<div flash-message="5000"></div>
   <div class="col-md-6 form-left overview-header">
     <div class="row">
       <div class="col-md-8">
@@ -60,7 +61,14 @@
 					<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.stage" ng-change="updateStage()" class="form-control"></select>
         </p>
       </div>
-      <div class="col-md-4">
+    </div>
+  </div>
+	<div ui-view="overview-content-view">
+	</div>
+</div>
+
+
+<!--       <div class="col-md-4">
         <h3 class="title">NAVIGATE</h3>
         <ul class="link-list">
           <li>
@@ -76,10 +84,4 @@
             </a>
           </li>
         </ul>
-      </div>
-    </div>
-  </div>
-	<div ui-view="overview-content-view">
-	</div>
-
-</div>
+      </div> -->
