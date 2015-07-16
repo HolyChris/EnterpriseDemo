@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('BillingCtrl', function($scope, $location, $anchorScroll, $stateParams, Billing) {
+  .controller('BillingCtrl', function($scope, $location, $anchorScroll, $stateParams, Billing, Flash) {
 
     $scope.format = "yyyy-MM-dd";
     $scope.location = {};
@@ -46,6 +46,7 @@ angular.module('ersApp')
           $scope.billing = data.billing;
           $scope.$parent.refreshNavStatus();
           $scope.editMode = false;
+          Flash.create('success', 'Billing information updated!');
         }); 
       } else {
         params.siteId = $stateParams.projectId;
@@ -58,6 +59,7 @@ angular.module('ersApp')
           $scope.billExist = true;
           $scope.$parent.refreshNavStatus();
           $scope.editMode = false;
+          Flash.create('success', 'Billing information updated!');
         }); 
       };
     };

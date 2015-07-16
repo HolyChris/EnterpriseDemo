@@ -82,7 +82,7 @@
 
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
 					<label class="control-label">Oppurtunity Priority</label>
-					<select type="" name="" class="form-control" id="" value="" ng-model="siteDetail.status">
+					<select name="status" class="form-control" id="status" ng-model="siteDetail.status" ng-init="siteDetail.status = 3">
 						<option value="1">Good</option>
 						<option value="2">Bad</option>
 						<option value="3">New</option>
