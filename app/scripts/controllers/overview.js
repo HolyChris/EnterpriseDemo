@@ -8,17 +8,14 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers) {
+  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address) {
 
   $scope.config = {
     itemsPerPage: 10
   }
 
-  $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
-                        "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
-                        "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
-                        "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
-                        "NY","SC","AK","WV","AA","AE","AP"];
+  $scope.states_array=Address.States;
+  
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
   $scope.phoneTypes = [{
