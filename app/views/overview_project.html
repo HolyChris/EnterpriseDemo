@@ -1,5 +1,4 @@
 <div class="container proj-over-container">
-  <div flash-message="5000" ></div>
 	<div class="proj-over-content billing-form">
 		<div class="row">
 			<div class="col-md-12 container-title">
@@ -67,7 +66,7 @@
 						
 						<div class="form-group col-sm-12" ng-class="{'has-error' : errors.other_business_info}">
 							<label class="control-label">Other business information</label>
-							<input type="text" name="other_business_info" class="form-control" ng-model="customer.other_business_info"></input>
+							<textarea rows="5" name="other_business_info" class="form-control" ng-model="customer.other_business_info"></textarea>
 						</div>
 					</fieldset>
 				</div>
@@ -197,7 +196,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 							<label class="control-label">State<sup>*</sup></label>
 							<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
-								<option ng-repeat="state in state_abb" value="{{$index+1}}" ng-selected="$index+1==address.state.id">{{state}}</option>
+								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==address.state.id">{{state.abbreviation}}</option>
 							</select>
 						</div>
 						

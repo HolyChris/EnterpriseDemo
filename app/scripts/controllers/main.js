@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, ENV, $state) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, ENV, $state,Address) {
     // Site listings
     $rootScope.showSite = false;
     $scope.recent_sites = Sites.query(function() {
@@ -96,13 +96,10 @@ angular.module('ersApp')
             order = 4;
         }
         return order;
-    }
+    };
 
-    $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
-                        "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
-                        "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
-                        "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
-                        "NY","SC","AK","WV","AA","AE","AP"];
+    $scope.states_array = Address.States;
+    $scope.stateLookupById=Address.stateLookupById;
 
     $scope.quickSearch = function(key) {
         var params = {};
@@ -110,11 +107,11 @@ angular.module('ersApp')
         if ($scope[key]) {
             $state.go("sites", params);
         }
-    }
+    };
 
     function getSiteId(id) {
         var siteId = id.replace('site-', '');
         return siteId;
-    }
+    };
 });
 

@@ -32,7 +32,7 @@
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 					<label class="control-label">State<sup>*</sup></label>
 					<select type="" name="" class="form-control" id="" value="" ng-model="siteAddress.state_id" >
-						<option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+						<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==siteAddress.state_id">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
@@ -118,7 +118,7 @@
 				<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.state']}">
 					<label class="control-label">State<sup>*</sup></label>
 					<select type="" name="" class="form-control" id="" value="" ng-model="billAddress.state_id"  ng-disabled="billingIsSameAsSite">
-						<option ng-repeat="state in state_abb" value="{{$index+1}}">{{state}}</option>
+						<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==billAddress.state_id">{{state.abbreviation}}</option>
 					</select>
 				</div>
 				

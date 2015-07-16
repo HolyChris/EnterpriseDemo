@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,ENV,Flash,$modal,Managers) {
+  .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,ENV,Flash,$modal,Managers,Address) {
   $scope.customer_from_previous_page_flag=false;
 
   $scope.lookupLinkedCustomerInfo=function(customer_id){
@@ -48,11 +48,9 @@ angular.module('ersApp')
       $scope.billAddress = angular.copy($scope.billAddress);
    }
   });
-  $scope.state_abb = ["MI","SD","WA","WI","AZ","IL","NH","NC","KS","MO","AR",
-                        "NV","DC","ID","NE","PA","HI","UT","VT","DE","RI","OK","LA",
-                        "MT","TN","MD","FL","VA","MN","NJ","OH","CA","ND","ME","IN",
-                        "TX","OR","WY","AL","IA","MS","KY","NM","GA","CO","MA","CT",
-                        "NY","SC","AK","WV","AA","AE","AP"];
+
+  $scope.states_array=Address.States;
+  
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
   $scope.newSite = function(siteAddress,siteDetail,billAddress) {
