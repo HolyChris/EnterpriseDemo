@@ -12,7 +12,7 @@
             <a ui-sref="project.overview({projectId: site.id})">
               <span class="site_title pull-left">{{site.name}}</span>
               <span class="site_info pull-right">
-                {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},80301
+                {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
                 <i class="glyphicon glyphicon-triangle-right"></i>
               </span>
             </a>
