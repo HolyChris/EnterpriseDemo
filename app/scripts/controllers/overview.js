@@ -14,7 +14,7 @@ angular.module('ersApp')
     itemsPerPage: 10
   }
 
-  $scope.states_array=Address.States;
+  $scope.states_array = Address.States;
   
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
@@ -66,9 +66,6 @@ angular.module('ersApp')
     }
     
     var siteId = $scope.project.id;
-    if ($scope.contract.price) {
-      $scope.contract.price = parseFloat($scope.contract.price.replace(/\,/g, ''));
-    }
 
     var fd = new FormData(); // prepare as form data to handle files.
     for (var key in $scope.contract) {

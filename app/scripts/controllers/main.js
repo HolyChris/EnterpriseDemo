@@ -54,9 +54,7 @@ angular.module('ersApp')
         // When recieving a card
         receive: function(event, ui) {
             var siteId = getSiteId(ui.item[0].id);
-            updateStage(siteId, 'contract').$promise.then(function() {
-                $state.go("project.contract",{projectId: siteId});
-            });
+            $state.go("project.contract",{projectId: siteId});
         }
     }, {
         // Card placed in Production Column
