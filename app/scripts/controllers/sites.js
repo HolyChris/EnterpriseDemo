@@ -17,6 +17,7 @@ angular.module('ersApp')
   $scope.searchForm = {};
 
   $scope.states_array=Address.States;
+  $scope.stateLookupById=Address.stateLookupById;
 
   $scope.selected = 1;
 

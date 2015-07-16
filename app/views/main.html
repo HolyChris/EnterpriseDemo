@@ -12,7 +12,7 @@
             <a ui-sref="project.overview({projectId: site.id})">
               <span class="site_title pull-left">{{site.name}}</span>
               <span class="site_info pull-right">
-                {{site.address.address1}}, {{site.address.city}}, {{state_abb[site.address.state.id - 1]}},80301
+                {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},80301
                 <i class="glyphicon glyphicon-triangle-right"></i>
               </span>
             </a>
@@ -123,7 +123,7 @@
                   </span>
                   <span class="info-data">
                     {{opportunity.address.address1}}<br />
-                    {{opportunity.address.city}},{{state_abb[opportunity.address.state.id - 1]}},{{opportunity.address.zipcode}}
+                    {{opportunity.address.city}},{{stateLookupById(opportunity.address.state.id).abbreviation}},{{opportunity.address.zipcode}}
                   </span>
                 </div>
               </a>
@@ -143,7 +143,7 @@
                 <div class="pipe-info">
                   <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
                    </span>
-                  <span class="info-data">{{contract.address.address1}}</br>{{contract.address.city}},{{state_abb[contract.address.state.id - 1]}},{{contract.address.zipcode}}</span>
+                  <span class="info-data">{{contract.address.address1}}</br>{{contract.address.city}},{{stateLookupById(contract.address.state.id).abbreviation}},{{contract.address.zipcode}}</span>
                 </div>
               </a>
             </div>
@@ -163,7 +163,7 @@
               <a ui-sref="project.production({projectId: production.id})">
                 <div class="pipe-info">
                   <span class="info-title">{{production.customer.firstname}} {{production.customer.lastname}} - PO# {{production.po_number}}</span>
-                  <span class="info-data">{{production.address.address1}}</br>{{production.address.city}},{{state_abb[production.address.state.id - 1]}},{{production.address.zipcode}}</span>
+                  <span class="info-data">{{production.address.address1}}</br>{{production.address.city}},{{stateLookupById(production.address.state.id).abbreviation}},{{production.address.zipcode}}</span>
                 </div>
               </a>
             </div>

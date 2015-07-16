@@ -3,6 +3,7 @@ var addressesService = angular.module('addressesService', ['ngResource']);
 addressesService.factory('Address', function($resource, ENV) {
 	
 
+
 	var states_array=[
 		{abbreviation: 'MI', id:1},
 		{abbreviation: 'SD', id:2},
@@ -61,14 +62,27 @@ addressesService.factory('Address', function($resource, ENV) {
 
 	];
 
-	var lookupStateById=function(stateId)
+	var stateLookupById=function(stateId)
 	{
-		
+
+		var stateRet;
+
+		var i=0;
+
+		//Angular forEach does not allow break statement
+		for (;i<states_array.length;i++)
+		{
+			if (states_array[i].id === stateId){
+				stateRet=states_array[i];
+				break;
+			}
+		}
+		return stateRet;
 	};
 
 	return {
 		States: states_array,
-		lookupStateById: lookupStateById
+		stateLookupById: stateLookupById
 	};
 	
 });
