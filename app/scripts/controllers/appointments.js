@@ -24,6 +24,12 @@ angular.module('ersApp')
 	    });
 	}
 
+	$scope.openDate = function(objectWithOpenFlags,$event, instance) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      objectWithOpenFlags.opened[instance] = true;
+    };
+
 	function clearErrors()
 	{
 		$scope.errors={};
@@ -40,7 +46,7 @@ angular.module('ersApp')
 	function prepareAppointmentForView(appointment)
 	{
 		appointment.scheduled_at=new Date(appointment.scheduled_at);
-
+		appointment.opened={};
 		//API returns description but expects id
 		appointment.outcome=$scope.outcomes_arr.indexOf(appointment.outcome) +1;
 		angular.forEach(appointment.follow_ups, function(followup,key){
@@ -121,7 +127,7 @@ angular.module('ersApp')
 
 	$scope.add_appointment=function (project)
 	{
-		var new_appointment={site_id: project.id,isNew: true,edition_enabled: true};
+		var new_appointment={site_id: project.id,isNew: true,edition_enabled: true, opened: {}};
 		$scope.project.appointments.unshift(new_appointment);
 	}
 
