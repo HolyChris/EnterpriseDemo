@@ -54,6 +54,7 @@
       <div class="col-md-8">
         <h3 class="title">PROJECT CORE INFO</h3>
         <p><span>SITE:</span> {{site.name}}</p>
+        <p><span>CUSTOMER:</span> {{site.customer.firstname}} {{site.customer.lastname}}, {{site.customer.business_name}}</p>
         <p><span>ADDRESS:</span> {{site.address.address1}}, {{site.address.city}} {{site.address.state.name}}, {{site.address.zipcode}}</p>
         <p><span>PO:</span> {{site.po_number}}</p>
         <p ng-show="!editStageMode"><span>STAGE:</span> <b class="text-uppercase">{{site.stage}}</b> <button ng-click="enableStageEdition()">Edit</button></p>
