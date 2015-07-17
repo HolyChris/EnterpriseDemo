@@ -12,6 +12,7 @@ angular.module('ersApp')
 
 	$scope.outcomes_arr=Appointment.outcomes;
 	$scope.managersArray = Managers.query();
+	$scope.format = "yyyy-MM-dd";
 
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
@@ -23,6 +24,12 @@ angular.module('ersApp')
 	      
 	    });
 	}
+
+	$scope.openDate = function(objectWithOpenFlags,$event, instance) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      objectWithOpenFlags.opened[instance] = true;
+    };
 
 	function clearErrors()
 	{
@@ -40,12 +47,18 @@ angular.module('ersApp')
 	function prepareAppointmentForView(appointment)
 	{
 		appointment.scheduled_at=new Date(appointment.scheduled_at);
-
+		appointment.opened={};
 		//API returns description but expects id
 		appointment.outcome=$scope.outcomes_arr.indexOf(appointment.outcome) +1;
 		angular.forEach(appointment.follow_ups, function(followup,key){
-			followup.scheduled_at=new Date(followup.scheduled_at);
+			prepareFollowUpForView(followup);
 		});
+	}
+
+	function prepareFollowUpForView(followup)
+	{
+		followup.opened= {};
+		followup.scheduled_at=new Date(followup.scheduled_at);
 	}
 
 	$scope.enable_appointment_edition=function(appointment)
@@ -121,7 +134,7 @@ angular.module('ersApp')
 
 	$scope.add_appointment=function (project)
 	{
-		var new_appointment={site_id: project.id,isNew: true,edition_enabled: true};
+		var new_appointment={site_id: project.id,isNew: true,edition_enabled: true, opened: {}};
 		$scope.project.appointments.unshift(new_appointment);
 	}
 
@@ -190,7 +203,7 @@ angular.module('ersApp')
 	}
 
 	$scope.add_followup=function(appointment){
-		appointment.follow_ups.unshift({isNew: true,edition_enabled: true})
+		appointment.follow_ups.unshift({isNew: true,edition_enabled: true, opened: {}})
 	}
 
 	$scope.remove_followup=function(appointment,followup,appointmentIndex){
