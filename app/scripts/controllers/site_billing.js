@@ -40,9 +40,11 @@ angular.module('ersApp')
           params[key] = toDate(params[key]);
         }
       });
+      console.log(params);
       if (!$scope.billExist) {
         params.siteId = $stateParams.projectId;
         Billing.save(params, function(data) {
+          console.log(data);
           $scope.billing = data.billing;
           $scope.$parent.refreshNavStatus();
           $scope.editMode = false;
@@ -55,6 +57,7 @@ angular.module('ersApp')
         delete params.id;
 
         Billing.update(params, function(data) {
+          console.log(data);
           $scope.billing = data.billing;
           $scope.billExist = true;
           $scope.$parent.refreshNavStatus();
