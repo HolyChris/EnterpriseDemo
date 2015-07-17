@@ -456,12 +456,20 @@ a:hover span {
     background-image: url(../images/login_background.jpg);
     background-size: cover;
   }
-  .login-container{
+  .login-container {
     margin: 0 auto;
     padding: 10em 0 15em;
     width: 387px;
   }
 
+  .login-container .spinner-wrapper {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 5px;
+    right: -40px;
+  }
+  
   .login-container .logo-container {
     text-align: center;
   }
@@ -473,6 +481,7 @@ a:hover span {
     width: 388px;
     padding-top: 10px;
   }
+
   .reset-password {
     padding-right: 25px;
     margin-top: 10px;
@@ -521,6 +530,7 @@ a:hover span {
     margin-left: 109px;
     padding: 0px;
     text-align: left;
+    position: relative;
   }
   .login-btn span{
     color:   #ffffff;
@@ -535,6 +545,10 @@ a:hover span {
     vertical-align: middle;
     margin-top: 13.5px;
   }
+
+  .btn.login-btn:focus, .btn.login-btn.active:focus {
+    outline: none;
+  } 
 
 /****/
 /****index.html*****/

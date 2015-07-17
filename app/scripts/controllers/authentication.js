@@ -1,8 +1,9 @@
 angular.module('ersApp')
-  .controller('LoginCtrl', function($scope, $auth, $location, $rootScope, Flash) {
+  .controller('LoginCtrl', function($scope, $auth, $location, $rootScope, Flash, usSpinnerService) {
     $rootScope.isAuthenticated = false;
     $rootScope.showSite = true;
     $scope.signUp = function() {
+      usSpinnerService.spin('login-spinner');
       $auth.logout();
       if (!$scope.model) {
         Flash.create('danger', 'Please provide Email and Password');
@@ -13,9 +14,9 @@ angular.module('ersApp')
         password: $scope.model.password
       })
       .then(function(response) {
+        usSpinnerService.stop('login-spinner');
         if (response.data.message) {
           Flash.create('danger', response.data.message);
-
         } else {
           $rootScope.userEmail = response.data.email;
           $location.path("/"); 
@@ -24,6 +25,7 @@ angular.module('ersApp')
       .catch(function(response) {
         // API doesn't return proper validation messages
         // so I'm unable to highlight the input here
+        usSpinnerService.stop('login-spinner');
         Flash.create('danger', response.data.message);
         return;
       });
