@@ -81,7 +81,7 @@
 								<label class="control-label">Scheduled at<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
 								<div class="form-inline" ng-show="appointment.edition_enabled">
 									<p class="input-group date-picker">
-										<input type="date" id="" class="form-control" datepicker-popup="{{format}}" ng-model="appointment.scheduled_at" is-open="appointment.opened.scheduled_at" ng-required="true" close-text="Close" />
+										<input class="form-control" datepicker-popup="{{format}}" ng-model="appointment.scheduled_at" is-open="appointment.opened.scheduled_at" ng-required="true" close-text="Close" />
 										<span class="input-group-btn">
 							              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate(appointment,$event,'scheduled_at')"><i class="glyphicon glyphicon-calendar"></i></button>
 							            </span>
@@ -179,10 +179,10 @@
 >>>>>>> Style final changes for followups section
 									<label class="control-label">Scheduled at<sup>*</sup> {{errors.signed_at[0]}}</label>
 									<div class="form-inline" ng-show="followup.edition_enabled">
-										<div class="input-group col-xs-2">
-											<input type="date" class="form-control" datepicker-popup="" ng-model="followup.scheduled_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
+										<div class="input-group date-picker">
+											<input  id="" class="form-control" datepicker-popup="{{format}}" ng-model="followup.scheduled_at" is-open="followup.opened.scheduled_at" ng-required="true" close-text="Close" />
 											<span class="input-group-btn">
-								              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+								              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate(followup,$event,'scheduled_at')"><i class="glyphicon glyphicon-calendar"></i></button>
 								            </span>
 										</div>
 										<div class="input-group col-xs-2">
