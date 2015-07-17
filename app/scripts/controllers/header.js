@@ -5,8 +5,8 @@ angular.module("ersApp")
     $scope.user.email = $auth.getEmail();
 
     $scope.searchSites = function() {
-      if ($scope['contract_po_number_contains']) {
-        $state.go('sites', {'contract_po_number_contains': $scope['contract_po_number_contains']});
+      if ($scope['contract_po_number_equals']) {
+        $state.go('sites', {'contract_po_number_equals': $scope['contract_po_number_equals']});
       }
     };
   });
