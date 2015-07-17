@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('NewCustomerCtrl', function ($scope,$http, $location,ENV,Flash) {
+  .controller('NewCustomerCtrl', function ($scope,$http,$state,$location,ENV,Flash,Customer) {
   
   $scope.user = {};
   $scope.phone_number = [];
@@ -30,52 +30,29 @@ angular.module('ersApp')
   }
 
   function phonePrepare() {
-    var urlFragment = '';
+    var phoneArray = [];
     for (var i = 0; i < $scope.phone_number.length; i++) {
       if ($scope.phone_number[i].number.length > 0) {
-        urlFragment += 'phone_numbers_attributes[' + i + '][number]=' + $scope.phone_number[i].number + '&phone_numbers_attributes[' + i + '][num_type]=' + $scope.phone_number[i].type + '&phone_numbers_attributes[' + i + '][primary]=' + $scope.phone_number[i].primary + '&';
+        var phoneObject = {
+          number: $scope.phone_number[i].number,
+          num_type: $scope.phone_number[i].type,
+          primary: $scope.phone_number[i].primary,
+        }
+        phoneArray.push(phoneObject);
       }
     }
-    return urlFragment;
+    return phoneArray;
   }
 
   $scope.newCustomer = function(user) {
     var phoneUrlFragment = phonePrepare();
 
-    $http({
-        method: 'POST',
-        url: ENV.apiEndpoint + '/api/v1/customers?' + phoneUrlFragment,
-        params: user,
-         headers: {
-        'Content-type': 'application/json'
-        }
-     }).success(function(data){
-        $scope.customers = data;
-        
-        var message = 'You have succesfully created a customer. <a href="#" class="alert-link">Click here to create a site </a> for this customer.';
-        Flash.create('success', message);
-        
-        $scope.Flash=Flash;
-        $scope.custList = data.customers;
-        $location.path("/customers/overview")
-    }).error(function(data){
+    user.phone_numbers_attributes = phonePrepare();
+    Customer.post(user, function(data) {
+      if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-        console.log($scope.errors);
-    })
-  }
-  
-  $scope.newCustomerThenSite = function(user) {
-    var phoneUrlFragment = phonePrepare();
-
-    $http({
-        method: 'POST',
-        url: ENV.apiEndpoint + '/api/v1/customers?' + phoneUrlFragment,
-        params: user,
-         headers: {
-        'Content-type': 'application/json'
-        }
-     }).success(function(data){
+      } else {
         $scope.customers = data;
         
         var message = 'You have succesfully created a customer.';
@@ -85,14 +62,34 @@ angular.module('ersApp')
         $scope.custList = data.customers;
         
         var url_params= {
-            customerId: data.customer.id
+          customerId: data.customer.id
         };
-        $location.path("/sites/new").search(url_params);
-    }).error(function(data){
+        $state.go("/customers");
+      }
+    });
+  }
+  
+  $scope.newCustomerThenSite = function(user) {
+    user.phone_numbers_attributes = phonePrepare();
+    Customer.post(user, function(data) {
+      if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-        console.log(data.errors);
-    })
+      } else {
+        $scope.customers = data;
+        
+        var message = 'You have succesfully created a customer.';
+        Flash.create('success', message);
+        
+        $scope.Flash=Flash;
+        $scope.custList = data.customers;
+        
+        var url_params= {
+          customerId: data.customer.id
+        };
+        $state.go("/sites/new").search(url_params);
+      }
+    });
   }
 
   
