@@ -20,27 +20,41 @@
 				</div>
 			</div>
 
-			<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
-				<div class="form-title">
-					<span> APPOINTMENT </span>
-					<span class="label label-warning" ng-show="appointment.isNew">NEW</span>
-					<div class="pull-right" ng-show="!appointment.edition_enabled">
-						<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_appointment_edition(appointment)">
-		  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-						</button>
-						<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="delete_appointment(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
-						</button>
-					</div>
+		<div class="row">
+			<div class="form-left-container">
+		    <div class="col-md-6 form-left overview-header">
+		      <div class="row">
+		        <div class="col-md-12">
+		          <h3 class="title">PROJECT CORE INFO</h3>
+		          <p><span>SITE:</span> {{project.name}}</p>
+		          <p><span>ADRESS:</span> {{project.address.address1}}, {{project.address.city}} {{project.address.state.name}}, {{project.address.zipcode}}</p>
+		          <p><span>PO:</span> {{project.po_number}}</p>
+		          <p><span>STAGE:</span> <b class="text-uppercase">{{project.stage}}</b></p>
+		        </div>
+		      </div>
+		    </div>
 
-					<div class="pull-right" ng-show="appointment.edition_enabled">
-						<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_appointment(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-						</button>
+				<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
+					<div class="form-title">
+						<span> APPOINTMENT </span>
+						<span class="label label-warning" ng-show="appointment.isNew">NEW</span>
 
-						<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_appointment_edition(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-						</button>
+						<span class="edit-btn pull-right" ng-show="!appointment.edition_enabled" ng-click="enable_appointment_edition(appointment)">
+							<img src="/images/Write-white.png"/>
+							EDIT
+						</span>
+						<span class="edit-btn pull-right btn-danger" ng-show="!appointment.edition_enabled" ng-click="delete_appointment(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							REMOVE
+						</span>
+						<span class="edit-btn pull-right" ng-show="appointment.edition_enabled" ng-click="save_appointment(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							SAVE
+						</span>
+						<span class="edit-btn pull-right btn-warning" ng-show="appointment.edition_enabled" ng-click="cancel_appointment_edition(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							CANCEL
+						</span>
 
 					</div>
 				</div>
