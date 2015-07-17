@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('ProductionCtrl', function($scope, $location, $anchorScroll, $stateParams, Production) {
+  .controller('ProductionCtrl', function($scope, $location, $anchorScroll, $stateParams, Production, Flash) {
 
     $scope.format = "yyyy-MM-dd";
     $scope.production = {};
@@ -47,6 +47,7 @@ angular.module('ersApp')
         Production.save(params, function(data) {
           $scope.setProductionData(data);
           $scope.$parent.refreshNavStatus();
+          Flash.create('success', 'Project successfully saved!');
         }); 
       } else {
         params.productionId = globalData.site.production.id;
@@ -54,6 +55,7 @@ angular.module('ersApp')
         Production.update(params, function(data) {
           $scope.setProductionData(data);
           $scope.$parent.refreshNavStatus();
+          Flash.create('success', 'Project successfully saved!');
         }); 
       }
 

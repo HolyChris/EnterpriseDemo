@@ -38,7 +38,8 @@ angular
     'config',
     'angularSpinner',
     'blueimp.fileupload',
-    'satellizer'
+    'satellizer',
+    'ng-currency'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
   
