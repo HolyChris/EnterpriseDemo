@@ -105,6 +105,24 @@ angular.module('ersApp')
 	function prepareJobSubmissionForView(job_submission)
 	{
 		if (job_submission){
+			
+
+			if (job_submission.shingle_manufacturer){
+				angular.forEach($scope.manufacturers_arr, function(value, key) {
+			      if (value.name==job_submission.shingle_manufacturer) {
+			        job_submission.shingle_manufacturer = value.id;
+			      }
+			    });
+			}
+
+			if (job_submission.shingle_type){
+				angular.forEach($scope.shingles_arr, function(value, key) {
+			      if (value.title==job_submission.shingle_type) {
+			        job_submission.shingle_type = value.id;
+			      }
+			    });
+			}
+
 			//API RETURNS description of color, but expects id
 
 			if (job_submission.shingle_color){
@@ -235,6 +253,12 @@ angular.module('ersApp')
 	};
 
 	$scope.enable_job_submission_edition=function(){
+		if (!$scope.job_submission)
+		{
+			//Queried project did not have this object defined
+			//we define an empty object
+			$scope.job_submission={};
+		}
 		$scope.job_submission.edition_enabled=true;
 	};
 
@@ -250,7 +274,7 @@ angular.module('ersApp')
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
         });
-	}
+	};
 
 	$scope.cancel_job_submission_edition=function(){
 		$scope.job_submission.edition_enabled=false;

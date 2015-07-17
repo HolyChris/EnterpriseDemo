@@ -197,7 +197,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
 							<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
 							<select name="" ng-model="job_submission.shingle_color" convert-to-number class="form-control">
-					  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.shingle_color">{{color.name}}</option>
+								<option ng-repeat="colorId in shingles_arr[job_submission.shingle_type-1].colorsId" value="{{colorId}}" ng-selected="colorId==job_submission.shingle_color">{{colors_arr[colorId-1].name}}</option>
 							</select>
 						</div>
 
