@@ -253,6 +253,12 @@ angular.module('ersApp')
 	};
 
 	$scope.enable_job_submission_edition=function(){
+		if (!$scope.job_submission)
+		{
+			//Queried project did not have this object defined
+			//we define an empty object
+			$scope.job_submission={};
+		}
 		$scope.job_submission.edition_enabled=true;
 	};
 
@@ -268,7 +274,7 @@ angular.module('ersApp')
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
         });
-	}
+	};
 
 	$scope.cancel_job_submission_edition=function(){
 		$scope.job_submission.edition_enabled=false;
