@@ -62,6 +62,7 @@ angular.module('ersApp')
     if ($scope.newContract && !$scope.contract.document || !$scope.contract.signed_at) {
       Flash.create('danger', 'Document and Signed on date are required');
       usSpinnerService.stop('spinner-1');
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       return;
     }
     
