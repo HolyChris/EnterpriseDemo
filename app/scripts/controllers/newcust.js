@@ -51,6 +51,7 @@ angular.module('ersApp')
         }
      }).success(function(data){
         $scope.customers = data;
+        console.log(data);
         
         var message = 'You have succesfully created a customer. <a href="#" class="alert-link">Click here to create a site </a> for this customer.';
         Flash.create('success', message);
@@ -77,6 +78,7 @@ angular.module('ersApp')
         }
      }).success(function(data){
         $scope.customers = data;
+        console.log(data);
         
         var message = 'You have succesfully created a customer.';
         Flash.create('success', message);
