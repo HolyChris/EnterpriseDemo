@@ -106,29 +106,29 @@
 						</div>
 
 
-					</fieldset>
-					<hr>
-					<div class="form-container col-lg-6 well" ng-repeat="followup in appointment.follow_ups">
-						<div class="form-title">
-							<span> FOLLOW UP </span>
-							<span class="label label-warning" ng-show="followup.isNew">NEW</span>
-							<div class="pull-right" ng-show="!followup.edition_enabled">
-								<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_followup_edition(followup)">
-				  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-								</button>
-								<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="remove_followup(appointment,followup,$parent.$index)">
-			  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
-							</button>
-							</div>
+						</fieldset>
+						<hr>
+						<div class="form-container col-lg-6 well" ng-repeat="followup in appointment.follow_ups">
+							<div class="form-title">
+								<span> FOLLOW UP </span>
+								<span class="label label-warning" ng-show="followup.isNew">NEW</span>
 
-							<div class="pull-right" ng-show="followup.edition_enabled">
-								<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_followup(appointment,followup,$parent.$index)">
-				  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-								</button>
-
-								<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_followup_edition(appointment,followup,$index)">
-				  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-								</button>
+								<span class="edit-btn pull-right" ng-show="!followup.edition_enabled" ng-click="enable_followup_edition(followup)">
+									<img src="/images/Write-white.png"/>
+									EDIT
+								</span>
+								<span class="edit-btn pull-right btn-danger" ng-show="!followup.edition_enabled" ng-click="remove_followup(appointment,followup,$parent.$index)">
+									<img src="/images/Write-white.png"/>
+									REMOVE
+								</span>
+								<span class="edit-btn pull-right" ng-show="followup.edition_enabled" ng-click="save_followup(appointment,followup,$parent.$index)">
+									<img src="/images/Write-white.png"/>
+									SAVE
+								</span>
+								<span class="edit-btn pull-right btn-warning" ng-show="followup.edition_enabled" ng-click="cancel_followup_edition(appointment,followup,$index)">
+									<img src="/images/Write-white.png"/>
+									CANCEL
+								</span>
 
 							</div>
 						</div>
