@@ -1,5 +1,5 @@
 <div class="container proj-over-container overview-appointments">
-	<div class="proj-over-content">
+	<div class="proj-over-content project-appointments-form">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				<u>APPOINTMENTS</u>
@@ -19,115 +19,113 @@
 					<img src="/images/Plus.png" class="pull-right">
 				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div class="form-left-container">
 
-			<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
-				<div class="form-title">
-					<span> APPOINTMENT </span>
-					<span class="label label-warning" ng-show="appointment.isNew">NEW</span>
-					<div class="pull-right" ng-show="!appointment.edition_enabled">
-						<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_appointment_edition(appointment)">
-		  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-						</button>
-						<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="delete_appointment(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
-						</button>
+				<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
+					<div class="form-title">
+						<span> APPOINTMENT </span>
+						<span class="label label-warning" ng-show="appointment.isNew">NEW</span>
+
+						<span class="edit-btn pull-right" ng-show="!appointment.edition_enabled" ng-click="enable_appointment_edition(appointment)">
+							<img src="/images/Write-white.png"/>
+							EDIT
+						</span>
+						<span class="edit-btn pull-right btn-danger" ng-show="!appointment.edition_enabled" ng-click="delete_appointment(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							REMOVE
+						</span>
+						<span class="edit-btn pull-right" ng-show="appointment.edition_enabled" ng-click="save_appointment(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							SAVE
+						</span>
+						<span class="edit-btn pull-right btn-warning" ng-show="appointment.edition_enabled" ng-click="cancel_appointment_edition(appointment,$index)">
+							<img src="/images/Write-white.png"/>
+							CANCEL
+						</span>
+
 					</div>
-
-					<div class="pull-right" ng-show="appointment.edition_enabled">
-						<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_appointment(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-						</button>
-
-						<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_appointment_edition(appointment,$index)">
-		  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-						</button>
-
-					</div>
-				</div>
-
-				<div class="form-container">
-					<fieldset ng-disabled="!appointment.edition_enabled">
-						<div class="form-group col-lg-12" ng-class="{'has-error' : contractErrors.signed_at[0]}">
-							<label class="control-label">Scheduled at<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
-							<div class="form-inline" ng-show="appointment.edition_enabled">
-								<div class="input-group col-xs-2">
-									<input type="date" class="form-control" datepicker-popup="" ng-model="appointment.scheduled_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
-									<span class="input-group-btn">
-						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						            </span>
+					<div class="form-container">
+						<fieldset ng-disabled="!appointment.edition_enabled">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
+								<label class="control-label">Scheduled at<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
+								<div class="form-inline" ng-show="appointment.edition_enabled">
+									<p class="input-group date-picker">
+										<input class="form-control" datepicker-popup="{{format}}" ng-model="appointment.scheduled_at" is-open="appointment.opened.scheduled_at" ng-required="true" close-text="Close" />
+										<span class="input-group-btn">
+							              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate(appointment,$event,'scheduled_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+							            </span>
+									</p>
+									<div class="input-group col-xs-2">
+										<timepicker ng-model="appointment.scheduled_at" ng-change="changed()" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+									</div>
 								</div>
-								<div class="input-group col-xs-2">
-									<timepicker ng-model="appointment.scheduled_at" ng-change="changed()" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+
+								<div class="input-group" ng-hide="appointment.edition_enabled">
+									<input type="text" class="form-control" ng-model="appointment.scheduled_at">
+								</div>
+
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
+								<label class="control-label">Outcome<sup>*</sup></label>
+											  	
+						  		<select name="" ng-model="appointment.outcome" convert-to-number class="form-control">
+						  				<option ng-repeat="outcome in outcomes_arr" value="{{$index+1}}" ng-selected="$index+1==appointment.outcome">{{outcome}}</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-12">
+								<label class="control-label">Notes</label>
+								<textarea rows="5" class="form-control" ng-model="appointment.notes"></textarea>
+							</div>
+
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.user}">
+								<label class="control-label">Assigned to</label>
+								<input type="text" class="form-control" ng-model="appointment.assigned_to" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue">
+							</div>
+
+							<div class="col-md-12 actn-btn-container" ng-hide="appointment.isNew">
+								<div class="actn-btn" ng-click="add_followup(appointment)">
+									ADD FOLLOWUP
+									<img src="/images/Plus.png" class="pull-right">
 								</div>
 							</div>
 
-							<div class="input-group col-lg-9" ng-hide="appointment.edition_enabled">
-								<input type="text" class="form-control" ng-model="appointment.scheduled_at">
-							</div>
 
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
-							<label class="control-label">Outcome<sup>*</sup></label>
-										  	
-					  		<select name="" ng-model="appointment.outcome" convert-to-number class="form-control">
-					  				<option ng-repeat="outcome in outcomes_arr" value="{{$index+1}}" ng-selected="$index+1==appointment.outcome">{{outcome}}</option>
-							</select>
-						</div>
-						<div class="form-group col-sm-12">
-							<label class="control-label">Notes</label>
-							<textarea class="form-control textarea" ng-model="appointment.notes"></textarea>
-						</div>
+						</fieldset>
+						<hr>
+						<div class="form-container col-lg-6 well" ng-repeat="followup in appointment.follow_ups">
+							<div class="form-title">
+								<span> FOLLOW UP </span>
+								<span class="label label-warning" ng-show="followup.isNew">NEW</span>
 
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.user}">
-							<label class="control-label">Assigned to</label>
-							<input type="text" class="form-control" ng-model="appointment.assigned_to" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue">
-						</div>
-
-						<div class="col-md-12 actn-btn-container" ng-hide="appointment.isNew">
-							<div class="actn-btn" ng-click="add_followup(appointment)">
-								ADD FOLLOWUP
-								<img src="/images/Plus.png" class="pull-right">
-							</div>
-						</div>
-
-
-					</fieldset>
-					<hr>
-					<div class="form-container col-lg-6 well" ng-repeat="followup in appointment.follow_ups">
-						<div class="form-title">
-							<span> FOLLOW UP </span>
-							<span class="label label-warning" ng-show="followup.isNew">NEW</span>
-							<div class="pull-right" ng-show="!followup.edition_enabled">
-								<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="enable_followup_edition(followup)">
-				  					<span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> EDIT
-								</button>
-								<button type="button" class="btn btn-xs btn-danger" aria-label="Left Align"  ng-click="remove_followup(appointment,followup,$parent.$index)">
-			  					<span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> REMOVE
-							</button>
-							</div>
-
-							<div class="pull-right" ng-show="followup.edition_enabled">
-								<button type="button" class="btn btn-xs btn-success" aria-label="Left Align"  ng-click="save_followup(appointment,followup,$parent.$index)">
-				  					<span class="glyphicon glyphicon glyphicon-save" aria-hidden="true"></span> SAVE
-								</button>
-
-								<button type="button" class="btn btn-xs btn-warning" aria-label="Left Align" ng-click="cancel_followup_edition(appointment,followup,$index)">
-				  					<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> CANCEL
-								</button>
+								<span class="edit-btn pull-right" ng-show="!followup.edition_enabled" ng-click="enable_followup_edition(followup)">
+									<img src="/images/Write-white.png"/>
+									EDIT
+								</span>
+								<span class="edit-btn pull-right btn-danger" ng-show="!followup.edition_enabled" ng-click="remove_followup(appointment,followup,$parent.$index)">
+									<img src="/images/Write-white.png"/>
+									REMOVE
+								</span>
+								<span class="edit-btn pull-right" ng-show="followup.edition_enabled" ng-click="save_followup(appointment,followup,$parent.$index)">
+									<img src="/images/Write-white.png"/>
+									SAVE
+								</span>
+								<span class="edit-btn pull-right btn-warning" ng-show="followup.edition_enabled" ng-click="cancel_followup_edition(appointment,followup,$index)">
+									<img src="/images/Write-white.png"/>
+									CANCEL
+								</span>
 
 							</div>
-						</div>
-						<fieldset ng-disabled="!followup.edition_enabled">
-							<div class="form-group col-sm-12">
-								<div class="input-group ">
-									
+							<fieldset ng-disabled="!followup.edition_enabled">
+								<div class="form-group col-lg-6">
 									<label class="control-label">Scheduled at<sup>*</sup> {{errors.signed_at[0]}}</label>
 									<div class="form-inline" ng-show="followup.edition_enabled">
-										<div class="input-group col-xs-2">
-											<input type="date" class="form-control" datepicker-popup="" ng-model="followup.scheduled_at" is-open="$parent.opened" ng-required="true" close-text="Close" />
+										<div class="input-group date-picker">
+											<input  id="" class="form-control" datepicker-popup="{{format}}" ng-model="followup.scheduled_at" is-open="followup.opened.scheduled_at" ng-required="true" close-text="Close" />
 											<span class="input-group-btn">
-								              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+								              <button type="button" class="btn btn-default ng-click-active" ng-click="openDate(followup,$event,'scheduled_at')"><i class="glyphicon glyphicon-calendar"></i></button>
 								            </span>
 										</div>
 										<div class="input-group col-xs-2">
@@ -138,15 +136,15 @@
 
 									<input type="text" class="form-control" ng-model="followup.scheduled_at" ng-hide="followup.edition_enabled">
 								</div>
-								<div class="input-group">
+								<div class="form-group col-lg-12">
 									<label class="control-label">Notes</label>
-									<textarea class="form-control" ng-model="followup.notes"></textarea>
+									<textarea rows="5" class="form-control" ng-model="followup.notes"></textarea>
 								</div>
 								<hr>
-							</div>
-						</fieldset>
+								
+							</fieldset>
+						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
