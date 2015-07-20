@@ -1,5 +1,9 @@
 # Eco Roof and Solar
 
+## Make sure you understand our process
+
+https://github.com/HolyChris/ERS_MVP_FrontEnd/wiki
+
 ## Build & Development
 
 1. Run 'npm install -g grunt-cli' to install grunt cli.
