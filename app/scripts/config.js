@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'production',apiEndpoint:'https://eco-roof.herokuapp.com/'})
+.constant('ENV', {name:'production',apiEndpoint:'https://eco-roof.herokuapp.com'})
 
 ;
