@@ -452,9 +452,12 @@ a:hover span {
     border-bottom: 0;
   }
 /****login.html*****/
-  .bg-container{
-    background-image: url(../images/login_background.jpg);
+  body {
+    background: url('../images/login_background_large.jpg') no-repeat 50% 50%;
     background-size: cover;
+  }
+  .outside .main-container {
+    background: none;
   }
   .login-container {
     margin: 0 auto;
@@ -1239,6 +1242,7 @@ tbody td{
     font-size: 9px;
     margin-right: 25px;
     letter-spacing: 1px;
+    cursor: pointer;
   }
   .proj-over-content .form-title .edit-btn img{
     margin-right: 5px;

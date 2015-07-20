@@ -45,49 +45,29 @@ angular.module('ersApp')
   }
 
   $scope.newCustomer = function(user) {
-    var phoneUrlFragment = phonePrepare();
-
     user.phone_numbers_attributes = phonePrepare();
+
     Customer.post(user, function(data) {
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-      } else {
-        $scope.customers = data;
-        
-        var message = 'You have succesfully created a customer.';
-        Flash.create('success', message);
-        
-        $scope.Flash=Flash;
-        $scope.custList = data.customers;
-        
-        var url_params= {
-          customerId: data.customer.id
-        };
-        $state.go("/customers");
+      } else {        
+        Flash.create('success', 'You have succesfully created a customer.');    
+        $state.go("customers");
       }
     });
   }
   
-  $scope.newCustomerThenSite = function(user) {
+  $scope.newCustomerThenSite = function(user) { 
     user.phone_numbers_attributes = phonePrepare();
+    
     Customer.post(user, function(data) {
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-      } else {
-        $scope.customers = data;
-        
-        var message = 'You have succesfully created a customer.';
-        Flash.create('success', message);
-        
-        $scope.Flash=Flash;
-        $scope.custList = data.customers;
-        
-        var url_params= {
-          customerId: data.customer.id
-        };
-        $state.go("/sites/new").search(url_params);
+      } else {        
+        Flash.create('success', 'You have succesfully created a customer.');
+        $state.go("newsite");
       }
     });
   }
