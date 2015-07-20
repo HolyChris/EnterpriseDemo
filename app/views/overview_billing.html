@@ -15,19 +15,19 @@
     <div class="form-left-container">
     <div class="col-md-6 form-left" id="project-section">
       <form ng-submit="updateLocation()">
-        <fieldset ng-disabled="!editMode">
+        <fieldset ng-disabled="!editModeLocation">
           <input type="hidden" ng-model="billing.id">
           <div class="form-title">
             <span>LOCATION BILLING INFO</span>
-            <span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+            <span class="edit-btn pull-right" ng-show="!editModeLocation" ng-click="enableEdition('Location')">
               <img src="/images/Write-white.png"/>
               EDIT
             </span>
-            <span class="edit-btn pull-right" ng-show="editMode" ng-click="saveBilling()">
+            <span class="edit-btn pull-right" ng-show="editModeLocation" ng-click="saveBilling()">
               <img src="/images/Write-white.png"/>
               SAVE
             </span>
-            <span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+            <span class="edit-btn pull-right btn-warning" ng-show="editModeLocation" ng-click="discardChanges('Location')">
               <img src="/images/Write-white.png"/>
               CANCEL
             </span>
@@ -98,22 +98,22 @@
     <div class="col-md-6 form-left" id="insurance-section">
       <div class="form-title">
         <span>INSURANCE INFO</span>
-          <span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+          <span class="edit-btn pull-right" ng-show="!editModeInsurance" ng-click="enableEdition('Insurance')">
             <img src="/images/Write-white.png"/>
             EDIT
           </span>
-          <span class="edit-btn pull-right" ng-show="editMode" ng-click="saveBilling()">
+          <span class="edit-btn pull-right" ng-show="editModeInsurance" ng-click="saveBilling()">
             <img src="/images/Write-white.png"/>
             SAVE
           </span>
-          <span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+          <span class="edit-btn pull-right btn-warning" ng-show="editModeInsurance" ng-click="discardChanges('Insurance')">
             <img src="/images/Write-white.png"/>
             CANCEL
           </span>
       </div>  
       <div class="form-container">
         <form ng-submit="updateLocation()">
-          <fieldset ng-disabled="!editMode">
+          <fieldset ng-disabled="!editModeInsurance">
             <div class="form-group col-lg-12">
               <label>Mortgage process notes</label>
               <textarea rows="5" class="form-control" ng-model="billing.mortgage_process_notes"></textarea>
