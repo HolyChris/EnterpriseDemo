@@ -62,7 +62,6 @@ angular.module('ersApp')
     user.phone_numbers_attributes = phonePrepare();
     
     Customer.post(user, function(data) {
-      console.log(data);
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
