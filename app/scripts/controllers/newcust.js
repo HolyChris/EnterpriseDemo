@@ -62,12 +62,13 @@ angular.module('ersApp')
     user.phone_numbers_attributes = phonePrepare();
     
     Customer.post(user, function(data) {
+      console.log(data);
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
       } else {        
         Flash.create('success', 'You have succesfully created a customer.');
-        $state.go("newsite");
+        $location.path("/sites/new").search({customerId: data.customer.id});
       }
     });
   }
