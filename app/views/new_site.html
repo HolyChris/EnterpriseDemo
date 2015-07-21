@@ -16,28 +16,28 @@
 					<div class="form-container">
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1']}">
 							<label class="control-label">Address 1<sup>*</sup></label>
-							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="siteAddress.address1">
+							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.address_attributes.address1">
 						</div>
 						
 						<div class="form-group col-lg-6">
 							<label class="control-label">Address 2</label>
-							<input type="" name="" class="form-control" id="" value="" ng-model="siteAddress.address2">
+							<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.address_attributes.address2">
 						</div>
 						
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city']}">
 							<label class="control-label">City<sup>*</sup></label>
-							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="siteAddress.city">
+							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.address_attributes.city">
 						</div>
 										
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 							<label class="control-label">State<sup>*</sup></label>
-							<select ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="siteAddress.state_id" >
+							<select ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.address_attributes.state_id" >
 								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==siteAddress.state_id">{{state.abbreviation}}</option>
 							</select>
 						</div>
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode']}">
 							<label class="control-label">Zip<sup>*</sup></label>
-							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="siteAddress.zipcode">
+							<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.address_attributes.zipcode">
 						</div>
 					
 					</div>
@@ -50,39 +50,39 @@
 					<div class="form-container">
 						<div class="form-group col-lg-6">
 							<label class="control-label">Site Name</label>
-							<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.name" >
+							<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.name" >
 						</div>
 						
 						<div class="form-group col-lg-6">
 							<label>Site Contact Name</label>
-							<input type="email" name="" class="form-control" id="" value="" ng-model="siteDetail.contact_name">
+							<input type="text" name="" class="form-control" id="" value="" ng-model="newSiteObject.contact_name">
 						</div>
 										
 						<div class="form-group col-lg-6">
 							<label class="control-label">Site Contact Phone</label>
-							<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.contact_phone">
+							<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.contact_phone">
 						</div>
 						
 						<div class="form-group col-lg-6">
 							<label class="control-label">Source</label>
-							<select type="" name="" class="form-control" id="" value="" ng-model="siteDetail.source">
+							<select type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.source">
 								<option ng-repeat="source in siteSource" value="{{$index+1}}">{{source}}</option>
 							</select>
 						</div>
 
 						<div class="form-group col-lg-6">
 							<label class="control-label">Source Info</label>
-							<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.source_info">
+							<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.source_info">
 						</div>
 
 						<div class="form-group col-lg-6">
 							<label class="control-label">Damage</label>
-							<input type="" name="" class="form-control" id="" value="" ng-model="siteDetail.damage">
+							<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.damage">
 						</div>
 
 						<div class="form-group col-lg-6">
 							<label class="control-label">Oppurtunity Priority</label>
-							<select name="status" class="form-control" id="status" ng-model="siteDetail.status" ng-init="siteDetail.status = 3">
+							<select name="status" class="form-control" id="status" ng-model="newSiteObject.status" ng-init="newSiteObject.status = 3">
 								<option value="1">Good</option>
 								<option value="2">Bad</option>
 								<option value="3">New</option>
@@ -102,29 +102,29 @@
 				<div class="form-container">
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.billAddress.address1}">
 						<label class="control-label">Address 1<sup>*</sup></label>
-						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="billAddress.address1"  ng-disabled="billingIsSameAsSite">
+						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.bill_address_attributes.address1" ng-disabled="billingIsSameAsSite">
 					</div>
 					
 					<div class="form-group col-lg-6">
 						<label class="control-label">Address 2</label>
-						<input type="" name="" class="form-control" id="" value="" ng-model="billAddress.address2"  ng-disabled="billingIsSameAsSite">
+						<input type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.bill_address_attributes.address2" ng-disabled="billingIsSameAsSite">
 					</div>
 					
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.billAddress.city}">
 						<label class="control-label">City<sup>*</sup></label>
-						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="billAddress.city"  ng-disabled="billingIsSameAsSite">
+						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.bill_address_attributes.city" ng-disabled="billingIsSameAsSite">
 					</div>
 									
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.billAddress.state_id}">
 						<label class="control-label">State<sup>*</sup></label>
-						<select ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="billAddress.state_id"  ng-disabled="billingIsSameAsSite">
+						<select ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.bill_address_attributes.state_id"  ng-disabled="billingIsSameAsSite">
 							<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==billAddress.state_id">{{state.abbreviation}}</option>
 						</select>
 					</div>
 					
 					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.billAddress.zipcode}">
 						<label class="control-label">Zip<sup>*</sup></label>
-						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="billAddress.zipcode"  ng-disabled="billingIsSameAsSite">
+						<input ng-required="required" type="" name="" class="form-control" id="" value="" ng-model="newSiteObject.bill_address_attributes.zipcode"  ng-disabled="billingIsSameAsSite">
 					</div>
 				</div>
 			</div>
@@ -171,7 +171,7 @@
 								</div>
 								
 								<div class="form-group col-lg-12">
-									<input type="submit" class="btn save-btn btn-small btn-success" value="SAVE SITE" ng-click="newSite(siteAddress,siteDetail,billAddress)">
+									<input type="submit" class="btn save-btn btn-small btn-success" value="SAVE SITE" ng-click="newSite()">
 								</div>
 
 							</div>

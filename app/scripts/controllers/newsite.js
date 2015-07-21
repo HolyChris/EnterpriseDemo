@@ -1,6 +1,7 @@
 angular.module('ersApp')
   .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,Flash,$modal,Managers,Address,Sites) {
   $scope.customer_from_previous_page_flag = false;
+  $scope.newSiteObject = {};
 
   $scope.lookupLinkedCustomerInfo = function(customer_id){
     Customer.query({id: customer_id},
@@ -41,10 +42,9 @@ angular.module('ersApp')
   $scope.$watch('billingIsSameAsSite', function(value) {
    if(value) {
     $scope.flag = 1;
-      $scope.billAddress = $scope.siteAddress;
+    $scope.newSiteObject.bill_address_attributes = $scope.newSiteObject.address_attributes;
    } else {
     $scope.flag = 0;
-      $scope.billAddress = angular.copy($scope.billAddress);
    }
   });
 
@@ -52,50 +52,25 @@ angular.module('ersApp')
   
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
-  $scope.newSite = function(siteAddress, siteDetail, billAddress) {
+  $scope.newSite = function() {
     $scope.errors = {};
 
     if (!$scope.customer || !$scope.customer.id) {
       Flash.create('danger', 'You must link the site to a customer before saving');
       $scope.errors.customer = true;
       return;
+    } else {
+      $scope.newSiteObject.customer_id = $scope.customer.id;
     }
 
-    var manageIds = [];
-    if (manage_ids.length) { 
-      angular.forEach(manage_ids, function(value, key) {
-        manageIds.push(value);
-      });
+    if (manage_ids.length) {
+      $scope.newSiteObject.manager_ids = manage_ids;
     }
 
-    var formData = {
-      customer_id: $scope.customer.id,
-      name: siteDetail.name,
-      manage_ids: manageIds,
-      contact_name: siteDetail.contact_name,
-      contact_phone: siteDetail.contact_phone,
-      source: siteDetail.source,
-      source_info: siteDetail.source_info,
-      status: siteDetail.status,
-      damage: siteDetail.damage,
-      address_attributes: {
-        address1: siteAddress.address1,
-        address2: siteAddress.address2,
-        city: siteAddress.city,
-        state_id: siteAddress.state_id,
-        zipcode: siteAddress.zipcode,
-      },
-      bill_addr_same_as_addr: $scope.flag,
-      bill_address_attributes: {
-        address1: billAddress.address1,
-        address2: billAddress.address2,
-        city: billAddress.city,
-        state_id: billAddress.state_id,
-        zipcode: billAddress.zipcode
-      }
-    }
-
-    Sites.post(formData, function(data) {
+    $scope.newSiteObject.bill_addr_same_as_addr = $scope.flag;
+    console.log($scope.newSiteObject);
+    Sites.post($scope.newSiteObject, function(data) {
+      console.log(data);
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', 'Something happened. Please correct errors below.');
@@ -117,7 +92,7 @@ angular.module('ersApp')
       }
     }
     $scope.managers.push($item);
-    manage_ids.push('&manager_ids[]='+$item.id);
+    manage_ids.push($item.id);
     $scope.managersSelected = undefined; // clear input
   }
   $scope.removeManager = function(id) {
