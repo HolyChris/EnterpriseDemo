@@ -68,9 +68,7 @@ angular.module('ersApp')
     }
 
     $scope.newSiteObject.bill_addr_same_as_addr = $scope.flag;
-    console.log($scope.newSiteObject);
     Sites.post($scope.newSiteObject, function(data) {
-      console.log(data);
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', 'Something happened. Please correct errors below.');
