@@ -18,22 +18,22 @@
 			<div class="col-md-6 form-left">
 				<div class="form-title" id="production-section">
 					<span>PRODUCTION INFO</span>
-					<span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+					<span class="edit-btn pull-right" ng-show="!editModeProduction" ng-click="enableEdition('Production')">
 						<img src="/images/Write-white.png"/>
 						EDIT
 					</span>
-					<span class="edit-btn pull-right" ng-show="editMode" ng-click="saveProduction()">
+					<span class="edit-btn pull-right" ng-show="editModeProduction" ng-click="saveProduction()">
 						<img src="/images/Write-white.png"/>
 						SAVE
 					</span>
-					<span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+					<span class="edit-btn pull-right btn-warning" ng-show="editModeProduction" ng-click="discardChanges('Production')">
 						<img src="/images/Write-white.png"/>
 						CANCEL
 					</span>
 				</div>	
 				<input type="hidden" ng-model="production.id">
 				<div class="form-container">
-					<fieldset ng-disabled="!editMode">
+					<fieldset ng-disabled="!editModeProduction">
 						<div class="form-group col-lg-6">
 							<label>Project Received in Production at</label>
 		          <p class="input-group date-picker">
@@ -95,18 +95,18 @@
 				</div>
 			</div>
 			<div class="col-md-6 form-left">
-				<fieldset ng-disabled="!editMode">
+				<fieldset ng-disabled="!editModeCompletion">
 					<div class="form-title" id="completion-section">
 						<span>COMPLETION INFO</span>
-						<span class="edit-btn pull-right" ng-show="!editMode" ng-click="enableEdition()">
+						<span class="edit-btn pull-right" ng-show="!editModeCompletion" ng-click="enableEdition('Completion')">
 							<img src="/images/Write-white.png"/>
 							EDIT
 						</span>
-						<span class="edit-btn pull-right" ng-show="editMode" ng-click="saveProduction()">
+						<span class="edit-btn pull-right" ng-show="editModeCompletion" ng-click="saveProduction()">
 							<img src="/images/Write-white.png"/>
 							SAVE
 						</span>
-						<span class="edit-btn pull-right btn-warning" ng-show="editMode" ng-click="discardChanges()">
+						<span class="edit-btn pull-right btn-warning" ng-show="editModeCompletion" ng-click="discardChanges('Completion')">
 							<img src="/images/Write-white.png"/>
 							CANCEL
 						</span>

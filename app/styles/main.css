@@ -6,6 +6,7 @@ html, body {
 
 a, a span{
   color: #277cea;
+  cursor: pointer;
   -webkit-transition: .25s color ease-in-out, .25s background-color ease-in-out;
   -o-transition: .25s color ease-in-out, .25s background-color ease-in-out;
   transition: .25s color ease-in-out, .25s background-color ease-in-out;
@@ -786,10 +787,10 @@ a:hover span {
     color: #ffffff !important;
     font-size: 9px;
     height:25px;
-    background:#499c4b;
+    background: #449d44;
   }
   .btn-small {
-    background: #499c4b;
+    background: #449d44;
     border: none;
     color: #fff !important;
     font-size: 9px;
@@ -799,6 +800,9 @@ a:hover span {
   }
   .btn-small.btn-danger {
     background-color: #d9534f;
+  }
+  .btn-small.btn-success {
+    background-color: #449d44;
   }
   .document-action .btn {
     margin-bottom: 1em;
