@@ -59,7 +59,9 @@ angular.module('ersApp')
 
     if (!$scope.customer || !$scope.customer.id || $scope.newsite.$error.$invalid === true) {
       Flash.create('danger', 'Something happened. Please correct errors below.');
-      $scope.errors.customer = true;
+      if (!$scope.customer || !$scope.customer.id) {
+        $scope.errors.customer = true;
+      }
       return;
     } else {
       $scope.newSiteObject.customer_id = $scope.customer.id;
@@ -107,9 +109,4 @@ angular.module('ersApp')
       }
     }
   }
-
-  function validateForm() {
-
-  }
-  
 });
