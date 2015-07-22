@@ -2,6 +2,7 @@ angular.module('ersApp')
   .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,Flash,$modal,Managers,Address,Sites) {
   $scope.customer_from_previous_page_flag = false;
   $scope.newSiteObject = {};
+  $scope.submitted = false;
 
   $scope.lookupLinkedCustomerInfo = function(customer_id){
     Customer.query({id: customer_id},
@@ -39,6 +40,7 @@ angular.module('ersApp')
   $scope.siteAddress = {};
   $scope.billAddress = {};
   $scope.siteDetail = {};
+
   $scope.$watch('billingIsSameAsSite', function(value) {
    if(value) {
     $scope.flag = 1;
@@ -49,15 +51,17 @@ angular.module('ersApp')
   });
 
   $scope.states_array = Address.States;
-  
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
   $scope.newSite = function() {
+    $scope.submitted = true;
     $scope.errors = {};
 
-    if (!$scope.customer || !$scope.customer.id) {
-      Flash.create('danger', 'You must link the site to a customer before saving');
-      $scope.errors.customer = true;
+    if (!$scope.customer || !$scope.customer.id || $scope.newsite.$error.$invalid === true) {
+      Flash.create('danger', 'Something happened. Please correct errors below.');
+      if (!$scope.customer || !$scope.customer.id) {
+        $scope.errors.customer = true;
+      }
       return;
     } else {
       $scope.newSiteObject.customer_id = $scope.customer.id;
@@ -71,18 +75,20 @@ angular.module('ersApp')
     Sites.post($scope.newSiteObject, function(data) {
       if (data.errors) {
         $scope.errors = data.errors;
-        Flash.create('danger', 'Something happened. Please correct errors below.');
+        Flash.create('danger', 'Something happened. Please correct errors below or try again.');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         return;
       }
       Flash.create('success', 'Site created succesfully');
-      $state.go("project.overview",{projectId: data.site.id})
+      $scope.submitted = false;
+      $state.go("project.overview",{projectId: data.site.id});
     });
   };
 
   $scope.managersArray = Managers.query();
   $scope.managers = [];
   var manage_ids = [];
+
   $scope.addManager = function($item, $model, $label) {
     for (var i = 0; i < $scope.managersArray.users.length; i++) {
       if ($scope.managersArray.users[i].id === $item.id) {
@@ -93,6 +99,7 @@ angular.module('ersApp')
     manage_ids.push($item.id);
     $scope.managersSelected = undefined; // clear input
   }
+
   $scope.removeManager = function(id) {
     manage_ids.splice(manage_ids.indexOf('&manager_ids[]='+id), 1);
     for (var i = 0; i < $scope.managers.length; i++) {
@@ -102,5 +109,4 @@ angular.module('ersApp')
       }
     }
   }
-  
 });
