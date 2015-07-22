@@ -54,7 +54,6 @@ angular.module('ersApp')
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
   $scope.newSite = function() {
-    console.log($scope.newsite);
     $scope.submitted = true;
     $scope.errors = {};
 
