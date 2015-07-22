@@ -19,7 +19,7 @@
 							</div>
 
 							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.email}">
-								<label class="control-label">Email <sup>*</sup> {{customerErrors.email[0]}}</label>
+								<label class="control-label">Email {{customerErrors.email[0]}}</label>
 								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.email">
 							</div>
 
@@ -69,10 +69,10 @@
 										<label><input type="checkbox" name="" id="" ng-model="number.primary"> Primary</label>
 									</div>
 									<div class="form-group">
-										<button class="btn btn-small pull-right ng-click-active" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</button>
+										<a class="pull-right link" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</a>
 									</div>
 									<div class="form-group">
-										<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
+										<a class="pull-right link" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</a>
 									</div>
 									<div class="clearfix"></div>
 									<hr>

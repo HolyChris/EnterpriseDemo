@@ -78,12 +78,9 @@
 							<div class="form-group">
 								<label><input type="checkbox" name="" id="" ng-model="number.primary"> Primary</label>
 							</div>
-							<div class="form-group">
-								<label ng-show="!number.newPhone && false"><input type="checkbox" name="" id="" ng-model="number.remove" > Remove Phone Number</label>	
-							</div>
 
 							<div class="form-group">
-								<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
+								<a class="pull-right link" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</a>
 							</div>
 							<div class="clearfix"></div>
 							<hr>

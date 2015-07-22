@@ -6,6 +6,7 @@ sitesService.factory('Sites', function($resource, ENV) {
     save: {method: "PUT", transformRequest: function(data, headers) {
       $.extend(data, data.site);
       return angular.toJson(data);
-    }}
+    }},
+    post: {method: "POST"}
   });
 });

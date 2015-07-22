@@ -1,8 +1,9 @@
 angular.module('ersApp')
-  .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,ENV,Flash,$modal,Managers,Address) {
-  $scope.customer_from_previous_page_flag=false;
+  .controller('NewSiteCtrl', function ($scope,$state,$location,$http,Customer,Flash,$modal,Managers,Address,Sites) {
+  $scope.customer_from_previous_page_flag = false;
+  $scope.newSiteObject = {};
 
-  $scope.lookupLinkedCustomerInfo=function(customer_id){
+  $scope.lookupLinkedCustomerInfo = function(customer_id){
     Customer.query({id: customer_id},
       function(data) {
         $scope.customer = data.customer;
@@ -11,13 +12,12 @@ angular.module('ersApp')
   };
 
   //Here we find out if the url is passing a customerId
-  if ($location.search().customerId)
-  {
-    $scope.customer_from_previous_page_flag=true;
+  if ($location.search().customerId) {
+    $scope.customer_from_previous_page_flag = true;
     $scope.lookupLinkedCustomerInfo($location.search().customerId);
   }
   
-  $scope.show_search_customer_dialog=function (){
+  $scope.show_search_customer_dialog = function() {
     var modalInstance = $modal.open({
       animation: true,
       templateUrl: 'views/customerSeachModal.html',
@@ -30,57 +30,54 @@ angular.module('ersApp')
 
     modalInstance.result.then(function (customer) {
       $scope.customer = customer;
-    }, function () {
+    }, function() {
       
     });
   };
 
-  $scope.flag=0;
-  $scope.siteAddress={};
-  $scope.billAddress={};
-  $scope.siteDetail={};
+  $scope.flag = 0;
+  $scope.siteAddress = {};
+  $scope.billAddress = {};
+  $scope.siteDetail = {};
   $scope.$watch('billingIsSameAsSite', function(value) {
    if(value) {
-    $scope.flag =1;
-      $scope.billAddress = $scope.siteAddress;
+    $scope.flag = 1;
+    $scope.newSiteObject.bill_address_attributes = $scope.newSiteObject.address_attributes;
    } else {
-    $scope.flag=0;
-      $scope.billAddress = angular.copy($scope.billAddress);
+    $scope.flag = 0;
    }
   });
 
-  $scope.states_array=Address.States;
+  $scope.states_array = Address.States;
   
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
-  $scope.newSite = function(siteAddress,siteDetail,billAddress) {
-    var manageIds = manage_ids.length ? manage_ids.join('') : '';
-    // re-factor this to use service.
+  $scope.newSite = function() {
+    $scope.errors = {};
 
-    if ($scope.customer) {
-      $http({
-          method: 'POST',
-          url: ENV.apiEndpoint + '/api/v1/sites?customer_id=' + $scope.customer.id + '&name='+siteDetail.name + manageIds + '&contact_name='+siteDetail.contact_name+'&contact_phone='+siteDetail.contact_phone+'&manage_ids[]=1&manage_ids[]=2&source='+siteDetail.source+'&source_info='+siteDetail.source_info+'&status='+siteDetail.status+'&damage='+siteDetail.damage+'&address_attributes[address1]='+siteAddress.address1+'&address_attributes[address2]='+siteAddress.address2+'&address_attributes[city]='+siteAddress.address2+'&address_attributes[state_id]='+siteAddress.state_id+'&address_attributes[zipcode]='+siteAddress.zipcode+'&bill_addr_same_as_addr='+$scope.flag+'&bill_address_attributes[address1]='+billAddress.address1+'&bill_address_attributes[address2]='+billAddress.address2+'&bill_address_attributes[city]='+billAddress.city+'&bill_address_attributes[state_id]='+billAddress.state_id+'&bill_address_attributes[zipcode]='+billAddress.zipcode,
-          headers: {
-            'Content-type': 'application/json'
-          }
-       }).success(function(data){
-        if (data.errors) {
-          Flash.create('danger', 'Please fill in required data');
-        } else {
-          Flash.create('success', 'Site created succesfully');
-          $state.go("project.overview",{projectId: data.site.id})
-        }
-      }).error(function(data){
-         $scope.errors=data.errors;
-         Flash.create('danger', 'Site was not created');
-         console.log(data.errors);
-      });
-    } else {
+    if (!$scope.customer || !$scope.customer.id) {
       Flash.create('danger', 'You must link the site to a customer before saving');
+      $scope.errors.customer = true;
+      return;
+    } else {
+      $scope.newSiteObject.customer_id = $scope.customer.id;
     }
 
+    if (manage_ids.length) {
+      $scope.newSiteObject.manager_ids = manage_ids;
+    }
 
+    $scope.newSiteObject.bill_addr_same_as_addr = $scope.flag;
+    Sites.post($scope.newSiteObject, function(data) {
+      if (data.errors) {
+        $scope.errors = data.errors;
+        Flash.create('danger', 'Something happened. Please correct errors below.');
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        return;
+      }
+      Flash.create('success', 'Site created succesfully');
+      $state.go("project.overview",{projectId: data.site.id})
+    });
   };
 
   $scope.managersArray = Managers.query();
@@ -93,7 +90,7 @@ angular.module('ersApp')
       }
     }
     $scope.managers.push($item);
-    manage_ids.push('&manager_ids[]='+$item.id);
+    manage_ids.push($item.id);
     $scope.managersSelected = undefined; // clear input
   }
   $scope.removeManager = function(id) {

@@ -5,7 +5,8 @@ angular.module('ersApp')
     $scope.production = {};
     $scope.site = {};
     $scope.opened = [];
-    $scope.editMode = false;
+    $scope.editModeProduction = false;
+    $scope.editModeCompletion = false;
     $scope.enableProduction = false;
 
     var globalData = $scope.$parent.globalData;
@@ -63,22 +64,34 @@ angular.module('ersApp')
     };
 
     $scope.setProductionData = function(data) {
-      $scope.previusProduction = angular.copy(data.production);
+      $scope.previousProduction = angular.copy(data.production);
       $scope.production = data.production;
       $scope.productionExist = true;
     };
 
-    $scope.enableEdition = function() {
-      $scope.editMode = true;
+    $scope.enableEdition = function(section) {
+      $scope.previousProduction = $scope.production;
+      if (section === 'Production') {
+        $scope.editModeProduction = true;
+      } else if (section === 'Completion') {
+        $scope.editModeCompletion = true;
+      }
     };
 
-    $scope.disableEdition = function() {
-      $scope.editMode = false;
+    $scope.disableEdition = function(section) {
+      if (section === 'Production') {
+        $scope.editModeProduction = false;
+      } else if (section === 'Completion') {
+        $scope.editModeCompletion = false;
+      } else {
+        $scope.editModeProduction = false;
+        $scope.editModeCompletion = false;
+      }
     };
 
-    $scope.discardChanges = function() {
-      $scope.disableEdition();
-      $scope.production = $scope.previusProduction;
+    $scope.discardChanges = function(section) {
+      $scope.disableEdition(section);
+      $scope.production = $scope.previousProduction;
     };
 
     $scope.openDate = function($event, instance) {

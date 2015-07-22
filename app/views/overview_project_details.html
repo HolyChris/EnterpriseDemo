@@ -18,15 +18,15 @@
 			<div class="col-md-6 form-left">
 				<div class="form-title" id="project-section">
 					<span> PROJECT </span>
-					<span class="edit-btn pull-right" ng-show="!project.edition_enabled" ng-click="enable_project_edition()">
+					<span class="edit-btn pull-right" ng-show="!project.editProject" ng-click="enable_project_edition('Project')">
 						<img src="/images/Write-white.png"/>
 						EDIT
 					</span>
-					<span class="edit-btn pull-right" ng-show="project.edition_enabled" ng-click="save_project()">
+					<span class="edit-btn pull-right" ng-show="project.editProject" ng-click="save_project()">
 						<img src="/images/Write-white.png"/>
 						SAVE
 					</span>
-					<span class="edit-btn pull-right btn-warning" ng-show="project.edition_enabled" ng-click="cancel_project_edition()">
+					<span class="edit-btn pull-right btn-warning" ng-show="project.editProject" ng-click="cancel_project_edition('Project')">
 						<img src="/images/Write-white.png"/>
 						CANCEL
 					</span>
@@ -35,7 +35,7 @@
 				<form name="project_form">
 
 					<div class="form-container">
-						<fieldset ng-disabled="!project.edition_enabled">
+						<fieldset ng-disabled="!project.editProject">
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.po_number}">
 								<label class="control-label">PO Number {{errors.po_number}}</label>
 								<div class="input-group">
