@@ -55,9 +55,9 @@ angular.module('ersApp').controller('CustomerSearchModalInstanceCtrl', function 
       }
     })
     .success(function(data){
-      $scope.customers= data;
+      $scope.customers = data;
       $scope.custList = data.customers;
-      $scope.showResults=true;
+      $scope.showResults = true;
     }).error(function(){
       alert("error");
     })
