@@ -6,7 +6,7 @@ angular.module('ersApp')
     var user = User.save(function(data) {
       $scope.data.fullname = data.user.fullname;
       $scope.data.email = data.user.email;
-    })
+    });
 
     $scope.changePassword = function() {
       // sanitization so it doesn't send empty values
