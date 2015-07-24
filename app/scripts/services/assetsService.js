@@ -23,25 +23,17 @@ assetsService.factory('Assets', function($resource, ENV) {
   });
 
   var stages = [
-    {title:'Lead',id:'1'},
-    {title:'Contract',id:'2'},
-    {title:'Project',id:'3'},
-    {title:'Production',id:'4'},
-    {title:'Billing',id:'5'}
-    /* -- needs backend updates --
     {title:'Opportunity',id:'1'},
     {title:'Under Contract',id:'2'},
     {title:'Production',id:'3'},
     {title:'Billing',id:'4'}
-    */
   ]
 
   var docTypes = [
     {title:'Billing Reference Document',id:'1'},
     {title:'Completion Payment Check',id:'2'},
     {title:'Customer Invoice',id:'3'},
-    {title:'Deductive Check',id:'4'},
-    /*{title:'Deductible Check',id:'4'},*/
+    {title:'Deductible Check',id:'4'},
     {title:'EagleView',id:'5'},
     {title:'HOA Approval Document',id:'6'},
     {title:'Initial Payment Check',id:'7'},
@@ -49,8 +41,7 @@ assetsService.factory('Assets', function($resource, ENV) {
     {title:'Material List',id:'9'},
     {title:'Supplement Documentation',id:'10'},
     {title:'Trade work Bid',id:'11'},
-    {title:'Xactmate',id:'12'},
-    /*{title:'Xactimate',id:'12'},*/
+    {title:'Xactimate',id:'12'},
     {title:'Other',id:'13'}
   ]
 

@@ -92,15 +92,17 @@ angular.module('ersApp')
 
       $(document).bind('drop', function (e) { // clear filters when new files are dropped.
         $('body').removeClass('drag');
-        $scope.clearFilters();
       });
 
       $('#fileupload').bind('fileuploadadd', function(e, data) {
         
         $timeout(function() { // wait a bit for file to be readied.
-            angular.forEach($scope.queue, function(value, key) {
+          angular.forEach($scope.queue, function(value, key) {
             if (!value.url) {
               $scope.queue[key].stage = currentStage;
+            }
+            if (($scope.show === 'Document' && $scope.isImage(value.type)) || ($scope.show === 'Image' && !$scope.isImage(value.type))) {
+              $scope.clearFilters();
             }
           });
           $scope.$apply();
@@ -150,13 +152,7 @@ angular.module('ersApp')
       };
       
       var currentSite = Overview.query({siteId: projectId}, function(data) {
-        if (data.site.stage === 'Opportunity') {
-          currentStage = 'Lead';
-        } else if (data.site.stage === 'Under Contract') {
-          currentStage = 'Contract';
-        } else {
-          currentStage = data.site.stage;
-        }
+        currentStage = data.site.stage;
       }, function(error){
         // error state
       });

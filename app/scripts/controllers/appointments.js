@@ -105,7 +105,7 @@ angular.module('ersApp')
 					Flash.create('success', 'Appointment was successfully saved!');
 					prepareAppointmentForView(data.appointment);
 					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
-					
+					$scope.errors = {};
 				}
 				
 	        }, function(error) {
