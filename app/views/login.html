@@ -58,14 +58,14 @@
 								<div class="form-container">
 									<div class="form-group col-lg-12" ng-class="{ 'has-error': passwordReset.resetemail.$invalid }">
 										<label>Email Address<sup>*</sup></label>
-										<input type="email" name="resetemail" ng-required="required" autocomplete="off" ng-model="resetemail" class="form-control">
+										<input type="email" name="resetemail" ng-required="required" autocomplete="off" ng-model="model.resetemail" class="form-control">
 									</div>
 								</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="btn login-btn" ng-disabled="passwordReset.$invalid || !resetemail" ng-click="sendResetPassword()">
+			<div class="btn login-btn" ng-disabled="resetPassword.$invalid || !model.resetemail" ng-click="sendResetPassword()">
 				<span>RESET PASSWORD</span>
 				<img src="/images/West.png">
 				<input type="submit" style="display:none;">
