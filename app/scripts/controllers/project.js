@@ -10,6 +10,9 @@
 angular.module('ersApp')
   .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $location, $anchorScroll, Flash, Project) {
 
+  	$scope.format = "yyyy-MM-dd";
+  	$scope.opened = [];
+  	
 	$scope.colors_arr=Project.Colors;
 	$scope.priorities_arr=Project.Priorities;
 	$scope.site = {};
@@ -290,5 +293,11 @@ angular.module('ersApp')
     $location.hash(id);
     $anchorScroll();
   };
+
+  $scope.openDate = function($event, instance) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.opened[instance] = true;
+    };
 
 });
