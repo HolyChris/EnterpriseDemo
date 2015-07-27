@@ -67,9 +67,9 @@
 								<label class="control-label">Hoa Approval date {{errors.hoa_approval_date}}</label>
 								<p class="input-group date-picker">
 
-									<input type="date" name="hoa_approval_date" class="form-control" datepicker-popup="" ng-model="project.hoa_approval_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<input name="hoa_approval_date" class="form-control" datepicker-popup="{{format}}" ng-model="project.hoa_approval_date" is-open="opened.hoa_approval_date" ng-required="true" close-text="Close" />
 									<span class="input-group-btn">
-						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						              <button type="button" class="btn btn-default" ng-click="openDate($event,'hoa_approval_date')"><i class="glyphicon glyphicon-calendar"></i></button>
 						            </span>
 								</p>
 							</div>
@@ -77,9 +77,9 @@
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.last_roof_built_date}">
 								<label class="control-label">Roof built date {{errors.last_roof_built_date}}</label>
 								<p class="input-group date-picker">
-									<input type="date" name="last_roof_built_date" class="form-control" datepicker-popup="" ng-model="project.last_roof_built_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<input name="last_roof_built_date" class="form-control" datepicker-popup="{{format}}" ng-model="project.last_roof_built_date" is-open="opened.last_roof_built_date" ng-required="true" close-text="Close" />
 									<span class="input-group-btn">
-						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						              <button type="button" class="btn btn-default" ng-click="openDate($event,'last_roof_built_date')"><i class="glyphicon glyphicon-calendar"></i></button>
 						            </span>
 								</p>
 							</div>
