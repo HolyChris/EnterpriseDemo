@@ -163,7 +163,8 @@ angular
       .state('customerportal', {
         url: '/customerportal',
         templateUrl: 'views/customer_portal.html',
-        controller: 'SettingsCtrl',
+        controller: 'PortalCtrl',
+        requireLogin: false
       });
 
       $urlRouteProvider.otherwise('/');
@@ -191,7 +192,7 @@ angular
   }])
   .run(function ($rootScope, $state, $auth, $location) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-      if ($auth.isAuthenticated()) {
+      if ($auth.isAuthenticated() || toState.requireLogin === false) {
         $rootScope.isAuthenticated = true;
       } else {
         $state.go('login');
