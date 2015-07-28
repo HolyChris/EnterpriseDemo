@@ -159,6 +159,11 @@ angular
         url: '/settings',
         templateUrl: 'views/settings.html',
         controller: 'SettingsCtrl',
+      })
+      .state('customerportal', {
+        url: '/customerportal',
+        templateUrl: 'views/customer_portal.html',
+        controller: 'SettingsCtrl',
       });
 
       $urlRouteProvider.otherwise('/');
