@@ -61,6 +61,13 @@
         <p ng-show="editStageMode"><span>STAGE:</span> 
 					<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.stage" ng-change="updateStage()" class="form-control"></select>
         </p>
+        <p>
+        	<span>MANGERS:</span>
+        	<p ng-repeat="manager in site.managers">
+        		{{manager.email}}
+    		</p>
+    	</p>
+        
       </div>
     </div>
   </div>
