@@ -1,50 +1,48 @@
 <div class="container customer-container">
   <div flash-message="5000"></div>
   
-	<div class="container customer-content">
-		<div class="row">
-			<div class="col-md-12 container-title">
-				CUSTOMERS/<u>CREATE NEW CUSTOMER</u>
-			</div>
+	<div class="customer-content row">
+		<div class="col-xs-12 container-title">
+			CUSTOMERS/<u>CREATE NEW CUSTOMER</u>
 		</div>
-		<div class="row">
-			<div class="col-md-6 cust-detail-form form-left">
-				<div class="form-title">
+		<div class="col-xs-12 col-md-6">
+			<div class="cust-detail-form">
+				<div class="form-title col-xs-12">
 					<span class="badge">1</span>
 					<span>step 1: ENTER CUSTOMER DETAILS</span>
 				</div>	
-				<div class="form-container">
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname}">
+				<div class="form-container col-xs-12">
+					<div class="form-group col-sm-6" ng-class="{'has-error' : errors.firstname}">
 						<label class="control-label" for="firstname">First Name<sup>*</sup></label>
 						<input type="text" name="firstname" class="form-control" id="firstname" value="" ng-model="user.firstname">
 					</div>
 					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.lastname}">
+					<div class="form-group col-sm-6" ng-class="{'has-error' : errors.lastname}">
 						<label class="control-label" for="lastname">Last Name<sup>*</sup></label>
 						<input type="text" name="lastname" class="form-control" id="lastname" value="" ng-model="user.lastname">
 					</div>
 					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : errors.email}">
+					<div class="form-group col-sm-6" ng-class="{'has-error' : errors.email}">
 						<label class="control-label" for="email">Email</label>
 						<input type="email" name="email" class="form-control"  id="email" value="" ng-model="user.email">
 					</div>
 									
-					<div class="form-group col-lg-6">
+					<div class="form-group col-sm-6">
 						<label class="control-label" for="spouse">Spouse</label>
 						<input type="text" name="spouse" class="form-control" id="spouse" value="" ng-model="user.spouse">
 					</div>
 
-					<div class="form-group col-lg-6">
+					<div class="form-group col-sm-6">
 						<label class="control-label" for="business_name">Business Name</label>
 						<input type="text" name="business-name" class="form-control" id="business_name" value="" ng-model="user.business_name">
 					</div>			
 					
-					<div class="form-group col-sm-12">
+					<div class="form-group col-xs-12">
 						<label class="control-label" for="other_business_info">Other business information</label>
 						<textarea class="form-control textarea" name="other_business_info" id="other_business_info" ng-model="user.other_business_info"></textarea>
 					</div>
 
-					<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
+					<div class="form-group col-xs-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
 						<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
 						<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
 						<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
@@ -92,32 +90,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 form-right">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 save-form">
-							<div class="form-title">
-								<span class="badge">2</span>
-								<span>step 2: SAVE</span>
-								
-							</div>
-							<div class="form-container">
-	              <div class="row">
-	                <div class="form-group col-sm-6">
-	                  <button class="btn save-btn btn-small" ng-click="newCustomerThenSite(user,phone_number)">SAVE AND CREATE SITE</button>
-	                </div>
-	             
-	                <div class="form-group col-sm-6">
-	                  <a ng-click="newCustomer(user,phone_number)" class="link">Save customer only</a>
-	                </div>
-	              </div>
-
-							</div>
-						</div>
-					</div>
-				</div>
+		</div>
+		<div class="col-xs-12 col-md-6 save-form">
+			<div class="form-title col-xs-12">
+				<span class="badge">2</span>
+				<span>step 2: SAVE</span>
+			</div>
+			<div class="form-container col-xs-12">
+        <div class="form-group col-sm-6">
+          <button class="btn save-btn btn-small" ng-click="newCustomerThenSite(user,phone_number)">SAVE AND CREATE SITE</button>
+        </div>
+        <div class="form-group col-sm-6">
+          <a ng-click="newCustomer(user,phone_number)" class="link">Save customer only</a>
+        </div>
 			</div>
 		</div>
 	</div>
-</div>
-	
+</div>	

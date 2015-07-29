@@ -34,6 +34,9 @@ angular.module('ersApp')
     $scope.showResetForm = function() {
       $scope.resetPassword = true;
     };
+    $scope.showLoginForm = function() {
+      $scope.resetPassword = false;
+    }
 
     $scope.sendResetPassword = function() {
       // call api for sending reset instructions here
