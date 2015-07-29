@@ -28,9 +28,6 @@ html, body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-body.inner {
-  position: relative;
-}
 
 a, a span {
   color: #277cea;
@@ -165,7 +162,7 @@ a:hover span {
 .main-container {
   width:100%;
   padding:0px;
-  background:#eaeaea;
+  background:#fafafa;
   min-height:100vh;
   position: relative;
 }
@@ -521,9 +518,6 @@ a:hover span {
   }
   .form-left{
     margin-top: 25px;
-    margin-left: 25px;
-    width:570px;
-    /*height:610px;*/
     background: #fff;
     padding:0px;
   }
@@ -541,11 +535,7 @@ a:hover span {
     width:100%;
   }
   .bill-add-form, .contract-sign-form{
-    height:336px;
     background: #fff;
-    width:570px;
-    padding:0px;
-    margin-left: 15px;
   }
   .save-form,
   .cust-detail-form {
@@ -655,8 +645,6 @@ a:hover span {
   position:absolute;
   left:0px;
   border-right:2px solid rgb(215,215,215);
-  padding-top: 60px;
-  height: 100%;
 }
 .sidebar .sidebar-menu{
   list-style-type: none;
@@ -678,16 +666,13 @@ a:hover span {
   font-weight: bold;
 }
 .overview-content{
-  width:100%;
-  margin-left:240px;
-  min-height:100vh;
+  width: 100%;
+  padding-left: 240px;
+  min-height: 100vh;
 }
 .proj-over-container,
 .proj-doc-container {
-  width:auto !important;
-  margin-left:0;
-  margin-right:auto;
-  min-height:431px;
+  clear: both;
 }
 .core-info-container>span{
   color:#277cea;
@@ -727,42 +712,33 @@ a:hover span {
 /**end***/
 /**overview-contract**/
 .container-note{
-  background-color:  #1abc9c;
+  background-color: #1abc9c;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  width: 570px;
-  height: 44px;
-  color:   #ffffff;
-  font-size: 13px; /* Approximation due to font substitution */
+  color: #ffffff;
+  font-size: 13px;
   font-weight: 400;
-  line-height: 44px; /* Approximation due to font substitution */
-  text-align: left;
-  display:block;
-  margin-top:20px;
-  margin-left:25px;
-  padding-left:20px;
+  margin: 20px auto 0;
+  padding:15px 0 15px 20px;
 }
 .container-note img{
-  margin-right:10px;
+  margin-right: 10px;
 }
 .container-head{
   background-color:  #277cea;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  width: 1150px;
-  height: 44px;
-  color:   #ffffff;
+  color: #ffffff;
   font-size: 13px; /* Approximation due to font substitution */
   font-weight: 400;
-  line-height: 44px; /* Approximation due to font substitution */
-  text-align: left;
-  display:block;
-  margin-top:20px;
-  margin-left:25px;
-  padding-left:20px;
+  margin: 20px auto 0;
+  padding:15px 0 15px 20px;
 }
-.proj-over-content> .row{
-  margin:0px;
+.proj-over-content > .row {
+  margin: 0px 15px;
 }
-.proj-over-content .form-left{
+.proj-over-content > .row.row-no-margin {
+  margin: 0;
+}
+.proj-over-content .form-left {
   min-height: 0px;
   height: auto;
   border-radius: 4px;
@@ -770,8 +746,9 @@ a:hover span {
 .proj-over-content .form-left:last-child{
   margin-bottom:30px;
 }
-.proj-over-content .form-left .form-container{
-  display:inline-block;
+.proj-over-content .form-left .form-container,
+.proj-over-content .form-left .form-container fieldset {
+  clear: both;
 }
 .proj-over-content .form-right{
   float:left;
@@ -782,25 +759,17 @@ a:hover span {
 .contract-sign-form, .save-form{
   border-radius: 4px;
 }
-.proj-over-content .save-form{
-  height:151px;
-}
 .contract-sign-form{
   height: auto;
-}
-.proj-over-container .form-container{
-  width:497px;
 }
 .proj-over-content .form-container .form-control,
 .proj-over-content .form-container .input-group-btn .btn {
   height: 45px;
 }
-.proj-over-content .form-container .textarea{
-  width:474px;
-  height:200px;
+.proj-over-content .form-container .textarea {
+  height: 200px;
 }
 .form-container .attachment{
-  margin-left: 15px;
   line-height: 45px;
 }
 .form-container .attachment label{
@@ -1004,6 +973,9 @@ tbody td{
  font-size: 11px;
  color: #fff;
 }
+.sites-content {
+  clear: both;
+}
 .cust-table tbody td,.site-table tbody td{
   line-height: 35px !important;
 }
@@ -1070,8 +1042,11 @@ tbody td{
   margin-bottom: 60px;
   width: 570px;
 }
-.bill-info-form{
+.bill-info-form,
+.site-info-form,
+.site-detail-form {
   background: #fff;
+  margin-bottom: 1em;
 }
 .search-customer-form{
   background: #fff;
@@ -1288,11 +1263,6 @@ p.clear-filters {
 }
 
 /*BILLINGS*/  
-.billing-form.proj-over-content .form-container {
-  width: auto;
-  margin-right: 10px;
-}
-
 .billing-form.proj-over-content .form-container textarea.form-control {
    height: auto; 
 }
@@ -1303,9 +1273,12 @@ p.clear-filters {
 
 /*OVERVIEW HEADER Core info*/
 .overview-header {
-  height: auto;
+  margin-top: 1.5em;
+}
+.overview-header > div {
+  background: #FFF;
   border-radius: 4px;
-  padding: 10px;
+  padding: 15px;
 }
 .overview-header h3.title {
   color: #277cea;
@@ -1430,6 +1403,15 @@ h3.not-available {
   .table-responsive {
     padding: 0;
   }
+  .navbar-nav {
+    margin: 0;
+  }
+  .navbar-form {
+    display: none;
+  }
+  .navbar .pull-right {
+    margin-right: 1em;
+  }
 }
 @media all and (max-width: 600px) {
   .pipe {
@@ -1441,5 +1423,36 @@ h3.not-available {
   }
   .pipe .pipe-card {
     margin: 30px 0 0;
+  }
+  .overview-content {
+    padding-left: 0;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 2px solid rgb(215,215,215);
+    position: static;
+    width: 100%;
+  }
+  .sidebar .sidebar-menu {
+    text-align: center;
+  }
+  .sidebar .sidebar-menu li {
+    border-bottom: none;
+    display: inline-block;
+    height: auto;
+    line-height: 1.5;
+    padding: 0;
+  }
+  .sidebar .sidebar-menu li a {
+    color: #333;
+    display: block;
+    padding: 0.5em;
+    text-decoration: underline;
+  }
+  .sidebar .sidebar-menu li a img {
+    display: none;
+  }
+  .sidebar .sidebar-menu li a .title {
+    margin-left: 0;
   }
 }

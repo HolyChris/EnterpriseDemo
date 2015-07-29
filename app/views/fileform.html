@@ -34,20 +34,18 @@
       <span class="fileupload-process"></span>
     </div>
     
-    <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <select name="doc_typeFilter" id="doc_typeFilter" ng-model="filter.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-change="changeFilter()">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <select name="doc_typeFilter" id="doc_typeFilter" ng-model="filter.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-change="changeFilter()">
           <option value=''>- Filter By Doc Type -</option>
-        </select>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <select name="stageFilter" id="stageFilter" ng-model="filter.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages" ng-change="changeFilter()">
-          <option value=''>- Filter By Stage -</option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-12">
-        <p class="clear-filters"><a ng-click="clearFilters()">clear filters</a></p>
-      </div>
+      </select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <select name="stageFilter" id="stageFilter" ng-model="filter.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages" ng-change="changeFilter()">
+        <option value=''>- Filter By Stage -</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-12">
+      <p class="clear-filters"><a ng-click="clearFilters()">clear filters</a></p>
     </div>
     
     <!-- The global progress state -->

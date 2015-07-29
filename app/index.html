@@ -18,7 +18,7 @@
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-ui-noscript.css"></noscript>
   </head>
-  <body ng-app="ersApp" ng-class="{'hide-body': showSite === false, 'outside': isAuthenticated === false, 'inner': !isFront}">
+  <body ng-app="ersApp" ng-class="{'hide-body': showSite === false, 'outside': isAuthenticated === false}">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -27,44 +27,46 @@
     <div class="header" ng-class="{'show': isAuthenticated}" ng-controller="headerCtrl">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
-          <div class="row">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a href="/#/" title="homepage"><img src="images/logo.png" class="site-logo"></a>
-            </div>
+          <div class="navbar-header">
 
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a ui-sref="main">Dashboard</a></li>
-                <li><a ui-sref="customers">Customers</a></li>
-                <li><a ui-sref="sites">Sites</a></li>
-                <li><a ng-href="#/settings">Settings</a></li>
-              </ul>
-              <form class="navbar-form" role="search" ng-submit="searchSites()">
-                <div class="form-group">
-                  <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                    <input type="text" class="form-control" ng-model="contract_po_number_equals" placeholder="Search By PO Number" aria-describedby="sizing-addon1">
-                  </div>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a href="/#/" title="homepage"><img src="images/logo.png" class="site-logo"></a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li class="active"><a ui-sref="main">Dashboard</a></li>
+              <li><a ui-sref="customers">Customers</a></li>
+              <li><a ui-sref="sites">Sites</a></li>
+              <li><a ng-href="#/settings">Settings</a></li>
+            </ul>
+            <form class="navbar-form" role="search" ng-submit="searchSites()">
+              <div class="form-group">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                  <input type="text" class="form-control" ng-model="contract_po_number_equals" placeholder="Search By PO Number" aria-describedby="sizing-addon1">
                 </div>
-                <button type="submit" class="btn btn-success">SEARCH</button>
-              </form>
-              <div class="nav navbar-nav pull-right">
-                <span class="user-email-ellipsis">{{user.email}}</span><a ng-href="#/logout" href='#'> (log out) </a>
               </div>
+              <button type="submit" class="btn btn-success">SEARCH</button>
+            </form>
+            <div class="nav navbar-nav pull-right">
+              <span class="user-email-ellipsis">{{user.email}}</span><a ng-href="#/logout" href='#'> (log out) </a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="" ng-class="{'dashboard-wrapper': isFront, 'container': !isFront}">
-      <div ui-view></div>
+    <div class="container-fluid main-container" ng-class="{'dashboard-wrapper': isFront}">
+      <div ui-view>
+      </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -115,6 +117,7 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    
 
     <script src="scripts/controllers/sites.js"></script>
     <script src="scripts/controllers/main.js"></script>
@@ -133,6 +136,7 @@
     <script src="scripts/controllers/site_billing.js"></script>
     <script src="scripts/controllers/site_production.js"></script>
     <script src="scripts/controllers/overview_navigation.js"></script>
+    <script src="scripts/controllers/customer_portal.js"></script>
     <script src="scripts/services/sitesService.js"></script>
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>
