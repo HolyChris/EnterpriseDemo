@@ -562,6 +562,7 @@ a:hover span {
     margin-right: 10px;
   }
   .form-container {
+    clear: both;
     overflow: hidden;
     padding: 15px 0;
   }
@@ -746,8 +747,7 @@ a:hover span {
 .proj-over-content .form-left:last-child{
   margin-bottom:30px;
 }
-.proj-over-content .form-left .form-container,
-.proj-over-content .form-left .form-container fieldset {
+.form-left .form-container fieldset {
   clear: both;
 }
 .proj-over-content .form-right{
@@ -1312,7 +1312,8 @@ p.clear-filters {
 }
 .overview-header p span {
   font-weight: 700;
-  color: #3b3d40
+  color: #3b3d40;
+  padding-left: 0;
 }
 
 /*PRODUCTION*/  
@@ -1455,4 +1456,64 @@ h3.not-available {
   .sidebar .sidebar-menu li a .title {
     margin-left: 0;
   }
+}
+/*Customer Portal*/
+.customer-portal .customer-header {
+  background-color: #000;
+  color: #FFF;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.customer-portal .customer-panel {
+  padding: 0 20px;
+  background-color: #fff;  
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+.customer-portal .customer-panel .customer-panel-title{
+  color: #277cea;
+  font-weight: bold;
+  padding: 15px;
+  border-bottom: 1px solid #eeeeee;
+}
+.customer-portal .customer-panel .customer-field {
+  margin: 30px 0;
+}
+
+.customer-portal .customer-panel .field-title {
+  color: #666c70;
+}
+
+.customer-portal .customer-panel .field-value {
+  margin-top: 10px;
+  color: #000;
+}
+
+.customer-portal .border-right {
+  border-right: 1px solid #eeeeee;
+}
+.customer-portal .border-bottom {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.customer-portal .customer-timeline-date {
+  padding: 25px;
+  min-height: 150px;
+}
+
+.customer-portal .customer-milestone .date {
+  font-weight: bold;
+  display: inline-block;
+  background-color: #cfdfe2;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.customer-portal .customer-milestone p {
+  color: #666c70;
+  font-size: 14px;
 }

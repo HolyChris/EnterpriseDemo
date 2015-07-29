@@ -1,7 +1,9 @@
 angular.module('ersApp')
-  .controller('LoginCtrl', function($scope, $auth, $location, $rootScope, Flash, usSpinnerService) {
+  .controller('LoginCtrl', function($scope, $http, $auth, $location, $rootScope, Flash, usSpinnerService, ENV) {
     $rootScope.isAuthenticated = false;
     $rootScope.showSite = true;
+    $scope.resetemail = "";
+
     $scope.signUp = function() {
       usSpinnerService.spin('login-spinner');
       $auth.logout();
@@ -40,7 +42,12 @@ angular.module('ersApp')
 
     $scope.sendResetPassword = function() {
       // call api for sending reset instructions here
-      $scope.resetPassword = false;
+      $http.post(ENV.apiEndpoint + "/api/v1/users/password?email=" + $scope.model.resetemail).success(function(data) {
+        Flash.create('success', data.message);
+        $scope.resetPassword = false;
+      }).error(function(error) {
+        Flash.create('danger', error.message);
+      })
     };
 
   })

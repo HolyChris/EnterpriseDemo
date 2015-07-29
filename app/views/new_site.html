@@ -9,7 +9,7 @@
 		<form name="newsite" id="newsite" class="row" novalidate>
 			<div class="col-md-6">
 				<div class="site-info-form">
-					<div class="form-title">
+					<div class="form-title col-xs-12">
 						<span class="badge">1</span>
 						<span>step 1: ENTER SITE INFORMATION</span>
 					</div>	
@@ -31,8 +31,7 @@
 										
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.state.$error.required}">
 							<label class="control-label">State<sup>*</sup></label>
-							<select required name="state" class="form-control" ng-model="newSiteObject.address_attributes.state_id" >
-								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==siteAddress.state_id">{{state.abbreviation}}</option>
+							<select required name="state" class="form-control" ng-model="newSiteObject.address_attributes.state_id"  ng-options="state.id as state.abbreviation for state in states_array | orderBy: 'abbreviation'">
 							</select>
 						</div>
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.zipcode.$error.required}">
@@ -43,7 +42,7 @@
 					</div>
 				</div>
 				<div class="site-detail-form">
-					<div class="form-title">
+					<div class="form-title col-xs-12">
 						<span class="badge">2</span>
 						<span>step 2: ENTER SITE DETAILS</span>
 					</div>	
@@ -95,12 +94,12 @@
 			</div>
 			<div class="col-md-6">
 				<div class="bill-info-form">
-					<div class="form-title">
+					<div class="form-title col-xs-12">
 						<span class="badge">3</span>
 						<span>step 3: ENTER BILLING INFORMATION</span>
 					</div>
 					<div class="form-container">
-					  <div class="text-right"><input type="checkbox" name="samebill" id="samebill" ng-model="billingIsSameAsSite"><label for="samebill">Same as Site Address?</label></div>
+					  <div class="text-right"><input type="checkbox" name="samebill" id="samebill" ng-model="billingIsSameAsSite" ng-change="sameAsSiteAddressChanged()"><label for="samebill">Same as Site Address?</label></div>
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billAddress1.$error.required}">
 							<label class="control-label">Address 1<sup>*</sup></label>
 							<input required type="text" name="billAddress1" class="form-control" ng-model="newSiteObject.bill_address_attributes.address1" ng-disabled="billingIsSameAsSite">
@@ -130,7 +129,7 @@
 					</div>
 				</div>
 				<div class="bill-info-form">
-					<div class="form-title">
+					<div class="form-title col-xs-12">
 						<span class="badge">4</span>
 						<span>step 4: ENTER MANAGER INFORMATION</span>
 					</div>	
@@ -153,7 +152,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<div class="form-title">
+								<div class="form-title col-xs-12">
 									<span class="badge">5</span>
 									<span>step 5: Linked customer</span>
 								</div>

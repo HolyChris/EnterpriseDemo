@@ -41,14 +41,17 @@ angular.module('ersApp')
   $scope.billAddress = {};
   $scope.siteDetail = {};
 
-  $scope.$watch('billingIsSameAsSite', function(value) {
-   if(value) {
-    $scope.flag = 1;
-    $scope.newSiteObject.bill_address_attributes = $scope.newSiteObject.address_attributes;
-   } else {
-    $scope.flag = 0;
-   }
-  });
+  $scope.sameAsSiteAddressChanged=function(){
+    if ($scope.billingIsSameAsSite){
+      $scope.flag = 1;
+      $scope.newSiteObject.bill_address_attributes = $scope.newSiteObject.address_attributes;
+    }
+    else{
+      $scope.flag = 0;
+      //We copy the values because if user unchedks the box we've be referencing same object
+      $scope.newSiteObject.bill_address_attributes = angular.copy($scope.newSiteObject.address_attributes);
+    }
+  }
 
   $scope.states_array = Address.States;
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];

@@ -17,24 +17,24 @@
 			<div class="form-left">
 				<div class="form-title col-xs-12" id="project-section">
 					<span> PROJECT </span>
-					<span class="edit-btn pull-right" ng-show="!project.editProject" ng-click="enable_project_edition('Project')">
+					<span class="edit-btn pull-right" ng-show="!project.edition_enabled" ng-click="enable_project_edition()">
 						<img src="/images/Write-white.png"/>
 						EDIT
 					</span>
-					<span class="edit-btn pull-right" ng-show="project.editProject" ng-click="save_project()">
+					<span class="edit-btn pull-right" ng-show="project.edition_enabled" ng-click="save_project()">
 						<img src="/images/Write-white.png"/>
 						SAVE
 					</span>
-					<span class="edit-btn pull-right btn-warning" ng-show="project.editProject" ng-click="cancel_project_edition('Project')">
+					<span class="edit-btn pull-right btn-warning" ng-show="project.edition_enabled" ng-click="cancel_project_edition('Project')">
 						<img src="/images/Write-white.png"/>
 						CANCEL
 					</span>
 				</div>
 
 				<form name="project_form">
-
+ 
 					<div class="form-container">
-						<fieldset ng-disabled="!project.editProject">
+						<fieldset ng-disabled="!project.edition_enabled">
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.po_number}">
 								<label class="control-label">PO Number {{errors.po_number}}</label>
 								<div class="input-group">
@@ -66,9 +66,9 @@
 								<label class="control-label">Hoa Approval date {{errors.hoa_approval_date}}</label>
 								<p class="input-group date-picker">
 
-									<input type="date" name="hoa_approval_date" class="form-control" datepicker-popup="" ng-model="project.hoa_approval_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<input name="hoa_approval_date" class="form-control" datepicker-popup="{{format}}" ng-model="project.hoa_approval_date" is-open="opened.hoa_approval_date" ng-required="true" close-text="Close" />
 									<span class="input-group-btn">
-						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						              <button type="button" class="btn btn-default" ng-click="openDate($event,'hoa_approval_date')"><i class="glyphicon glyphicon-calendar"></i></button>
 						            </span>
 								</p>
 							</div>
@@ -76,9 +76,9 @@
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.last_roof_built_date}">
 								<label class="control-label">Roof built date {{errors.last_roof_built_date}}</label>
 								<p class="input-group date-picker">
-									<input type="date" name="last_roof_built_date" class="form-control" datepicker-popup="" ng-model="project.last_roof_built_date" is-open="$parent.opened" ng-required="true" close-text="Close" />
+									<input name="last_roof_built_date" class="form-control" datepicker-popup="{{format}}" ng-model="project.last_roof_built_date" is-open="opened.last_roof_built_date" ng-required="true" close-text="Close" />
 									<span class="input-group-btn">
-						              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						              <button type="button" class="btn btn-default" ng-click="openDate($event,'last_roof_built_date')"><i class="glyphicon glyphicon-calendar"></i></button>
 						            </span>
 								</p>
 							</div>

@@ -60,6 +60,14 @@
       <p ng-show="editStageMode"><span>STAGE:</span> 
 				<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.stage" ng-change="updateStage()" class="form-control"></select>
       </p>
+      <p>
+    		<span class="col-md-3">MANAGERS:</span>
+    		<div class="col-md-3">
+	        <p ng-repeat="manager in site.managers">
+	        	{{manager.email}}
+	    		</p>
+    		</div>
+    	</p>
     </div>
   </div>
 	<div ui-view="overview-content-view"></div>
