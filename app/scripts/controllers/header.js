@@ -1,8 +1,7 @@
 angular.module("ersApp")
   .controller("headerCtrl", function($scope, $rootScope, $state, $location, $timeout, $auth, User) {
     
-    $scope.user = {};
-    $scope.user.email = $auth.getEmail();
+
 
     // This is not ideal but it's the only way to retrieve user data
     // we don't have a client id in frontend
@@ -21,6 +20,15 @@ angular.module("ersApp")
         $state.go('sites', {'contract_po_number_equals': $scope['contract_po_number_equals']});
       }
     };
+
+    $scope.refreshLoginInfo = function(){
+      $scope.user = {};
+      $scope.user.email = $auth.getEmail();
+    };
+
+    $rootScope.$watch('isAuthenticated',function() {
+      $scope.refreshLoginInfo();
+    });
 
     $timeout(function() {
     	if ($rootScope.isAuthenticated) {
