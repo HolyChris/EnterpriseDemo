@@ -1,4 +1,4 @@
-<div class="container proj-over-container overview-appointments">
+<div class="proj-over-container overview-appointments">
 	<div class="proj-over-content project-appointments-form">
 		<div class="row">
 			<div class="col-md-12 container-title">
@@ -20,11 +20,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="form-left-container">
+		<div class="col-md-6 col-sm-8">
 
-				<div class="col-md-6 contract-detail-form form-left" ng-repeat="appointment in project.appointments">
-					<div class="form-title">
+				<div class="contract-detail-form form-left" ng-repeat="appointment in project.appointments">
+					<div class="form-title col-xs-12">
 						<span> APPOINTMENT </span>
 						<span class="label label-warning" ng-show="appointment.isNew">NEW</span>
 
@@ -62,7 +61,7 @@
 									</div>
 								</div>
 
-								<div class="input-group" ng-hide="appointment.edition_enabled">
+								<div class="" ng-hide="appointment.edition_enabled">
 									<input type="text" class="form-control" ng-model="appointment.scheduled_at">
 								</div>
 

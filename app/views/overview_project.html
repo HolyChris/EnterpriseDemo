@@ -1,288 +1,282 @@
-<div class="container proj-over-container">
+<div class="proj-over-container">
 	<div class="proj-over-content billing-form">
 		<div class="row">
-			<div class="col-md-12 container-title">
+			<div class="col-xs-12 container-title">
 				<u> PROJECT OVERVIEW</u>
 			</div>
 		</div>
 		<div class="row">
-		<div class="form-left-container">
-		<div class="col-md-6 form-left">
-
-			<div class="form-title" id="customer-info-section">
-				<span>{{customer_title}} / CUSTOMER INFO</span>
-				<span class="edit-btn pull-right" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-				<span class="edit-btn pull-right" ng-show="customer_info_edition_enabled" ng-click="save_customer_info_edition()">
-					<img src="/images/Write-white.png"/>
-					SAVE
-				</span>
-				<span class="edit-btn pull-right btn-warning" ng-show="customer_info_edition_enabled" ng-click="cancel_customer_info_edition()">
-					<img src="/images/Write-white.png"/>
-					CANCEL
-				</span>
-				
-			</div>
-			<form name="customer_form">	
-				<div class="form-container" ng>
-					<fieldset ng-disabled="!customer_info_edition_enabled">
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname || !customer_form.firstname.$valid}">
-							<label class="control-label">
-								First Name
-								<small class="text-danger" ng-show="customer_form.firstname.$error.required">Required!</small>
-							</label>  
-							
-							<input type="text" name="firstname" class="form-control" id="" ng-model="customer.firstname" ng-trim="true" required>
-							
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.lastname || !customer_form.lastname.$valid}">
-							<label class="control-label">
-								Last Name
-								<small class="text-danger" ng-show="customer_form.lastname.$error.required">Required!</small>
-							</label>
-							<input type="text" name="lastname" class="form-control" id="" ng-model="customer.lastname" required>
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.email || !customer_form.email.$valid}">
-							<label class="control-label">
-								Email
-								<small class="text-danger" ng-show="customer_form.email.$error.email">Invalid! {{errors.email}}</small>
-							</label>
-							<input type="email" name="email" class="form-control" id="" ng-model="customer.email">
-						</div>
-										
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.spouse}">
-							<label class="control-label">Spouse</label>
-							<input type="" name="spouse" class="form-control" id="" ng-model="customer.spouse">
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.business_name}">
-							<label class="control-label">Business name</label>
-							<input type="" name="business_name" class="form-control" id="" ng-model="customer.business_name">
-						</div>			
-						
-						<div class="form-group col-sm-12" ng-class="{'has-error' : errors.other_business_info}">
-							<label class="control-label">Other business information</label>
-							<textarea rows="5" name="other_business_info" class="form-control" ng-model="customer.other_business_info"></textarea>
-						</div>
-					</fieldset>
+			<div class="col-md-6 col-xs-12">
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="customer-info-section">
+					<span>{{customer_title}} / CUSTOMER INFO</span>
+					<span class="edit-btn pull-right" ng-show="!customer_info_edition_enabled" ng-click="enable_customer_info_edition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="customer_info_edition_enabled" ng-click="save_customer_info_edition()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="customer_info_edition_enabled" ng-click="cancel_customer_info_edition()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
 				</div>
-			</form>
-
-		</div>
-		<div class="col-md-6 form-left">
-			<div class="form-title" id="customer-phone-section">
-				<span>{{customer_title}} / PHONE NUMBER</span>
-				<span class="edit-btn pull-right" ng-show="!phone_numbers_info_edition_enabled" ng-click="enable_phone_numbers_info_edition()">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-				<span class="edit-btn pull-right" ng-show="phone_numbers_info_edition_enabled" ng-click="save_phone_numbers_info_edition()">
-					<img src="/images/Write-white.png"/>
-					SAVE
-				</span>
-				<span class="edit-btn pull-right btn-warning" ng-show="phone_numbers_info_edition_enabled" ng-click="cancel_phone_numbers_info_edition()">
-					<img src="/images/Write-white.png"/>
-					CANCEL
-				</span>
-
-			</div>
-			<form name="phone_numbers_form" novalidate>
-				<div class="form-container">
-					<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
-						<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
-						<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
-						<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
-						<hr>
-
-						<fieldset data-ng-repeat="number in phone_numbers_edit | filter:{_destroy: '!1'}" ng-disabled="!phone_numbers_info_edition_enabled" ng-init="number_field_name = 'number_' + $index">
+	
+				<form name="customer_form">	
+					<div class="form-container" ng>
+						<fieldset ng-disabled="!customer_info_edition_enabled">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.firstname || !customer_form.firstname.$valid}">
+								<label class="control-label">
+								First Name
+									<small class="text-danger" ng-show="customer_form.firstname.$error.required">Required!</small>
+								</label>  
 							
-							<div class="form-group" ng-class="{'has-error' : phone_numbers_form.{{number_field_name}}.$error.required}">
-							  <div class="row">
-							  	<div class="col-sm-4">
-							  		<label class="control-label">
-							  			Number<sup>*<span class="text-danger" ng-show="phone_numbers_form.{{number_field_name}}.$error.required">Required!</span></sup>
-							  		</label>
-							  	</div>
-							  	<div class="col-sm-8">
-							  		<input type="tel" name="{{number_field_name}}" class="form-control" value="" ng-model="number.number"required>
-							  	</div>
-							  </div>
+								<input type="text" name="firstname" class="form-control" id="" ng-model="customer.firstname" ng-trim="true" required>	
 							</div>
-
-							<div class="form-group">
-							  <div class="row">
-							  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
-							  	<div class="col-sm-8">
-							  		<select name="num_type" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
-											<option value=""></option>
-										</select>
-							  	</div>
-							  </div>
+						
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.lastname || !customer_form.lastname.$valid}">
+								<label class="control-label">
+									Last Name
+									<small class="text-danger" ng-show="customer_form.lastname.$error.required">Required!</small>
+								</label>
+								<input type="text" name="lastname" class="form-control" id="" ng-model="customer.lastname" required>
 							</div>
-
-							<div class="form-group">
-								<label><input type="checkbox" name="primary" id="" ng-model="number.primary"> Primary</label>
+						
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.email || !customer_form.email.$valid}">
+								<label class="control-label">
+									Email
+									<small class="text-danger" ng-show="customer_form.email.$error.email">Invalid! {{errors.email}}</small>
+								</label>
+								<input type="email" name="email" class="form-control" id="" ng-model="customer.email">
 							</div>
-							<div class="form-group">
-								<button class="btn btn-small pull-right ng-click-active" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</button>
+											
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.spouse}">
+								<label class="control-label">Spouse</label>
+								<input type="" name="spouse" class="form-control" id="" ng-model="customer.spouse">
 							</div>
-							<div class="form-group">
-								<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
-							</div>
-							<div class="clearfix"></div>
-							<hr>
+						
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.business_name}">
+								<label class="control-label">Business name</label>
+								<input type="" name="business_name" class="form-control" id="" ng-model="customer.business_name">
+							</div>			
 							
+							<div class="form-group col-sm-12" ng-class="{'has-error' : errors.other_business_info}">
+								<label class="control-label">Other business information</label>
+								<textarea rows="5" name="other_business_info" class="form-control" ng-model="customer.other_business_info"></textarea>
+							</div>
 						</fieldset>
+					</div>
+				</form>
+			</div>
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="customer-phone-section">
+					<span>{{customer_title}} / PHONE NUMBER</span>
+					<span class="edit-btn pull-right" ng-show="!phone_numbers_info_edition_enabled" ng-click="enable_phone_numbers_info_edition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="phone_numbers_info_edition_enabled" ng-click="save_phone_numbers_info_edition()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="phone_numbers_info_edition_enabled" ng-click="cancel_phone_numbers_info_edition()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
 
-						<div class="form-group">
-							<button class="btn btn-small" ng-click="addPhone()" ng-disabled="!phone_numbers_info_edition_enabled">Add New Phone Number</button>
+				</div>
+				<form name="phone_numbers_form" novalidate>
+					<div class="form-container">
+						<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
+							<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
+							<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
+							<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
+							<hr>
+
+							<fieldset data-ng-repeat="number in phone_numbers_edit | filter:{_destroy: '!1'}" ng-disabled="!phone_numbers_info_edition_enabled" ng-init="number_field_name = 'number_' + $index">
+								
+								<div class="form-group" ng-class="{'has-error' : phone_numbers_form.{{number_field_name}}.$error.required}">
+								  <div class="row">
+								  	<div class="col-sm-4">
+								  		<label class="control-label">
+								  			Number<sup>*<span class="text-danger" ng-show="phone_numbers_form.{{number_field_name}}.$error.required">Required!</span></sup>
+								  		</label>
+								  	</div>
+								  	<div class="col-sm-8">
+								  		<input type="tel" name="{{number_field_name}}" class="form-control" value="" ng-model="number.number"required>
+								  	</div>
+								  </div>
+								</div>
+
+								<div class="form-group">
+								  <div class="row">
+								  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
+								  	<div class="col-sm-8">
+								  		<select name="num_type" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
+												<option value=""></option>
+											</select>
+								  	</div>
+								  </div>
+								</div>
+
+								<div class="form-group">
+									<label><input type="checkbox" name="primary" id="" ng-model="number.primary"> Primary</label>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-small pull-right ng-click-active" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</button>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-small pull-right" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</button>
+								</div>
+								<div class="clearfix"></div>
+								<hr>
+								
+							</fieldset>
+
+							<div class="form-group">
+								<button class="btn btn-small" ng-click="addPhone()" ng-disabled="!phone_numbers_info_edition_enabled">Add New Phone Number</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-			
-		</div>
-		<div class="col-md-6 form-left">
-			<div class="form-title" id="customer-address-section">
-				<span>{{customer_title}} / ADDRESS</span>
-				<span class="edit-btn pull-right" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-				<span class="edit-btn pull-right" ng-show="address_edition_enabled" ng-click="save_address_edition()">
-					<img src="/images/Write-white.png"/>
-					SAVE
-				</span>
-				<span class="edit-btn pull-right btn-warning" ng-show="address_edition_enabled" ng-click="cancel_address_edition()">
-					<img src="/images/Write-white.png"/>
-					CANCEL
-				</span>
+				</form>
+				
+			</div>
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="customer-address-section">
+					<span>{{customer_title}} / ADDRESS</span>
+					<span class="edit-btn pull-right" ng-show="!address_edition_enabled" ng-click="enable_address_edition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="address_edition_enabled" ng-click="save_address_edition()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="address_edition_enabled" ng-click="cancel_address_edition()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
 
-			</div>	
-			<form name="address_form">
-				<div class="form-container">
-					<fieldset ng-disabled="!address_edition_enabled">
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1'] || !address_form.address1.$valid}" >
-							<label class="control-label">
-								Address 1
-								<small class="text-danger" ng-show="address_form.address1.$error.required">
-									Required!
-								</small>
-							</label>
-							<input type="text" name="address1" class="form-control" id="" ng-model="address.address1" required>
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address2']}">
-							<label class="control-label">
-								Address 2
-							</label>
-							<input type="text" name="address2" class="form-control" id="" ng-model="address.address2">
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city'] || !address_form.city.$valid}">
-							<label class="control-label">
-								City
-								<small class="text-danger" ng-show="address_form.city.$error.required">
-									Required!
-								</small>
-							</label>
-							<input type="text" name="city" class="form-control" id="" ng-model="address.city" required>
-						</div>
-						
-						<!--TODO REPLACE WITH ng-options construct-->
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
-							<label class="control-label">State<sup>*</sup></label>
-							<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
-								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==address.state.id">{{state.abbreviation}}</option>
-							</select>
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode'] || !address_form.zipcode.$valid}">
-							<label class="control-label">
-								Zip
-								<small class="text-danger" ng-show="address_form.zipcode.$error.required">
-									Required!
-								</small>
-							</label>
-							<input type="text" name="zipcode" class="form-control" id="" ng-model="address.zipcode" required>
-						</div>
-					</fieldset>
-				</div>
-			</form>
-		</div>
-		<div class="col-md-6 form-left">
-			<div class="form-title" id="customer-details-section">
-				<span>{{customer_title}} / DETAILS</span>
-				<span class="edit-btn pull-right" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
-					<img src="/images/Write-white.png"/>
-					EDIT
-				</span>
-				<span class="edit-btn pull-right" ng-show="site_info_edition_enabled" ng-click="save_site_info_edition()">
-					<img src="/images/Write-white.png"/>
-					SAVE
-				</span>
-				<span class="edit-btn pull-right btn-warning" ng-show="site_info_edition_enabled" ng-click="cancel_site_info_edition()">
-					<img src="/images/Write-white.png"/>
-					CANCEL
-				</span>
-
-			</div>	
-			<form name="site_form">
-				<div class="form-container">
-					<fieldset ng-disabled="!site_info_edition_enabled">
-						<div class="form-group col-lg-6">
-							<label class="control-label">Site name</label>
-							<input type="text" name="name" class="form-control" id="" ng-model="site_edit.name">
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_name}">
-							<label class="control-label">Site contact name</label>
-							<input type="text" name="contact_name" class="form-control" id="" ng-model="site_edit.contact_name">
-						</div>
-										
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_phone}">
-							<label class="control-label">Site contact phone</label>
-							<input type="tel" name="contact_phone" class="form-control" id="" ng-model="site_edit.contact_phone">
-						</div>
-
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source}">
-							<label class="control-label">Source</label>
-							<!--TODO REPLACE WITH ng-options construct-->
-							<select type="" name="source" class="form-control" id="" value="" ng-model="site_edit.source">
-								<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="$index+1==site_edit.source" >{{source}}</option>
-							</select>
-						</div>
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source_info}">
-							<label class="control-label">Source info</label>
-							<input type="text" name="source_info" class="form-control" id="" ng-model="site_edit.source_info">
-						</div>
-						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.stage}">
-							<label class="control-label">Stage</label>
-							<input type="text" name="stage" class="form-control" id="" ng-model="site_edit.stage" disabled>
-						</div>
-						<div class="col-lg-12"><hr></div>
-						<div class="form-group col-lg-6">
-		          <label class="control-label">Managers</label>
-							<input type="text" class="form-control" ng-model="site_edit.managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)">
-						</div>
-						<div class="form-group col-lg-6">
-							<div>
-								<p class="selected-manager" ng-repeat="manager in site_edit.managers">
-									<span class="manager-email">{{ manager.email }}
-										<span class="btn btn-xs glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)" ng-show="site_info_edition_enabled"></span>
-									</span>
-								</p>
+				</div>	
+				<form name="address_form">
+					<div class="form-container">
+						<fieldset ng-disabled="!address_edition_enabled">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address1'] || !address_form.address1.$valid}" >
+								<label class="control-label">
+									Address 1
+									<small class="text-danger" ng-show="address_form.address1.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="address1" class="form-control" id="" ng-model="address.address1" required>
 							</div>
-						</div>
-					</fieldset>
-				</div>
-			</form>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.address2']}">
+								<label class="control-label">
+									Address 2
+								</label>
+								<input type="text" name="address2" class="form-control" id="" ng-model="address.address2">
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.city'] || !address_form.city.$valid}">
+								<label class="control-label">
+									City
+									<small class="text-danger" ng-show="address_form.city.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="city" class="form-control" id="" ng-model="address.city" required>
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
+								<label class="control-label">State<sup>*</sup></label>
+								<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
+									<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==address.state.id">{{state.abbreviation}}</option>
+								</select>
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.zipcode'] || !address_form.zipcode.$valid}">
+								<label class="control-label">
+									Zip
+									<small class="text-danger" ng-show="address_form.zipcode.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="zipcode" class="form-control" id="" ng-model="address.zipcode" required>
+							</div>
+						</fieldset>
+					</div>
+				</form>
+			</div>
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="customer-details-section">
+					<span>{{customer_title}} / DETAILS</span>
+					<span class="edit-btn pull-right" ng-show="!site_info_edition_enabled" ng-click="enable_site_info_edition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="site_info_edition_enabled" ng-click="save_site_info_edition()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="site_info_edition_enabled" ng-click="cancel_site_info_edition()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
+				</div>	
+				<form name="site_form">
+					<div class="form-container">
+						<fieldset ng-disabled="!site_info_edition_enabled">
+							<div class="form-group col-lg-6">
+								<label class="control-label">Site name</label>
+								<input type="text" name="name" class="form-control" id="" ng-model="site_edit.name">
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_name}">
+								<label class="control-label">Site contact name</label>
+								<input type="text" name="contact_name" class="form-control" id="" ng-model="site_edit.contact_name">
+							</div>
+											
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.contact_phone}">
+								<label class="control-label">Site contact phone</label>
+								<input type="tel" name="contact_phone" class="form-control" id="" ng-model="site_edit.contact_phone">
+							</div>
+
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source}">
+								<label class="control-label">Source</label>
+								<select type="" name="source" class="form-control" id="" value="" ng-model="site_edit.source">
+									<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="$index+1==site_edit.source" >{{source}}</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source_info}">
+								<label class="control-label">Source info</label>
+								<input type="text" name="source_info" class="form-control" id="" ng-model="site_edit.source_info">
+							</div>
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.stage}">
+								<label class="control-label">Stage</label>
+								<input type="text" name="stage" class="form-control" id="" ng-model="site_edit.stage" disabled>
+							</div>
+							<div class="col-lg-12"><hr></div>
+							<div class="form-group col-lg-6">
+			          <label class="control-label">Managers</label>
+								<input type="text" class="form-control" ng-model="site_edit.managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)">
+							</div>
+							<div class="form-group col-lg-6">
+								<div>
+									<p class="selected-manager" ng-repeat="manager in site_edit.managers">
+										<span class="manager-email">{{ manager.email }}
+											<span class="btn btn-xs glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)" ng-show="site_info_edition_enabled"></span>
+										</span>
+									</p>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
 		</div>
 	</div>
 </div>  

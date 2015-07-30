@@ -1,110 +1,110 @@
-<div class="container site-container">	
-	<div class="row">
-		<div class="container container customers-container">
-			<div class="container site-content">
-				<div class="col-md-6 cust-detail-form form-left">
-					<div class="form-title">
-						<span>CUSTOMER DETAILS</span>
-					</div>
-					<div class="form-container customer-form">
-						<div class="row">
-							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.firstname}">
-								<label class="control-label">First Name <sup>*</sup> {{customerErrors.firstname[0]}}</label>
-								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.firstname">
-							</div>
+<div class="container customer-container">
+  <div flash-message="5000"></div>
 
-							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.lastname}">
-								<label class="control-label">Last Name <sup>*</sup> {{customerErrors.lastname[0]}}</label>
-								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.lastname">
-							</div>
+	<div class="customer-content row">
+	  <div class="col-xs-12 container-title">
+			CUSTOMERS/<u>EDIT CUSTOMER</u>
+		</div>
+		<div class="col-xs-12 col-md-6">
 
-							<div class="form-group col-lg-6" ng-class="{'has-error' : customerErrors.email}">
-								<label class="control-label">Email {{customerErrors.email[0]}}</label>
-								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.email">
-							</div>
-
-							<div class="form-group col-lg-6">
-								<label class="control-label">Spouse</label>
-								<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.spouse">
-							</div>
-
-							<div class="form-group col-lg-6">
-								<label class="control-label" for="business_name">Business Name</label>
-								<input type="text" name="business-name" class="form-control ng-pristine ng-valid ng-touched" id="business_name" value="" ng-model="model.customer.business_name" tabindex="0" aria-invalid="false">
-							</div>
-
-							<div class="form-group col-lg-12">
-								<label class="control-label">Other business information</label>
-								<textarea class="form-control textarea" ng-model="model.customer.other_business_info"></textarea>
-							</div>
-
-							<div class="form-group col-sm-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
-								<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
-								<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
-								<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
-								<hr>
-
-								<fieldset data-ng-repeat="number in model.customer.phone_numbers | filter:{_destroy: '!1'}">
-									<div class="form-group">
-									  <div class="row">
-									  	<div class="col-sm-4"><label class="control-label">Number<sup>*</sup></label></div>
-									  	<div class="col-sm-8">
-									  		<input type="tel" name="" class="form-control" value="" ng-model="number.number">
-									  	</div>
-									  </div>
-									</div>
-
-									<div class="form-group">
-									  <div class="row">
-									  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
-									  	<div class="col-sm-8">
-									  		<select name="" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
-													<option value=""></option>
-												</select>
-									  	</div>
-									  </div>
-									</div>
-
-									<div class="form-group">
-										<label><input type="checkbox" name="" id="" ng-model="number.primary"> Primary</label>
-									</div>
-									<div class="form-group">
-										<a class="pull-right link" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</a>
-									</div>
-									<div class="form-group">
-										<a class="pull-right link" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</a>
-									</div>
-									<div class="clearfix"></div>
-									<hr>
-								</fieldset>
-
-								<div class="form-group">
-									<button class="btn btn-small" ng-click="addPhone()">Add New Phone Number</button>
-								</div>
-							</div>
-						</div>
-
-						<div class="row text-right">
-							<div class="col-md-12 text-right">
-								<input type="button" class="btn update-form" ng-click="updateThenSite(model.customer.id)" value="Update and Create Site">
-								<input type="button" class="btn update-form" ng-click="updateUser()" value="Update">
-							</div>
-						</div>
-					</div>
+			<div class="cust-detail-form">
+				<div class="form-title col-xs-12">
+					<span>CUSTOMER DETAILS</span>
 				</div>
-				<div class="col-md-6 core-info-container">
-					<span>CUSTOMER SITES</span>
-					<div class="core-info-card" ng-repeat="site in model.customer.sites">
-						<a  ui-sref="project.overview({projectId: site.id})" class="core-info">
-							<span class="info-title">{{site.name}}</span>
-							<span class="info-address">{{site.address.address1}},</br> {{site.address.city}},{{site.address.state.name}},{{site.address.zipcode}}</span></br>
-							<span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
-						</a>
-	        </div>
+				<div class="form-container customer-form col-xs-12">
+					<div class="form-group col-sm-6" ng-class="{'has-error' : customerErrors.firstname}">
+						<label class="control-label">First Name <sup>*</sup> {{customerErrors.firstname[0]}}</label>
+						<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.firstname">
+					</div>
+
+					<div class="form-group col-sm-6" ng-class="{'has-error' : customerErrors.lastname}">
+						<label class="control-label">Last Name <sup>*</sup> {{customerErrors.lastname[0]}}</label>
+						<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.lastname">
+					</div>
+
+					<div class="form-group col-sm-6" ng-class="{'has-error' : customerErrors.email}">
+						<label class="control-label">Email {{customerErrors.email[0]}}</label>
+						<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.email">
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label class="control-label">Spouse</label>
+						<input type="" name="" class="form-control" id="" value="" ng-model="model.customer.spouse">
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label class="control-label" for="business_name">Business Name</label>
+						<input type="text" name="business-name" class="form-control ng-pristine ng-valid ng-touched" id="business_name" value="" ng-model="model.customer.business_name" tabindex="0" aria-invalid="false">
+					</div>
+
+					<div class="form-group col-xs-12">
+						<label class="control-label">Other business information</label>
+						<textarea class="form-control textarea" ng-model="model.customer.other_business_info"></textarea>
+					</div>
+
+					<div class="form-group col-xs-12" ng-class="{'has-error' : errors['base'] || errors['phone_numbers.number']}">
+						<label class="control-label" for="phone_number">Phone number<sup>*</sup></label>
+						<small class="text-danger help-block" ng-show="errors['base']">{{errors['base'][0]}}</small>
+						<small class="text-danger help-block" ng-show="errors['phone_numbers.number']">Phone number {{errors['phone_numbers.number'][0]}}.</small>
+						<hr>
+
+						<fieldset data-ng-repeat="number in model.customer.phone_numbers | filter:{_destroy: '!1'}">
+							<div class="form-group">
+							  <div class="row">
+							  	<div class="col-sm-4"><label class="control-label">Number<sup>*</sup></label></div>
+							  	<div class="col-sm-8">
+							  		<input type="tel" name="" class="form-control" value="" ng-model="number.number">
+							  	</div>
+							  </div>
+							</div>
+
+							<div class="form-group">
+							  <div class="row">
+							  	<div class="col-sm-4"><label class="control-label">Type<sup>*</sup></label></div>
+							  	<div class="col-sm-8">
+							  		<select name="" ng-options="item.value as item.label for item in phoneTypes" ng-model="number.num_type" convert-to-number class="form-control">
+											<option value=""></option>
+										</select>
+							  	</div>
+							  </div>
+							</div>
+
+							<div class="form-group">
+								<label><input type="checkbox" name="" id="" ng-model="number.primary"> Primary</label>
+							</div>
+							<div class="form-group">
+								<a class="pull-right link" ng-click="removePhone(number)" tabindex="0" aria-hidden="false">Remove Phone Number</a>
+							</div>
+							<div class="form-group">
+								<a class="pull-right link" ng-click="removePhone($index)" ng-show="number.newPhone">Remove Phone Number</a>
+							</div>
+							<div class="clearfix"></div>
+							<hr>
+						</fieldset>
+
+						<div class="form-group">
+							<button class="btn btn-small" ng-click="addPhone()">Add New Phone Number</button>
+						</div>
+					</div>
+
+					<div class="col-xs-12 text-right">
+						<input type="button" class="btn update-form" ng-click="updateThenSite(model.customer.id)" value="Update and Create Site">
+						<input type="button" class="btn update-form" ng-click="updateUser()" value="Update">
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-xs-12 col-md-6 core-info-container">
+			<span>CUSTOMER SITES</span>
+			<div class="core-info-card" ng-repeat="site in model.customer.sites">
+				<a ui-sref="project.overview({projectId: site.id})" class="core-info">
+					<span class="info-title">{{site.name}}</span>
+					<span class="info-address">{{site.address.address1}},</br> {{site.address.city}},{{site.address.state.name}},{{site.address.zipcode}}</span></br>
+					<span class="info-stage sub-info">Stage:<span>{{site.stage}}</span></span>
+				</a>
+	    </div>
+		</div>
 	</div>
-
 </div>
+
 
