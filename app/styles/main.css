@@ -973,9 +973,6 @@ tbody td{
  font-size: 11px;
  color: #fff;
 }
-.sites-content {
-  clear: both;
-}
 .cust-table tbody td,.site-table tbody td{
   line-height: 35px !important;
 }
@@ -1399,6 +1396,11 @@ h3.not-available {
   .pipe:nth-child(even) .pipe-card-container {
     border-right: none;
   }
+  .usr-srchbx {
+    clear: both;
+    float: none !important;
+    margin-bottom: 1em;
+  }
 }
 @media all and (max-width: 767px) {
   .table-responsive {
@@ -1450,11 +1452,21 @@ h3.not-available {
     padding: 0.5em;
     text-decoration: underline;
   }
+  .sidebar-menu li.locked a span.title {
+    color: #333;
+  }
   .sidebar .sidebar-menu li a img {
     display: none;
   }
   .sidebar .sidebar-menu li a .title {
     margin-left: 0;
+  }
+  .sidebar-menu li.locked {
+    background-color: transparent;
+  }
+  .usr-srchbx .form-group {
+    float: none !important;
+    width: 100%;
   }
 }
 /*Customer Portal*/

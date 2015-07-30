@@ -9,6 +9,10 @@ body.outside {
 .login-container {
   padding: 10em 15px 15em;
 }
+.login-container > form {
+  margin: 0 auto;
+  max-width: 400px;
+}
 .login-container .spinner-wrapper {
   position: absolute;
   width: 30px;
@@ -59,6 +63,7 @@ body.outside {
   font-weight: 700;
   margin-top: 20px;
   padding: 10px 20px;
+  position: relative;
 }
 .login-btn span {
   color: #ffffff;
@@ -74,4 +79,9 @@ body.outside {
 	.login-container {
   	padding: 2em 15px 0;
 	}
+}
+@media all and (max-width: 600px) {
+  .login-container > form {
+    max-width: 280px;
+  }
 }

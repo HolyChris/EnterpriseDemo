@@ -7,32 +7,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="sites-container">
+			<div class="sites-container col-xs-12">
 			  <div class="col-xs-12 actn-btn-container">
 					<a ui-sref="newsite"><div class="actn-btn pull-right">
 						CREATE SITE
 						<img src="/images/Plus.png" class="pull-right">
 					</div></a>
 				</div>
-				<div class="sites-content col-md-8 col-lg-9">
-					<div class="table-responsive">
-						<table class="table site-table" at-table at-list="siteList" at-config="config">
-						  <thead>
-						  </thead>
-						  <tbody>
-						    <tr>
-						      <td at-implicit at-title="site name" at-attribute="name" width="180px"></td>
-						      <td at-title="address" width="180px">{{siteList[$index].address.address1}},<br>{{siteList[$index].address.city}},{{stateLookupById(siteList[$index].address.state.id).abbreviation}},{{siteList[$index].address.zipcode}}</td>
-						      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
-						      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
-						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
-						    </tr> 
-						  </tbody>
-						</table>
-						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
-					</div>
-				</div>
-				<div class="usr-srchbx col-md-4 col-lg-3">
+				<div class="usr-srchbx col-md-4 col-lg-3 pull-right">
 					<div class="form-title">SEARCH FOR SITE</div>
 					<form ng-submit="search()">
 						<div class="form-container">
@@ -81,6 +63,22 @@
 							</div>
 						</div>
 					</form>
+				</div>
+				<div class="sites-content col-md-8 col-lg-9 table-responsive">
+					<table class="table site-table" at-table at-list="siteList" at-config="config">
+					  <thead>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td at-implicit at-title="site name" at-attribute="name" width="180px"></td>
+					      <td at-title="address" width="180px">{{siteList[$index].address.address1}},<br>{{siteList[$index].address.city}},{{stateLookupById(siteList[$index].address.state.id).abbreviation}},{{siteList[$index].address.zipcode}}</td>
+					      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
+					      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
+					      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
+					    </tr> 
+					  </tbody>
+					</table>
+					<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
 				</div>
 			</div>
 		</div> 
