@@ -193,6 +193,7 @@
 							<input type="text" name="city" class="form-control" id="" ng-model="address.city" required>
 						</div>
 						
+						<!--TODO REPLACE WITH ng-options construct-->
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['address.state']}">
 							<label class="control-label">State<sup>*</sup></label>
 							<select type="" name="" class="form-control" id="" value="" ng-model="address.state.id" >
@@ -250,6 +251,7 @@
 
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors.source}">
 							<label class="control-label">Source</label>
+							<!--TODO REPLACE WITH ng-options construct-->
 							<select type="" name="source" class="form-control" id="" value="" ng-model="site_edit.source">
 								<option ng-repeat="source in siteSource" value="{{$index+1}}" ng-selected="$index+1==site_edit.source" >{{source}}</option>
 							</select>
