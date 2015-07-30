@@ -86,6 +86,7 @@
 							<div class="form-group col-lg-6" ng-class="{'has-error' : errors.priority}">
 								<label class="control-label">Priority {{errors.priority}}</label>
 								<select name="priority" ng-model="project.priority" convert-to-number class="form-control">
+										<!--TODO REPLACE WITH ng-options construct-->
 						  				<option ng-repeat="priority in priorities_arr" value="{{$index+1}}" ng-selected="$index+1==project.priority">{{priority}}</option>
 								</select>
 							</div>
@@ -180,6 +181,7 @@
 						
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
 							<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
+							<!--TODO REPLACE WITH ng-options construct-->
 							<select name="shingle_manufacturer" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
 				  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
 							</select>
@@ -188,6 +190,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
 							<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
 							<select name="shingle_type" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
+								<!--TODO REPLACE WITH ng-options construct-->
 				  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
 							</select>
 						</div>
@@ -196,6 +199,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_color']}">
 							<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
 							<select name="" ng-model="job_submission.shingle_color" convert-to-number class="form-control">
+								<!--TODO REPLACE WITH ng-options construct-->
 								<option ng-repeat="colorId in shingles_arr[job_submission.shingle_type-1].colorsId" value="{{colorId}}" ng-selected="colorId==job_submission.shingle_color">{{colors_arr[colorId-1].name}}</option>
 							</select>
 						</div>
@@ -203,6 +207,7 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.drip_color']}">
 							<label class="control-label">Drip Color {{errors['job_submission.drip_color']}}</label>
 							<select name="" ng-model="job_submission.drip_color" convert-to-number class="form-control">
+									<!--TODO REPLACE WITH ng-options construct-->
 					  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.drip_color">{{color.name}}</option>
 							</select>
 						</div>

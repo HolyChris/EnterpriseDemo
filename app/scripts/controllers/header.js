@@ -1,20 +1,34 @@
 angular.module("ersApp")
-  .controller("headerCtrl", function($scope, $rootScope, $state, $timeout, $auth, User) {
+  .controller("headerCtrl", function($scope, $rootScope, $state, $location, $timeout, $auth, User) {
     
-    $scope.user = {};
-    $scope.user.email = $auth.getEmail();
+
 
     // This is not ideal but it's the only way to retrieve user data
     // we don't have a client id in frontend
-    var user = User.save(function(data) {
-      $scope.user.fullname = data.user.fullname;
-    });
+    // If I dont prevent this to happen on resetpasword then it gets redirected to login as it returns 404
+    // if the user is logged out
+    // Ideally the header controller should't be present on login
+    // TODO: Refactor to be a child view , than can be appended same as the Core info does in details
+    if ($location.path() !== "/resetpassword") {
+      var user = User.save(function(data) {
+        $scope.user.fullname = data.user.fullname;
+      });
+    }
 
     $scope.searchSites = function() {
       if ($scope['contract_po_number_equals']) {
         $state.go('sites', {'contract_po_number_equals': $scope['contract_po_number_equals']});
       }
     };
+
+    $scope.refreshLoginInfo = function(){
+      $scope.user = {};
+      $scope.user.email = $auth.getEmail();
+    };
+
+    $rootScope.$watch('isAuthenticated',function() {
+      $scope.refreshLoginInfo();
+    });
 
     $timeout(function() {
     	if ($rootScope.isAuthenticated) {

@@ -147,6 +147,14 @@ angular
         // do this for having a public page
         requireLogin: false
       })
+      .state('resetpassword', {
+        url: '/resetpassword?reset_password_token',
+        templateUrl: 'views/reset_password.html',
+        controller: 'ResetPasswordCtrl',
+        // by default all controllers are required to be logged
+        // do this for having a public page
+        requireLogin: false
+      })
       .state('logout', {
         url: '/logout',
         templateUrl: 'views/login.html',

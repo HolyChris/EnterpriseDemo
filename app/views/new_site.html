@@ -64,6 +64,7 @@
 						
 						<div class="form-group col-lg-6">
 							<label class="control-label">Source</label>
+							<!--TODO REPLACE WITH ng-options construct-->
 							<select name="source" class="form-control" ng-model="newSiteObject.source">
 								<option ng-repeat="source in siteSource" value="{{$index+1}}">{{source}}</option>
 							</select>

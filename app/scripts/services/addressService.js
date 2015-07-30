@@ -62,6 +62,35 @@ addressesService.factory('Address', function($resource, ENV) {
 
 	];
 
+	var defaultStateAbbreviation="CO";
+
+	//Singleton defaultStateId
+	var defaultStateId;
+
+	var getDefaultStateId=function()
+	{
+		if (!defaultStateId)
+		{
+			//Not initialized
+			//We better look states up by it's abbreviation as ids could change
+			var i=0;
+			for (;i<states_array.length;i++)
+			{
+				if(states_array[i].abbreviation===defaultStateAbbreviation)
+				{
+					defaultStateId=states_array[i].id;
+					break;
+				}
+			}
+		}
+
+
+		
+		return defaultStateId;
+	};
+
+
+
 	var stateLookupById=function(stateId)
 	{
 
@@ -82,7 +111,8 @@ addressesService.factory('Address', function($resource, ENV) {
 
 	return {
 		States: states_array,
-		stateLookupById: stateLookupById
+		stateLookupById: stateLookupById,
+		getDefaultStateId: getDefaultStateId
 	};
 	
 });

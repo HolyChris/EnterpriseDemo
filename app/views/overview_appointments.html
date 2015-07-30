@@ -69,7 +69,7 @@
 							
 							<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
 								<label class="control-label">Outcome<sup>*</sup></label>
-											  	
+								<!--TODO REPLACE WITH ng-options construct-->  	
 						  		<select name="" ng-model="appointment.outcome" convert-to-number class="form-control">
 						  				<option ng-repeat="outcome in outcomes_arr" value="{{$index+1}}" ng-selected="$index+1==appointment.outcome">{{outcome}}</option>
 								</select>
