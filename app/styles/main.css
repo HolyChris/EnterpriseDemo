@@ -1529,3 +1529,7 @@ h3.not-available {
   color: #666c70;
   font-size: 14px;
 }
+
+.navbar-collapse.collapse.hidden {
+  display: none !important;
+}
