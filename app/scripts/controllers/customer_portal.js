@@ -2,7 +2,7 @@ angular.module('ersApp')
   .controller('PortalCtrl', function($scope, $location, $stateParams, $rootScope, $http, Flash, ENV) {
   	$scope.model = {
   		page_token: $stateParams.token || "",
-  		showInvalidTokenMessage: true,
+  		showInvalidTokenMessage: false,
   		customerName: "",
   		auth_token: false,
     	phoneTypes: {
