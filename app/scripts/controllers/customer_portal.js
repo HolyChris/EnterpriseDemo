@@ -55,8 +55,7 @@ angular.module('ersApp')
       	method: 'GET',
       	url: ENV.apiEndpoint + "/api/v1/customer_portal/customer",
       	headers: {
-      		'X-Auth-Token': token,
-      		"X-Testing" : "testing"
+      		'X-Auth-Token': token
       	},
       	skipAuthorization: true
     	}).then(function(data) {
