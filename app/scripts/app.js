@@ -169,10 +169,12 @@ angular
         controller: 'SettingsCtrl',
       })
       .state('customerportal', {
-        url: '/customerportal',
+        url: '/customerportal?token',
         templateUrl: 'views/customer_portal.html',
         controller: 'PortalCtrl',
-        requireLogin: false
+        requireLogin: false,
+        // this flag hides items inside header
+        hideNavigationItems: true
       });
 
       $urlRouteProvider.otherwise('/');
@@ -210,6 +212,6 @@ angular
         // If not authenticated go to login state, if not already there
         $state.go("login");
         event.preventDefault();
-      } 
+      }
     });
 });

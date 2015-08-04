@@ -1,4 +1,9 @@
-<div class="container site-content customer-portal">
+<div class="row">
+	<div class="col-xs-12">
+		<div flash-message="5000"></div>
+	</div>
+</div>
+<div class="container site-content customer-portal" ng-show="model.auth_token">
 	<div class="row">
 		<h2 class="col-md-12 customer-header">
 			CUSTOMER PORTAL
@@ -9,19 +14,19 @@
 			<div class="row">
 				<div class="col-md-12 customer-panel-title">Milestones</div>
 				<div class="col-md-6 border-right border-bottom customer-timeline-date">
-					<span class="date">19/04</span>
+					<span class="date">{{model.userInfo.project.contract_signed_date}}</span>
 					<p>Contract signed</p>
 				</div>
 				<div class="col-md-6 border-bottom customer-timeline-date">
-					<span class="date">22/04</span>
+					<span class="date">{{model.userInfo.project.material_delivery_date}}</span>
 					<p>Materials delivery date</p>
 				</div>
 				<div class="col-md-6 border-right customer-timeline-date">
-					<span class="date">25/04</span>
+					<span class="date">{{model.userInfo.project.production_date}}</span>
 					<p>Production date</p>
 				</div>
 				<div class="col-md-6 customer-timeline-date">
-					<span class="date">27/04</span>
+					<span class="date">{{model.userInfo.project.production_inspection_date}}</span>
 					<p>Planned final inspection</p>
 				</div>
 
@@ -39,19 +44,19 @@
 								<span class="field-title">
 									First Name
 								</span>
-								<p class="field-value">Linda</p>
+								<p class="field-value">{{model.userInfo.customer.firstname}}</p>
 							</div>
 							<div class="customer-field">
 								<span class="field-title">
 									Email
 								</span>
-								<p class="field-value">linda@gmail.com</p>
+								<p class="field-value">{{model.userInfo.customer.email}}</p>
 							</div>
 							<div class="customer-field">
 								<span class="field-title">
 									Business Name
 								</span>
-								<p class="field-value">Creative Exteriors</p>
+								<p class="field-value">{{model.userInfo.customer.business_name || '-'}}</p>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -59,14 +64,14 @@
 								<span class="field-title">
 									Last Name
 								</span>
-								<p class="field-value">Higgans</p>
+								<p class="field-value">{{model.userInfo.customer.lastname}}</p>
 							</div>
 
 							<div class="customer-field">
 								<span class="field-title">
 									Spouse
 								</span>
-								<p class="field-value">-</p>
+								<p class="field-value">{{model.userInfo.customer.spouse || '-'}}</p>
 							</div>
 						</div>
 					</div>
@@ -83,19 +88,19 @@
 								<span class="field-title">
 									Address 1
 								</span>
-								<p class="field-value">13340 W 72n Ave</p>
+								<p class="field-value">{{model.userInfo.site.address.address1 || '-'}}</p>
 							</div>
 							<div class="customer-field">
 								<span class="field-title">
 									City
 								</span>
-								<p class="field-value">Arvada</p>
+								<p class="field-value">{{model.userInfo.site.address.city || '-'}}</p>
 							</div>
 							<div class="customer-field">
 								<span class="field-title">
 									Zipcode
 								</span>
-								<p class="field-value">80005</p>
+								<p class="field-value">{{model.userInfo.site.address.zipcode || '-'}}</p>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -103,13 +108,13 @@
 								<span class="field-title">
 									Address 2
 								</span>
-								<p class="field-value">-</p>
+								<p class="field-value">{{model.userInfo.site.address.address2 || '-'}}</p>
 							</div>
 							<div class="customer-field">
 								<span class="field-title">
 									State
 								</span>
-								<p class="field-value">CO</p>
+								<p class="field-value">{{model.userInfo.site.address.state || '-'}}</p>
 							</div>
 						</div>
 					</div>
@@ -123,18 +128,12 @@
 						<div class="row">
 							<div class="col-md-12 customer-panel-title">PHONE NUMBERS</div>
 							<div class="col-md-6">
-								<div class="customer-field">
+								<div class="customer-field" ng-repeat="phone in model.userInfo.customer.phone_numbers">
 									<span class="field-title">
-										Home Number
+										{{model.phoneTypes[phone.num_type]}}
 									</span>
-									<p class="field-value">303-425-5565</p>
-								</div>
-
-								<div class="customer-field">
-									<span class="field-title">
-										Primary Number
-									</span>
-									<p class="field-value">303-425-5565</p>
+									<p class="field-value">{{phone.number}}</p>
+									<i ng-show="phone.primary">Primary</i>
 								</div>
 							</div>
 							<div class="col-md-6"></div>
@@ -181,6 +180,36 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="bg-container row" ng-show="!model.auth_token">
+	<div class="login-container col-xs-12 col-sm-10 col-md-6 col-lg-4 col-sm-offset-1 col-md-offset-3 col-lg-offset-4">
+		<form name="loginForm" autocomplete="on" ng-submit="signUp()" ng-show="!model.showInvalidTokenMessage">
+			<div class="login-box">
+				<div class="login-box_header">
+					Hi, {{model.customerName}}!
+				</div>
+				<div class="login-box_body">
+					<div class="form-group" ng-class="{ 'has-error': loginForm.password.$invalid }">
+						<label>PO Number:<sup>*</sup></label>
+						<input type="text" name="password" class="form-control" ng-model="model.PONumber" tabindex="2" ng-required="required">
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<div ng-disabled="testPONumber()" class="btn login-btn" ng-click="signUp()" ng-keyup="$event.keyCode == 13 && signUp()" tabindex="3">
+					<span>LOG IN</span>
+					<img src="/images/West.png">
+					<input type="submit" style="display:none;">
+					<div class="spinner-wrapper">
+						<span us-spinner="{lines: 10, radius:5, width: 4, length: 8, scale: 0.75}" spinner-key="login-spinner"></span>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="text-center" ng-show="model.showInvalidTokenMessage">
+			<h2>Invalid access token</h2>
 		</div>
 	</div>
 </div>

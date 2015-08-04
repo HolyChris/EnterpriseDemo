@@ -31,7 +31,7 @@
 										
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.state.$error.required}">
 							<label class="control-label">State<sup>*</sup></label>
-							<select required name="state" class="form-control" ng-model="newSiteObject.address_attributes.state_id"  ng-options="state.id as state.abbreviation for state in states_array | orderBy: 'abbreviation'">
+							<select required name="state" class="form-control" ng-model="newSiteObject.address_attributes.state_id"  ng-options="state.id as state.abbreviation for state in states_array">
 							</select>
 						</div>
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.zipcode.$error.required}">
@@ -118,8 +118,8 @@
 										
 						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billState.$error.required}">
 							<label class="control-label">State<sup>*</sup></label>
-							<select required name="billState" class="form-control" ng-model="newSiteObject.bill_address_attributes.state_id"  ng-disabled="billingIsSameAsSite">
-								<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==billAddress.state_id">{{state.abbreviation}}</option>
+							<select required name="billState" class="form-control" ng-model="newSiteObject.bill_address_attributes.state_id"  ng-disabled="billingIsSameAsSite"
+							ng-options="state.id as state.abbreviation for state in states_array">
 							</select>
 						</div>
 						

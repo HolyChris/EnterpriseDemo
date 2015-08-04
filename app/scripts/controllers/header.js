@@ -1,7 +1,7 @@
 angular.module("ersApp")
   .controller("headerCtrl", function($scope, $rootScope, $state, $location, $timeout, $auth, User) {
-    
-    $rootScope.$on('$locationChangeStart', function(event) {
+    // collapse mobile nav on location change.
+    $rootScope.$on('$locationChangeEnd', function(event) {
       angular.element('.navbar-collapse').collapse('hide');
     });
 
@@ -11,7 +11,7 @@ angular.module("ersApp")
     // if the user is logged out
     // Ideally the header controller should't be present on login
     // TODO: Refactor to be a child view , than can be appended same as the Core info does in details
-    if ($location.path() !== "/resetpassword") {
+    if ($location.path() !== "/resetpassword" && $location.path() !== "/customerportal") {
       var user = User.save(function(data) {
         $scope.user.fullname = data.user.fullname;
       });
