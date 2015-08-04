@@ -91,6 +91,7 @@ angular.module('ersApp')
 
     if ($scope.newContract) {
       Contract.post({siteId:siteId},fd, function(data) {
+        console.log(data);
         usSpinnerService.stop('spinner-1');
         Flash.create('success', 'Contract successfully saved!');
         $scope.contract.document_url = data.contract.document_url;
