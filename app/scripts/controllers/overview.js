@@ -59,6 +59,9 @@ angular.module('ersApp')
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');
 
+    $scope.contract.signed_at = new Date($scope.contract.signed_at);
+    $scope.contract.price = parseFloat($scope.contract.price);
+
     if ($scope.newContract && !$scope.contract.document || !$scope.contract.signed_at) {
       Flash.create('danger', 'Document and Signed on date are required');
       usSpinnerService.stop('spinner-1');
@@ -104,6 +107,7 @@ angular.module('ersApp')
       });
     } else { 
       Contract.put({siteId:siteId},$scope.contract, function(data) {
+        console.log(data);
         usSpinnerService.stop('spinner-1');
         Flash.create('success', 'Contract successfully saved!');
         $scope.$parent.refreshNavStatus();
@@ -114,6 +118,11 @@ angular.module('ersApp')
         console.log(error);
       });
     }
+  }
+
+  $scope.removeDocument = function() {
+    delete $scope.contract.document_url;
+    delete $scope.contract.documentName;
   }
 
   function prepareProjectSectionsToBeEdited(site)

@@ -1,7 +1,9 @@
 angular.module("ersApp")
   .controller("headerCtrl", function($scope, $rootScope, $state, $location, $timeout, $auth, User) {
     
-
+    $rootScope.$on('$locationChangeStart', function(event) {
+      angular.element('.navbar-collapse').collapse('hide');
+    });
 
     // This is not ideal but it's the only way to retrieve user data
     // we don't have a client id in frontend
