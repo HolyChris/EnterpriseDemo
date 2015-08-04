@@ -40,7 +40,7 @@
 							<label ng-hide="contract.document_url.length > 0">{{ contract.document.name }}</label>
 							<div class="" ng-show="contract.document_url.length > 0">
 								<a href="{{contract.document_url}}" target="_blank">{{contract.documentName}}</a>
-								<small class="remove-document"><a ng-click="removeDocument()" class="text-danger">Remove Document</a></small>
+								<a ng-click="removeDocument()" class="btn-small btn btn-danger">Remove Document</a>
 							</div>
 						</div>
 						
