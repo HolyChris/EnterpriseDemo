@@ -1,7 +1,7 @@
 angular.module("ersApp")
   .controller("headerCtrl", function($scope, $rootScope, $state, $location, $timeout, $auth, User) {
     // collapse mobile nav on location change.
-    $rootScope.$on('$locationChangeEnd', function(event) {
+    $rootScope.$on('$locationChangeSuccess', function(event) {
       angular.element('.navbar-collapse').collapse('hide');
     });
 
