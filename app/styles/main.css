@@ -564,11 +564,7 @@ a:hover span {
   }
   .form-container {
     clear: both;
-    /*overflow: hidden;*/
     padding: 15px 0;
-  }
-  .overview-contract .form-container {
-    overflow: hidden;
   }
   .form-container label {
     color: #3b3d40;
