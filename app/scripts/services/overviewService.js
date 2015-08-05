@@ -15,3 +15,9 @@ overviewService.factory('Contract', function($resource, ENV, $location) {
     post: {method: "POST", headers: { 'Content-Type': undefined }},
   });
 });
+
+overviewService.factory('Portal', function($resource, ENV, $location) {
+  return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/contract/send_to_customer', {siteId:'@siteId'}, {
+    query: {method: "GET", isArray: false},
+  });
+});

@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address) {
+  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -56,11 +56,26 @@ angular.module('ersApp')
     $scope.opened = true;
   }
 
+  $scope.sendEmail = function() {
+    usSpinnerService.spin('spinner-2');
+    var siteId = $scope.project.id;
+    Portal.query({siteId:siteId}, function(data) {
+      if (data.errors) {
+        Flash.create('danger', 'Something happened, please refresh and try again.');
+      } else {
+        Flash.create('success', data.message);
+      }
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      usSpinnerService.stop('spinner-2');
+    });
+  }
+
   $scope.saveContract = function() {
     usSpinnerService.spin('spinner-1');
 
-    $scope.contract.signed_at = new Date($scope.contract.signed_at);
-    $scope.contract.price = parseFloat($scope.contract.price);
+    if ($scope.contract.price) {
+      $scope.contract.price = parseFloat($scope.contract.price);  
+    }
 
     if ($scope.newContract && !$scope.contract.document || !$scope.contract.signed_at) {
       Flash.create('danger', 'Document and Signed on date are required');
@@ -91,32 +106,34 @@ angular.module('ersApp')
 
     if ($scope.newContract) {
       Contract.post({siteId:siteId},fd, function(data) {
-        console.log(data);
-        usSpinnerService.stop('spinner-1');
-        Flash.create('success', 'Contract successfully saved!');
-        $scope.contract.document_url = data.contract.document_url;
-        $scope.contract.id = data.contract.id;
-        $scope.contract.po_number = data.contract.po_number;
-        $scope.contract.documentName = $scope.contract.document.name;
-        $scope.newContract = false;
-        $scope.$parent.refreshNavStatus();
-      }, function(error) {
-        usSpinnerService.stop('spinner-1');
-        $scope.contractErrors = error.data.errors;
-        Flash.create('danger', 'Something happened. See errors below.');
-        console.log(error);
+        if (data.errors) {
+          usSpinnerService.stop('spinner-1');
+          $scope.contractErrors = data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        } else {
+          usSpinnerService.stop('spinner-1');
+          Flash.create('success', 'Contract successfully saved!');
+          $scope.contract.document_url = data.contract.document_url;
+          $scope.contract.id = data.contract.id;
+          $scope.contract.po_number = data.contract.po_number;
+          $scope.contract.documentName = $scope.contract.document.name;
+          $scope.newContract = false;
+          $scope.$parent.refreshNavStatus();  
+        }        
       });
     } else { 
       Contract.put({siteId:siteId},$scope.contract, function(data) {
-        console.log(data);
-        usSpinnerService.stop('spinner-1');
-        Flash.create('success', 'Contract successfully saved!');
-        $scope.$parent.refreshNavStatus();
-      }, function(error) {
-        usSpinnerService.stop('spinner-1');
-        $scope.contractErrors = error.data.errors;
-        Flash.create('danger', 'Something happened. See errors below.');
-        console.log(error);
+        if (data.errors) {
+          usSpinnerService.stop('spinner-1');
+          $scope.contractErrors = data.errors;
+          Flash.create('danger', 'Something happened. See errors below.');
+        } else {
+          usSpinnerService.stop('spinner-1');
+          $scope.contract.document_url = data.contract.document_url;
+          $scope.contract.documentName = $scope.contract.document.name;
+          Flash.create('success', 'Contract successfully saved!');
+          $scope.$parent.refreshNavStatus();
+        } 
       });
     }
   }
