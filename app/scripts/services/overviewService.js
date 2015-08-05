@@ -11,7 +11,13 @@ overviewService.factory('Overview', function($resource, ENV) {
 overviewService.factory('Contract', function($resource, ENV, $location) {
   return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/contract/', {siteId:'@siteId'}, {
     query: {method: "GET", isArray: false},
-    put: {method: "PUT"},
+    put: {method: "PUT", headers: { 'Content-Type': undefined }},
     post: {method: "POST", headers: { 'Content-Type': undefined }},
+  });
+});
+
+overviewService.factory('Portal', function($resource, ENV, $location) {
+  return $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/contract/send_to_customer', {siteId:'@siteId'}, {
+    query: {method: "GET", isArray: false},
   });
 });
