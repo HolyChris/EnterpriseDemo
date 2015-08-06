@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal) {
+  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -500,6 +500,7 @@ angular.module('ersApp')
     if ($scope.phone_numbers_form.$valid){
 
 
+
       var phone_numbers_attributes_update ={
           phone_numbers_attributes: {}
       };
@@ -533,6 +534,27 @@ angular.module('ersApp')
   $scope.scrollTo = function(id) {
     $location.hash(id);
     $anchorScroll();
+  };
+
+  //TODO set proper flag value
+  $scope.userIsAdmin=true;
+
+  $scope.deleteSite = function(siteId){
+    Sites.delete({id: siteId}, $scope.site_edit, function(data){
+      if (data.errors){
+        //Request
+        Flash.create('danger', 'Site could not be deleted. Something happened.');
+      }
+      else{
+        //Request was succesful we have to redirect user to dashboard
+        Flash.create('success', 'Site was successfully deleted!');
+        $state.go('main');
+      }
+
+    }, function(error){
+      Flash.create('danger', 'Site could not be deleted. Something happened.');
+    });
+
   };
 
 });

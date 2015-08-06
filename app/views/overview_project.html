@@ -275,6 +275,16 @@
 						</fieldset>
 					</div>
 				</form>
+
+				<div class="form-left" ng-show="userIsAdmin">
+					<div class="form-title col-xs-12">
+						<span>ADMIN ACTIONS</span>
+						<span class="edit-btn btn-small pull-right btn-danger" ng-click="deleteSite(site_edit.id)" confirm="Are you sure you want to delete the current site?">
+							<!--<img src="/images/Write-white.png"/>-->
+							DELETE THIS SITE
+						</span>
+					</div>
+				</div>
 			</div>
 		</div>
 		</div>
