@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal) {
+  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -528,7 +528,7 @@ angular.module('ersApp')
       Flash.create('danger', 'Phone numbers information changes were not submitted. Check errors below.');
     }
 
-  }
+  };
 
   // Required to do hasbang to an element id
   $scope.scrollTo = function(id) {
@@ -536,8 +536,16 @@ angular.module('ersApp')
     $anchorScroll();
   };
 
-  //TODO set proper flag value
-  $scope.userIsAdmin=true;
+  //We check if current logged in user is admin
+  $scope.userIsAdmin=User.getCurrentUserDetails().then(
+    function(user){
+      $scope.userIsAdmin=user.isAdmin;
+    },
+    function(error){
+      Flash.create('danger', 'User access rights could not be queried. Something happened.');
+      $scope.errors=error;
+    }
+    );
 
   $scope.deleteSite = function(siteId){
     Sites.delete({id: siteId}, $scope.site_edit, function(data){

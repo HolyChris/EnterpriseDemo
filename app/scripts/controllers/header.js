@@ -12,7 +12,7 @@ angular.module("ersApp")
     // Ideally the header controller should't be present on login
     // TODO: Refactor to be a child view , than can be appended same as the Core info does in details
     if ($location.path() !== "/resetpassword" && $location.path() !== "/customerportal") {
-      var user = User.save(function(data) {
+      var user = User.resource.save(function(data) {
         $scope.user.fullname = data.user.fullname;
       });
     }
