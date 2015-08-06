@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $location, $anchorScroll, Flash, Project) {
+  .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $http, $location, $anchorScroll, Flash, Project, ENV) {
 
   	$scope.format = "yyyy-MM-dd";
   	$scope.opened = [];
@@ -19,12 +19,23 @@ angular.module('ersApp')
 	$scope.manufacturers_arr=Project.Manufacturers;
 	$scope.shingles_arr=Project.Shingles;
 	
+
+	$scope.sendCustomerPortalEmail = function() {
+		$http.get(ENV.apiEndpoint + "/api/v1/sites/"+ $scope.site.id +"/contract/send_to_customer").success(function(response) {
+			Flash.create('success', "Email sent to customer");
+		}).error(function(data) {
+				Flash.create('danger', data.message);
+		});
+
+	};
+
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
 
 		Project.getProjectDetailFromSite($stateParams.projectId,
 			function(data){
 				$scope.site = data.project.site;
+				$scope.customer = data.project.customer;
 				prepareProjectForView(data.project);
 				$rootScope.project_id=data.project.site.id;
 

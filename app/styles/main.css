@@ -1533,3 +1533,23 @@ h3.not-available {
 .navbar-collapse.collapse.hidden {
   display: none !important;
 }
+
+.project-customer-portal .form-container {
+  padding-left: 15px;
+  color: #838d8f;
+}
+
+
+.project-customer-portal .form-container button {
+  background: #499c4b;
+  padding: 5px 10px;
+  width: auto;
+  display: inline;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-size: 9px;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}

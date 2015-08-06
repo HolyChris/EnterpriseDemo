@@ -14,6 +14,26 @@
 		</div>
 
 		<div class="col-md-6 col-sm-8">
+
+			<div class="form-left project-customer-portal" ng-show="customer">
+				<div class="form-title col-xs-12" id="project-section">
+					<span> CUSTOMER PORTAL </span>
+				</div>
+				<div class="form-container">
+				<div ng-show="customer.customer_portal_visited">
+					<p>Customer Portal has been visited by customer</p>
+					<button class="send-email" ng-click="sendCustomerPortalEmail()">Re send Customer Portal Email</button>
+				</div>
+				<div ng-show="!customer.customer_portal_visited">
+					<button class="send-email" ng-click="sendCustomerPortalEmail()">Send Customer Portal Email</button>
+				</div>
+				<div>
+					<p>Or copy and share the link directly</p>
+					<a href="/#/customerportal?token={{customer.page_token}}">Link to portal</a>
+				</div>
+				</div>
+			</div>
+
 			<div class="form-left">
 				<div class="form-title col-xs-12" id="project-section">
 					<span> PROJECT </span>
