@@ -59,7 +59,7 @@
         <p><span>PO:</span> {{site.po_number}}</p>
         <p ng-show="!editStageMode"><span>STAGE:</span> <b class="text-uppercase">{{site.stage}}</b> <button ng-click="enableStageEdition()">Edit</button></p>
         <p ng-show="editStageMode"><span>STAGE:</span> 
-					<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.stage" ng-change="updateStage()" class="form-control"></select>
+					<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.new_stage" ng-change="updateStage()" class="form-control"></select>
         </p>
         <div class="row">
     		<span class="col-md-3">MANAGERS:</span>
