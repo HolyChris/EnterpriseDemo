@@ -548,7 +548,7 @@ angular.module('ersApp')
     );
 
   $scope.deleteSite = function(siteId){
-    Sites.delete({id: siteId}, $scope.site_edit, function(data){
+    Sites.delete({siteId: siteId}, $scope.site_edit, function(data){
       if (data.errors){
         //Request
         Flash.create('danger', 'Site could not be deleted. Something happened.');
