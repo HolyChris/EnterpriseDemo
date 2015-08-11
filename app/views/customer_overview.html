@@ -91,9 +91,24 @@
 						<input type="button" class="btn update-form" ng-click="updateThenSite(model.customer.id)" value="Update and Create Site">
 						<input type="button" class="btn update-form" ng-click="updateUser()" value="Update">
 					</div>
+
 				</div>
 			</div>
+
+			<div class="form-left" ng-show="userIsAdmin">
+				<div class="form-title col-xs-12">
+					<span>ADMIN ACTIONS</span>
+					<span class="edit-btn btn-small pull-right btn-danger" ng-click="deleteCustomer(model.customer.id)" confirm="Are you sure you want to delete the current customer?">
+						DELETE THIS CUSTOMER
+					</span>
+				</div>
+			</div>
+		
 		</div>
+
+		
+
+
 		<div class="col-xs-12 col-md-6 core-info-container">
 			<span>CUSTOMER SITES</span>
 			<div class="core-info-card" ng-repeat="site in model.customer.sites">
