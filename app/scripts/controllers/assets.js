@@ -51,7 +51,7 @@ angular.module('ersApp')
         fd.append('type', type);
         fd.append('attachments_attributes[0][file]', file);
         if (title) fd.append('title', title);
-        fd.append('stage', stage);
+        fd.append('stage', parseInt(stage));
         if (notes) fd.append('notes', notes);
         if (type === 'Document') {
           var docType = Assets.findDocType($scope.queue[index].doc_type);

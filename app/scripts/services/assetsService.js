@@ -25,8 +25,9 @@ assetsService.factory('Assets', function($resource, ENV) {
   var stages = [
     {title:'Opportunity',id:'1'},
     {title:'Under Contract',id:'2'},
-    {title:'Production',id:'3'},
-    {title:'Billing',id:'4'}
+    {title:'Under Contract',id:'3'},
+    {title:'Production',id:'4'},
+    {title:'Billing',id:'5'}
   ]
 
   var docTypes = [
