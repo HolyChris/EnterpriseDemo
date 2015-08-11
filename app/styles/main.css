@@ -733,23 +733,30 @@ a:hover span {
   margin: 20px auto 0;
   padding:15px 0 15px 20px;
 }
+
+.customer-content > .row,
 .proj-over-content > .row {
   margin: 0px 15px;
 }
+
 .proj-over-content > .row.row-no-margin {
   margin: 0;
 }
+
+.customer-content .form-left,
 .proj-over-content .form-left {
   min-height: 0px;
   height: auto;
   border-radius: 4px;
 }
+
 .proj-over-content .form-left:last-child{
   margin-bottom:30px;
 }
 .form-left .form-container fieldset {
   clear: both;
 }
+
 .proj-over-content .form-right{
   float:left;
   margin-bottom: 2em;
@@ -762,10 +769,14 @@ a:hover span {
 .contract-sign-form{
   height: auto;
 }
+
+.customer-content .form-container .form-control,
+.customer-content .form-container .input-group-btn .btn,
 .proj-over-content .form-container .form-control,
 .proj-over-content .form-container .input-group-btn .btn {
   height: 45px;
 }
+
 .proj-over-content .form-container .textarea {
   height: 200px;
 }
@@ -1004,6 +1015,8 @@ tbody td{
   font-size: 12px;
   font-family: 'Montserrat-Bold';
 }
+
+.customer-content .form-title .edit-btn,
 .proj-over-content .form-title .edit-btn{
     background: #499c4b;
     padding: 2px 10px;
@@ -1022,6 +1035,8 @@ tbody td{
     letter-spacing: 1px;
     cursor: pointer;
   }
+
+  .customer-content .form-title .edit-btn img,
   .proj-over-content .form-title .edit-btn img{
     margin-right: 5px;
   }
