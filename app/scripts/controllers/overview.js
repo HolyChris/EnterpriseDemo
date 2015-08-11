@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal) {
+  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -500,6 +500,7 @@ angular.module('ersApp')
     if ($scope.phone_numbers_form.$valid){
 
 
+
       var phone_numbers_attributes_update ={
           phone_numbers_attributes: {}
       };
@@ -527,12 +528,41 @@ angular.module('ersApp')
       Flash.create('danger', 'Phone numbers information changes were not submitted. Check errors below.');
     }
 
-  }
+  };
 
   // Required to do hasbang to an element id
   $scope.scrollTo = function(id) {
     $location.hash(id);
     $anchorScroll();
+  };
+
+  //We check if current logged in user is admin
+  $scope.userIsAdmin=User.getCurrentUserDetails().then(
+    function(user){
+      $scope.userIsAdmin=user.isAdmin;
+    },
+    function(error){
+      Flash.create('danger', 'User access rights could not be queried. Something happened.');
+      $scope.errors=error;
+    }
+    );
+
+  $scope.deleteSite = function(siteId){
+    Sites.delete({siteId: siteId}, $scope.site_edit, function(data){
+      if (data.errors){
+        //Request
+        Flash.create('danger', 'Site could not be deleted. Something happened.');
+      }
+      else{
+        //Request was succesful we have to redirect user to dashboard
+        Flash.create('success', 'Site was successfully deleted!');
+        $state.go('main');
+      }
+
+    }, function(error){
+      Flash.create('danger', 'Site could not be deleted. Something happened.');
+    });
+
   };
 
 });
