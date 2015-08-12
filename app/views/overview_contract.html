@@ -109,16 +109,28 @@
 					</div>
 					<div class="form-container">
 						<div class="col-xs-12"><span>When you’re done - click the save button below.</span></div>
-						<div class="form-group col-sm-6">
+						<div class="form-group col-xs-12">
 							<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)">
 							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-1"></span>
 						</div>
-						<div class="form-group col-sm-6 text-right">
-							<input ng-click="sendEmail()" class="btn save-btn" value="Send Email to Customer">
+					</div>
+				</div>
+				<div class="save-form form-left" style="margin-top:20px;">
+					<div class="col-xs-12 form-title">
+						<span class="badge">4</span>
+						<span>step 4: ALERT CUSTOMER </span>
+					</div>
+					<div class="form-container">
+					  <div class="col-xs-12"><span>Let the customer know that they have information available for review.</span></div>
+						<div class="form-group col-sm-6">
+							<input ng-click="sendEmail()" class="btn save-btn" value="SEND TO CUSTOMER">
 							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-2"></span>
 						</div>
+						<div class="form-group col-sm-6 text-right">
+							<!-- <input ng-click="copyURL()" class="btn save-btn" value="COPY URL">
+							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-3"></span> -->
+						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
