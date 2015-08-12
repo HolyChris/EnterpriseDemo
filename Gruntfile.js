@@ -361,7 +361,67 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
+      development_artwork: { //For the moment we'll use ecoroof artwork for development
+        files: [
+          {
+            expand: true,
+            cwd: './sites/development',
+            dest: '<%= yeoman.dist %>/images',
+            src: 'logo.png'
+          },
+          {
+            expand: true,
+            cwd: './sites/development',
+            dest: '<%= yeoman.dist %>',
+            src: 'favicon.ico'
+          },
+      ]},
+      ecoroof_artwork: {
+        files: [
+          {
+            expand: true,
+            cwd: './sites/ecoroof',
+            dest: '<%= yeoman.dist %>/images',
+            src: 'logo.png'
+          },
+          {
+            expand: true,
+            cwd: './sites/ecoroof',
+            dest: '<%= yeoman.dist %>',
+            src: 'favicon.ico'
+          },
+      ]},
+      monarch_artwork: {
+        files: [
+          {
+            expand: true,
+            cwd: './sites/monarch',
+            dest: '<%= yeoman.dist %>/images',
+            src: 'logo.png'
+          },
+          {
+            expand: true,
+            cwd: './sites/monarch',
+            dest: '<%= yeoman.dist %>',
+            src: 'favicon.ico'
+          },
+      ]},
+      endeavor_artwork: {
+        files: [
+          {
+            expand: true,
+            cwd: './sites/endeavor',
+            dest: '<%= yeoman.dist %>/images',
+            src: 'logo.png'
+          },
+          {
+            expand: true,
+            cwd: './sites/endeavor',
+            dest: '<%= yeoman.dist %>',
+            src: 'favicon.ico'
+          },
+      ]}
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -419,14 +479,39 @@ module.exports = function (grunt) {
           }
         }
       },
-      production: {
+      prod_ecoroof: {
         options: {
-          dest: '<%= yeoman.dist %>/scripts/config.js'
+          dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: {
-            name: 'production',
-            apiEndpoint: 'http://54.68.73.69'
+            name: 'prod_ecoroof',
+            apiEndpoint: 'https://eco-roof.herokuapp.com'
+            //URL: http://www.ecocp.ecoroofandsolar.com
+          }
+        }
+      },
+      prod_endeavor: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'prod_endeavor',
+            apiEndpoint: 'https://endeavor-exteriors.herokuapp.com'
+            //URL: http://endeavor-exteriors.bitballoon.com/
+          }
+        }
+      },
+      prod_monarch: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'prod_monarch',
+            apiEndpoint: 'http://monarch-roofing.herokuapp.com'
+            //URL: http://endeavor-exteriors.bitballoon.com/
           }
         }
       }
@@ -436,7 +521,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build_dev', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -467,9 +552,7 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'ngconstant:production',
+  grunt.registerTask('common_build_steps', [
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -483,6 +566,34 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('build_dev', [
+    'clean:dist',
+    'ngconstant:development',
+    'copy:development_artwork',
+    'common_build_steps'
+  ]);
+
+  grunt.registerTask('build_ecoroof', [
+    'clean:dist',
+    'ngconstant:prod_ecoroof',
+    'copy:ecoroof_artwork',
+    'common_build_steps'
+  ]);
+
+  grunt.registerTask('build_endeavor', [
+    'clean:dist',
+    'ngconstant:prod_endeavor',
+    'copy:endeavor_artwork',
+    'common_build_steps'
+  ]);
+
+  grunt.registerTask('build_monarch', [
+    'clean:dist',
+    'ngconstant:prod_monarch',
+    'copy:monarch_artwork',
+    'common_build_steps'
   ]);
 
   grunt.registerTask('default', [
