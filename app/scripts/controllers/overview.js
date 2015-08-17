@@ -109,9 +109,14 @@ angular.module('ersApp')
           work_type_ids.push(value);
         }
       }
-      for (var i = 0; i < work_type_ids.length; i++) {
-        fd.append('work_type_ids[]', work_type_ids[i]);
+      if (work_type_ids.length) {
+        for (var i = 0; i < work_type_ids.length; i++) {
+          fd.append('work_type_ids[]', work_type_ids[i]);
+        }
+      } else {
+        fd.append('work_type_ids[]', '');
       }
+      
       $scope.contract.work_type_ids = work_type_ids;
     }
 
@@ -138,6 +143,7 @@ angular.module('ersApp')
       });
     } else {
       Contract.put({siteId:siteId},fd, function(data) {
+        console.log(data);
         if (data.errors) {
           usSpinnerService.stop('spinner-1');
           $scope.contractErrors = data.errors;
