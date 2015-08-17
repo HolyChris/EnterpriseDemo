@@ -143,7 +143,6 @@ angular.module('ersApp')
       });
     } else {
       Contract.put({siteId:siteId},fd, function(data) {
-        console.log(data);
         if (data.errors) {
           usSpinnerService.stop('spinner-1');
           $scope.contractErrors = data.errors;
@@ -203,7 +202,7 @@ angular.module('ersApp')
         $scope.newContract = false;
 
         // get Customer Portal Data
-        Project.getProjectDetailFromSite(96, function(data) {
+        Project.getProjectDetailFromSite($stateParams.projectId, function(data) {
           $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + '/#/customerportal?token=' + data.project.customer.page_token;
         });
 
