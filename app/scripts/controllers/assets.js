@@ -57,10 +57,8 @@ angular.module('ersApp')
           var docType = Assets.findDocType($scope.queue[index].doc_type);
           fd.append('doc_type', docType);
         }
-        console.log(stage);
 
         Assets.resource.save({siteId: projectId}, fd, function(data) {
-          console.log(data);
           var newFile = [data.asset];
           $scope.queue[index].state = 'resolved';
           $scope.uploading = false;
