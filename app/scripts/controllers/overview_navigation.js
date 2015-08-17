@@ -65,6 +65,7 @@ angular.module('ersApp')
       $scope.globalData = Sites.get({siteId: $stateParams.projectId}, function(data) {
         $scope.setNavStatus(data.site);
         $scope.site = data.site;
+        $scope.site.new_stage=$scope.site.stage;
       });
     };
 
