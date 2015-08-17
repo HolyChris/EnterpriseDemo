@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User) {
+  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User,Project) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -189,6 +189,12 @@ angular.module('ersApp')
       if ($scope.project.contract) {
         prepareContractView($scope.project.contract);
         $scope.newContract = false;
+
+        // get Customer Portal Data
+        Project.getProjectDetailFromSite(96, function(data) {
+          $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + '/#/customerportal?token=' + data.project.customer.page_token;
+        });
+
       } else {
         $scope.newContract = true;
       }
