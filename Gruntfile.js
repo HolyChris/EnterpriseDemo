@@ -139,6 +139,16 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
+      development_artwork: {
+        files: [
+          {
+            src: [
+              '<%= yeoman.app %>/favicon.ico',
+              '<%= yeoman.app %>/images/logo.png'
+            ]
+          }
+        ]
+      },
       dist: {
         files: [{
           dot: true,
@@ -367,13 +377,13 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: './sites/development',
-            dest: '<%= yeoman.dist %>/images',
+            dest: '<%= yeoman.app %>/images',
             src: 'logo.png'
           },
           {
             expand: true,
             cwd: './sites/development',
-            dest: '<%= yeoman.dist %>',
+            dest: '<%= yeoman.app %>',
             src: 'favicon.ico'
           },
       ]},
@@ -427,7 +437,8 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:styles',
+        'copy:development_artwork'
       ],
       test: [
         'copy:styles'
@@ -526,6 +537,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'copy:development_artwork',
       'ngconstant:development',
       'wiredep',
       'concurrent:server',
@@ -578,6 +590,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build_ecoroof', [
     'clean:dist',
     'ngconstant:prod_ecoroof',
+    'clean:development_artwork',
     'copy:ecoroof_artwork',
     'common_build_steps'
   ]);
@@ -585,6 +598,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build_endeavor', [
     'clean:dist',
     'ngconstant:prod_endeavor',
+    'clean:development_artwork',
     'copy:endeavor_artwork',
     'common_build_steps'
   ]);
@@ -592,6 +606,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build_monarch', [
     'clean:dist',
     'ngconstant:prod_monarch',
+    'clean:development_artwork',
     'copy:monarch_artwork',
     'common_build_steps'
   ]);

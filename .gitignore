@@ -2,6 +2,7 @@
 grunt-bitballoon.json
 /app/scripts/config.js
 /app/favicon.ico
+/app/images/logo.png
 /bower_components
 /dist
 /.tmp
