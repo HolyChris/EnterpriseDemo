@@ -97,7 +97,9 @@ angular.module('ersApp')
 
     var fd = new FormData(); // prepare as form data to handle files.
     for (var key in $scope.contract) {
-      fd.append(key, $scope.contract[key]);
+      if (key !== 'work_types' && key !== 'po_number' && key !== 'ers_sign_image_url' && key !== 'customer_sign_image_url' && key !== 'documentName' && key !== 'document_url') {
+        fd.append(key, $scope.contract[key]);  
+      }
     }
 
     if ($scope.work_types) {
@@ -209,7 +211,6 @@ angular.module('ersApp')
       } else {
         $scope.newContract = true;
       }
-      
       
     });
   }

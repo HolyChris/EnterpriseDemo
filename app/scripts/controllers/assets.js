@@ -195,7 +195,7 @@ angular.module('ersApp')
     }
   };
 }])
-.controller('FileDestroyController', ['$rootScope', '$scope', '$http', 'fileUpload', 'Assets', function ($rootScope, $scope, $http, fileUpload, Assets) {
+.controller('FileDestroyController', ['$rootScope', '$scope', '$http', '$confirm', 'fileUpload', 'Assets', function ($rootScope, $scope, $http, $confirm, fileUpload, Assets) {
   var file = $scope.file,
     state;
 
@@ -239,19 +239,17 @@ angular.module('ersApp')
       });
     }
     file.$destroy = function (file) {
-      state = 'pending';
-      var result = confirm('Are you sure you wish to delete the asset ' + file.file_name + '?');
-      if (result) {
-        Assets.resource.delete({siteId: file.siteId, assetId: file.result.id}, function(data) {
-          state = 'resolved';
-          $scope.clear(file);
-        }, function(error) {
-          file.error = 'Please try again.';
-          state = 'rejected';
-        });
-      } else {
-        state = 'resolved';
-      }
+      $confirm({text: 'Are you sure you wish to delete the asset ' + file.file_name + '?', title: 'Delete Asset'})
+        .then(function() {
+          state = 'pending';
+          Assets.resource.delete({siteId: file.siteId, assetId: file.result.id}, function(data) {
+            state = 'resolved';
+            $scope.clear(file);
+          }, function(error) {
+            file.error = 'Please try again.';
+            state = 'rejected';
+          });
+      });
     };
   } else if (!file.$cancel && !file._index) {
     file.$cancel = function () {
