@@ -529,6 +529,7 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build_dev', 'connect:dist:keepalive']);
     }
+    grunt.config('prompt.which_site.site','staging');
 
     grunt.task.run([
       'clean:server',
