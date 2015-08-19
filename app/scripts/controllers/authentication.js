@@ -4,8 +4,6 @@ angular.module('ersApp')
     $rootScope.showSite = true;
     $scope.resetemail = "";
 
-    console.log($stateParams)
-
     $scope.signUp = function() {
       usSpinnerService.spin('login-spinner');
       $auth.logout();

@@ -1,6 +1,5 @@
 angular.module('ersApp')
   .controller('ResetPasswordCtrl', function($scope, $stateParams, $state, $http, $rootScope, Flash, ENV) {
-    console.log("HERE")
     $scope.model = {};
     $rootScope.isAuthenticated = false;
     $scope.model.password = "";
@@ -9,7 +8,6 @@ angular.module('ersApp')
 
 
     $scope.sendResetPassword = function() {
-      console.log('send reset');
       var params =
         "reset_password_token=" + $stateParams.reset_password_token + "&" + 
         "password=" + $scope.model.password + "&" +
