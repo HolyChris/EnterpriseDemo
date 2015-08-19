@@ -181,7 +181,7 @@ angular.module('ersApp')
     $scope.contract.signed_at = new Date(contract.signed_at);
     $scope.contract.contract_type = workTypeValues[contract.contract_type];
     if (contract.price) {
-      var price = contract.price.replace('$', '').replace(',', '');
+      var price = contract.price.replace('$', '').replace(/,/g, '');
       $scope.contract.price = parseFloat(price);
     }
     var path = contract.document_url.substring(contract.document_url.lastIndexOf('/') + 1);
