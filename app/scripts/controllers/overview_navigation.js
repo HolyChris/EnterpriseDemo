@@ -50,7 +50,8 @@ angular.module('ersApp')
           Sites.save({
             siteId: $scope.project_id,
             current_stage: hash[$scope.site.new_stage]
-            }, function() {
+            }, function(data) {
+              console.log(data);
               $scope.disableStageEdition();
             });
       }
