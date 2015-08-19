@@ -139,6 +139,16 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
+      development_artwork: {
+        files: [
+          {
+            src: [
+              '<%= yeoman.app %>/favicon.ico',
+              '<%= yeoman.app %>/images/logo.png'
+            ]
+          }
+        ]
+      },
       dist: {
         files: [{
           dot: true,
@@ -362,63 +372,18 @@ module.exports = function (grunt) {
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       },
-      development_artwork: { //For the moment we'll use ecoroof artwork for development
+      site_artwork: { //will copy site specifict artwork
         files: [
           {
             expand: true,
-            cwd: './sites/development',
-            dest: '<%= yeoman.dist %>/images',
+            cwd: './sites/<%= prompt.which_site.site %>',
+            dest: '<%= yeoman.app %>/images',
             src: 'logo.png'
           },
           {
             expand: true,
-            cwd: './sites/development',
-            dest: '<%= yeoman.dist %>',
-            src: 'favicon.ico'
-          },
-      ]},
-      ecoroof_artwork: {
-        files: [
-          {
-            expand: true,
-            cwd: './sites/ecoroof',
-            dest: '<%= yeoman.dist %>/images',
-            src: 'logo.png'
-          },
-          {
-            expand: true,
-            cwd: './sites/ecoroof',
-            dest: '<%= yeoman.dist %>',
-            src: 'favicon.ico'
-          },
-      ]},
-      monarch_artwork: {
-        files: [
-          {
-            expand: true,
-            cwd: './sites/monarch',
-            dest: '<%= yeoman.dist %>/images',
-            src: 'logo.png'
-          },
-          {
-            expand: true,
-            cwd: './sites/monarch',
-            dest: '<%= yeoman.dist %>',
-            src: 'favicon.ico'
-          },
-      ]},
-      endeavor_artwork: {
-        files: [
-          {
-            expand: true,
-            cwd: './sites/endeavor',
-            dest: '<%= yeoman.dist %>/images',
-            src: 'logo.png'
-          },
-          {
-            expand: true,
-            cwd: './sites/endeavor',
-            dest: '<%= yeoman.dist %>',
+            cwd: './sites/<%= prompt.which_site.site %>',
+            dest: '<%= yeoman.app %>',
             src: 'favicon.ico'
           },
       ]}
@@ -427,7 +392,8 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:styles',
+        'copy:site_artwork'
       ],
       test: [
         'copy:styles'
@@ -448,17 +414,57 @@ module.exports = function (grunt) {
     },
 
     // Bit Balloon Configuration
-    bb: grunt.file.readJSON('grunt-bitballoon.json'),
+    bb: {
+      token: 'NONE. TO BE PROVIDED TROUGHT INPUT',
+      sitename:  'NONE. TO BE PROVIDED TROUGHT INPUT'
+    },
     bitballoon: {
       options: {
         token: '<%= bb.token %>',
         src: 'dist'
       },
-      dev: {
-        site: '<%= bb.dev_site %>'
+      staging: {
+        site: 'http://eco-roof-and-solar.bitballoon.com/'
+      },
+      endeavor: {
+        site: 'http://endeavor-exteriors.bitballoon.com/'
+      },
+      ecoroof: {
+        site: 'http://www.ecocp.ecoroofandsolar.com/'
+      },
+      monarch: {
+        site: 'http://monarch-roofing.bitballoon.com/'
       }
     },
     
+    prompt: {
+      bbtoken:{
+        options:{
+          questions:[
+            {
+              config: 'bb.token',
+              type: 'password',
+              message: 'Please provide your Bitballoon token'
+            }
+          ]
+        }
+      },
+      which_site:{
+        options:{
+          site: 'staging',
+          questions:[
+            {
+              config: 'prompt.which_site.site',
+              type: 'list',
+              message: 'Which site?',
+              default: 'staging',
+              choices: ['staging', 'ecoroof', 'endeavor', 'monarch']
+            }
+          ]
+        }
+      }
+    },
+
     ngconstant: {
       // Options for all targets
       options: {
@@ -467,49 +473,49 @@ module.exports = function (grunt) {
         name: 'config',
       },
       // Environment targets
-      development: {
+      staging: {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: {
-            name: 'development',
+            name: 'staging',
             //apiEndpoint: 'http://localhost:3000'
             apiEndpoint: 'http://54.68.73.69'
           }
         }
       },
-      prod_ecoroof: {
+      ecoroof: {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: {
-            name: 'prod_ecoroof',
+            name: 'ecoroof',
             apiEndpoint: 'https://eco-roof.herokuapp.com'
             //URL: http://www.ecocp.ecoroofandsolar.com
           }
         }
       },
-      prod_endeavor: {
+      endeavor: {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: {
-            name: 'prod_endeavor',
+            name: 'endeavor',
             apiEndpoint: 'https://endeavor-exteriors.herokuapp.com'
             //URL: http://endeavor-exteriors.bitballoon.com/
           }
         }
       },
-      prod_monarch: {
+      monarch: {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
         },
         constants: {
           ENV: {
-            name: 'prod_monarch',
+            name: 'monarch',
             apiEndpoint: 'http://monarch-roofing.herokuapp.com'
             //URL: http://endeavor-exteriors.bitballoon.com/
           }
@@ -523,10 +529,12 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build_dev', 'connect:dist:keepalive']);
     }
+    grunt.config('prompt.which_site.site','staging');
 
     grunt.task.run([
       'clean:server',
-      'ngconstant:development',
+      'copy:site_artwork',
+      'ngconstant:staging',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -538,6 +546,20 @@ module.exports = function (grunt) {
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
+  });
+
+  grunt.registerTask('build_and_deploy', 'Build and deploy site into Bitballoon bucket', function (){
+    grunt.task.run(['build','prompt:bbtoken', 'deploy_site']);
+  });
+
+  grunt.registerTask('deploy', 'Deploy dist dir into Bitballoon bucket', function (site){
+    grunt.task.run(['prompt:which_site','prompt:bbtoken', 'deploy_site']);
+  });
+
+  grunt.registerTask('deploy_site', 'Deploy dist dir into Bitballoon bucket for a site', function (){
+    var site_name= grunt.config('prompt.which_site.site');
+    grunt.log.debug('The dist folder will be deployed into Bitballoon site [' + site_name + ']');
+    grunt.task.run([ 'bitballoon:' + site_name ]);
   });
 
   grunt.registerTask('heroku',
@@ -568,33 +590,27 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('build_dev', [
-    'clean:dist',
-    'ngconstant:development',
-    'copy:development_artwork',
-    'common_build_steps'
-  ]);
+  grunt.registerTask('build',
+    [
+      'prompt:which_site',
+      'build_site'
 
-  grunt.registerTask('build_ecoroof', [
-    'clean:dist',
-    'ngconstant:prod_ecoroof',
-    'copy:ecoroof_artwork',
-    'common_build_steps'
-  ]);
+    ]
+  );
 
-  grunt.registerTask('build_endeavor', [
-    'clean:dist',
-    'ngconstant:prod_endeavor',
-    'copy:endeavor_artwork',
-    'common_build_steps'
-  ]);
-
-  grunt.registerTask('build_monarch', [
-    'clean:dist',
-    'ngconstant:prod_monarch',
-    'copy:monarch_artwork',
-    'common_build_steps'
-  ]);
+  grunt.registerTask('build_site','About to build into dist folder', function(){
+    var site_name= grunt.config('prompt.which_site.site');
+    grunt.log.debug('The [' + site_name + '] will be built into dist folder.');
+    grunt.task.run(
+      [
+        'clean:dist',
+        'ngconstant:' + site_name,
+        'clean:development_artwork',
+        'copy:site_artwork',
+        //'copy:'  +  site_name + '_artwork',
+        'common_build_steps'
+      ]);
+  });
 
   grunt.registerTask('default', [
     'newer:jshint',
@@ -603,5 +619,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.loadNpmTasks('grunt-bitballoon'); //grunt bitballoon:dev
+  grunt.loadNpmTasks('grunt-prompt');
 };
 
