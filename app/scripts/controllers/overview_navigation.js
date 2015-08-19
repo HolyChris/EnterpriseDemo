@@ -18,6 +18,10 @@ angular.module('ersApp')
       }, {
         value: "Billing",
         label: "Billing",
+      },
+      {
+        value: "Closed",
+        label: "Closed",
       }
     ];
 
@@ -26,7 +30,8 @@ angular.module('ersApp')
       var hash = {
         'Under Contract': 'contract',
         'Production': 'production',
-        'Billing': 'billing'
+        'Billing': 'billing',
+        'Closed': 'closed'
       };
 
       if ($scope.site.stage === 'Opportunity'){
@@ -49,8 +54,8 @@ angular.module('ersApp')
               $scope.disableStageEdition();
             });
       }
-      
-      
+
+
     };
 
     $scope.enableStageEdition = function() {
