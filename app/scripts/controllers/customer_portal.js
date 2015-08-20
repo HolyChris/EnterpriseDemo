@@ -59,7 +59,6 @@ angular.module('ersApp')
       	},
       	skipAuthorization: true
     	}).then(function(data) {
-        console.log(data);
         if (data.status === 422 || data.status === 404) {
         	Flash.create('danger', data.data.message);
         	$scope.model.auth_token = false;
