@@ -59,11 +59,13 @@ angular.module('ersApp')
       	},
       	skipAuthorization: true
     	}).then(function(data) {
+        console.log(data);
         if (data.status === 422 || data.status === 404) {
         	Flash.create('danger', data.data.message);
         	$scope.model.auth_token = false;
         } else {
   	      $scope.model.userInfo = data.data;
+          $scope.model.userInfo.project.contractName = data.data.project.contract_document_url.substr(data.data.project.contract_document_url.lastIndexOf("/")+1);
         }
       });
   	};

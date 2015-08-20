@@ -15,7 +15,7 @@ assetsService.factory('Images', function($resource, ENV) {
 });
 
 assetsService.factory('Assets', function($resource, ENV) {
-  var resource = $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/assets/:assetId', {siteId:'@siteId', assetId:'@assetId'}, {
+  var resource = $resource(ENV.apiEndpoint + '/api/v1/sites/:siteId/assets/:assetId', {siteId:'@siteId', assetId:'@assetId', per_page:100}, {
     query: {method: "GET", isArray: false},
     save: {method: "POST", headers: { 'Content-Type': undefined }},
     update: {method: "PUT", headers: { 'Content-Type': undefined }},

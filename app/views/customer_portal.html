@@ -29,7 +29,70 @@
 					<span class="date">{{model.userInfo.project.production_inspection_date}}</span>
 					<p>Planned final inspection</p>
 				</div>
-
+			</div>
+		</div>
+		<div class="col-md-8 customer-downloads">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="download-wrap download-contract">
+						<span class="field-title">DOCUMENT</span>
+						<div class="download">
+							<div class="info">
+								<img src="/images/text_file.png" class="pull-left">
+								<p class="title"><b>CONTRACT</b></p>
+								<p class="byline">{{model.userInfo.project.contract_signed_date}}</p>	
+							</div>
+							<div class="download-section">
+								<a href="{{model.userInfo.project.contract_document_url}}" class="download-link" target="_self" download="{{model.userInfo.project.contractName}}">DOWNLOAD <span class="glyphicon glyphicon-download-alt pull-right" aria-hidden="true"></span></a>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="download-wrap download-welcome">
+						<span class="field-title">DOCUMENT</span>
+						<div class="download">
+							<div class="info">
+								<img src="/images/text_file.png" class="pull-left">
+								<p class="title"><b>WELCOME PACKET</b></p>
+								<p class="byline">&nbsp;</p>	
+							</div>
+							<div class="download-section disabled">
+								<p>AVAILABLE SOON</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="download-wrap download-completion">
+						<span class="field-title">DOCUMENT</span>
+						<div class="download">
+							<div class="info">
+								<img src="/images/text_file.png" class="pull-left">
+								<p class="title"><b>COMPLETION PACKET</b></p>
+								<p class="byline">&nbsp;</p>	
+							</div>
+							<div class="download-section disabled">
+								<p>AVAILABLE SOON</p>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="download-wrap download-warranty">
+						<span class="field-title">DOCUMENT</span>
+						<div class="download">
+							<div class="info">
+								<img src="/images/text_file.png" class="pull-left">
+								<p class="title"><b>WARRANTY</b></p>
+								<p class="byline">&nbsp;</p>	
+							</div>
+							<div class="download-section disabled">
+								<p>AVAILABLE SOON</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -153,13 +216,13 @@
 									<span class="field-title">
 										Site Name
 									</span>
-									<p class="field-value">Higgins Residence</p>
+									<p class="field-value">{{model.userInfo.site.name}}</p>
 								</div>
 								<div class="customer-field">
 									<span class="field-title">
 										Site Contact Name
 									</span>
-									<p class="field-value">-</p>
+									<p class="field-value">{{model.userInfo.customer.firstname}} {{model.userInfo.customer.lastname}}</p>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -167,14 +230,14 @@
 									<span class="field-title">
 										Managers
 									</span>
-									<p class="field-value">Ryan Nichols</p>
+									<p class="field-value" ng-repeat="manager in model.userInfo.site.managers">{{manager.email}}</p>
 								</div>
-								<div class="customer-field">
+								<!-- <div class="customer-field">
 									<span class="field-title">
 										Site Contact Name
 									</span>
 									<p class="field-value">-</p>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
