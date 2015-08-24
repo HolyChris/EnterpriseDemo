@@ -17,7 +17,6 @@ addressesService.factory('Address', function($resource, ENV) {
 		{abbreviation: 'MO', id:10},
 		{abbreviation: 'AR', id:11},
 		{abbreviation: 'NV', id:12},
-		{abbreviation: 'DC', id:13},
 		{abbreviation: 'ID', id:14},
 		{abbreviation: 'NE', id:15},
 		{abbreviation: 'PA', id:16},
@@ -55,10 +54,7 @@ addressesService.factory('Address', function($resource, ENV) {
 		{abbreviation: 'NY', id:48},
 		{abbreviation: 'SC', id:49},
 		{abbreviation: 'AK', id:50},
-		{abbreviation: 'WV', id:51},
-		{abbreviation: 'AA', id:52},
-		{abbreviation: 'AE', id:53},
-		{abbreviation: 'AP', id:54}
+		{abbreviation: 'WV', id:51}
 
 	];
 

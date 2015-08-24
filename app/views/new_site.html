@@ -1,15 +1,15 @@
 <div class="container site-container">
   <div flash-message="5000"></div>
-	<div class="container site-content">
+	<div class="site-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				SITES/<u>CREATE NEW SITE</u>
 			</div>
 		</div>
 		<form name="newsite" id="newsite" class="row" novalidate>
-			<div class="form-left-container">
-				<div class="col-md-6 site-info-form form-left">
-					<div class="form-title">
+			<div class="col-md-6">
+				<div class="site-info-form">
+					<div class="form-title col-xs-12">
 						<span class="badge">1</span>
 						<span>step 1: ENTER SITE INFORMATION</span>
 					</div>	
@@ -41,8 +41,8 @@
 					
 					</div>
 				</div>
-				<div class="col-md-6 site-detail-form form-left">
-					<div class="form-title">
+				<div class="site-detail-form">
+					<div class="form-title col-xs-12">
 						<span class="badge">2</span>
 						<span>step 2: ENTER SITE DETAILS</span>
 					</div>	
@@ -93,86 +93,89 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 bill-info-form form-right">
-				<div class="form-title">
-					<span class="badge">3</span>
-					<span>step 3: ENTER BILLING INFORMATION</span>
-					<span class="pull-right"><input type="checkbox" name="samebill" id="samebill" ng-model="billingIsSameAsSite" ng-change="sameAsSiteAddressChanged()"><label for="samebill">Same as Site Address?</label></span>
-				</div>	
-				<div class="form-container">
-					<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billAddress1.$error.required}">
-						<label class="control-label">Address 1<sup>*</sup></label>
-						<input required type="text" name="billAddress1" class="form-control" ng-model="newSiteObject.bill_address_attributes.address1" ng-disabled="billingIsSameAsSite">
+			<div class="col-md-6">
+				<div class="bill-info-form">
+					<div class="form-title col-xs-12">
+						<span class="badge">3</span>
+						<span>step 3: ENTER BILLING INFORMATION</span>
 					</div>
-					
-					<div class="form-group col-lg-6">
-						<label class="control-label">Address 2</label>
-						<input type="text" name="billAddress2" class="form-control" ng-model="newSiteObject.bill_address_attributes.address2" ng-disabled="billingIsSameAsSite">
-					</div>
-					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billCity.$error.required}">
-						<label class="control-label">City<sup>*</sup></label>
-						<input required type="text" name="billCity" class="form-control" ng-model="newSiteObject.bill_address_attributes.city" ng-disabled="billingIsSameAsSite">
-					</div>
-									
-					<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billState.$error.required}">
-						<label class="control-label">State<sup>*</sup></label>
-						<select required name="billState" class="form-control" ng-model="newSiteObject.bill_address_attributes.state_id"  ng-disabled="billingIsSameAsSite" ng-options="state.id as state.abbreviation for state in states_array | orderBy: 'abbreviation'">
-						</select>
-					</div>
-					
-					<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billZipcode.$error.required}">
-						<label class="control-label">Zip<sup>*</sup></label>
-						<input required type="text" name="billZipcode" class="form-control" ng-model="newSiteObject.bill_address_attributes.zipcode"  ng-disabled="billingIsSameAsSite">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 bill-info-form form-right">
-				<div class="form-title">
-					<span class="badge">4</span>
-					<span>step 4: ENTER MANAGER INFORMATION</span>
-				</div>	
-				<div class="form-container">
-					<div class="form-group col-lg-6">
-						<label class="control-label">Managers</label>
-						<input type="text" name="managers" class="form-control" ng-model="managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" >
-					</div>
-					<div class="form-group col-lg-6">
-						<div>
-							<p class="selected-manager" ng-repeat="manager in managers">
-								<span class="manager-email">{{ manager.email }}</span>
-								<span class="glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)"></span>
-							</p>
+					<div class="form-container">
+					  <div class="text-right"><input type="checkbox" name="samebill" id="samebill" ng-model="billingIsSameAsSite" ng-change="sameAsSiteAddressChanged()"><label for="samebill">Same as Site Address?</label></div>
+						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billAddress1.$error.required}">
+							<label class="control-label">Address 1<sup>*</sup></label>
+							<input required type="text" name="billAddress1" class="form-control" ng-model="newSiteObject.bill_address_attributes.address1" ng-disabled="billingIsSameAsSite">
+						</div>
+						
+						<div class="form-group col-lg-6">
+							<label class="control-label">Address 2</label>
+							<input type="text" name="billAddress2" class="form-control" ng-model="newSiteObject.bill_address_attributes.address2" ng-disabled="billingIsSameAsSite">
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billCity.$error.required}">
+							<label class="control-label">City<sup>*</sup></label>
+							<input required type="text" name="billCity" class="form-control" ng-model="newSiteObject.bill_address_attributes.city" ng-disabled="billingIsSameAsSite">
+						</div>
+										
+						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billState.$error.required}">
+							<label class="control-label">State<sup>*</sup></label>
+							<select required name="billState" class="form-control" ng-model="newSiteObject.bill_address_attributes.state_id"  ng-disabled="billingIsSameAsSite"
+							ng-options="state.id as state.abbreviation for state in states_array | orderBy: 'abbreviation'">
+							</select>
+						</div>
+						
+						<div class="form-group col-lg-6" ng-class="{'has-error' : submitted && newsite.billZipcode.$error.required}">
+							<label class="control-label">Zip<sup>*</sup></label>
+							<input required type="text" name="billZipcode" class="form-control" ng-model="newSiteObject.bill_address_attributes.zipcode"  ng-disabled="billingIsSameAsSite">
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-6 search-customer-form form-right">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-title">
-								<span class="badge">5</span>
-								<span>step 5: Linked customer</span>
+				<div class="bill-info-form">
+					<div class="form-title col-xs-12">
+						<span class="badge">4</span>
+						<span>step 4: ENTER MANAGER INFORMATION</span>
+					</div>	
+					<div class="form-container">
+						<div class="form-group col-lg-6">
+							<label class="control-label">Managers</label>
+							<input type="text" name="managers" class="form-control" ng-model="managersSelected" typeahead="manager as manager.email for manager in managersArray.users | filter:$viewValue" typeahead-on-select="addManager($item, $model, $label)" >
+						</div>
+						<div class="form-group col-lg-6">
+							<div>
+								<p class="selected-manager" ng-repeat="manager in managers">
+									<span class="manager-email">{{ manager.email }}</span>
+									<span class="glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)"></span>
+								</p>
 							</div>
-							<div class="form-container">
-	              
-								<!-- Customer info when already linked-->
-								<div class="form-group col-lg-12" ng-show="customer">
-									<p>Linked customer: <span class="text-success">{{customer.firstname + ' ' + customer.lastname }}</span></p>
-									<a ng-show="!customer_from_previous_page_flag" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Select a different customer</a>
+						</div>
+					</div>
+				</div>
+				<div class="search-customer-form">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-title col-xs-12">
+									<span class="badge">5</span>
+									<span>step 5: Linked customer</span>
 								</div>
+								<div class="form-container">
+		              
+									<!-- Customer info when already linked-->
+									<div class="form-group col-lg-12" ng-show="customer">
+										<p>Linked customer: <span class="text-success">{{customer.firstname + ' ' + customer.lastname }}</span></p>
+										<a ng-show="!customer_from_previous_page_flag" ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Select a different customer</a>
+									</div>
 
-								<!-- Searching for a customer to link -->
-								<div class="form-group col-lg-12" ng-show="!customer">
-									<a ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Search customer <sup class="text-danger">*</sup></a>
-									<p class="text-danger" ng-show="errors.customer"><small>You must link the site to a customer before saving</small></p>
-								</div>
-								
-								<div class="form-group col-lg-12">
-									<input type="submit" class="btn save-btn btn-small btn-success" value="SAVE SITE" ng-click="newSite()">
-								</div>
+									<!-- Searching for a customer to link -->
+									<div class="form-group col-lg-12" ng-show="!customer">
+										<a ng-click="show_search_customer_dialog()"><i class="glyphicon glyphicon-search"></i> Search customer <sup class="text-danger">*</sup></a>
+										<p class="text-danger" ng-show="errors.customer"><small>You must link the site to a customer before saving</small></p>
+									</div>
+									
+									<div class="form-group col-lg-12">
+										<input type="submit" class="btn save-btn btn-small btn-success" value="SAVE SITE" ng-click="newSite()">
+									</div>
 
+								</div>
 							</div>
 						</div>
 					</div>

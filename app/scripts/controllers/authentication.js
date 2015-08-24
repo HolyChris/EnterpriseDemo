@@ -38,6 +38,9 @@ angular.module('ersApp')
     $scope.showResetForm = function() {
       $scope.resetPassword = true;
     };
+    $scope.showLoginForm = function() {
+      $scope.resetPassword = false;
+    }
 
     $scope.showResetForm = function() {
       $scope.resetPassword = true;

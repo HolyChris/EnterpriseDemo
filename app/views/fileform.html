@@ -34,20 +34,18 @@
       <span class="fileupload-process"></span>
     </div>
     
-    <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <select name="doc_typeFilter" id="doc_typeFilter" ng-model="filter.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-change="changeFilter()">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <select name="doc_typeFilter" id="doc_typeFilter" ng-model="filter.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-change="changeFilter()">
           <option value=''>- Filter By Doc Type -</option>
-        </select>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <select name="stageFilter" id="stageFilter" ng-model="filter.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages" ng-change="changeFilter()">
-          <option value=''>- Filter By Stage -</option>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-12">
-        <p class="clear-filters"><a ng-click="clearFilters()">clear filters</a></p>
-      </div>
+      </select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <select name="stageFilter" id="stageFilter" ng-model="filter.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages" ng-change="changeFilter()">
+        <option value=''>- Filter By Stage -</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-12">
+      <p class="clear-filters"><a ng-click="clearFilters()">clear filters</a></p>
     </div>
     
     <!-- The global progress state -->
@@ -66,74 +64,76 @@
   </div>
   
   <!-- The table listing the files available for upload/download -->
-  <table class="table table-striped files ng-cloak">
-    <tr data-ng-repeat="file in queue | filter: filter" ng-show="show === 'All' || show === '{{file.type}}' || (show === 'Image' && isImage(file.type)) || (show === 'Document' && !isImage(file.type))" ng-class="'file-' + $index">
-      <td data-ng-switch data-on="!!file.thumbnailUrl">
-        <div class="preview" data-ng-switch-when="true">
-          <label for="file" class="control-label">File:</label>
-          <br>
-          <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">
-            <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="isImage(file.type)">
-            <span ng-hide="{{isImage(file.type)}}">{{file.file_name}}</span>
-          </a>
-        </div>
-        <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
-        <div ng-hide="{{isImage(file.type) || file.file_name.length}}">
-          <span>{{file.name}}</span>
-        </div>
-      </td>
-      <td>
-        <p class="name" data-ng-switch data-on="!!file.url">
-          <label for="title" class="control-label">Title:</label>
-          <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
-              <!-- <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a> -->
-              <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.title" class="form-control">
-              <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
-          </span>
-          <input data-ng-switch-default type="text" id="title" name="title" ng-model="file.title" class="form-control">
-        </p>
-        <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
-        <strong data-ng-show="file.message" class="text-success">{{file.message}}</strong>
-      </td>
-      <td>
-        <label for="doc_type" ng-show="!isImage(file.type)">Doc Type:</label>
-        <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-show="!isImage(file.type)">
-        </select>
-      </td>
-      <td>
-        <label for="stage" class="control-label">Stage:</label>
-        <select name="stage" id="stage" ng-model="file.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages">
-        </select>
-      </td>
-      <td>
-        <label for="notes">Additional Notes:</label>
-        <textarea id="notes" name="notes" ng-model="file.notes" class="form-control"></textarea>
-      </td>
-      <!--<td>
-        <label for="size">Filesize:</label>
-        <p class="size">{{file.size | formatFileSize}}</p>
-      </td> -->
-      <td class="document-action">
-        <button type="button" class="btn btn-small start" data-ng-click="fileUpload(file, $index)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
-          <i class="glyphicon glyphicon-upload"></i>
-          <span>Start</span>
-        </button>
-        <button type="button" class="btn btn-small update" data-ng-click="file.$update(file)" data-ng-hide="!file.$update" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
-          <i class="glyphicon glyphicon-upload"></i>
-          <span>Update</span>
-        </button>
-        <button type="button" class="btn btn-warning btn-small cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
-          <i class="glyphicon glyphicon-ban-circle"></i>
-          <span>Cancel</span>
-        </button>
-        <button type="button" class="btn btn-danger btn-small destroy" data-ng-click="file.$destroy(file)" data-ng-hide="!file.$destroy" data-ng-controller="FileDestroyController">
-          <i class="glyphicon glyphicon-trash"></i>
-          <span>Delete</span>
-        </button>
-        <div class="progress progress-striped active fade" data-ng-class="{in: file.$state() == 'pending' || file.state == 'pending'}" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: '100%'}"></div></div>
-      </td>
-    </tr>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped files ng-cloak">
+      <tr data-ng-repeat="file in queue | filter: filter" ng-show="show === 'All' || show === '{{file.type}}' || (show === 'Image' && isImage(file.type)) || (show === 'Document' && !isImage(file.type))" ng-class="'file-' + $index">
+        <td data-ng-switch data-on="!!file.thumbnailUrl">
+          <div class="preview" data-ng-switch-when="true">
+            <label for="file" class="control-label">File:</label>
+            <br>
+            <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">
+              <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="isImage(file.type)">
+              <span ng-hide="{{isImage(file.type)}}">{{file.file_name}}</span>
+            </a>
+          </div>
+          <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+          <div ng-hide="{{isImage(file.type) || file.file_name.length}}">
+            <span>{{file.name}}</span>
+          </div>
+        </td>
+        <td>
+          <p class="name" data-ng-switch data-on="!!file.url">
+            <label for="title" class="control-label">Title:</label>
+            <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+                <!-- <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a> -->
+                <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.title" class="form-control">
+                <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+            </span>
+            <input data-ng-switch-default type="text" id="title" name="title" ng-model="file.title" class="form-control">
+          </p>
+          <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+          <strong data-ng-show="file.message" class="text-success">{{file.message}}</strong>
+        </td>
+        <td>
+          <label for="doc_type" ng-show="!isImage(file.type)">Doc Type:</label>
+          <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-show="!isImage(file.type)">
+          </select>
+        </td>
+        <td>
+          <label for="stage" class="control-label">Stage:</label>
+          <select name="stage" id="stage" ng-model="file.stage" class="form-control" ng-options="stage.title as stage.title for stage in stages">
+          </select>
+        </td>
+        <td>
+          <label for="notes">Additional Notes:</label>
+          <textarea id="notes" name="notes" ng-model="file.notes" class="form-control"></textarea>
+        </td>
+        <!--<td>
+          <label for="size">Filesize:</label>
+          <p class="size">{{file.size | formatFileSize}}</p>
+        </td> -->
+        <td class="document-action">
+          <button type="button" class="btn btn-small start" data-ng-click="fileUpload(file, $index)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start</span>
+          </button>
+          <button type="button" class="btn btn-small update" data-ng-click="file.$update(file)" data-ng-hide="!file.$update" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Update</span>
+          </button>
+          <button type="button" class="btn btn-warning btn-small cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel</span>
+          </button>
+          <button type="button" class="btn btn-danger btn-small destroy" data-ng-click="file.$destroy(file)" data-ng-hide="!file.$destroy" data-ng-controller="FileDestroyController">
+            <i class="glyphicon glyphicon-trash"></i>
+            <span>Delete</span>
+          </button>
+          <div class="progress progress-striped active fade" data-ng-class="{in: file.$state() == 'pending' || file.state == 'pending'}" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: '100%'}"></div></div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </form>
 <div class="drag-effects">
   <h3>Drop files to add them.</h3>

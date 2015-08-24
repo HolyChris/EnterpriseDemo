@@ -1,4 +1,4 @@
-<div class="container proj-over-container ">
+<div class="proj-over-container ">
   <div class="proj-over-content billing-form" ng-show="!enableProduction">
     <div class="row">
       <div class="col-md-12 container-title">
@@ -12,11 +12,10 @@
 				<u>Production</u>
 			</div>
 		</div>
-		<div class="row">
-		<div class="form-left-container">
+		<div class="col-md-6 col-sm-8">
 		<form>
-			<div class="col-md-6 form-left">
-				<div class="form-title" id="production-section">
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="production-section">
 					<span>PRODUCTION INFO</span>
 					<span class="edit-btn pull-right" ng-show="!editModeProduction" ng-click="enableEdition('Production')">
 						<img src="/images/Write-white.png"/>
@@ -94,9 +93,9 @@
 					</fieldset>
 				</div>
 			</div>
-			<div class="col-md-6 form-left">
+			<div class="form-left">
 				<fieldset ng-disabled="!editModeCompletion">
-					<div class="form-title" id="completion-section">
+					<div class="form-title col-xs-12" id="completion-section">
 						<span>COMPLETION INFO</span>
 						<span class="edit-btn pull-right" ng-show="!editModeCompletion" ng-click="enableEdition('Completion')">
 							<img src="/images/Write-white.png"/>
@@ -151,6 +150,5 @@
 				</fieldset>
 			</div>
 		</form>
-	</div>
 	</div>
 </div>  

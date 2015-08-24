@@ -3,7 +3,7 @@ angular.module('ersApp')
     $scope.data = {};
     // This is not ideall but it's the only way to retrieve userd data
     // we dont have a client id in frontend
-    var user = User.save(function(data) {
+    var user = User.resource.save(function(data) {
       $scope.data.fullname = data.user.fullname;
       $scope.data.email = data.user.email;
     });
@@ -16,7 +16,7 @@ angular.module('ersApp')
           params[key] = value;
         }
       })
-      User.save(params, function(data) {
+      User.resource.save(params, function(data) {
         if (data.user && data.user.auth_token && user.auth_token !== data.user.auth_token) {
           $auth.setToken({data: {user: data.user}}, false);
           $state.go('settings');

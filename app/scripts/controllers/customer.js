@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('CustomerCtrl', function($scope, $location, $stateParams, Customer, Flash) {
+  .controller('CustomerCtrl', function($scope, $location, $state, $stateParams, Customer, Flash,User) {
 
     $scope.phoneTypes = [{
       value: 1,
@@ -66,4 +66,44 @@ angular.module('ersApp')
     $scope.removePhone = function(item) {
       item["_destroy"] = 1;
     };
+
+    //We check if current logged in user is admin
+    $scope.userIsAdmin=User.getCurrentUserDetails().then(
+      function(user){
+        $scope.userIsAdmin=user.isAdmin;
+      },
+      function(error){
+        Flash.create('danger', 'User access rights could not be queried. Something happened.');
+        $scope.errors=error;
+      }
+      );
+
+    $scope.deleteCustomer = function(customerId){
+      Customer.delete({id: customerId}, {}, function(data){
+        if (data.success===false){
+          //Request
+          Flash.create('danger', 'Customer could not be deleted.' + data.message);
+        }
+        else{
+          //Request was succesful we have to redirect user to dashboard
+          Flash.create('success', 'Customer was successfully deleted!');
+          $state.go('customers');
+        }
+
+      }, function(error){
+        var errorMessage;
+
+        if (error.data.message){
+          errorMessage=error.data.message;
+        }
+        else{
+          errorMessage="Customer could not be deleted. Something happened.";
+        }
+        Flash.create('danger', errorMessage);
+      });
+
+    };
+
+
+
   });
