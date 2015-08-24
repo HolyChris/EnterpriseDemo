@@ -15,7 +15,7 @@
 
 		<div class="col-md-6 col-sm-8">
 
-			<div class="form-left project-customer-portal" ng-show="customer">
+<!-- 			<div class="form-left project-customer-portal" ng-show="customer">
 				<div class="form-title col-xs-12" id="project-section">
 					<span> CUSTOMER PORTAL </span>
 				</div>
@@ -31,6 +31,22 @@
 					<p>Or copy and share the link directly</p>
 					<a href="/#/customerportal?token={{customer.page_token}}">Link to portal</a>
 				</div>
+				</div>
+			</div> -->
+
+			<div class="form-left save-form">
+				<div class="col-xs-12 form-title">
+					<span>ALERT CUSTOMER </span>
+				</div>
+				<div class="form-container">
+				  <div class="col-xs-12"><span>Let the customer know that they have information available for review.</span></div>
+					<div class="form-group col-sm-6">
+						<input ng-click="sendEmail()" class="btn save-btn" value="SEND TO CUSTOMER" confirm="Are you sure you want to send an email to {{customer.email}}?">
+						<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-2"></span>
+					</div>
+					<div class="form-group col-sm-6 text-right">
+						<input class="btn save-btn" value="GET PORTAL LOGIN" data-toggle="modal" data-target="#infoModal">
+					</div>
 				</div>
 			</div>
 
@@ -201,17 +217,19 @@
 						
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_manufacturer']}">
 							<label class="control-label">Shingle Manufacturer {{errors['job_submission.shingle_manufacturer']}}</label>
-							<!--TODO REPLACE WITH ng-options construct-->
 							<select name="shingle_manufacturer" ng-model="job_submission.shingle_manufacturer" convert-to-number class="form-control">
-				  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
+							  <!--TODO REPLACE WITH ng-options construct-->
+						    <option value=""></option>
+			  				<option ng-repeat="manufacturer in manufacturers_arr" value="{{manufacturer.id}}" ng-selected="job_submission.shingle_manufacturer==manufacturer.id">{{manufacturer.name}}</option>
 							</select>
 						</div>
 
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.shingle_type']}">
 							<label class="control-label">Shingle Type {{errors['job_submission.shingle_type']}}</label>
 							<select name="shingle_type" ng-model="job_submission.shingle_type" convert-to-number class="form-control">
-								<!--TODO REPLACE WITH ng-options construct-->
-				  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
+							  <!--TODO REPLACE WITH ng-options construct-->
+							  <option value=""></option>
+			  				<option ng-repeat="shingle in shingles_arr | filter:{manufacturerId: job_submission.shingle_manufacturer }:strict" value="{{shingle.id}}" ng-selected="job_submission.shingle_type==shingle.id">{{shingle.title}}</option>
 							</select>
 						</div>
 
@@ -220,6 +238,7 @@
 							<label class="control-label">Shingle Color {{errors['job_submission.shingle_color']}}</label>
 							<select name="" ng-model="job_submission.shingle_color" convert-to-number class="form-control">
 								<!--TODO REPLACE WITH ng-options construct-->
+								<option value=""></option>
 								<option ng-repeat="colorId in shingles_arr[job_submission.shingle_type-1].colorsId" value="{{colorId}}" ng-selected="colorId==job_submission.shingle_color">{{colors_arr[colorId-1].name}}</option>
 							</select>
 						</div>
@@ -227,8 +246,9 @@
 						<div class="form-group col-lg-6" ng-class="{'has-error' : errors['job_submission.drip_color']}">
 							<label class="control-label">Drip Color {{errors['job_submission.drip_color']}}</label>
 							<select name="" ng-model="job_submission.drip_color" convert-to-number class="form-control">
-									<!--TODO REPLACE WITH ng-options construct-->
-					  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.drip_color">{{color.name}}</option>
+							  <!--TODO REPLACE WITH ng-options construct-->
+							  <option value=""></option>
+			  				<option ng-repeat="color in colors_arr" value="{{color.id}}" ng-selected="color.id==job_submission.drip_color">{{color.name}}</option>
 							</select>
 						</div>
 
@@ -583,3 +603,34 @@
 
 	
 </div>  
+
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <h4 class="modal-title" id="infoModalLabel">Customer Portal Information</h4>
+      </div>
+      <div class="modal-body">
+      	<small>Copy the URL and Password below to send to the customer for access to their Customer Portal.</small>
+        <div class="row">
+        	<div class="col-xs-12">
+        	  <br>
+        		<label class="control-label">Customer Portal URL:</label>
+        		<input type="text" disabled value="{{customerPortalUrl}}" class="form-control">
+        		<br>
+        	</div>
+        	<div class="col-xs-12">
+        		<label class="control-label">Password:</label>
+        		<input type="text" disabled value="{{project.po_number}}" class="form-control">
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

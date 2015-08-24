@@ -18,6 +18,10 @@ angular.module('ersApp')
       }, {
         value: "Billing",
         label: "Billing",
+      },
+      {
+        value: "Closed",
+        label: "Closed",
       }
     ];
 
@@ -26,7 +30,8 @@ angular.module('ersApp')
       var hash = {
         'Under Contract': 'contract',
         'Production': 'production',
-        'Billing': 'billing'
+        'Billing': 'billing',
+        'Closed': 'closed'
       };
 
       if ($scope.site.stage === 'Opportunity'){
@@ -45,12 +50,13 @@ angular.module('ersApp')
           Sites.save({
             siteId: $scope.project_id,
             current_stage: hash[$scope.site.new_stage]
-            }, function() {
+            }, function(data) {
+              console.log(data);
               $scope.disableStageEdition();
             });
       }
-      
-      
+
+
     };
 
     $scope.enableStageEdition = function() {

@@ -64,6 +64,7 @@ angular.module('ersApp')
         	$scope.model.auth_token = false;
         } else {
   	      $scope.model.userInfo = data.data;
+          $scope.model.userInfo.project.contractName = data.data.project.contract_document_url.substr(data.data.project.contract_document_url.lastIndexOf("/")+1);
         }
       });
   	};
