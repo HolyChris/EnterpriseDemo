@@ -1,8 +1,11 @@
 /node_modules
 grunt-bitballoon.json
+<<<<<<< HEAD
 /app/scripts/config.js
 /app/favicon.ico
 /app/images/logo.png
+=======
+>>>>>>> adding config
 /bower_components
 /dist
 /.tmp
