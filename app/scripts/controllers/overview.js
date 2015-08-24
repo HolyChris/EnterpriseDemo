@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User) {
+  .controller('OverviewCtrl', function($scope, $location, $state, $stateParams, ENV, Flash, Overview, Contract,Customer,Sites,usSpinnerService,Managers,Address,Portal,User,Project) {
 
   $scope.config = {
     itemsPerPage: 10
@@ -97,19 +97,28 @@ angular.module('ersApp')
 
     var fd = new FormData(); // prepare as form data to handle files.
     for (var key in $scope.contract) {
-      fd.append(key, $scope.contract[key]);
+      if (key !== 'work_types' && key !== 'work_type_ids') {
+        fd.append(key, $scope.contract[key]);  
+      }
     }
 
     if ($scope.work_types) {
       var work_type_ids = new Array();
       var types = $scope.work_types;
       for (var key in types) {
-        var value = key.replace('work_type_', '');
-        work_type_ids.push(value);
+        if (types[key]) {
+          var value = key.replace('work_type_', '');
+          work_type_ids.push(value);
+        }
       }
-      for (var i =0; i < work_type_ids.length; i++) {
-        fd.append('work_type_ids[]', work_type_ids[i]);
+      if (work_type_ids.length) {
+        for (var i = 0; i < work_type_ids.length; i++) {
+          fd.append('work_type_ids[]', work_type_ids[i]);
+        }
+      } else {
+        fd.append('work_type_ids[]', '');
       }
+      
       $scope.contract.work_type_ids = work_type_ids;
     }
 
@@ -127,10 +136,14 @@ angular.module('ersApp')
           $scope.contract.po_number = data.contract.po_number;
           $scope.contract.documentName = $scope.contract.document.name;
           $scope.newContract = false;
-          $scope.$parent.refreshNavStatus();  
+          $scope.$parent.refreshNavStatus();
+          $scope.enableProjectDetails = true;
+          $scope.$parent.enableProjectDetails = true;
+          $scope.$parent.enableProduction = true;
+          $scope.$parent.enableBilling = true;
         }        
       });
-    } else { 
+    } else {
       Contract.put({siteId:siteId},fd, function(data) {
         if (data.errors) {
           usSpinnerService.stop('spinner-1');
@@ -168,7 +181,8 @@ angular.module('ersApp')
     $scope.contract.signed_at = new Date(contract.signed_at);
     $scope.contract.contract_type = workTypeValues[contract.contract_type];
     if (contract.price) {
-      $scope.contract.price = contract.price.substring(1);  
+      var price = contract.price.replace('$', '').replace(/,/g, '');
+      $scope.contract.price = parseFloat(price);
     }
     var path = contract.document_url.substring(contract.document_url.lastIndexOf('/') + 1);
     var filename = path.substring(0, path.lastIndexOf('?'));
@@ -189,10 +203,15 @@ angular.module('ersApp')
       if ($scope.project.contract) {
         prepareContractView($scope.project.contract);
         $scope.newContract = false;
+
+        // get Customer Portal Data
+        Project.getProjectDetailFromSite($stateParams.projectId, function(data) {
+          $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + '/#/customerportal?token=' + data.project.customer.page_token;
+        });
+
       } else {
         $scope.newContract = true;
       }
-      
       
     });
   }

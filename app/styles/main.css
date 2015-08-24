@@ -1569,3 +1569,55 @@ h3.not-available {
   text-transform: uppercase;
   margin-bottom: 15px;
 }
+
+.customer-downloads .download-wrap {
+  background: #FFF;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.35);
+          box-shadow: 1px 1px 5px rgba(0,0,0,0.35);
+  margin-bottom: 26px;
+}
+.customer-downloads .download-wrap .download {
+  background: #d9a34a;
+  border-radius: 0 0 5px 5px;
+  color: #fff;
+}
+.customer-downloads .download-wrap .field-title {
+  color: #3B3D40;
+  display: block;
+  padding: 8px 15px;
+}
+.customer-downloads .download-wrap.download-contract .download {
+  background-color: #30A96F;
+}
+.customer-downloads .download-wrap .download .info {
+  overflow: hidden;
+  padding: 15px;
+}
+.customer-downloads .download-wrap .download .download-section {
+  border-top: 1px solid #fff;
+  padding: 15px;
+}
+.customer-downloads .download-wrap .download img {
+  margin: 0 1em 0 0;
+}
+.customer-downloads .download-wrap .download p {
+  margin-bottom: 0;
+}
+.customer-downloads .download-wrap .download p.title {
+  margin-bottom: 0.375em;
+}
+.customer-downloads .download-wrap .download .byline {
+  opacity: 0.55;
+}
+.customer-downloads .download-wrap .download-link,
+.customer-downloads .download-wrap .download-link span {
+  color: #FFF;
+}
+.customer-downloads .download-wrap .download-link:hover,
+.customer-downloads .download-wrap .download-link:hover span,
+.customer-downloads .download-wrap .download-link:focus,
+.customer-downloads .download-wrap .download-link:focus span {
+  color: #dfdfdf;
+  text-decoration: none;
+}

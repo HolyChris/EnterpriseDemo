@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $http, $location, $anchorScroll, Flash, Project, ENV) {
+  .controller('ProjectCtrl', function($scope, $rootScope, $stateParams, $http, $location, $anchorScroll, Flash, Project, ENV, Portal, usSpinnerService) {
 
   	$scope.format = "yyyy-MM-dd";
   	$scope.opened = [];
@@ -29,6 +29,20 @@ angular.module('ersApp')
 
 	};
 
+	$scope.sendEmail = function() {
+    usSpinnerService.spin('spinner-2');
+    var siteId = $rootScope.project_id;
+    Portal.query({siteId:siteId}, function(data) {
+      if (data.errors) {
+        Flash.create('danger', 'Something happened, please refresh and try again.');
+      } else {
+        Flash.create('success', data.message);
+      }
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      usSpinnerService.stop('spinner-2');
+    });
+  }
+
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
 
@@ -39,6 +53,8 @@ angular.module('ersApp')
 				prepareProjectForView(data.project);
 				$rootScope.project_id=data.project.site.id;
 
+				// get Customer Portal Data
+        $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + '/#/customerportal?token=' + data.project.customer.page_token;
 			},
 			function(data){
 				Flash.create('danger', 'Project could not be queried.');
