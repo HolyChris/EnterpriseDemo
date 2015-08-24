@@ -1,70 +1,69 @@
-<div class="container dashboard-container">
-  <div class="row">
-    <div class="col-md-6 col-sm-12 recent-sites pull-left">
-      <div class="sub-container__header">
-        <div class="heading">
-          RECENT SITES
-        </div>
-      </div>
-      <div class="sub-container__body">
-        <ul class="site-list">
-          <li ng-repeat="site in recent_sites.sites">
-            <a ui-sref="project.overview({projectId: site.id})">
-              <span class="site_title pull-left">{{site.name}}</span>
-              <span class="site_info pull-right">
-                {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
-                <i class="glyphicon glyphicon-triangle-right"></i>
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="sub_container__footer">
-      
-        <a ui-sref="newcustomer">
-          <button class="btn btn-success pull-right action-btn">CREATE CUSTOMER</button>
-        </a>
-        <a ui-sref="newsite">
-          <button class="btn btn-success pull-right action-btn">CREATE SITE</button>
-        </a>
-        
-      </div>
-    </div>
-    <div class="col-md-6 col-sm-12 quick-links pull-right" >
-      <div class="sub-container__body">
-        <div class="info-header">QUICK LINKS</div>
-          <div class="info-container">
-            <ul class="links-list">
-              <li>
-                <span class="link_title pull-left">
-                  <img src="images/Search Icon.png">
-                  <input type="text" class="form-control" placeholder="Search By Address" ng-model="address_address1_cont" aria-describedby="sizing-addon1" >
-                  <a ng-href="#" ng-click="quickSearch('address_address1_cont')" class="quick-search">Search</a>
-                  <i class="glyphicon glyphicon-triangle-right"></i>
-                </span>
-                <span class="site_info pull-right"></span>
+<div class="dashboard-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 recent-sites">
+        <div class="front-box-wrapper">
+          <div class="sub-container__header">
+            <div class="heading">
+              RECENT SITES
+            </div>
+          </div>
+          <div class="sub-container__body">
+            <ul class="site-list">
+              <li ng-repeat="site in recent_sites.sites">
+                <a ui-sref="project.overview({projectId: site.id})">
+                  <span class="site_title pull-left">{{site.name}}</span>
+                  <span class="site_info pull-right">
+                    {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                  </span>
+                </a>
               </li>
-              <li>
-                <span class="link_title pull-left">
-                  <img src="images/Search Icon.png">
-                      <input type="text" class="form-control" placeholder="Search By Contact Name" ng-model="contact_name_contains" aria-describedby="sizing-addon1">
-                  <a href="#" ng-click="quickSearch('contact_name_contains')" class="quick-search">Search</a>
-                  <i class="glyphicon glyphicon-triangle-right"></i>
-                </span>
-                <span class="site_info pull-right"></span>
-              </li>
-
             </ul>
           </div>
+          <div class="sub_container__footer">
+            <a ui-sref="newcustomer"><button class="btn btn-success pull-right action-btn">CREATE CUSTOMER</button></a>
+            <a ui-sref="newsite"><button class="btn btn-success pull-right action-btn">CREATE SITE</button></a> 
+          </div>
         </div>
+      </div>
+      <div class="col-md-6 col-xs-12 quick-links">
+        <div class="front-box-wrapper">
+          <div class="sub-container__body">
+            <div class="info-header">QUICK LINKS</div>
+            <div class="info-container">
+              <ul class="links-list">
+                <li>
+                  <span class="link_title pull-left">
+                    <img src="images/Search Icon.png">
+                    <input type="text" class="form-control" placeholder="Search By Address" ng-model="address_address1_cont" aria-describedby="sizing-addon1" >
+                    <a ng-href="#" ng-click="quickSearch('address_address1_cont')" class="quick-search">Search</a>
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                  </span>
+                  <span class="site_info pull-right"></span>
+                </li>
+                <li>
+                  <span class="link_title pull-left">
+                    <img src="images/Search Icon.png">
+                        <input type="text" class="form-control" placeholder="Search By Contact Name" ng-model="contact_name_contains" aria-describedby="sizing-addon1">
+                    <a href="#" ng-click="quickSearch('contact_name_contains')" class="quick-search">Search</a>
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                  </span>
+                  <span class="site_info pull-right"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <div class="container pipeline-container">
-  <div class="container pipeline-content">
+  <div class="pipeline-content">
     <div class="row">
       <div class="col-md-12">
-        <div class="pipe opp-pipe">
+        <div class="pipe opp-pipe col-md-3 col-xs-6">
           <div class="pipe-title">
             OPPORTUNITY
             <span class="pipe-number">
@@ -94,7 +93,8 @@
             </div>
           </div>
         </div>
-        <div class="pipe contract-pipe">
+        
+        <div class="pipe contract-pipe col-md-3 col-xs-6">
           <div class="pipe-title">
             UNDER CONTRACT
             <span class="pipe-number">
@@ -107,14 +107,14 @@
                 <div class="pipe-info">
                   <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
                    </span>
-                  <span class="info-data">{{contract.address.address1}}</br>{{contract.address.city}},{{stateLookupById(contract.address.state.id).abbreviation}},{{contract.address.zipcode}}</span>
+                  <span class="info-data">{{contract.address.address1}}<br>{{contract.address.city}},{{stateLookupById(contract.address.state.id).abbreviation}},{{contract.address.zipcode}}</span>
                 </div>
               </a>
             </div>
           </div>
         </div>
 
-        <div class="pipe pro-pipe">
+        <div class="pipe pro-pipe col-md-3 col-xs-6">
           <div class="pipe-title">
             PRODUCTION
             <span class="pipe-number">
@@ -127,14 +127,14 @@
               <a ui-sref="project.production({projectId: production.id})">
                 <div class="pipe-info">
                   <span class="info-title">{{production.customer.firstname}} {{production.customer.lastname}} - PO# {{production.po_number}}</span>
-                  <span class="info-data">{{production.address.address1}}</br>{{production.address.city}},{{stateLookupById(production.address.state.id).abbreviation}},{{production.address.zipcode}}</span>
+                  <span class="info-data">{{production.address.address1}}<br>{{production.address.city}},{{stateLookupById(production.address.state.id).abbreviation}},{{production.address.zipcode}}</span>
                 </div>
               </a>
             </div>
           </div>
         </div>
 
-        <div class="pipe post-pipe billing-pipe">
+        <div class="pipe post-pipe billing-pipe col-md-3 col-xs-6">
           <div class="pipe-title">
             BILLING
             <span class="pipe-number">
@@ -152,46 +152,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="pipe close-pipe">
-          <div class="pipe-title">
-            COLLECTIONS
-            <span class="pipe-number">
-              - 4
-            </span>
-          </div>
-          <div class="pipe-card-container" ui-sortable="sortableOptionsList[4]" id="close-cards">
-            <div class="pipe-card out-amount collapse">
-              <div class="pipe-info">
-                <a ui-sref="overview.project">
-                  <span class="">Outstanding Amount</span>
-                </a>
-                <span class="info-data">$3000,00</span>
-              </div>
-            </div>
-            <div class="pipe-card">
-              <div class="pipe-info">
-                <span class="info-title">John Doe</span>
-                <span class="info-data">PO# 12234321</span>
-                <span class="info-data">$1000,00</span>
-              </div>
-            </div>
-            <div class="pipe-card">
-              <div class="pipe-info">
-                <span class="info-title">John Doe</span>
-                <span class="info-data">PO# 12234321</span>
-                <span class="info-data">$1000,00</span>
-              </div>
-            </div>
-            <div class="pipe-card">
-              <div class="pipe-info">
-                <span class="info-title">John Doe</span>
-                <span class="info-data">PO# 12234321</span>
-                <span class="info-data">1000,00</span>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

@@ -1,90 +1,86 @@
 <div class="container site-container">
-  <div flash-message="5000" ></div>
-	<div class="container site-content">
+  <div flash-message="5000"></div>
+	<div class="site-content">
 		<div class="row">
 			<div class="col-md-12 container-title">
 				SITES/<u>SITES OVERVIEW</u>
 			</div>
 		</div>
 		<div class="row">
-		<div class="container sites-container">
-			<div class="sites-content">
-					<div class="col-md-12 actn-btn-container">
-						<a ui-sref="newsite"><div class="actn-btn pull-right">
-							CREATE SITE
-							<img src="/images/Plus.png" class="pull-right">
-						</div></a>
-					</div>
-					<div class="col-md-12">
-						<table class="table site-table" at-table at-list="siteList" at-config="config">
-						  <thead>
-						  </thead>
-						  <tbody>
-						    <tr>
-						      <td at-implicit at-title="site name" at-attribute="name" width="180px"></td>
-						      <td at-title="address" width="180px">{{siteList[$index].address.address1}},</br>{{siteList[$index].address.city}},{{stateLookupById(siteList[$index].address.state.id).abbreviation}},{{siteList[$index].address.zipcode}}</td>
-						      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
-						      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
-						      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
-						    </tr>
-						     
-						  </tbody>
-						</table>
-						<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
-					</div>
+			<div class="sites-container col-xs-12">
+			  <div class="col-xs-12 actn-btn-container">
+					<a ui-sref="newsite"><div class="actn-btn pull-right">
+						CREATE SITE
+						<img src="/images/Plus.png" class="pull-right">
+					</div></a>
 				</div>
-				<div class="usr-srchbx">
+				<div class="usr-srchbx col-md-4 col-lg-3 pull-right">
 					<div class="form-title">SEARCH FOR SITE</div>
-						<form ng-submit="search()">
-							<div class="form-container">
-								<div class="form-group col-lg-12">
-									<label class="control-label">Manager</label>
-									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
-							  	<input type="text" class="form-control" ng-model="searchForm.managers_email_contains" typeahead="manager.email as manager.email for manager in managersArray.users | filter:$viewValue">
-							  </div>
-								<div class="form-group col-lg-12">
-									<label class="control-label">Contact Name</label>
-									<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
-							  	<input type="text" class="form-control" ng-model="searchForm.contact_name_contains">
-							  </div>
-								<div class="form-group col-lg-12">
+					<form ng-submit="search()">
+						<div class="form-container">
+							<div class="form-group col-lg-12">
+								<label class="control-label">Manager</label>
+								<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
+						  	<input type="text" class="form-control" ng-model="searchForm.managers_email_eq" typeahead="manager.email as manager.email for manager in managersArray.users | filter:$viewValue">
+						  </div>
+							<div class="form-group col-lg-12">
+								<label class="control-label">Contact Name</label>
+								<!-- <input type="" name="" class="form-control" id="" ng-model="searchForm.managers_email_eq"> -->
+						  	<input type="text" class="form-control" ng-model="searchForm.contact_name_contains">
+						  </div>
+							<div class="form-group col-lg-12">
 								<label class="control-label">Site name</label>
-								<input type="" name="" class="form-control" id="" ng-model="searchForm.name_contains">
-							    </div>
-								<div class="form-group col-lg-12">
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.name_cont">
+						  </div>
+							<div class="form-group col-lg-12">
 								<label class="control-label">Address</label>
 								<input type="" name="" class="form-control" id="" ng-model="searchForm.address_address1_cont">
-							   </div>
-							   <div class="form-group col-lg-12">
+						  </div>
+						  <div class="form-group col-lg-12">
 								<label class="control-label">City</label>
 								<input type="" name="" class="form-control" id="" ng-model="searchForm.address_city_cont">
-							   </div>
-							  
-	               <div class="form-group col-lg-12">
-	                <label class="control-label">State<sup>*</sup></label>
-	                <select type="" name="" class="form-control" id="" value="" ng-model="searchForm.address_state_id_eq" >
-	                	<!--TODO REPLACE WITH ng-options construct-->
-	                  <option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}">{{state.abbreviation}}</option>
-	                </select>
-	                </div>
-							  
-	               <div class="form-group col-lg-12">
-									<label class="control-label">Zip</label>
-									<input type="" name="" class="form-control" id="" ng-model="searchForm.address_zipcode_contains">
-							   </div>
-							  
-	               <div class="form-group col-lg-12">
-									<label class="control-label">PO Number</label>
-									<input type="" name="" class="form-control" id="" ng-model="searchForm.contract_po_number_equals">
-							   </div>
-							   <div class="form-group col-lg-12">
-								<input type="submit" class="btn save-btn" value="SEARCH">
-								</div>
+						  </div>
+						  
+              <div class="form-group col-lg-12">
+                <label class="control-label">State<sup>*</sup></label>
+                <select type="" name="" class="form-control" id="" value="" ng-model="searchForm.address_state_id_eq" >
+                  <option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}">{{state.abbreviation}}</option>
+                </select>
+              </div>
+						  
+              <div class="form-group col-lg-12">
+								<label class="control-label">Zip</label>
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.address_zipcode_contains">
+						  </div>
+						  
+              <div class="form-group col-lg-12">
+								<label class="control-label">PO Number</label>
+								<input type="" name="" class="form-control" id="" ng-model="searchForm.contract_po_number_equals">
+						  </div>
+						  
+						  <div class="form-group col-lg-12">
+							  <input type="submit" class="btn save-btn" value="SEARCH">
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
+				</div>
+				<div class="sites-content col-md-8 col-lg-9 table-responsive">
+					<table class="table site-table" at-table at-list="siteList" at-config="config">
+					  <thead>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td at-implicit at-title="site name" at-attribute="name" width="180px"></td>
+					      <td at-title="address" width="180px">{{siteList[$index].address.address1}},<br>{{siteList[$index].address.city}},{{stateLookupById(siteList[$index].address.state.id).abbreviation}},{{siteList[$index].address.zipcode}}</td>
+					      <td at-title="customer name">{{siteList[$index].customer.firstname}} {{siteList[$index].customer.lastname}}</td>
+					      <td at-implicit at-title="#po number" at-attribute="po_number" width="150px"></td>
+					      <td at-title="Actions" class="row-actn-btns"><a ui-sref="project.overview({projectId: siteList[$index].id})"><span>view/edit</span></a></td>
+					    </tr> 
+					  </tbody>
+					</table>
+					<span class="page-container"><span>Select Page:</span><span class="pages" ng-repeat="n in pagerange(1,sites.total_pages)" ng-click="gotopage($index+1)" ng-class="{active: isActive($index+1)}">{{n}}</span></span>
 				</div>
 			</div>
 		</div> 
 	</div>
-</div> 
+</div>

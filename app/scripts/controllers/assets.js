@@ -51,14 +51,16 @@ angular.module('ersApp')
         fd.append('type', type);
         fd.append('attachments_attributes[0][file]', file);
         if (title) fd.append('title', title);
-        fd.append('stage', stage);
+        fd.append('stage', parseInt(stage));
         if (notes) fd.append('notes', notes);
         if (type === 'Document') {
           var docType = Assets.findDocType($scope.queue[index].doc_type);
           fd.append('doc_type', docType);
         }
+        console.log(stage);
 
         Assets.resource.save({siteId: projectId}, fd, function(data) {
+          console.log(data);
           var newFile = [data.asset];
           $scope.queue[index].state = 'resolved';
           $scope.uploading = false;
@@ -216,12 +218,14 @@ angular.module('ersApp')
     file.$update = function (file) {
       state = 'pending';
       var stage = Assets.findStage(file.stage);
-      var name = file.title != null ? file.title : undefined;
-      var notes = file.notes != null ? file.notes : undefined;
       var fd = new FormData();
-      fd.append('title', name);
+      if (file.title != null) {
+        fd.append('title', file.title);
+      }
+      if (file.notes != null) {
+        fd.append('notes', file.notes);
+      }
       fd.append('type', file.type);
-      fd.append('notes', notes);
       fd.append('stage', stage);
       if (file.type === 'Document') {
         var docType = Assets.findDocType(file.doc_type);

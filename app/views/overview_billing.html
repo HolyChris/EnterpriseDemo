@@ -1,4 +1,4 @@
-<div class="container proj-over-container">
+<div class="proj-over-container">
   <div class="proj-over-content billing-form" ng-show="!enableBilling">
     <div class="row">
       <div class="col-md-12 container-title">
@@ -8,187 +8,186 @@
   </div> 
 
   <div class="proj-over-content billing-form" ng-show="enableBilling">
-    <div class="row">
-      <div class="col-md-12 container-title">
-        <u>BILLING</u>
-      </div>
-    <div class="form-left-container">
-    <div class="col-md-6 form-left" id="project-section">
-      <form ng-submit="updateLocation()">
-        <fieldset ng-disabled="!editModeLocation">
-          <input type="hidden" ng-model="billing.id">
-          <div class="form-title">
-            <span>LOCATION BILLING INFO</span>
-            <span class="edit-btn pull-right" ng-show="!editModeLocation" ng-click="enableEdition('Location')">
-              <img src="/images/Write-white.png"/>
-              EDIT
-            </span>
-            <span class="edit-btn pull-right" ng-show="editModeLocation" ng-click="saveBilling()">
-              <img src="/images/Write-white.png"/>
-              SAVE
-            </span>
-            <span class="edit-btn pull-right btn-warning" ng-show="editModeLocation" ng-click="discardChanges('Location')">
-              <img src="/images/Write-white.png"/>
-              CANCEL
-            </span>
-          </div>  
-          <div class="form-container">
-            <div class="form-group col-lg-6">
-              <label>Initial payment</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="" name="" class="form-control" id="" value="" ng-model="billing.initial_payment" ng-currency currency-symbol="">
+    <div class="col-xs-12 container-title">
+      <u>BILLING</u>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="form-left" id="project-section">
+        <form ng-submit="updateLocation()">
+          <fieldset ng-disabled="!editModeLocation">
+            <input type="hidden" ng-model="billing.id">
+            <div class="form-title col-xs-12">
+              <span>LOCATION BILLING INFO</span>
+              <span class="edit-btn pull-right" ng-show="!editModeLocation" ng-click="enableEdition('Location')">
+                <img src="/images/Write-white.png"/>
+                EDIT
+              </span>
+              <span class="edit-btn pull-right" ng-show="editModeLocation" ng-click="saveBilling()">
+                <img src="/images/Write-white.png"/>
+                SAVE
+              </span>
+              <span class="edit-btn pull-right btn-warning" ng-show="editModeLocation" ng-click="discardChanges('Location')">
+                <img src="/images/Write-white.png"/>
+                CANCEL
+              </span>
+            </div>  
+            <div class="form-container">
+              <div class="form-group col-lg-6">
+                <label>Initial payment</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="" name="" class="form-control" id="" value="" ng-model="billing.initial_payment" ng-currency currency-symbol="">
+                </div>
               </div>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Initial payment date</label>
-              <p class="input-group date-picker">
-                <input class="form-control" id="" value="" ng-model="billing.initial_payment_date" datepicker-popup="{{format}}" is-open="opened.initial_payment_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'initial_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Final invoice submitted at</label>
+              <div class="form-group col-lg-6">
+                <label>Initial payment date</label>
                 <p class="input-group date-picker">
-                  <input class="form-control" id="" value="" ng-model="billing.final_invoice_submitted_at" datepicker-popup="{{format}}" is-open="opened.final_invoice_submitted_at">
+                  <input class="form-control" id="" value="" ng-model="billing.initial_payment_date" datepicker-popup="{{format}}" is-open="opened.initial_payment_date">
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'final_invoice_submitted_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'initial_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
                 </p>
-            </div>
-            <div class="form-group col-lg-12">
-              <label>Customer invoice notes</label>
-              <textarea rows="5" name="" class="form-control" ng-model="billing.customer_invoice_notes"></textarea>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Invoice sent to Project Manager (Date)</label>
-              <p class="input-group date-picker">
-                <input type="" name="" class="form-control" id="" value="" ng-model="billing.invoice_send_to_manager_at" datepicker-popup="{{format}}" is-open="opened.invoice_send_to_manager_at">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'invoice_send_to_manager_at')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Invoice sent to customer method</label>
-              <input type="" name="" class="form-control" id="" ng-model="billing.invoice_sent_to_customer_method">
-            </div>      
-            <div class="form-group col-sm-6">
-              <label>Completion payment</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input tye="text" class="form-control" ng-model="billing.completion_payment" ng-currency currency-symbol="">
               </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <label>Completion payment date</label>
-              <p class="input-group date-picker">
-                <input tye="text" class="form-control" ng-model="billing.completion_payment_date" datepicker-popup="{{format}}" is-open="opened.completion_payment_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'completion_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-    <div class="col-md-6 form-left" id="insurance-section">
-      <div class="form-title">
-        <span>INSURANCE INFO</span>
-          <span class="edit-btn pull-right" ng-show="!editModeInsurance" ng-click="enableEdition('Insurance')">
-            <img src="/images/Write-white.png"/>
-            EDIT
-          </span>
-          <span class="edit-btn pull-right" ng-show="editModeInsurance" ng-click="saveBilling()">
-            <img src="/images/Write-white.png"/>
-            SAVE
-          </span>
-          <span class="edit-btn pull-right btn-warning" ng-show="editModeInsurance" ng-click="discardChanges('Insurance')">
-            <img src="/images/Write-white.png"/>
-            CANCEL
-          </span>
-      </div>  
-      <div class="form-container">
-        <form ng-submit="updateLocation()">
-          <fieldset ng-disabled="!editModeInsurance">
-            <div class="form-group col-lg-12">
-              <label>Mortgage process notes</label>
-              <textarea rows="5" class="form-control" ng-model="billing.mortgage_process_notes"></textarea>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Mortgage check location</label>
-              <input type="" name="" class="form-control" ng-model="billing.mortgage_check_location">
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Deductible paid date</label>
-              <p class="input-group date-picker">
-                <input class="form-control" ng-model="billing.deductible_paid_date" datepicker-popup="{{format}}" is-open="opened.deductible_paid_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'deductible_paid_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Settled RCV</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="" name="" class="form-control" ng-model="billing.settled_rcv" ng-currency currency-symbol="">
+              <div class="form-group col-lg-6">
+                <label>Final invoice submitted at</label>
+                  <p class="input-group date-picker">
+                    <input class="form-control" id="" value="" ng-model="billing.final_invoice_submitted_at" datepicker-popup="{{format}}" is-open="opened.final_invoice_submitted_at">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'final_invoice_submitted_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
               </div>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Settled RCV date</label>
-              <p class="input-group date-picker">
-                <input class="form-control" ng-model="billing.settled_rcv_date" datepicker-popup="{{format}}" is-open="opened.settled_rcv_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'settled_rcv_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-12">
-              <label>Settled scope paperwork notes</label>
-              <textarea rows="5" class="form-control" ng-model="billing.settled_scope_paperwork_notes"></textarea>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Final check received amount</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="" name="" class="form-control" ng-model="billing.final_check_received_amount" ng-currency currency-symbol="">
+              <div class="form-group col-lg-12">
+                <label>Customer invoice notes</label>
+                <textarea rows="5" name="" class="form-control" ng-model="billing.customer_invoice_notes"></textarea>
               </div>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Check released date</label>
-              <p class="input-group date-picker">
-                <input class="form-control" ng-model="billing.check_released_date" datepicker-popup="{{format}}" is-open="opened.check_released_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'check_released_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Final check received date</label>
-              <p class="input-group date-picker">
-                <input class="form-control" ng-model="billing.final_check_received_date" datepicker-popup="{{format}}" is-open="opened.final_check_received_date">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'final_check_received_date')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="form-group col-lg-6">
-              <label>Invoice sent to customer at</label>
-              <p class="input-group date-picker">
-                <input class="form-control" ng-model="billing.invoice_sent_to_customer_at" datepicker-popup="{{format}}" is-open="opened.invoice_sent_to_customer_at">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'invoice_sent_to_customer_at')"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
+              <div class="form-group col-lg-6">
+                <label>Invoice sent to Project Manager (Date)</label>
+                <p class="input-group date-picker">
+                  <input type="" name="" class="form-control" id="" value="" ng-model="billing.invoice_send_to_manager_at" datepicker-popup="{{format}}" is-open="opened.invoice_send_to_manager_at">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'invoice_send_to_manager_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Invoice sent to customer method</label>
+                <input type="" name="" class="form-control" id="" ng-model="billing.invoice_sent_to_customer_method">
+              </div>      
+              <div class="form-group col-sm-6">
+                <label>Completion payment</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input tye="text" class="form-control" ng-model="billing.completion_payment" ng-currency currency-symbol="">
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label>Completion payment date</label>
+                <p class="input-group date-picker">
+                  <input tye="text" class="form-control" ng-model="billing.completion_payment_date" datepicker-popup="{{format}}" is-open="opened.completion_payment_date">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default ng-click-active" ng-click="openDate($event, 'completion_payment_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
             </div>
           </fieldset>
         </form>
       </div>
+      <div class="form-left" id="insurance-section">
+        <div class="form-title col-xs-12">
+          <span>INSURANCE INFO</span>
+            <span class="edit-btn pull-right" ng-show="!editModeInsurance" ng-click="enableEdition('Insurance')">
+              <img src="/images/Write-white.png"/>
+              EDIT
+            </span>
+            <span class="edit-btn pull-right" ng-show="editModeInsurance" ng-click="saveBilling()">
+              <img src="/images/Write-white.png"/>
+              SAVE
+            </span>
+            <span class="edit-btn pull-right btn-warning" ng-show="editModeInsurance" ng-click="discardChanges('Insurance')">
+              <img src="/images/Write-white.png"/>
+              CANCEL
+            </span>
+        </div>  
+        <div class="form-container">
+          <form ng-submit="updateLocation()">
+            <fieldset ng-disabled="!editModeInsurance">
+              <div class="form-group col-lg-12">
+                <label>Mortgage process notes</label>
+                <textarea rows="5" class="form-control" ng-model="billing.mortgage_process_notes"></textarea>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Mortgage check location</label>
+                <input type="" name="" class="form-control" ng-model="billing.mortgage_check_location">
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Deductible paid date</label>
+                <p class="input-group date-picker">
+                  <input class="form-control" ng-model="billing.deductible_paid_date" datepicker-popup="{{format}}" is-open="opened.deductible_paid_date">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDate($event, 'deductible_paid_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Settled RCV</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="" name="" class="form-control" ng-model="billing.settled_rcv" ng-currency currency-symbol="">
+                </div>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Settled RCV date</label>
+                <p class="input-group date-picker">
+                  <input class="form-control" ng-model="billing.settled_rcv_date" datepicker-popup="{{format}}" is-open="opened.settled_rcv_date">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDate($event, 'settled_rcv_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-lg-12">
+                <label>Settled scope paperwork notes</label>
+                <textarea rows="5" class="form-control" ng-model="billing.settled_scope_paperwork_notes"></textarea>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Final check received amount</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="" name="" class="form-control" ng-model="billing.final_check_received_amount" ng-currency currency-symbol="">
+                </div>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Check released date</label>
+                <p class="input-group date-picker">
+                  <input class="form-control" ng-model="billing.check_released_date" datepicker-popup="{{format}}" is-open="opened.check_released_date">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDate($event, 'check_released_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Final check received date</label>
+                <p class="input-group date-picker">
+                  <input class="form-control" ng-model="billing.final_check_received_date" datepicker-popup="{{format}}" is-open="opened.final_check_received_date">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDate($event, 'final_check_received_date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-lg-6">
+                <label>Invoice sent to customer at</label>
+                <p class="input-group date-picker">
+                  <input class="form-control" ng-model="billing.invoice_sent_to_customer_at" datepicker-popup="{{format}}" is-open="opened.invoice_sent_to_customer_at">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDate($event, 'invoice_sent_to_customer_at')"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 </div>  

@@ -1,0 +1,87 @@
+/**** login.html *****/
+body.outside {
+  background: url('../images/login_background_large.jpg') no-repeat 50% 50%;
+  background-size: cover;
+}
+.outside .main-container {
+  background: none;
+}
+.login-container {
+  padding: 10em 15px 15em;
+}
+.login-container > form {
+  margin: 0 auto;
+  max-width: 400px;
+}
+.login-container .spinner-wrapper {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 5px;
+  right: -40px;
+}
+.login-container .logo-container {
+  text-align: center;
+}
+.login-box {
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1em;
+  overflow: hidden;
+  padding: 10px;
+}
+.reset-password {
+  padding-right: 25px;
+  margin-top: 10px;
+}
+.login-box_header {
+  border-bottom:1px solid #eee;
+  color:  #277cea;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+.login-box_body .form-group {
+  margin-top: 15px;
+}
+.login-box_body label{
+  color:  #3b3d40;
+  font-size: 12px;
+  display: inline-block;
+}
+.login-box_body label a {
+  margin-left: 5px;
+  color: #277cea;
+}
+.login-btn {
+  border-radius: 12px;
+  background-color: #499c4b;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 20px;
+  padding: 10px 20px;
+  position: relative;
+}
+.login-btn span {
+  color: #ffffff;
+  font-weight: 700;
+  margin-right: 2em;
+}
+.btn.login-btn:focus, 
+.btn.login-btn.active:focus {
+  outline: none;
+}
+
+@media all and (max-width: 991px) {
+	.login-container {
+  	padding: 2em 15px 0;
+	}
+}
+@media all and (max-width: 600px) {
+  .login-container > form {
+    max-width: 280px;
+  }
+}

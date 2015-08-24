@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('OverviewNavigationCtrl', function($stateParams, $scope, Sites){
+  .controller('OverviewNavigationCtrl', function($stateParams, $scope, $state,Flash,Sites){
 
     $scope.project_id = $stateParams.projectId;
     $scope.globalData = {};
@@ -28,14 +28,30 @@ angular.module('ersApp')
         'Production': 'production',
         'Billing': 'billing'
       };
-      
-      Sites.save({
-        siteId: $scope.project_id,
-        current_stage: hash[$scope.site.stage]
-      }, function() {
+
+      if ($scope.site.stage === 'Opportunity'){
+      //When in this stage we don't do transitions, we rather redirect user to contract filling page
+      //User is trying to transition to another stage before even filling a contract
+        if ($scope.site.new_stage != 'Under Contract'){
+          Flash.create('warning', 'It is not possible to transition to other stages before filling a contract.');
+        }
+
+        $scope.site.new_stage=$scope.site.stage;
         $scope.disableStageEdition();
-      })
-    }
+        $state.go("project.contract",{projectId: $scope.site.id});
+      }
+      else
+      {
+          Sites.save({
+            siteId: $scope.project_id,
+            current_stage: hash[$scope.site.new_stage]
+            }, function() {
+              $scope.disableStageEdition();
+            });
+      }
+      
+      
+    };
 
     $scope.enableStageEdition = function() {
       $scope.editStageMode = true;
@@ -49,6 +65,7 @@ angular.module('ersApp')
       $scope.globalData = Sites.get({siteId: $stateParams.projectId}, function(data) {
         $scope.setNavStatus(data.site);
         $scope.site = data.site;
+        $scope.site.new_stage=$scope.site.stage;
       });
     };
 
