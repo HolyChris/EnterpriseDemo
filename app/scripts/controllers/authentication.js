@@ -65,7 +65,7 @@ angular.module('ersApp')
               $location.path('/login')
           })
           .catch(function(response) {
-              console.log("Error", response);
+              // console.log("Error", response);
           });
       });
   });

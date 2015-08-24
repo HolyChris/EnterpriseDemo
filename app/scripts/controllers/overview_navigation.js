@@ -51,7 +51,6 @@ angular.module('ersApp')
             siteId: $scope.project_id,
             current_stage: hash[$scope.site.new_stage]
             }, function(data) {
-              console.log(data);
               $scope.disableStageEdition();
             });
       }
