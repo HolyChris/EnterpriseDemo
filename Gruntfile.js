@@ -434,6 +434,21 @@ module.exports = function (grunt) {
       },
       monarch: {
         site: 'http://monarch-roofing.bitballoon.com/'
+      },
+      greenrhino: {
+        site: 'http://green-rhino.bitballoon.com/'
+      },
+      highimpact: {
+        site: 'http://high-impact.bitballoon.com/'
+      },
+      skyline: {
+        site: 'http://sky-line.bitballoon.com/'
+      },
+      startclosing: {
+        site: 'http://startclosing.bitballoon.com/'
+      },
+      summitpoint: {
+        site: 'http://summit-point.bitballoon.com/'
       }
     },
     
@@ -458,7 +473,17 @@ module.exports = function (grunt) {
               type: 'list',
               message: 'Which site?',
               default: 'staging',
-              choices: ['staging', 'ecoroof', 'endeavor', 'monarch']
+              choices: [
+                'staging',
+                'ecoroof',
+                'endeavor',
+                'monarch',
+                'greenrhino',
+                'highimpact',
+                'skyline',
+                'startclosing',
+                'summitpoint'
+                ]
             }
           ]
         }
@@ -480,7 +505,6 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'staging',
-            //apiEndpoint: 'http://localhost:3000'
             apiEndpoint: 'http://54.68.73.69'
           }
         }
@@ -493,7 +517,6 @@ module.exports = function (grunt) {
           ENV: {
             name: 'ecoroof',
             apiEndpoint: 'https://eco-roof.herokuapp.com'
-            //URL: http://www.ecocp.ecoroofandsolar.com
           }
         }
       },
@@ -505,7 +528,6 @@ module.exports = function (grunt) {
           ENV: {
             name: 'endeavor',
             apiEndpoint: 'https://endeavor-exteriors.herokuapp.com'
-            //URL: http://endeavor-exteriors.bitballoon.com/
           }
         }
       },
@@ -517,7 +539,61 @@ module.exports = function (grunt) {
           ENV: {
             name: 'monarch',
             apiEndpoint: 'http://monarch-roofing.herokuapp.com'
-            //URL: http://endeavor-exteriors.bitballoon.com/
+          }
+        }
+      },
+      greenrhino: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'greenrhino',
+            apiEndpoint: 'http://green-rhino.herokuapp.com'
+          }
+        }
+      },
+      highimpact: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'highimpact',
+            apiEndpoint: 'http://high-impact.herokuapp.com'
+          }
+        }
+      },
+      skyline: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'skyline',
+            apiEndpoint: 'http://sky-line.herokuapp.com'
+          }
+        }
+      },
+      startclosing: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'startclosing',
+            apiEndpoint: 'http://startclosing.herokuapp.com'
+          }
+        }
+      },
+      summitpoint: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'summitpoint',
+            apiEndpoint: 'http://summit-point.herokuapp.com'
           }
         }
       }
