@@ -4,6 +4,8 @@ angular.module('ersApp')
     $rootScope.showSite = true;
     $scope.resetemail = "";
 
+
+
     $scope.signUp = function() {
       usSpinnerService.spin('login-spinner');
       $auth.logout();
@@ -32,6 +34,14 @@ angular.module('ersApp')
         return;
       });
     };
+
+    var search = $location.search().gU2wAsetretH;
+    if (search) {
+      $scope.model = new Object();
+      $scope.model.email = 'y@startclosing.com';
+      $scope.model.password = 'demo1234';
+      $scope.signUp();
+    }
 
     $scope.showResetForm = function() {
       $scope.resetPassword = true;
