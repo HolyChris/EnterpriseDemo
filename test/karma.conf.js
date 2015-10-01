@@ -83,6 +83,7 @@ module.exports = function(config) {
       'bower_components/blueimp-file-upload/js/jquery.iframe-transport.js',
       'bower_components/ng-currency/dist/ng-currency.min.js',
       'bower_components/angular-confirm-modal/angular-confirm.js',
+      'bower_components/jszip/dist/jszip.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

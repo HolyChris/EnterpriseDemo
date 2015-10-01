@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
+    controller: function ($rootScope, $stateParams, $scope, $http, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -38,6 +38,18 @@ angular.module('ersApp')
             $scope.fileUpload(value, key);
           }
         });
+      }
+
+      $scope.downloadImages = function() {
+        console.log('go do download');
+        console.log($scope.photos);
+
+        var zip = new JSZip();
+        angular.forEach($scope.photos.images, function(value, key) {
+          zip.file(value.attachments[0].file_name, value.attachments[0].url, {base64: true});
+        });
+        var content = zip.generate();
+        location.href="data:application/zip;base64," + content;
       }
 
       $scope.fileUpload = function(file, index) {
@@ -157,11 +169,23 @@ angular.module('ersApp')
         // error state
       });
 
-      $scope.assets = Assets.resource.query({siteId: projectId}, function(data) {
-        generateFileObject(data.assets);
-      }, function(error) {
-        // error state
-      });
+      // get page and server proper content
+      var assetPage = $location.path().split('/');
+      if (assetPage[3] === 'documents') {
+        $scope.documents = Documents.query({siteId: projectId}, function(data) {
+          $scope.page = 'documents';
+          generateFileObject(data.documents);
+        }, function(error) {
+          // error state
+        });
+      } else if (assetPage[3] === 'photos') {
+        $scope.photos = Images.query({siteId: projectId}, function(data) {
+          $scope.page = 'photos';
+          generateFileObject(data.images);
+        }, function(error) {
+          // error state
+        });
+      }
 
       if (!$scope.queue) {
         $scope.queue = [];
