@@ -40,16 +40,53 @@ angular.module('ersApp')
         });
       }
 
+      function downloadAndAddToZip(url, filename, zip) {
+        var result=JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                return false;
+            } else {
+                zip.file(filename, data, {binary:true});
+                return true;
+            }
+        });
+        return result;
+      }
+
+      function deferredAddZip(url, filename, zip) {
+        var deferred = $.Deferred();
+        JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                zip.file(filename, data, {binary:true});
+                deferred.resolve(data);
+            }
+        });
+        return deferred;
+      }
+
       $scope.downloadImages = function() {
         console.log('go do download');
         console.log($scope.photos);
-
         var zip = new JSZip();
+
+        var deferreds = [];
+
         angular.forEach($scope.photos.images, function(value, key) {
-          zip.file(value.attachments[0].file_name, value.attachments[0].url, {base64: true});
+            
+            deferreds.push(deferredAddZip(value.attachments[0].url, value.attachments[0].file_name, zip));
         });
-        var content = zip.generate();
-        location.href="data:application/zip;base64," + content;
+
+        $.when.apply($, deferreds).done(function () {
+            var content = zip.generate();
+            location.href="data:application/zip;base64," + content;
+            
+        }).fail(function (err) {
+            showError(err);
+        });
+
+        
+        
       }
 
       $scope.fileUpload = function(file, index) {
@@ -196,8 +233,8 @@ angular.module('ersApp')
           var fileObject = {
             title: value.title,
             file_name: value.attachments[0].file_name,
-            url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].url,
+            url: value.attachments[0].ura,
+            thumbnailUrl: value.attachments[0].ura,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
