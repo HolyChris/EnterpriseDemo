@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
+    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, $state, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -157,10 +157,26 @@ angular.module('ersApp')
         // error state
       });
 
-      $scope.assets = Assets.resource.query({siteId: projectId}, function(data) {
-        generateFileObject(data.assets);
-      }, function(error) {
-        // error state
+      // get page and server proper content
+      var assetPage = $state.current.name;
+      var photoQueue = [];
+      var documentQueue = [];
+      var assets = Assets.resource.query({siteId: projectId}, function(data) {
+        angular.forEach(data.assets, function(value, key) {
+          if (value.type === 'Image') {
+            photoQueue.push(value);
+          } else {
+            documentQueue.push(value);
+          }
+        });
+
+        if (assetPage === 'project.photos') {
+          generateFileObject(photoQueue);
+          $scope.page = 'photos';
+        } else {
+          generateFileObject(documentQueue);
+          $scope.page = 'documents';
+        }
       });
 
       if (!$scope.queue) {
@@ -173,7 +189,7 @@ angular.module('ersApp')
             title: value.title,
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].url,
+            thumbnailUrl: value.attachments[0].thumbnail_url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,

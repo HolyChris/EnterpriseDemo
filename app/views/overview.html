@@ -7,12 +7,6 @@
 			</a>
 		</li>
 		<li class="item">
-			<a ui-sref="project.documents({projectId: project_id})">
-				<img src="/images/overview-documents.png" alt="Overview Documets Icon">
-				<span class="title">DOCUMENTS</span>
-			</a>
-		</li>
-		<li class="item">
 			<a ui-sref="project.appointments({projectId: project_id})">
 				<img src="/images/overview-browser.png" alt="Overview Appointments Icon">
 				<span class="title">APPOINTMENTS</span>
@@ -22,6 +16,18 @@
 			<a ui-sref="project.contract({projectId: project_id})">
 				<img src="/images/overview-folder.png" alt="Overview Folder Icon">
 				<span class="title">CONTRACT</span>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="project.documents({projectId: project_id})">
+				<img src="/images/overview-documents.png" alt="Overview Documents Icon">
+				<span class="title">DOCUMENTS</span>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="project.photos({projectId: project_id})">
+				<img src="/images/overview-documents.png" alt="Overview Documents Icon">
+				<span class="title">PHOTOS</span>
 			</a>
 		</li>
 		<li class="item" ng-class="{'locked': !enableProjectDetails}">
