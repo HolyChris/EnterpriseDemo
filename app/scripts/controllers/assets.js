@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, usSpinnerService, $q) {
+    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, $q) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -44,32 +44,35 @@ angular.module('ersApp')
         //might not have CORS headers causing this XHR get to fail.. eventhough we already GOT the image..
         //we append a unique different query param at the end to force the fetching
         url = url + new Date().getTime();
+
         JSZipUtils.getBinaryContent(url, function (err, data) {
             if(err) {
                 deferred.reject(err);
             } else {
                 zip.file(filename, data, {binary:true});
+                $scope.files_compressed=$scope.files_compressed+1;
                 deferred.resolve(data);
             }
          });
         return deferred.promise;
       }
- 
+
       $scope.downloadImages = function() {
-        $scope.downloadStarted=true;
-        usSpinnerService.spin('download-spinner');
+        
         var zip = new JSZip();
         var deferreds=[];
-        angular.forEach($scope.assets.assets, function(value, key) {
+
+        var files=$scope.assets.assets;
+        $scope.files_to_compress=files.length;
+        $scope.files_compressed=0;
+        $scope.downloadStarted=true;
+        angular.forEach(files, function(value, key) {
           deferreds.push(deferredAddZip(value.attachments[0].url, value.attachments[0].file_name, zip));
         });
         
         $q.all(deferreds).then(function(data){
           //All promises have been succesfully completed
           var blob = zip.generate({type:"blob"});
-
-          //We stop the spinning
-          usSpinnerService.stop('download-spinner');
 
           //using FileSaver.js
           saveAs(blob, "images.zip");
@@ -80,7 +83,6 @@ angular.module('ersApp')
           //One or more promises have failed
           Flash.create('danger', 'Something happened. Could not generate the zip file. Please try again.');
           //We stop the spinning
-          usSpinnerService.stop('download-spinner');
           $scope.downloadStarted=false;
         });
 
