@@ -62,12 +62,16 @@ angular.module('ersApp')
         var zip = new JSZip();
         var deferreds=[];
 
-        var files=$scope.assets.assets;
-        $scope.files_to_compress=files.length;
+        var files=$scope.queue;
+        $scope.files_to_compress=0;//Total files will be calculated after looping and queuing the downloads
         $scope.files_compressed=0;
         $scope.downloadStarted=true;
         angular.forEach(files, function(value, key) {
-          deferreds.push(deferredAddZip(value.attachments[0].url, value.attachments[0].file_name, zip));
+          if (!value.$submit){
+            //We only zip files that were already uploaded
+            deferreds.push(deferredAddZip(value.url, value.file_name, zip));  
+            $scope.files_to_compress=$scope.files_to_compress+1;
+          }
         });
         
         $q.all(deferreds).then(function(data){
@@ -248,7 +252,9 @@ angular.module('ersApp')
             title: value.title,
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].thumbnail_url,
+            //TODO replace to thumbnail_url when working properly
+            //thumbnailUrl: value.attachments[0].thumbnail_url,
+            thumbnailUrl: value.attachments[0].url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,

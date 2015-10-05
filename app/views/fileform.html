@@ -76,12 +76,12 @@
   <div class="table-responsive">
     <table class="table table-striped files ng-cloak">
       <tr data-ng-repeat="file in queue | filter: filter" ng-show="show === 'All' || show === '{{file.type}}' || (show === 'Image' && isImage(file.type)) || (show === 'Document' && !isImage(file.type))" ng-class="'file-' + $index">
-        <td data-ng-switch data-on="!!file.thumbnailUrl">
+        <td data-ng-switch data-on="!!file.url">
           <div class="preview" data-ng-switch-when="true">
             <label for="file" class="control-label">File:</label>
             <br>
             <a data-ng-href="{{file.url}}" title="{{file.file_name}}" download="{{file.file_name}}">
-              <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="page === 'photos'">
+              <img data-ng-src="{{file.url}}" alt="" style="max-width: 90px;" ng-show="page === 'photos'">
               <span ng-hide="{{page === 'photos'}}">{{file.file_name}}</span>
             </a>
           </div>
@@ -93,7 +93,7 @@
         <td>
           <p class="name" data-ng-switch data-on="!!file.url">
             <label for="title" class="control-label">Title:</label>
-            <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+            <span data-ng-switch-when="true" data-ng-switch data-on="!!file.url">
                 <!-- <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a> -->
                 <input data-ng-switch-when="true" type="text" id="title" name="title" ng-model="file.title" class="form-control">
                 <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
