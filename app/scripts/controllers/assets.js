@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AssetsCtrl', function($scope, $location, $http) {
+  .controller('AssetsCtrl', function($scope, $http) {
 
 })
 
@@ -24,13 +24,76 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, $state, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
+    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, $q) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
       $scope.docTypes = Assets.docTypes;
       $scope.stages = Assets.stages;
       var currentStage = '';
+
+      
+
+      // ** BEGIN SECTION FOR DOWNLOAD ALL FILES **
+      $scope.downloadStarted=false;
+
+      function deferredAddZip(url, filename, zip) {
+
+        var deferred=$q.defer();
+        //NOTE: Here we'll trick the browser not to get the file from a previous cached result as that
+        //might not have CORS headers causing this XHR get to fail.. eventhough we already GOT the image..
+        //we append a unique different query param at the end to force the fetching
+        url = url + new Date().getTime();
+
+        JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                zip.file(filename, data, {binary:true});
+                $scope.files_compressed=$scope.files_compressed+1;
+                deferred.resolve(data);
+            }
+         });
+        return deferred.promise;
+      }
+
+      $scope.downloadImages = function() {
+        
+        var zip = new JSZip();
+        var deferreds=[];
+
+        var files=$scope.queue;
+        $scope.files_to_compress=0;//Total files will be calculated after looping and queuing the downloads
+        $scope.files_compressed=0;
+        $scope.downloadStarted=true;
+        angular.forEach(files, function(value, key) {
+          if (!value.$submit){
+            //We only zip files that were already uploaded
+            deferreds.push(deferredAddZip(value.url, value.file_name, zip));  
+            $scope.files_to_compress=$scope.files_to_compress+1;
+          }
+        });
+        
+        $q.all(deferreds).then(function(data){
+          //All promises have been succesfully completed
+          var blob = zip.generate({type:"blob"});
+
+          //using FileSaver.js
+          saveAs(blob, "images.zip");
+          
+          $scope.downloadStarted=false;
+        },
+        function(error){
+          //One or more promises have failed
+          Flash.create('danger', 'Something happened. Could not generate the zip file. Please try again.');
+          //We stop the spinning
+          $scope.downloadStarted=false;
+        });
+
+       }
+ 
+      // ** END SECTION FOR DOWNLOAD ALL FILES **
+
 
       $scope.multipleUploads = function() {
         angular.forEach($scope.queue, function(value, key) {
@@ -189,7 +252,9 @@ angular.module('ersApp')
             title: value.title,
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].thumbnail_url,
+            //TODO replace to thumbnail_url when working properly
+            //thumbnailUrl: value.attachments[0].thumbnail_url,
+            thumbnailUrl: value.attachments[0].url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
