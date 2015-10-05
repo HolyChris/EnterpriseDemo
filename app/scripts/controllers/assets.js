@@ -8,7 +8,7 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AssetsCtrl', function($scope, $location, $http) {
+  .controller('AssetsCtrl', function($scope, $http) {
 
 })
 
@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, $q) {
+    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, $q) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
