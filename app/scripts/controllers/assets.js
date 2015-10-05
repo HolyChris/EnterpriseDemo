@@ -65,7 +65,7 @@ angular.module('ersApp')
         var files=$scope.queue;
         $scope.files_to_compress=0;//Total files will be calculated after looping and queuing the downloads
         $scope.files_compressed=0;
-        $scope.downloadStarted=true;
+        
         angular.forEach(files, function(value, key) {
           if (!value.$submit){
             //We only zip files that were already uploaded
@@ -73,22 +73,30 @@ angular.module('ersApp')
             $scope.files_to_compress=$scope.files_to_compress+1;
           }
         });
-        
-        $q.all(deferreds).then(function(data){
-          //All promises have been succesfully completed
-          var blob = zip.generate({type:"blob"});
 
-          //using FileSaver.js
-          saveAs(blob, "images.zip");
-          
-          $scope.downloadStarted=false;
-        },
-        function(error){
-          //One or more promises have failed
-          Flash.create('danger', 'Something happened. Could not generate the zip file. Please try again.');
-          //We stop the spinning
-          $scope.downloadStarted=false;
-        });
+        if ($scope.files_to_compress==0){
+          //This means the list was showing elements but none was uploaded
+          Flash.create('danger', 'Zip file could not be generated, there are no uploaded files to be zipped. Please upload files first.');
+        }
+        else{
+          $scope.downloadStarted=true;
+          $q.all(deferreds).then(function(data){
+            //All promises have been succesfully completed
+            var blob = zip.generate({type:"blob"});
+
+            //using FileSaver.js
+            saveAs(blob, "images.zip");
+            
+            $scope.downloadStarted=false;
+          },
+          function(error){
+            //One or more promises have failed
+            Flash.create('danger', 'Something happened. Could not generate the zip file. Please try again.');
+            $scope.downloadStarted=false;
+          });
+        }
+        
+        
 
        }
  

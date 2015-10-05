@@ -64,7 +64,7 @@
   </div>
   
   <!-- The table listing the files available for upload/download -->
-  <p class="image-download" ng-show="!downloadStarted"><a ng-click="downloadImages()" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download All</a></p>
+  <p class="image-download" ng-show="!downloadStarted && queue.length > 0"><a ng-click="downloadImages()" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download All</a></p>
 
 
   <div class="col-lg-6 well" ng-show="downloadStarted">
