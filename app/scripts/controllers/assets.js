@@ -159,7 +159,6 @@ angular.module('ersApp')
 
       // get page and server proper content
       var assetPage = $state.current.name;
-      console.log(assetPage);
       var photoQueue = [];
       var documentQueue = [];
       var assets = Assets.resource.query({siteId: projectId}, function(data) {
