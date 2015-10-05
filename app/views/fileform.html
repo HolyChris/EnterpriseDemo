@@ -2,8 +2,8 @@
 
   <div class="row fileupload-buttonbar">
 
-    <div class="col-lg-12">
-      <button type="button" class="btn btn-default" data-ng-click="showAll()" ng-class="{active: show == 'All'}">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <!-- <button type="button" class="btn btn-default" data-ng-click="showAll()" ng-class="{active: show == 'All'}">
         <i class="glyphicon glyphicon-folder-open"></i>
         <span>All Assets</span>
       </button>
@@ -14,7 +14,7 @@
       <button type="button" class="btn btn-default" data-ng-click="showImages()" ng-class="{active: show == 'Image'}">
         <i class="glyphicon glyphicon-picture"></i>
         <span>Images</span>
-      </button>
+      </button> -->
       <!-- The fileinput-button span is used to style the file input field as button -->
       <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
         <i class="glyphicon glyphicon-plus"></i>
@@ -34,7 +34,7 @@
       <span class="fileupload-process"></span>
     </div>
     
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-show="page === 'documents'">
       <select name="doc_typeFilter" id="doc_typeFilter" ng-model="filter.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-change="changeFilter()">
           <option value=''>- Filter By Doc Type -</option>
       </select>
@@ -64,6 +64,7 @@
   </div>
   
   <!-- The table listing the files available for upload/download -->
+  <p class="image-download" ng-show="page === 'photos' && queue.length > 0"><a ng-click="downloadImages()" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download All Images</a></p>
   <div class="table-responsive">
     <table class="table table-striped files ng-cloak">
       <tr data-ng-repeat="file in queue | filter: filter" ng-show="show === 'All' || show === '{{file.type}}' || (show === 'Image' && isImage(file.type)) || (show === 'Document' && !isImage(file.type))" ng-class="'file-' + $index">
@@ -94,7 +95,7 @@
           <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
           <strong data-ng-show="file.message" class="text-success">{{file.message}}</strong>
         </td>
-        <td>
+        <td ng-show="page === 'documents'">
           <label for="doc_type" ng-show="!isImage(file.type)">Doc Type:</label>
           <select name="doc_type" id="doc_type" ng-model="file.doc_type" class="form-control" ng-options="docType.title as docType.title for docType in docTypes" ng-show="!isImage(file.type)">
           </select>

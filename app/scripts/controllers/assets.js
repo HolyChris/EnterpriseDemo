@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
+    controller: function ($rootScope, $stateParams, $scope, $http, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -38,6 +38,53 @@ angular.module('ersApp')
             $scope.fileUpload(value, key);
           }
         });
+      }
+
+      function downloadAndAddToZip(url, filename, zip) {
+        var result=JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                return false;
+            } else {
+                zip.file(filename, data, {binary:true});
+                return true;
+            }
+        });
+        return result;
+      }
+
+      function deferredAddZip(url, filename, zip) {
+        var deferred = $.Deferred();
+        JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                deferred.reject(err);
+            } else {
+                zip.file(filename, data, {binary:true});
+                deferred.resolve(data);
+            }
+        });
+        return deferred;
+      }
+
+      $scope.downloadImages = function() {
+        var zip = new JSZip();
+
+        var deferreds = [];
+
+        angular.forEach($scope.photos.images, function(value, key) {
+            
+            deferreds.push(deferredAddZip(value.attachments[0].url, value.attachments[0].file_name, zip));
+        });
+
+        $.when.apply($, deferreds).done(function () {
+            var content = zip.generate();
+            location.href="data:application/zip;base64," + content;
+            
+        }).fail(function (err) {
+            showError(err);
+        });
+
+        
+        
       }
 
       $scope.fileUpload = function(file, index) {
@@ -157,11 +204,41 @@ angular.module('ersApp')
         // error state
       });
 
-      $scope.assets = Assets.resource.query({siteId: projectId}, function(data) {
-        generateFileObject(data.assets);
-      }, function(error) {
-        // error state
+      // get page and server proper content
+      var assetPage = $location.path().split('/');
+      var photoQueue = [];
+      var documentQueue = [];
+      var assets = Assets.resource.query({siteId: projectId}, function(data) {
+        angular.forEach(data.assets, function(value, key) {
+          if (value.type === 'Image') {
+            photoQueue.push(value);
+          } else {
+            documentQueue.push(value);
+          }
+        });
+
+        if (assetPage[3] === 'photos') {
+          generateFileObject(photoQueue);
+        } else {
+          generateFileObject(documentQueue);
+        }
       });
+      
+      // if (assetPage[3] === 'documents') {
+      //   $scope.documents = Documents.query({siteId: projectId}, function(data) {
+      //     $scope.page = 'documents';
+      //     generateFileObject(data.documents);
+      //   }, function(error) {
+      //     // error state
+      //   });
+      // } else if (assetPage[3] === 'photos') {
+      //   $scope.photos = Images.query({siteId: projectId}, function(data) {
+      //     $scope.page = 'photos';
+      //     generateFileObject(data.images);
+      //   }, function(error) {
+      //     // error state
+      //   });
+      // }
 
       if (!$scope.queue) {
         $scope.queue = [];
@@ -173,7 +250,7 @@ angular.module('ersApp')
             title: value.title,
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
-            thumbnailUrl: value.attachments[0].url,
+            thumbnailUrl: value.attachments[0].thumbnail_url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,

@@ -111,6 +111,12 @@ angular
           "overview-content-view" : {templateUrl:'views/overview_project_doc.html'}
         }
       })
+      .state('project.photos',{
+        url:'/photos',
+        views:{
+          "overview-content-view" : {templateUrl:'views/overview_project_photo.html'}
+        }
+      })
       .state('project.appointments',{
         url:'/appointments',
         views:{
