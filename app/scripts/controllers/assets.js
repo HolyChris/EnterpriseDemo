@@ -66,8 +66,6 @@ angular.module('ersApp')
       }
 
       $scope.downloadImages = function() {
-        console.log('go do download');
-        console.log($scope.photos);
         var zip = new JSZip();
 
         var deferreds = [];
