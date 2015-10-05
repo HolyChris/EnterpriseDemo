@@ -208,21 +208,39 @@ angular.module('ersApp')
 
       // get page and server proper content
       var assetPage = $location.path().split('/');
-      if (assetPage[3] === 'documents') {
-        $scope.documents = Documents.query({siteId: projectId}, function(data) {
-          $scope.page = 'documents';
-          generateFileObject(data.documents);
-        }, function(error) {
-          // error state
+      var photoQueue = [];
+      var documentQueue = [];
+      var assets = Assets.resource.query({siteId: projectId}, function(data) {
+        angular.forEach(data.assets, function(value, key) {
+          if (value.type === 'Image') {
+            photoQueue.push(value);
+          } else {
+            documentQueue.push(value);
+          }
         });
-      } else if (assetPage[3] === 'photos') {
-        $scope.photos = Images.query({siteId: projectId}, function(data) {
-          $scope.page = 'photos';
-          generateFileObject(data.images);
-        }, function(error) {
-          // error state
-        });
-      }
+
+        if (assetPage[3] === 'photos') {
+          generateFileObject(photoQueue);
+        } else {
+          generateFileObject(documentQueue);
+        }
+      });
+      
+      // if (assetPage[3] === 'documents') {
+      //   $scope.documents = Documents.query({siteId: projectId}, function(data) {
+      //     $scope.page = 'documents';
+      //     generateFileObject(data.documents);
+      //   }, function(error) {
+      //     // error state
+      //   });
+      // } else if (assetPage[3] === 'photos') {
+      //   $scope.photos = Images.query({siteId: projectId}, function(data) {
+      //     $scope.page = 'photos';
+      //     generateFileObject(data.images);
+      //   }, function(error) {
+      //     // error state
+      //   });
+      // }
 
       if (!$scope.queue) {
         $scope.queue = [];
@@ -233,8 +251,8 @@ angular.module('ersApp')
           var fileObject = {
             title: value.title,
             file_name: value.attachments[0].file_name,
-            url: value.attachments[0].ura,
-            thumbnailUrl: value.attachments[0].ura,
+            url: value.attachments[0].url,
+            thumbnailUrl: value.attachments[0].thumbnail_url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,

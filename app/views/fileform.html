@@ -64,7 +64,7 @@
   </div>
   
   <!-- The table listing the files available for upload/download -->
-  <p class="image-download" ng-show="page === 'photos'"><a ng-click="downloadImages()" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download All Images</a></p>
+  <p class="image-download" ng-show="page === 'photos' && queue.length > 0"><a ng-click="downloadImages()" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download All Images</a></p>
   <div class="table-responsive">
     <table class="table table-striped files ng-cloak">
       <tr data-ng-repeat="file in queue | filter: filter" ng-show="show === 'All' || show === '{{file.type}}' || (show === 'Image' && isImage(file.type)) || (show === 'Document' && !isImage(file.type))" ng-class="'file-' + $index">
