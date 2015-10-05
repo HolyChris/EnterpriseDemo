@@ -71,14 +71,14 @@
           <div class="preview" data-ng-switch-when="true">
             <label for="file" class="control-label">File:</label>
             <br>
-            <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">
-              <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="isImage(file.type)">
-              <span ng-hide="{{isImage(file.type)}}">{{file.file_name}}</span>
+            <a data-ng-href="{{file.url}}" title="{{file.file_name}}" download="{{file.file_name}}">
+              <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="page === 'photos'">
+              <span ng-hide="{{page === 'photos'}}">{{file.file_name}}</span>
             </a>
           </div>
           <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
-          <div ng-hide="{{isImage(file.type) || file.file_name.length}}">
-            <span>{{file.name}}</span>
+          <div ng-hide="page === 'documents'">
+            <span>{{file.file_name}}</span>
           </div>
         </td>
         <td>

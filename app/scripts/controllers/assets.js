@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, $location, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
+    controller: function ($rootScope, $stateParams, $scope, $element, $timeout, $auth, $state, fileUpload, Images, Documents, Assets, Overview, ENV, Flash) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -158,7 +158,8 @@ angular.module('ersApp')
       });
 
       // get page and server proper content
-      var assetPage = $location.path().split('/');
+      var assetPage = $state.current.name;
+      console.log(assetPage);
       var photoQueue = [];
       var documentQueue = [];
       var assets = Assets.resource.query({siteId: projectId}, function(data) {
@@ -170,10 +171,12 @@ angular.module('ersApp')
           }
         });
 
-        if (assetPage[3] === 'photos') {
+        if (assetPage === 'project.photos') {
           generateFileObject(photoQueue);
+          $scope.page = 'photos';
         } else {
           generateFileObject(documentQueue);
+          $scope.page = 'documents';
         }
       });
 
