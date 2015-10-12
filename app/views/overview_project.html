@@ -210,6 +210,79 @@
 					</div>
 				</form>
 			</div>
+
+			<!-- BILLING ADDRESS FORM BEGIN -->
+			<div class="form-left">
+				<div class="form-title col-xs-12" id="customer-address-section">
+					<span>{{customer_title}} / BILLING ADDRESS</span>
+					<span class="edit-btn pull-right" ng-show="!bill_address_edition_enabled" ng-click="enable_bill_address_edition()">
+						<img src="/images/Write-white.png"/>
+						EDIT
+					</span>
+					<span class="edit-btn pull-right" ng-show="bill_address_edition_enabled" ng-click="save_bill_address_edition()">
+						<img src="/images/Write-white.png"/>
+						SAVE
+					</span>
+					<span class="edit-btn pull-right btn-warning" ng-show="bill_address_edition_enabled" ng-click="cancel_bill_address_edition()">
+						<img src="/images/Write-white.png"/>
+						CANCEL
+					</span>
+
+				</div>	
+				<form name="bill_address_form">
+					<div class="form-container">
+						<fieldset ng-disabled="!bill_address_edition_enabled">
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.address1'] || !bill_address_form.address1.$valid}" >
+								<label class="control-label">
+									Address 1
+									<small class="text-danger" ng-show="bill_address_form.address1.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="address1" class="form-control" id="" ng-model="bill_address.address1" required>
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.address2']}">
+								<label class="control-label">
+									Address 2
+								</label>
+								<input type="text" name="address2" class="form-control" id="" ng-model="bill_address.address2">
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.city'] || !bill_address_form.city.$valid}">
+								<label class="control-label">
+									City
+									<small class="text-danger" ng-show="bill_address_form.city.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="city" class="form-control" id="" ng-model="bill_address.city" required>
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.state']}">
+								<label class="control-label">State<sup>*</sup></label>
+								<select type="" name="" class="form-control" id="" value="" ng-model="bill_address.state.id" >
+									<option ng-repeat="state in states_array | orderBy: 'abbreviation'" value="{{state.id}}" ng-selected="state.id==bill_address.state.id">{{state.abbreviation}}</option>
+								</select>
+							</div>
+							
+							<div class="form-group col-lg-6" ng-class="{'has-error' : errors['bill_address.zipcode'] || !bill_address_form.zipcode.$valid}">
+								<label class="control-label">
+									Zip
+									<small class="text-danger" ng-show="bill_address_form.zipcode.$error.required">
+										Required!
+									</small>
+								</label>
+								<input type="text" name="zipcode" class="form-control" id="" ng-model="bill_address.zipcode" required>
+							</div>
+						</fieldset>
+					</div>
+				</form>
+			</div>
+
+			<!-- BILLING ADDRESS FORM END -->
+
+
 			<div class="form-left">
 				<div class="form-title col-xs-12" id="customer-details-section">
 					<span>{{customer_title}} / DETAILS</span>

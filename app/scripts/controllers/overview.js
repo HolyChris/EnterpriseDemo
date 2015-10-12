@@ -171,6 +171,7 @@ angular.module('ersApp')
   {
     prepareCustomerDetails(site.customer);
     prepareAddressDetails(site.address);
+    prepareBillAddressDetails(site.bill_address);
     prepareSiteDetails(site);
     preparePhoneNumbersDetails(site.customer.phone_numbers);
   }
@@ -329,9 +330,14 @@ angular.module('ersApp')
   {
     //customer input param comes from API query or as a result of a put
     $scope.project.address=address;
-
     fillEditableAddressInfoFromApiData();
+  }
 
+  function prepareBillAddressDetails(bill_address)
+  {
+    //customer input param comes from API query or as a result of a put
+    $scope.project.bill_address=bill_address;
+    fillEditableBillAddressInfoFromApiData();
   }
 
   function fillEditableAddressInfoFromApiData()
@@ -340,6 +346,16 @@ angular.module('ersApp')
     //$scope.address holds editable values
     //$scope.project.address holds values from last API request
     $scope.address=angular.copy($scope.project.address);
+    $scope.bill_address=angular.copy($scope.project.bill_address);
+    clearErrors();
+    
+  }
+
+  function fillEditableBillAddressInfoFromApiData()
+  {
+    //$scope.bill_address holds editable values
+    //$scope.project.bill_address holds values from last API request
+    $scope.bill_address=angular.copy($scope.project.bill_address);
     clearErrors();
     
   }
@@ -367,7 +383,7 @@ angular.module('ersApp')
       
       //State id has also to be provided in a different way 
       addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
-
+      
       //We invoke the sites update api with only address information to be updated
       Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
 
@@ -391,6 +407,57 @@ angular.module('ersApp')
     else
     {
       Flash.create('danger', 'Address information changes were not submitted. Check errors below.');
+    }
+  }
+
+
+  $scope.bill_address_edition_enabled=false;
+  $scope.enable_bill_address_edition = function (){
+    $scope.bill_address_edition_enabled=true; 
+  }
+
+  $scope.cancel_bill_address_edition = function (){
+    $scope.bill_address_edition_enabled=false;
+    fillEditableBillAddressInfoFromApiData();
+  }
+
+  $scope.save_bill_address_edition = function (){
+    if ($scope.bill_address_form.$valid){
+
+      //This is the way API is expecting address values to be passed
+      //object structure with address_attributes inner empty object is created
+      var addressAttributesUpdate={
+          bill_address_attributes: {}
+      };
+      //then edited values are copied over to the object
+      angular.copy($scope.bill_address,addressAttributesUpdate.bill_address_attributes);
+      
+      //State id has also to be provided in a different way 
+      addressAttributesUpdate.bill_address_attributes.state_id=$scope.bill_address.state.id;
+
+      //We invoke the sites update api with only address information to be updated
+      Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
+
+            if (!data.errors){
+
+              Flash.create('success', 'Bill Address successfully saved!');
+              prepareBillAddressDetails(data.site.bill_address);
+              $scope.bill_address_edition_enabled=false;
+              $scope.$parent.refreshNavStatus();
+
+            }
+            else{
+              $scope.errors = data.errors;
+              Flash.create('danger', 'Something happened. See errors below.');
+            }
+          }, function(error) {
+            $scope.errors = error.data.errors;
+            Flash.create('danger', 'Something happened. See errors below.');
+          });
+    }
+    else
+    {
+      Flash.create('danger', 'Bill Address information changes were not submitted. Check errors below.');
     }
   }
 
