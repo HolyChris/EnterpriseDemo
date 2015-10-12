@@ -170,7 +170,7 @@ angular.module('ersApp')
   function prepareProjectSectionsToBeEdited(site)
   {
     prepareCustomerDetails(site.customer);
-    prepareAddressDetails(site.address);
+    prepareAddressDetails(site.address,site.bill_address);
     prepareSiteDetails(site);
     preparePhoneNumbersDetails(site.customer.phone_numbers);
   }
@@ -325,10 +325,11 @@ angular.module('ersApp')
     Flash.dismiss();
   }
 
-  function prepareAddressDetails(address)
+  function prepareAddressDetails(address, bill_address)
   {
     //customer input param comes from API query or as a result of a put
     $scope.project.address=address;
+    $scope.project.bill_address=bill_address;
 
     fillEditableAddressInfoFromApiData();
 
@@ -340,6 +341,7 @@ angular.module('ersApp')
     //$scope.address holds editable values
     //$scope.project.address holds values from last API request
     $scope.address=angular.copy($scope.project.address);
+    $scope.bill_address=angular.copy($scope.project.bill_address);
     clearErrors();
     
   }
@@ -355,18 +357,21 @@ angular.module('ersApp')
   }
 
   $scope.save_address_edition = function (){
-    if ($scope.address_form.$valid){
+    if ($scope.address_form.$valid && $scope.bill_address_form.$valid){
 
       //This is the way API is expecting address values to be passed
       //object structure with address_attributes inner empty object is created
       var addressAttributesUpdate={
-          address_attributes: {}
+          address_attributes: {},
+          bill_address_attributes: {}
       };
       //then edited values are copied over to the object
       angular.copy($scope.address,addressAttributesUpdate.address_attributes);
+      angular.copy($scope.bill_address,addressAttributesUpdate.bill_address_attributes);
       
       //State id has also to be provided in a different way 
       addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
+      addressAttributesUpdate.bill_address_attributes.state_id=$scope.bill_address.state.id;
 
       //We invoke the sites update api with only address information to be updated
       Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
@@ -374,7 +379,7 @@ angular.module('ersApp')
             if (!data.errors){
 
               Flash.create('success', 'Address successfully saved!');
-              prepareAddressDetails(data.site.address);
+              prepareAddressDetails(data.site.address,data.site.bill_address);
               $scope.address_edition_enabled=false;
               $scope.$parent.refreshNavStatus();
 
