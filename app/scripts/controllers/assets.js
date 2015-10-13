@@ -84,8 +84,17 @@ angular.module('ersApp')
             //All promises have been succesfully completed
             var blob = zip.generate({type:"blob"});
 
+
+            var zipfilename='all-' + $scope.page + '.zip';
+
+            if ($scope.site.po_number){
+              //If po number is defined we'll use this to form the zip filename
+              zipfilename='PO-' + $scope.site.po_number + '-' + zipfilename;
+            }
+
+
             //using FileSaver.js
-            saveAs(blob, "images.zip");
+            saveAs(blob, zipfilename);
             
             $scope.downloadStarted=false;
           },
@@ -230,6 +239,7 @@ angular.module('ersApp')
       
       var currentSite = Overview.query({siteId: projectId}, function(data) {
         currentStage = data.site.stage;
+        $scope.site=data.site;
       }, function(error){
         // error state
       });
