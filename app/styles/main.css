@@ -1001,6 +1001,9 @@ tbody td{
   height: 25px;
   background: #499c4b;
 }
+.form-btn-wrapper {
+  clear: both;
+}
 /****end***/
 /***project overview page***/
 .proj-over-content .pipe{
