@@ -89,6 +89,7 @@
           <div ng-hide="page === 'documents'">
             <span>{{file.file_name}}</span>
           </div>
+          {{file.name}}
         </td>
         <td>
           <p class="name" data-ng-switch data-on="!!file.url">
@@ -122,7 +123,7 @@
           <p class="size">{{file.size | formatFileSize}}</p>
         </td> -->
         <td class="document-action">
-          <button type="button" class="btn btn-small start" data-ng-click="fileUpload(file, $index)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+          <button type="button" class="btn btn-small start" data-ng-click="fileUpload(file, $index, true)" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
             <i class="glyphicon glyphicon-upload"></i>
             <span>Start</span>
           </button>

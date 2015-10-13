@@ -106,12 +106,16 @@ angular.module('ersApp')
       $scope.multipleUploads = function() {
         angular.forEach($scope.queue, function(value, key) {
           if (!value.url) {
-            $scope.fileUpload(value, key);
+            if (key === $scope.queue.length - 1) {
+              $scope.fileUpload(value, key, true);
+            } else {
+              $scope.fileUpload(value, key, false);
+            }
           }
         });
       }
 
-      $scope.fileUpload = function(file, index) {
+      $scope.fileUpload = function(file, index, showMessage) {
         $scope.queue[index].state = 'pending';
         $scope.uploading = true;
         var type = $scope.isImage(file.type) ? 'Image' : 'Document';
@@ -138,7 +142,9 @@ angular.module('ersApp')
             $scope.queue.splice(index, 1);
           } else {
             generateFileObject(newFile, index);
-            Flash.create('success', 'File(s) uploaded!');
+            if (showMessage) {
+              Flash.create('success', 'File(s) uploaded!');
+            }
           }
         });
       }
