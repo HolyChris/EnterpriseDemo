@@ -1516,6 +1516,15 @@ h3.not-available {
   padding: 15px;
 }
 
+h2.customer-header-title {
+  font-size: 14px;
+  color: #FFF;
+}
+
+img.cover-photo-customer-portal{
+  max-width: 300px;
+}
+
 .customer-portal .customer-panel {
   padding: 0 20px;
   background-color: #fff;  
