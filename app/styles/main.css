@@ -1332,6 +1332,25 @@ p.clear-filters {
   padding-left: 0;
 }
 
+/*OVERVIEW HEADER Core info*/
+.overview-coverphoto {
+  margin-top: 1.5em;
+}
+.overview-coverphoto > div {
+  background: #FFF;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+img.cover-photo{
+  max-width: 150px;
+}
+
+.overview-coverphoto input[type="file"]{
+  display: none;
+}
+
+
 /*PRODUCTION*/  
 .production-form.proj-over-content .form-container {
   width: auto;
