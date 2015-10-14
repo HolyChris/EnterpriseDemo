@@ -1332,6 +1332,25 @@ p.clear-filters {
   padding-left: 0;
 }
 
+/*OVERVIEW HEADER Core info*/
+.overview-coverphoto {
+  margin-top: 1.5em;
+}
+.overview-coverphoto > div {
+  background: #FFF;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+img.cover-photo{
+  max-width: 150px;
+}
+
+.overview-coverphoto input[type="file"]{
+  display: none;
+}
+
+
 /*PRODUCTION*/  
 .production-form.proj-over-content .form-container {
   width: auto;
@@ -1495,6 +1514,15 @@ h3.not-available {
   font-size: 14px;
   border-radius: 5px;
   padding: 15px;
+}
+
+h2.customer-header-title {
+  font-size: 14px;
+  color: #FFF;
+}
+
+img.cover-photo-customer-portal{
+  max-width: 300px;
 }
 
 .customer-portal .customer-panel {

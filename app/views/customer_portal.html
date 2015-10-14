@@ -4,10 +4,16 @@
 	</div>
 </div>
 <div class="container site-content customer-portal" ng-show="model.auth_token">
-	<div class="row">
-		<h2 class="col-md-12 customer-header">
-			CUSTOMER PORTAL
-		</h2>
+	<div class="row customer-header">
+		<div class="col-md-6">
+			<h2 class="customer-header-title text-center">
+				CUSTOMER PORTAL
+			</h2>
+			<h3 class="text-center">
+				{{model.customerName}}
+			</h3>
+		</div>
+		<img class="col-md-3 center-block cover-photo-customer-portal" ng-if="model.userInfo.site.cover_photo_url!=''" ng-src="{{model.userInfo.site.cover_photo_url}}">
 	</div>
 	<div class="row">
 		<div class="col-md-4 customer-milestone customer-panel">

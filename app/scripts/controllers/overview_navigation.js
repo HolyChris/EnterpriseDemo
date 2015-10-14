@@ -84,4 +84,31 @@ angular.module('ersApp')
     };
 
     $scope.refreshNavStatus();
+
+    $scope.uploadCoverPhoto = function(files) {
+      if (files.length==1){
+        //A file has been selected we prepare 
+
+        var fd = new FormData(); // prepare as form data to handle files.
+        fd.append('id',$scope.site.id);
+        fd.append('cover_photo',files[0]);
+
+        Sites.upload_coverphoto({siteId: $scope.site.id},fd, function(data){
+          if (data.errors) {
+            Flash.create('danger', 'Something happened. Cover photo could not be uploaded.');
+
+          }
+          else{
+            Flash.create('success', 'Cover photo succesfully uploaded.');
+            $scope.site=data.site;
+          }
+        },
+        function(error){
+          Flash.create('danger', 'Something happened. Cover photo could not be uploaded.');
+        });
+      }
+      else if (files.length>1){
+        Flash.create('warning', 'Only one file can be selected as cover photo.');
+      }
+    };
   })

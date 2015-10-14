@@ -75,6 +75,34 @@
     		</div>
     	</p>
     </div>
+
+  </div>
+
+  <div class="col-md-3 overview-coverphoto">
+    <div class="col-xs-12">
+      <div class="no-cover-photo">
+
+
+        <img class="center-block img-thumbnail cover-photo" ng-src="images/home.png" ng-if="site.cover_photo_url==''">
+        <img class="center-block img-thumbnail cover-photo" ng-src="{{site.cover_photo_url}}" ng-show="site.cover_photo_url">
+        
+        <label for="coverphoto" class="center-block">
+          <span class="center-block btn btn-success btn-xs">
+            <img src="/images/clip.png">
+            <span ng-hide="site.cover_photo_url">
+              Select cover photo
+            </span>
+            <span ng-show="site.cover_photo_url">
+              Change
+            </span>
+
+          </span>
+        </label>
+
+
+        <input type="file" name="upload" id="coverphoto" class="form-control" onchange="angular.element(this).scope().uploadCoverPhoto(this.files)">
+      </div>
+    </div>
   </div>
 	<div ui-view="overview-content-view"></div>
 </div>

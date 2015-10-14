@@ -7,6 +7,7 @@ sitesService.factory('Sites', function($resource, ENV) {
       $.extend(data, data.site);
       return angular.toJson(data);
     }},
-    post: {method: "POST"}
+    post: {method: "POST"},
+    upload_coverphoto: {method: "PUT", headers: { 'Content-Type': undefined }}
   });
 });
