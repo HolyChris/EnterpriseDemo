@@ -24,7 +24,7 @@ angular.module('ersApp')
       ngModel: '=',
       name: '@'
     },
-    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, $q) {
+    controller: function ($rootScope, $state, $stateParams, $scope, $http, $element, $timeout, $auth, fileUpload, Images, Documents, Assets, Overview, ENV, Flash, Lightbox, $q) {
       var authToken = $auth.getToken();
       $scope.uploading = false;
       $scope.loadingFiles = false;
@@ -248,10 +248,17 @@ angular.module('ersApp')
       var assetPage = $state.current.name;
       var photoQueue = [];
       var documentQueue = [];
+      $scope.images = [];
       var assets = Assets.resource.query({siteId: projectId}, function(data) {
         angular.forEach(data.assets, function(value, key) {
           if (value.type === 'Image') {
             photoQueue.push(value);
+            $scope.images.push({
+              'url': value.attachments[0].url,
+              'title': value.attachments[0].file_name,
+              'caption': value.title,
+              'file_name': value.attachments[0].file_name
+            });
           } else {
             documentQueue.push(value);
           }
@@ -264,7 +271,42 @@ angular.module('ersApp')
           generateFileObject(documentQueue);
           $scope.page = 'documents';
         }
+
       });
+
+      Lightbox.templateUrl = '../../views/lightbox-modal.html';
+      Lightbox.calculateModalDimensions = function (dimensions) {
+        // 400px = arbitrary min width
+        // 32px = 2 * (1px border of .modal-content
+        //             + 15px padding of .modal-body)
+        var width = Math.max(400, dimensions.imageDisplayWidth + 32);
+
+        // 200px = arbitrary min height
+        // 86px = 32px as above
+        //        + 54px outer height of .lightbox-nav
+        var height = Math.max(200, dimensions.imageDisplayHeight + 86);
+
+        // first case:  the modal width cannot be larger than the window width
+        //              20px = arbitrary value larger than the vertical scrollbar
+        //                     width in order to avoid having a horizontal scrollbar
+        // second case: Bootstrap modals are not centered below 768px
+        if (width >= dimensions.windowWidth - 20 || dimensions.windowWidth < 768) {
+          width = 'auto';
+        }
+
+        // the modal height cannot be larger than the window height
+        if (height >= dimensions.windowHeight) {
+          height = 'auto';
+        }
+
+        return {
+          'width': width,
+          'height': height
+        };
+      };
+      $scope.openLightboxModal = function(index) {
+        Lightbox.openModal($scope.images, index);
+      }
 
       if (!$scope.queue) {
         $scope.queue = [];
