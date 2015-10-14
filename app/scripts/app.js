@@ -40,7 +40,8 @@ angular
     'blueimp.fileupload',
     'satellizer',
     'ng-currency',
-    'angular-confirm'
+    'angular-confirm',
+    'bootstrapLightbox'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
   

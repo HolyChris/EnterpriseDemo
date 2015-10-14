@@ -80,15 +80,12 @@
           <div class="preview" data-ng-switch-when="true">
             <label for="file" class="control-label">File:</label>
             <br>
+            <a ng-click="openLightboxModal($index)" ng-show="page === 'photos'"><img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;"><br><br></a>
             <a data-ng-href="{{file.url}}" title="{{file.file_name}}" download="{{file.file_name}}">
-              <img data-ng-src="{{file.thumbnailUrl}}" alt="" style="max-width: 90px;" ng-show="page === 'photos'">
-              <span ng-hide="{{page === 'photos'}}">{{file.file_name}}</span>
+              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> <span>{{file.file_name}}</span>
             </a>
           </div>
           <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
-          <div ng-hide="page === 'documents'">
-            <span>{{file.file_name}}</span>
-          </div>
           {{file.name}}
         </td>
         <td>
