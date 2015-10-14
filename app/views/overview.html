@@ -84,7 +84,9 @@
 
 
         <img class="center-block img-thumbnail cover-photo" ng-src="images/home.png" ng-if="site.cover_photo_url==''">
-        <img class="center-block img-thumbnail cover-photo" ng-src="{{site.cover_photo_url}}" ng-show="site.cover_photo_url">
+        <a ng-click="openCoverPhotoInLightboxModal()">
+          <img class="center-block img-thumbnail cover-photo" ng-src="{{site.cover_photo_url}}" ng-show="site.cover_photo_url">
+        </a>
         
         <label for="coverphoto" class="center-block">
           <span class="center-block btn btn-success btn-xs">

@@ -1,5 +1,5 @@
 angular.module('ersApp')
-  .controller('OverviewNavigationCtrl', function($stateParams, $scope, $state,Flash,Sites){
+  .controller('OverviewNavigationCtrl', function($stateParams, $scope, $state,Flash,Sites,Lightbox){
 
     $scope.project_id = $stateParams.projectId;
     $scope.globalData = {};
@@ -111,4 +111,15 @@ angular.module('ersApp')
         Flash.create('warning', 'Only one file can be selected as cover photo.');
       }
     };
+
+    $scope.openCoverPhotoInLightboxModal= function(){
+      var images=[{
+        'url': $scope.site.cover_photo_url,
+        'thumbUrl' : $scope.site.cover_photo_url,
+        'caption': 'Cover photo',
+      }];
+
+      Lightbox.openModal(images, 0);
+    };
+
   })
