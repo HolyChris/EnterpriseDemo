@@ -340,7 +340,11 @@
 								<div>
 									<p class="selected-manager" ng-repeat="manager in site_edit.managers">
 										<span class="manager-email">{{ manager.email }}
+											<span title="Primary sales rep" class="btn btn-xs glyphicon glyphicon-star remove" aria-hidden="true" ng-show="!site_info_edition_enabled && manager.primary"> Primary </span>										
+
 											<span class="btn btn-xs glyphicon glyphicon-remove-circle remove" aria-hidden="true" ng-click="removeManager(manager.id)" ng-show="site_info_edition_enabled"></span>
+
+											<span title="Set primary sales rep" ng-class="{'glyphicon-star': manager.primary, 'glyphicon-star-empty': !manager.primary}" class="btn btn-xs glyphicon remove" aria-hidden="true" ng-click="togglePrimaryManager(manager.id)" ng-show="site_info_edition_enabled"></span>
 										</span>
 									</p>
 								</div>

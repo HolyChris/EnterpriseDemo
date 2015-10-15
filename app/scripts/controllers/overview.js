@@ -229,12 +229,38 @@ angular.module('ersApp')
     
   }
   $scope.removeManager = function(id) {
+
+    //As we're removing a manager, if it happened to be the primary 
+    //we erase this id as well
+    if (id===$scope.site_edit.primary_manager_id){
+      delete $scope.site_edit.primary_manager_id;
+    }
+    
     for (var i = 0; i < $scope.site_edit.managers.length; i++) {
       if ($scope.site_edit.managers[i].id === id) {
         $scope.managersArray.users.push($scope.site_edit.managers[i]);
         $scope.site_edit.managers.splice(i, 1);
       }
     }
+  }
+
+  $scope.togglePrimaryManager = function(id){
+    for (var i = 0; i < $scope.site_edit.managers.length; i++) {
+      //There's been an action on one of the stars, we set the primary flag
+      //to false for all if we determine there was one marked as primary then that'll
+      //be the only one with a true vale
+      $scope.site_edit.managers[i].primary=false;
+      if ($scope.site_edit.managers[i].id === id) {
+        if (id===$scope.site_edit.primary_manager_id){
+          delete $scope.site_edit.primary_manager_id;
+        }
+        else{
+          $scope.site_edit.primary_manager_id=id;
+          $scope.site_edit.managers[i].primary=true;
+        }
+      }
+    }
+    
   }
 
   $scope.addPhone = function(evt) {
@@ -497,6 +523,15 @@ angular.module('ersApp')
       $scope.site_edit.source = $scope.siteSource.indexOf($scope.site_edit.source)+1;
 
     }
+
+    //API returns managers collection and one of them has the primary flag == true but
+    //then when upating it expects $scope.site_edit.primary_manager_id to have the id
+    angular.forEach($scope.site_edit.managers, function(value, key) {
+        if (value.primary === true){
+          $scope.site_edit.primary_manager_id=value.id;
+        }
+    });
+    
 
     clearErrors();
     
