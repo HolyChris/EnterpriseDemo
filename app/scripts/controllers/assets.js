@@ -318,9 +318,7 @@ angular.module('ersApp')
             title: value.title,
             file_name: value.attachments[0].file_name,
             url: value.attachments[0].url,
-            //TODO replace to thumbnail_url when working properly
-            //thumbnailUrl: value.attachments[0].thumbnail_url,
-            thumbnailUrl: value.attachments[0].url,
+            thumbnailUrl: value.attachments[0].thumbnail_url,
             doc_type: value.doc_type,
             notes: value.notes,
             stage: value.stage,
