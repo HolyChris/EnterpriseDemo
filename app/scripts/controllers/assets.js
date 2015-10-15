@@ -151,6 +151,14 @@ angular.module('ersApp')
             $scope.queue.splice(index, 1);
           } else {
             generateFileObject(newFile, index);
+            if (newFile[0].type === 'Image') {
+              $scope.images.push({
+                'url': newFile[0].attachments[0].url,
+                'title': newFile[0].attachments[0].file_name,
+                'caption': newFile[0].title,
+                'file_name': newFile[0].attachments[0].file_name
+              });
+            }
             if (showMessage) {
               Flash.create('success', 'File(s) uploaded!');
             }
