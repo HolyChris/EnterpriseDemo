@@ -94,14 +94,23 @@ projectService.factory('Project', function($resource, ENV) {
 		{name: 'Venetian Gold',    id: '73'},
 		{name: 'Weathered Timber',    id: '74'},
 		{name: 'Weathered Wood',    id: '75'},
-		{name: 'Woodberry Brown',    id: '76'}
+		{name: 'Woodberry Brown',    id: '76'},
+		{name: 'White', id: '77'},
+		{name: 'Buff', id: '78'},
+		{name: 'Heather Blend', id: '79'},
+		{name: 'Black', id: '80'},
+		{name: 'Red Blend', id: '81'},
+		{name: 'Weatherwood', id: '82'},
+		{name: 'Oak', id: '83'},
+		{name: 'Pine Green', id: '84'}		
 		];
 
 	var manufacturers = [
 	    {name:'GAF',id:'1'},
 	    {name:'Owens Corning',id:'2'},
 	    {name:'Certainteed',id:'3'},
-	    {name:'Decra',id:'4'}
+	    {name:'Decra',id:'4'},
+	    {name:'Mulehide',id:'5'}
 	  ];
 
   	var shingles = [
@@ -124,7 +133,8 @@ projectService.factory('Project', function($resource, ENV) {
 		{title: 'Tile'					,id:'17', manufacturerId: '4' , colorsId: [9, 29, 25, 36, 38, 47, 55, 58, 68, 74]},
 		{title: 'Villa Tile'			,id:'18', manufacturerId: '4' , colorsId: [19, 52, 54, 73, 4]},
 		{title: 'Shake'					,id:'19', manufacturerId: '4' , colorsId: [47, 55, 58, 74, 29, 25, 38 ]},
-		{title: 'Shake XD'				,id:'20', manufacturerId: '4' , colorsId: [51, 6]}
+		{title: 'Shake XD'				,id:'20', manufacturerId: '4' , colorsId: [51, 6]},
+		{title: 'Modified Bitumen', id:'21', manufacturerId: '5', colorsId: [29, 77, 78, 79, 80, 81, 82, 83, 84]}
   		];
 
 
