@@ -1439,6 +1439,12 @@ h3.not-available {
     float: none !important;
     margin-bottom: 1em;
   }
+  .customer-portal .customer-header {
+    text-align: center;
+  }
+  .customer-portal .customer-header h2.customer-header-title {
+    padding-top: 0;
+  }
 }
 @media all and (max-width: 767px) {
   .table-responsive {
@@ -1519,6 +1525,7 @@ h3.not-available {
 h2.customer-header-title {
   font-size: 14px;
   color: #FFF;
+  padding-top: 3em;
 }
 
 img.cover-photo-customer-portal{
