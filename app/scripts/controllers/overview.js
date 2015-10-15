@@ -251,13 +251,8 @@ angular.module('ersApp')
       //be the only one with a true vale
       $scope.site_edit.managers[i].primary=false;
       if ($scope.site_edit.managers[i].id === id) {
-        if (id===$scope.site_edit.primary_manager_id){
-          delete $scope.site_edit.primary_manager_id;
-        }
-        else{
-          $scope.site_edit.primary_manager_id=id;
-          $scope.site_edit.managers[i].primary=true;
-        }
+        $scope.site_edit.primary_manager_id=id;
+        $scope.site_edit.managers[i].primary=true;
       }
     }
     
