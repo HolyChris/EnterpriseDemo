@@ -64,6 +64,7 @@ angular.module('ersApp')
         	$scope.model.auth_token = false;
         } else {
   	      $scope.model.userInfo = data.data;
+          setManagersInformationStyle();
           $scope.model.userInfo.project.contractName = data.data.project.contract_document_url.substr(data.data.project.contract_document_url.lastIndexOf("/")+1);
         }
       });
@@ -72,5 +73,17 @@ angular.module('ersApp')
   	$scope.phoneType = function(type) {
   		return "TestType"
   	};
-});
 
+
+    function setManagersInformationStyle(){
+      //We have to check if there is a primary sales rep, if not we'll show them all
+      var doesNotHavePrimarySalesRep=true;
+      angular.forEach($scope.model.userInfo.site.managers, function(value, key) {
+          if (value.primary === true){
+            doesNotHavePrimarySalesRep=false;
+          }
+      });
+
+      $scope.doesNotHavePrimarySalesRep=doesNotHavePrimarySalesRep;
+    }
+});

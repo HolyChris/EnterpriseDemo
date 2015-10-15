@@ -238,7 +238,7 @@
 									<span class="field-title">
 										Managers
 									</span>
-									<p class="field-value" ng-repeat="manager in model.userInfo.site.managers">{{manager.email}}</p>
+									<p class="field-value" ng-if="doesNotHavePrimarySalesRep || manager.primary" ng-repeat="manager in model.userInfo.site.managers">{{manager.email}}</p>
 								</div>
 								<!-- <div class="customer-field">
 									<span class="field-title">
