@@ -73,3 +73,4 @@ angular.module('ersApp')
   		return "TestType"
   	};
 });
+
