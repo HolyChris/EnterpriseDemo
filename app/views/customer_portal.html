@@ -4,8 +4,8 @@
 	</div>
 </div>
 <div class="container site-content customer-portal" ng-show="model.auth_token">
-	<div class="row customer-header">
-		<div class="col-md-4">
+	<div id="customer-header" class="row customer-header">
+		<div class="customer-title">
 			<h2 class="customer-header-title">
 				CUSTOMER PORTAL
 			</h2>
@@ -13,8 +13,9 @@
 				{{model.customerName}}
 			</h3>
 		</div>
-		<div class="col-md-4">
+		<div class="customer-image">
 			<img class="center-block cover-photo-customer-portal" ng-if="model.userInfo.site.cover_photo_url!=''" ng-src="{{model.userInfo.site.cover_photo_url}}">
+			<img class="center-block img-thumbnail cover-photo" src="/images/home.png" ng-if="model.userInfo.site.cover_photo_url == ''">
 		</div>
 	</div>
 	<div class="row">
