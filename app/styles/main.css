@@ -51,7 +51,7 @@ a:hover span {
   font-size: 10px;
 }
 
-.ng-scope {
+.outside.ng-scope {
   min-height: 100%;
 }
 .btn.ng-scope {
