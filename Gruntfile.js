@@ -426,6 +426,9 @@ module.exports = function (grunt) {
       staging: {
         site: 'http://eco-roof-and-solar.bitballoon.com/'
       },
+      assuranceroof: {
+        site: 'http://assurance-roof.bitballoon.com/'
+      },
       endeavor: {
         site: 'http://endeavor-exteriors.bitballoon.com/'
       },
@@ -451,7 +454,7 @@ module.exports = function (grunt) {
         site: 'http://summit-point.bitballoon.com/'
       }
     },
-    
+
     prompt: {
       bbtoken:{
         options:{
@@ -475,6 +478,7 @@ module.exports = function (grunt) {
               default: 'staging',
               choices: [
                 'staging',
+                'assuranceroof',
                 'ecoroof',
                 'endeavor',
                 'monarch',
@@ -506,6 +510,17 @@ module.exports = function (grunt) {
           ENV: {
             name: 'staging',
             apiEndpoint: 'http://54.68.73.69'
+          }
+        }
+      },
+      assuranceroof: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'assuranceroof',
+            apiEndpoint: 'http://assurance-roof.herokuapp.com'
           }
         }
       },
