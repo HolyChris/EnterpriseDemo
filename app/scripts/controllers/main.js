@@ -8,11 +8,12 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, v2Sites, ENV, $state,Address) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state,Address) {
     // Site listings
-        v2Sites.query(function(response) {
-            console.log(response);
-        });
+    var recentRequest = { page: 1, pageSize: 10 };
+    SitesResourceService.recent(recentRequest).then(function(response) {
+        console.log('Recent received');
+    });
     //$scope.recent_sites = Sites.query();
     //$scope.opportunities = Sites.query({stage: 'Opportunity'});
     //$scope.contracts = Sites.query({stage: 'UnderContract'});
