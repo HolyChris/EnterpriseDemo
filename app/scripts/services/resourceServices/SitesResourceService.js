@@ -11,17 +11,18 @@
         }
 
         /* Sites service specific functions */
-        SitesResourceService.prototype.recent = function (paginatedRequest) {
-            return this.get(this.environmentService.apiEndpoint + '/api/v2/sites');
+        SitesResourceService.prototype.recent = function () {
+            return this.get(this.environmentService.apiEndpoint + '/api/v2/sites', { include: 'customer,address' });
         };
 
         /* Resource service utilities. This should ideally move to a base class. */
         SitesResourceService.prototype.get = function (url, request) {
+            var _this = this;
             var defer = this.promiseService.defer();
             if (request)
                 url += '?' + jQuery.param(request);
             this.httpService.get(url).then(function (response) {
-                defer.resolve(this.parse(response));
+                defer.resolve(_this.parse(response.data));
             }).catch(function (error) {
                 defer.reject(error);
             });
@@ -39,18 +40,50 @@
             return response;
         };
 
-        SitesResourceService.prototype.parseObject = function (response) {
+        SitesResourceService.prototype.parseCollection = function (response) {
+            response.items = [];
+
+            /* Build up dictionary for quick lookup */
+            var includedDictionary = {};
+            angular.forEach(response.included, function(include) {
+                includedDictionary[include.type + '-' + include.id] = include;
+            });
+
+            /* Process each item in collection */
+            angular.forEach(response.data, function (rawItem) {
+                var item = SitesResourceService.prototype.parseObject(rawItem, includedDictionary);
+                response.items.push(item);
+            });
+
             return response;
         };
 
-        SitesResourceService.prototype.parseCollection = function (response) {
-            response.items = [];
-            angular.forEach(response.data, function (rawItem) {
-                var item = rawItem.attributes;
-                item.id = rawItem.id;
-                response.items.push(item);
+        SitesResourceService.prototype.parseObject = function (rawItem, includedDictionary) {
+            var _this = this;
+            var item = rawItem.attributes;
+            item.id = rawItem.id;
+
+            /* Add includes */
+            angular.forEach(rawItem.relationships, function(relationship, name) {
+                if(!relationship.data)
+                    return;
+
+                if(angular.isArray(relationship.data)) {
+                    item[name] = [];
+                    angular.forEach(relationship.data, function(relationshipItem) {
+                        item[name].push(_this.parseRelationship(item, relationshipItem, includedDictionary));
+                    });
+                } else {
+                    item[name] = _this.parseRelationship(item, relationship.data, includedDictionary);
+                }
             });
-            return response;
+
+            return item;
+        };
+
+        SitesResourceService.prototype.parseRelationship = function(item, relationship, includedDictionary) {
+            var relationshipRawItem = includedDictionary[relationship.type + '-' + relationship.id];
+            return this.parseObject(relationshipRawItem);
         };
 
         angular.module('sitesService').factory('SitesResourceService', [

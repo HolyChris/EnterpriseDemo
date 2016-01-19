@@ -10,7 +10,7 @@
           </div>
           <div class="sub-container__body">
             <ul class="site-list">
-              <li ng-repeat="site in recent_sites.sites">
+              <li ng-repeat="site in recent_sites.items">
                 <a ui-sref="project.overview({projectId: site.id})">
                   <span class="site_title pull-left">{{site.name}}</span>
                   <span class="site_info pull-right">
