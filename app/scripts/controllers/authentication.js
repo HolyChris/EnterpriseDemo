@@ -1,7 +1,6 @@
 angular.module('ersApp')
   .controller('LoginCtrl', function($scope, $stateParams, $http, $auth, $location, $rootScope, Flash, usSpinnerService, ENV) {
     $rootScope.isAuthenticated = false;
-    $rootScope.showSite = true;
     $scope.resetemail = "";
 
     $scope.signUp = function() {

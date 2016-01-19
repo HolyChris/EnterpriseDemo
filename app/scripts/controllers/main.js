@@ -8,19 +8,16 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, ENV, $state,Address) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, v2Sites, ENV, $state,Address) {
     // Site listings
-    $rootScope.showSite = false;
-    $scope.recent_sites = Sites.query(function() {
-        $rootScope.showSite = true;
-    }, function(error) {
-        $rootScope.showSite = false;
-        $state.go('login');
-    });
-    $scope.opportunities = Sites.query({stage: 'Opportunity'});
-    $scope.contracts = Sites.query({stage: 'UnderContract'});
-    $scope.productions = Sites.query({stage: 'Production'});
-    $scope.billings = Sites.query({stage: 'Billing'});
+        v2Sites.query(function(response) {
+            console.log(response);
+        });
+    //$scope.recent_sites = Sites.query();
+    //$scope.opportunities = Sites.query({stage: 'Opportunity'});
+    //$scope.contracts = Sites.query({stage: 'UnderContract'});
+    //$scope.productions = Sites.query({stage: 'Production'});
+    //$scope.billings = Sites.query({stage: 'Billing'});
 
     $rootScope.isFront = true;
     $rootScope.$on('$locationChangeStart', function(event) {
