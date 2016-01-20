@@ -11,31 +11,31 @@ angular.module('ersApp')
   .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state,Address) {
     // Site listings
     $scope.loadingRecent = true;
-    SitesResourceService.filter({ limit: '9' }).then(function(response) {
+    SitesResourceService.filter().then(function(response) {
         $scope.loadingRecent = false;
         $scope.recent_sites = response;
     });
 
     $scope.loadingOpportunity = true;
-    SitesResourceService.filter({ stage: 'Opportunity' }).then(function(response) {
+    SitesResourceService.filter({ stage_name: 'lead' }).then(function(response) {
         $scope.loadingOpportunity = false;
         $scope.opportunities = response;
     });
 
     $scope.loadingContracts = true;
-    SitesResourceService.filter({ stage: 'UnderContract' }).then(function(response) {
+    SitesResourceService.filter({ stage_name: 'contract' }).then(function(response) {
         $scope.loadingContracts = false;
         $scope.contracts = response;
     });
 
     $scope.loadingProductions = true;
-    SitesResourceService.filter({ stage: 'Production' }).then(function(response) {
+    SitesResourceService.filter({ stage_name: 'production' }).then(function(response) {
         $scope.loadingProductions = false;
         $scope.productions = response;
     });
 
     $scope.loadingBillings = true;
-    SitesResourceService.filter({ stage: 'Billing' }).then(function(response) {
+    SitesResourceService.filter({ stage_name: 'billing' }).then(function(response) {
         $scope.loadingBillings = false;
         $scope.billings = response;
     });

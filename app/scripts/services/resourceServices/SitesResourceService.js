@@ -11,8 +11,13 @@
         }
 
         /* Sites service specific functions */
-        SitesResourceService.prototype.filter = function (request) {
-            jQuery.extend(request, { include: 'customer,address' });
+        SitesResourceService.prototype.filter = function (filter) {
+            var request = {
+                include: 'customer,address',
+                sort: '-updated_at'
+            };
+            if(filter)
+                request['filter'] = filter;
             return this.get(this.environmentService.apiEndpoint + '/api/v2/sites', request);
         };
 

@@ -4,27 +4,35 @@
       <div class="col-md-6 col-xs-12 recent-sites">
         <div class="front-box-wrapper">
           <div class="sub-container__header">
-            <div class="heading">
+            <div class="info-header">
               RECENT SITES
+              <div class="pull-right dropdown line-height-1">
+                <a class="info-header-add-button" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a ui-sref="newcustomer">Customer</a></li>
+                  <li><a ui-sref="newsite">Site</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="sub-container__body">
+            <loading-bar loading="loadingRecent"></loading-bar>
             <ul class="site-list">
               <li ng-repeat="site in recent_sites.items">
                 <a ui-sref="project.overview({projectId: site.id})">
-                  <span class="site_title pull-left">{{site.name}}</span>
-                  <span class="site_info pull-right">
+                  <span class="site_title">{{site.name}}</span>
+                  <div class="site_info">
                     {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
                     <i class="glyphicon glyphicon-triangle-right"></i>
-                  </span>
+                  </div>
                 </a>
               </li>
             </ul>
           </div>
-          <div class="sub_container__footer">
-            <a ui-sref="newcustomer"><button class="btn btn-success pull-right action-btn">CREATE CUSTOMER</button></a>
-            <a ui-sref="newsite"><button class="btn btn-success pull-right action-btn">CREATE SITE</button></a> 
-          </div>
+          <!--<div class="sub_container__footer">-->
+            <!--<a ui-sref="newcustomer"><button class="btn btn-success pull-right action-btn">CREATE CUSTOMER</button></a>-->
+            <!--<a ui-sref="newsite"><button class="btn btn-success pull-right action-btn">CREATE SITE</button></a> -->
+          <!--</div>-->
         </div>
       </div>
       <div class="col-md-6 col-xs-12 quick-links">
@@ -33,7 +41,7 @@
             <div class="info-header">QUICK LINKS</div>
             <div class="info-container">
               <ul class="links-list">
-                <li>
+                <li class="clearfix">
                   <span class="link_title pull-left">
                     <img src="images/Search Icon.png">
                     <input type="text" class="form-control" placeholder="Search By Address" ng-model="address_address1_cont" aria-describedby="sizing-addon1" >
@@ -42,7 +50,7 @@
                   </span>
                   <span class="site_info pull-right"></span>
                 </li>
-                <li>
+                <li class="clearfix">
                   <span class="link_title pull-left">
                     <img src="images/Search Icon.png">
                         <input type="text" class="form-control" placeholder="Search By Contact Name" ng-model="contact_name_contains" aria-describedby="sizing-addon1">
@@ -60,13 +68,12 @@
   </div>
 </div>
 <div class="container pipeline-container">
-  <div class="pipeline-content">
+  <div class="pipeline-content row">
     <div class="pipe opp-pipe col-md-3 col-xs-6">
+      <loading-bar loading="loadingOpportunity"></loading-bar>
       <div class="pipe-title">
         OPPORTUNITY
-        <span class="pipe-number">
-          - {{opportunities.meta.count}}
-        </span>
+        <span class="pipe-number">{{opportunities.meta.count}}</span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="opportunities.items">
         <a ui-sref="newcustomer">
@@ -93,11 +100,10 @@
     </div>
     
     <div class="pipe contract-pipe col-md-3 col-xs-6">
+      <loading-bar loading="loadingContracts"></loading-bar>
       <div class="pipe-title">
         UNDER CONTRACT
-        <span class="pipe-number">
-          - {{contracts.meta.count}}
-        </span>
+        <span class="pipe-number">{{contracts.meta.count}}</span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.items">
         <div class="pipe-card" ng-repeat="contract in contracts.items" id="site-{{contract.id}}">
@@ -113,11 +119,10 @@
     </div>
 
     <div class="pipe pro-pipe col-md-3 col-xs-6">
+      <loading-bar loading="loadingProductions"></loading-bar>
       <div class="pipe-title">
         PRODUCTION
-        <span class="pipe-number">
-          - {{productions.meta.count}}
-        </span>
+        <span class="pipe-number">{{productions.meta.count}}</span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[2]" id="pro-cards" ng-model="productions.sites">
         <div class="pipe-card" ng-repeat="production in productions.items" id="site-{{production.id}}">
@@ -133,11 +138,10 @@
     </div>
 
     <div class="pipe post-pipe billing-pipe col-md-3 col-xs-6">
+      <loading-bar loading="loadingBillings"></loading-bar>
       <div class="pipe-title">
         BILLING
-        <span class="pipe-number">
-          - {{billings.meta.count}}
-        </span>
+        <span class="pipe-number">{{billings.meta.count}}</span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards" ng-model="billings.sites" >
         <div class="pipe-card" ng-repeat="billing in billings.items" id="site-{{billing.id}}">
