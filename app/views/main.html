@@ -65,17 +65,17 @@
       <div class="pipe-title">
         OPPORTUNITY
         <span class="pipe-number">
-          - {{opportunities.sites.length}}
+          - {{opportunities.meta.count}}
         </span>
       </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="opportunities.sites">
+      <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="opportunities.items">
         <a ui-sref="newcustomer">
           <div class="pipe-card create-opp">
             <img src="/images/Write.png" alt="Write Icon">
             <span>Create opportunity</span>
           </div>
         </a>
-        <div ng-repeat="opportunity in opportunities.sites | orderBy:statusOrder" class="pipe-card status-{{opportunity.status | lowercase}}" id="site-{{opportunity.id}}">
+        <div ng-repeat="opportunity in opportunities.items | orderBy:statusOrder" class="pipe-card status-{{opportunity.status | lowercase}}" id="site-{{opportunity.id}}">
           <a ui-sref="project.overview({projectId: opportunity.id})">
             <div class="pipe-info">
               <span class="info-title">
@@ -96,11 +96,11 @@
       <div class="pipe-title">
         UNDER CONTRACT
         <span class="pipe-number">
-          - {{contracts.sites.length}}
+          - {{contracts.meta.count}}
         </span>
       </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.sites">
-        <div class="pipe-card" ng-repeat="contract in contracts.sites.slice().reverse()" id="site-{{contract.id}}">
+      <div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.items">
+        <div class="pipe-card" ng-repeat="contract in contracts.items" id="site-{{contract.id}}">
           <a ui-sref="project.contract({projectId: contract.id})">
             <div class="pipe-info">
               <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
@@ -116,11 +116,11 @@
       <div class="pipe-title">
         PRODUCTION
         <span class="pipe-number">
-          - {{productions.sites.length}}
+          - {{productions.meta.count}}
         </span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[2]" id="pro-cards" ng-model="productions.sites">
-        <div class="pipe-card" ng-repeat="production in productions.sites.slice().reverse()" id="site-{{production.id}}">
+        <div class="pipe-card" ng-repeat="production in productions.items" id="site-{{production.id}}">
 
           <a ui-sref="project.production({projectId: production.id})">
             <div class="pipe-info">
@@ -136,11 +136,11 @@
       <div class="pipe-title">
         BILLING
         <span class="pipe-number">
-          - {{billings.sites.length}}
+          - {{billings.meta.count}}
         </span>
       </div>
       <div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards" ng-model="billings.sites" >
-        <div class="pipe-card" ng-repeat="billing in billings.sites.slice().reverse()" id="site-{{billing.id}}">
+        <div class="pipe-card" ng-repeat="billing in billings.items" id="site-{{billing.id}}">
           <a ui-sref="project.billing({projectId: billing.id})">
             <div class="pipe-info">
               <span class="info-title">{{billing.customer.firstname}} {{billing.customer.lastname}}</span>

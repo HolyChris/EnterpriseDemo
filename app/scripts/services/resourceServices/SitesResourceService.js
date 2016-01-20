@@ -11,8 +11,9 @@
         }
 
         /* Sites service specific functions */
-        SitesResourceService.prototype.recent = function () {
-            return this.get(this.environmentService.apiEndpoint + '/api/v2/sites', { include: 'customer,address' });
+        SitesResourceService.prototype.filter = function (request) {
+            jQuery.extend(request, { include: 'customer,address' });
+            return this.get(this.environmentService.apiEndpoint + '/api/v2/sites', request);
         };
 
         /* Resource service utilities. This should ideally move to a base class. */
@@ -54,6 +55,9 @@
                 var item = SitesResourceService.prototype.parseObject(rawItem, includedDictionary);
                 response.items.push(item);
             });
+
+            if(response.meta)
+                response.meta.count = response.meta['record-count'];
 
             return response;
         };
