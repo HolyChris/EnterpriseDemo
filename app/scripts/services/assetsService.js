@@ -42,6 +42,8 @@ assetsService.factory('Assets', function($resource, ENV) {
     {title:'Supplement Documentation',id:'10'},
     {title:'Trade work Bid',id:'11'},
     {title:'Xactimate',id:'12'},
+    {title:'Supplier Invoice',id:'14'},
+    {title:'Material Invoice',id:'15'},
     {title:'Other',id:'13'}
   ]
 
