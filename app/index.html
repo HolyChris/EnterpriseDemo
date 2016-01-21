@@ -112,6 +112,7 @@
     <script src="bower_components/jszip-utils/dist/jszip-utils.js"></script>
     <script src="bower_components/FileSaver/FileSaver.js"></script>
     <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js"></script>
+    <script src="bower_components/jsondiffpatch/public/build/jsondiffpatch-full.min.js"></script>
 
     <!-- endbower -->
     <!-- endbuild -->
@@ -124,8 +125,6 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-
-
     <script src="scripts/controllers/sites.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/assets.js"></script>
@@ -146,7 +145,6 @@
     <script src="scripts/controllers/overview_navigation.js"></script>
     <script src="scripts/controllers/customer_portal.js"></script>
     <script src="scripts/services/sitesService.js"></script>
-    <script src="scripts/services/resourceServices/SitesResourceService.js"></script>
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>
     <script src="scripts/services/managersService.js"></script>
@@ -157,7 +155,13 @@
     <script src="scripts/services/billingService.js"></script>
     <script src="scripts/services/productionService.js"></script>
     <script src="scripts/services/addressService.js"></script>
-    <script src="scripts/directives/LoadingBarDirective.js"></script>
+
+    <script src="bin/scripts/services/resourceServices/SitesResourceService.js"></script>
+    <script src="bin/scripts/directives/DirectiveBase.js"></script>
+    <script src="bin/scripts/directives/LoadingBarDirective.js"></script>
+    <script src="bin/scripts/directives/DraggableDirective.js"></script>
+    <script src="bin/scripts/directives/DroppableDirective.js"></script>
+
     <script src="scripts/config.js" />
     <!-- endbuild -->
     

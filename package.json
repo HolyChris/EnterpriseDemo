@@ -1,7 +1,9 @@
 {
   "name": "ers",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "grunt-typescript": "^0.8.0"
+  },
   "repository": {},
   "devDependencies": {
     "connect-modrewrite": "^0.7.11",

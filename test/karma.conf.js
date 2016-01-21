@@ -72,6 +72,7 @@ module.exports = function(config) {
       'bower_components/jszip-utils/dist/jszip-utils.js',
       'bower_components/ng-currency/dist/ng-currency.min.js',
       'bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
+      'bower_components/jsondiffpatch/public/build/jsondiffpatch.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
