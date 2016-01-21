@@ -16,10 +16,12 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,100,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="styles/jquery.fileupload-ui-noscript.css"></noscript>
   </head>
-  <body ng-app="ersApp" ng-class="{'hide-body': showSite === false, 'outside': isAuthenticated === false}">
+  <body ng-app="ersApp" ng-class="{'outside': isAuthenticated === false}">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -64,7 +66,6 @@
         </div>
       </div>
     </div>
-
     <div class="container-fluid main-container" ng-class="{'dashboard-wrapper': isFront}">
       <div ui-view>
       </div>
@@ -111,7 +112,7 @@
     <script src="bower_components/jszip-utils/dist/jszip-utils.js"></script>
     <script src="bower_components/FileSaver/FileSaver.js"></script>
     <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js"></script>
-    
+
     <!-- endbower -->
     <!-- endbuild -->
     
@@ -123,7 +124,7 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    
+
 
     <script src="scripts/controllers/sites.js"></script>
     <script src="scripts/controllers/main.js"></script>
@@ -145,6 +146,7 @@
     <script src="scripts/controllers/overview_navigation.js"></script>
     <script src="scripts/controllers/customer_portal.js"></script>
     <script src="scripts/services/sitesService.js"></script>
+    <script src="scripts/services/resourceServices/SitesResourceService.js"></script>
     <script src="scripts/services/customersService.js"></script>
     <script src="scripts/services/overviewService.js"></script>
     <script src="scripts/services/managersService.js"></script>
@@ -155,6 +157,7 @@
     <script src="scripts/services/billingService.js"></script>
     <script src="scripts/services/productionService.js"></script>
     <script src="scripts/services/addressService.js"></script>
+    <script src="scripts/directives/LoadingBarDirective.js"></script>
     <script src="scripts/config.js" />
     <!-- endbuild -->
     

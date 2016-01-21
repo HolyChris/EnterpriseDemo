@@ -1,5 +1,6 @@
 'use strict';
 
+angular.module('directives', []);
 /**
  * @ngdoc overview
  * @name ersApp
@@ -41,7 +42,8 @@ angular
     'satellizer',
     'ng-currency',
     'angular-confirm',
-    'bootstrapLightbox'
+    'bootstrapLightbox',
+      'directives'
     ])
   .config(['$stateProvider','$urlRouterProvider', '$authProvider', 'ENV', function ($stateProvider, $urlRouteProvider, $authProvider, ENV) {
   

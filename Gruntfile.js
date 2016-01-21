@@ -509,7 +509,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'staging',
-            apiEndpoint: 'http://54.68.73.69'
+            apiEndpoint: 'http://staging-eco-roof.herokuapp.com'
           }
         }
       },
