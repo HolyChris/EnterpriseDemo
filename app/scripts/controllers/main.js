@@ -8,114 +8,93 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state,Address) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state) {
     // Site listings
     $scope.loadingRecent = true;
-    SitesResourceService.filter().then(function(response) {
+    SitesResourceService.recent().then(function(response) {
         $scope.loadingRecent = false;
         $scope.recent_sites = response;
     });
 
     $scope.loadingOpportunity = true;
-    SitesResourceService.filter({ stage_name: 'lead' }).then(function(response) {
+    SitesResourceService.opportunities().then(function(response) {
         $scope.loadingOpportunity = false;
         $scope.opportunities = response;
     });
 
     $scope.loadingContracts = true;
-    SitesResourceService.filter({ stage_name: 'contract' }).then(function(response) {
+    SitesResourceService.contracts().then(function(response) {
         $scope.loadingContracts = false;
         $scope.contracts = response;
     });
 
     $scope.loadingProductions = true;
-    SitesResourceService.filter({ stage_name: 'production' }).then(function(response) {
+    SitesResourceService.productions().then(function(response) {
         $scope.loadingProductions = false;
         $scope.productions = response;
     });
 
     $scope.loadingBillings = true;
-    SitesResourceService.filter({ stage_name: 'billing' }).then(function(response) {
+    SitesResourceService.billings().then(function(response) {
         $scope.loadingBillings = false;
         $scope.billings = response;
     });
 
-    $rootScope.isFront = true;
-    $rootScope.$on('$locationChangeStart', function(event) {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
-        if ($state.current.url === '/') {
-            $rootScope.isFront = true;
-        } else {
-            $rootScope.isFront = false;
-        }
-    });
+    $scope.updateStage = function (model, column) {
+        var site = model.item;
+        column.getModel().items.unshift(site);
+        var previousColumnItems = model.previousColumn.getModel().items;
+        var previousColumnIndex = previousColumnItems.indexOf(site);
+        if(previousColumnIndex > -1)
+            previousColumnItems.splice(previousColumnIndex, 1);
 
-    function updateStage(siteId, stage) {
-        // Return a promise so then we ca transition the page
-        return Sites.save({
-            siteId: siteId,
-            current_stage: stage
-        });
+        if(column.type == 'contract')
+            $state.go('project.contract', { projectId: site.id });
+        else {
+            site.stage = column.type;
+            site.save().then(function () {
+                site.loading = false;
+                $state.go('project.' + column.type, {projectId: site.id});
+            });
+            site.loading = true;
+        }
     }
 
-    $scope.sortableOptionsList = [{
-        // Card placed in Opportunity Column
-        connectWith: '#con-cards',
-        placeholder: 'card-highlight',
-        cursor: '-webkit-grabbing',
-        items: '.pipe-card:not(.create-opp)'
-    }, {
-        // Card placed in Contract Column
-    	connectWith:'#pro-cards',
-    	placeholder: 'card-highlight',
-    	cursor: '-webkit-grabbing',
-        // When recieving a card
-        receive: function(event, ui) {
-            var siteId = getSiteId(ui.item[0].id);
-            $state.go("project.contract",{projectId: siteId});
+    $scope.columns = [
+        {
+            title: 'Opportunity',
+            createSref: 'newcustomer',
+            getModel: function() { return $scope.opportunities; },
+            isLoading: function() { return $scope.loadingOpportunity; },
+            type: 'opportunity',
+            accepts: [],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/overview' }
+        },
+        {
+            title: 'Under Contract',
+            getModel: function() { return $scope.contracts; },
+            isLoading: function() { return $scope.loadingContracts; },
+            type: 'contract',
+            accepts: ['opportunity', 'production'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/contract' }
+        },
+        {
+            title: 'Production',
+            getModel: function() { return $scope.productions; },
+            isLoading: function() { return $scope.loadingProductions; },
+            type: 'production',
+            accepts: ['contract', 'billing'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/production' }
+        },
+        {
+            title: 'Billing',
+            getModel: function() { return $scope.billings; },
+            isLoading: function() { return $scope.loadingBillings; },
+            type: 'billing',
+            accepts: ['production'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/billing' }
         }
-    }, {
-        // Card placed in Production Column
-    	connectWith:'#con-cards,#post-cards',
-    	placeholder: 'card-highlight',
-    	cursor: '-webkit-grabbing',
-        // When recieving a card
-        receive: function(event, ui) {
-            var siteId = getSiteId(ui.item[0].id);
-            updateStage(siteId, 'production').$promise.then(function() {
-                $state.go("project.production",{projectId: siteId});
-            });
-        }
-    }, {
-        // Card placed in Billing Column
-    	connectWith:'#pro-cards',
-    	placeholder: 'card-highlight',
-    	cursor: '-webkit-grabbing',
-        // When recieving a card
-        receive: function(event, ui) {
-            var siteId = getSiteId(ui.item[0].id);
-            updateStage(siteId, 'billing').$promise.then(function() {
-                $state.go("project.billing",{projectId: siteId});
-                
-            });
-        }
-    }];
-
-    $scope.statusOrder = function(opportunity) {
-        var order = 2;
-        var status = opportunity.status;
-        if (status === 'Good') {
-            order = 1;
-        } else if (status === 'Bad') {
-            order = 3;
-        } else if (status === 'Dead') {
-            order = 4;
-        }
-        return order;
-    };
-
-    $scope.states_array = Address.States;
-    $scope.stateLookupById=Address.stateLookupById;
+    ];
 
     $scope.quickSearch = function(key) {
         var params = {};
@@ -123,11 +102,6 @@ angular.module('ersApp')
         if ($scope[key]) {
             $state.go("sites", params);
         }
-    };
-
-    function getSiteId(id) {
-        var siteId = id.replace('site-', '');
-        return siteId;
     };
 });
 

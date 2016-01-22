@@ -96,7 +96,7 @@ angular
         
       })
       .state('project.overview',{
-        url:'/overview/',
+        url:'/overview',
         views:{
           "overview-content-view" : {templateUrl: 'views/overview_project.html',controller: 'OverviewCtrl'}
         }

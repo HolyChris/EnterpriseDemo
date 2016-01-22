@@ -58,55 +58,39 @@ addressesService.factory('Address', function($resource, ENV) {
 
 	];
 
+	var statesDictionary = {};
+	angular.forEach(states_array, function(state) {
+		statesDictionary[state.id] = state.abbreviation;
+	});
+
 	var defaultStateAbbreviation="CO";
 
 	//Singleton defaultStateId
 	var defaultStateId;
 
-	var getDefaultStateId=function()
-	{
-		if (!defaultStateId)
-		{
+	var getDefaultStateId = function() {
+		if (!defaultStateId) {
 			//Not initialized
 			//We better look states up by it's abbreviation as ids could change
 			var i=0;
-			for (;i<states_array.length;i++)
-			{
-				if(states_array[i].abbreviation===defaultStateAbbreviation)
-				{
+			for (;i<states_array.length;i++) {
+				if(states_array[i].abbreviation===defaultStateAbbreviation) {
 					defaultStateId=states_array[i].id;
 					break;
 				}
 			}
 		}
 
-
-		
 		return defaultStateId;
 	};
 
-
-
-	var stateLookupById=function(stateId)
-	{
-
-		var stateRet;
-
-		var i=0;
-
-		//Angular forEach does not allow break statement
-		for (;i<states_array.length;i++)
-		{
-			if (states_array[i].id === stateId){
-				stateRet=states_array[i];
-				break;
-			}
-		}
-		return stateRet;
+	var stateLookupById = function(id) {
+		return statesDictionary[id];
 	};
 
 	return {
 		States: states_array,
+		StatesDictionary: statesDictionary,
 		stateLookupById: stateLookupById,
 		getDefaultStateId: getDefaultStateId
 	};

@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js', '<%= yeoman.app %>/bin/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -305,7 +305,6 @@ module.exports = function (grunt) {
         options: {
           collapseWhitespace: true,
           conservativeCollapse: true,
-          collapseBooleanAttributes: true,
           removeCommentsFromCDATA: true,
           removeOptionalTags: true
         },
@@ -402,7 +401,13 @@ module.exports = function (grunt) {
         'copy:styles',
         'imagemin',
         'svgmin'
-      ]
+      ],
+      watch: {
+          tasks: ['watch', 'typescript:watch'],
+          options: {
+            logConcurrentOutput: true
+          }
+      }
     },
 
     // Test settings
@@ -490,6 +495,28 @@ module.exports = function (grunt) {
                 ]
             }
           ]
+        }
+      }
+    },
+
+    typescript: {
+      watch: {
+        src: ['app/scripts/**/*.ts'],
+        dest: 'app/bin/scripts/',
+        options: {
+          module: 'amd',
+          target: 'es5',
+          sourceMap: true,
+          watch: true,
+        }
+      },
+      build: {
+        src: ['app/scripts/**/*.ts'],
+        dest: 'app/bin/scripts/',
+        options: {
+          module: 'amd',
+          target: 'es5',
+          sourceMap: true
         }
       }
     },
@@ -624,13 +651,14 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'typescript:build',
       'copy:site_artwork',
       'ngconstant:staging',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
-      'watch'
+      'concurrent:watch'
     ]);
   });
 
@@ -657,6 +685,7 @@ module.exports = function (grunt) {
     ['compass:dist', 'autoprefixer', 'imagemin']);
 
   grunt.registerTask('test', [
+    'typescript:build',
     'clean:server',
     'wiredep',
     'concurrent:test',
@@ -666,6 +695,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('common_build_steps', [
+    'typescript:build',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

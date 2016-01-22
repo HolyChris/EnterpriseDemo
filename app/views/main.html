@@ -20,7 +20,7 @@
             <ul class="site-list">
               <li ng-repeat="site in recent_sites.items">
                 <a ui-sref="project.overview({projectId: site.id})">
-                  <span class="site_title">{{site.name}}</span>
+                  <span class="site_title">{{ site.name ? site.name : site.customer.firstname + ' ' + site.customer.lastname }}</span>
                   <div class="site_info">
                     {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
                     <i class="glyphicon glyphicon-triangle-right"></i>
@@ -63,92 +63,31 @@
     </div>
   </div>
 </div>
-<div class="container pipeline-container">
-  <div class="pipeline-content row">
-    <div class="pipe opp-pipe col-md-3 col-xs-6">
-      <loading-bar loading="loadingOpportunity"></loading-bar>
-      <div class="pipe-title">
-        OPPORTUNITY
-        <span class="pipe-number">{{opportunities.meta.count}}</span>
-      </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[0]" id="opp-cards" ng-model="opportunities.items">
-        <a ui-sref="newcustomer">
-          <div class="pipe-card create-opp">
-            <img src="/images/Write.png" alt="Write Icon">
-            <span>Create opportunity</span>
-          </div>
-        </a>
-        <div ng-repeat="opportunity in opportunities.items | orderBy:statusOrder" class="pipe-card status-{{opportunity.status | lowercase}}" id="site-{{opportunity.id}}">
-          <a ui-sref="project.overview({projectId: opportunity.id})">
-            <div class="pipe-info">
-              <span class="info-title">
-                {{opportunity.customer.firstname}} {{opportunity.customer.lastname}}
-                <!--- Company Name-->
-              </span>
-              <span class="info-data">
-                {{opportunity.address.address1}}<br />
-                {{opportunity.address.city}},{{stateLookupById(opportunity.address.state.id).abbreviation}},{{opportunity.address.zipcode}}
-              </span>
-            </div>
-          </a>
+<div class="container">
+    <div class="row card-list-container">
+        <div class="col-sm-3 card-list" ng-repeat="column in columns" droppable="updateStage($model, column)" droppable-accepts="column.accepts">
+            <div class="card-list-droppable-overlay"></div>
+            <loading-bar loading="column.isLoading()"></loading-bar>
+            <h4 class="card-list-title">
+                {{ column.title }}
+                <span class="card-list-count" ng-if="column.getModel().meta.count">{{ column.getModel().meta.count }}</span>
+            </h4>
+            <a class="card" ng-if="column.createSref" ui-sref="{{ column.createSref }}">
+                <div class="card-content">
+                    <i class="fa fa-plus"></i>
+                    New {{ column.title }}
+                </div>
+            </a>
+            <a ng-href="{{ column.itemUrl(item) }}" class="card" ng-repeat="item in column.getModel().items track by $index" draggable="{ item: item, previousColumn: column }" draggable-type="column.type">
+                <loading-bar loading="item.loading"></loading-bar>
+                <div class="card-content">
+                    <h5>{{ item.customer.firstname }} {{ item.customer.lastname }} <span ng-if="item.po_number" class="text-italic">- PO# {{ item.po_number }}</span></h5>
+                    <p class="subtle">
+                        {{ item.address.address1 }}<br/>
+                        {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}
+                    </p>
+                </div>
+            </a>
         </div>
-      </div>
     </div>
-    
-    <div class="pipe contract-pipe col-md-3 col-xs-6">
-      <loading-bar loading="loadingContracts"></loading-bar>
-      <div class="pipe-title">
-        UNDER CONTRACT
-        <span class="pipe-number">{{contracts.meta.count}}</span>
-      </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[1]" id="con-cards" ng-model="contracts.items">
-        <div class="pipe-card" ng-repeat="contract in contracts.items" id="site-{{contract.id}}">
-          <a ui-sref="project.contract({projectId: contract.id})">
-            <div class="pipe-info">
-              <span class="info-title">{{contract.customer.firstname}} {{contract.customer.lastname}}
-               </span>
-              <span class="info-data">{{contract.address.address1}}<br>{{contract.address.city}},{{stateLookupById(contract.address.state.id).abbreviation}},{{contract.address.zipcode}}</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="pipe pro-pipe col-md-3 col-xs-6">
-      <loading-bar loading="loadingProductions"></loading-bar>
-      <div class="pipe-title">
-        PRODUCTION
-        <span class="pipe-number">{{productions.meta.count}}</span>
-      </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[2]" id="pro-cards" ng-model="productions.sites">
-        <div class="pipe-card" ng-repeat="production in productions.items" id="site-{{production.id}}">
-
-          <a ui-sref="project.production({projectId: production.id})">
-            <div class="pipe-info">
-              <span class="info-title">{{production.customer.firstname}} {{production.customer.lastname}} - PO# {{production.po_number}}</span>
-              <span class="info-data">{{production.address.address1}}<br>{{production.address.city}},{{stateLookupById(production.address.state.id).abbreviation}},{{production.address.zipcode}}</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="pipe post-pipe billing-pipe col-md-3 col-xs-6">
-      <loading-bar loading="loadingBillings"></loading-bar>
-      <div class="pipe-title">
-        BILLING
-        <span class="pipe-number">{{billings.meta.count}}</span>
-      </div>
-      <div class="pipe-card-container" ui-sortable="sortableOptionsList[3]" id="post-cards" ng-model="billings.sites" >
-        <div class="pipe-card" ng-repeat="billing in billings.items" id="site-{{billing.id}}">
-          <a ui-sref="project.billing({projectId: billing.id})">
-            <div class="pipe-info">
-              <span class="info-title">{{billing.customer.firstname}} {{billing.customer.lastname}}</span>
-              <span class="info-data">PO# {{billing.po_number}}</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
