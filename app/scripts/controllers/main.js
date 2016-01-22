@@ -48,15 +48,16 @@ angular.module('ersApp')
         if(previousColumnIndex > -1)
             previousColumnItems.splice(previousColumnIndex, 1);
 
-        site.stage = column.type;
-        site.save().then(function () {
-            site.loading = false;
-            $state.go('project.' + column.type, { projectId: site.id });
-        });
-        site.loading = true;
-
-        if(!$scope.$$phase)
-            $scope.$apply();
+        if(column.type == 'contract')
+            $state.go('project.contract', { projectId: site.id });
+        else {
+            site.stage = column.type;
+            site.save().then(function () {
+                site.loading = false;
+                $state.go('project.' + column.type, {projectId: site.id});
+            });
+            site.loading = true;
+        }
     }
 
     $scope.columns = [
