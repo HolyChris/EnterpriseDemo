@@ -84,10 +84,6 @@ module Services.Resources {
                 response.items.push(item);
             });
 
-            /* Append count */
-            if(response.meta)
-                response.meta.count = response.meta['record-count'];
-
             return response;
         }
 
@@ -109,7 +105,7 @@ module Services.Resources {
 
             /* Add address states abbreviation */
             if(rawItem.type === 'addresses')
-                item.state = this.addressService.StatesDictionary[item['state-id']];
+                item.state = this.addressService.StatesDictionary[item['stateId']];
 
             /* Prepare snapshot for change tracking */
             var snapShot = this.stripFunctions(item);

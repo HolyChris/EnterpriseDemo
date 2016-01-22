@@ -70,7 +70,7 @@
             <loading-bar loading="column.isLoading()"></loading-bar>
             <h4 class="card-list-title">
                 {{ column.title }}
-                <span class="card-list-count" ng-if="column.getModel().meta.count">{{ column.getModel().meta.count }}</span>
+                <span class="card-list-count" ng-if="column.getModel().meta.recordCount">{{ column.getModel().meta.recordCount }}</span>
             </h4>
             <a class="card" ng-if="column.createSref" ui-sref="{{ column.createSref }}">
                 <div class="card-content">
@@ -81,8 +81,8 @@
             <a ng-href="{{ column.itemUrl(item) }}" class="card" ng-repeat="item in column.getModel().items track by $index" draggable="{ item: item, previousColumn: column }" draggable-type="column.type">
                 <loading-bar loading="item.loading"></loading-bar>
                 <div class="card-content">
-                    <h5>{{ item.customer.firstname }} {{ item.customer.lastname }} <span ng-if="item.po_number" class="text-italic">- PO# {{ item.po_number }}</span></h5>
-                    <p class="subtle">
+                    <h5>{{ item.customer.firstname }} {{ item.customer.lastname }} <span ng-if="item.poNumber" class="text-italic text-thin text-no-underline text-12">- PO# {{ item.poNumber }}</span></h5>
+                    <p class="subtle text-no-underline">
                         {{ item.address.address1 }}<br/>
                         {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}
                     </p>
