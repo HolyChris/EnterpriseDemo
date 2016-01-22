@@ -66,28 +66,32 @@ angular.module('ersApp')
             getModel: function() { return $scope.opportunities; },
             isLoading: function() { return $scope.loadingOpportunity; },
             type: 'opportunity',
-            accepts: []
+            accepts: [],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/overview' }
         },
         {
             title: 'Under Contract',
             getModel: function() { return $scope.contracts; },
             isLoading: function() { return $scope.loadingContracts; },
             type: 'contract',
-            accepts: ['opportunity', 'production']
+            accepts: ['opportunity', 'production'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/contract' }
         },
         {
             title: 'Production',
             getModel: function() { return $scope.productions; },
             isLoading: function() { return $scope.loadingProductions; },
             type: 'production',
-            accepts: ['contract', 'billing']
+            accepts: ['contract', 'billing'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/production' }
         },
         {
             title: 'Billing',
             getModel: function() { return $scope.billings; },
             isLoading: function() { return $scope.loadingBillings; },
             type: 'billing',
-            accepts: ['production']
+            accepts: ['production'],
+            itemUrl: function(item) { return '/#/projects/' + item.id + '/billing' }
         }
     ];
 

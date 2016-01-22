@@ -78,7 +78,7 @@
                     New {{ column.title }}
                 </div>
             </a>
-            <a class="card" ng-repeat="item in column.getModel().items track by $index" draggable="{ item: item, previousColumn: column }" draggable-type="column.type">
+            <a ng-href="{{ column.itemUrl(item) }}" class="card" ng-repeat="item in column.getModel().items track by $index" draggable="{ item: item, previousColumn: column }" draggable-type="column.type">
                 <loading-bar loading="item.loading"></loading-bar>
                 <div class="card-content">
                     <h5>{{ item.customer.firstname }} {{ item.customer.lastname }} <span ng-if="item.po_number" class="text-italic">- PO# {{ item.po_number }}</span></h5>
