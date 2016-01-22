@@ -22,6 +22,8 @@ body.outside {
 }
 .login-container .logo-container {
   text-align: center;
+  padding-bottom: 30px;
+  border-bottom: solid 1px #eee;
 }
 .login-box {
   border-radius: 4px;
@@ -29,11 +31,10 @@ body.outside {
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 1em;
   overflow: hidden;
-  padding: 10px;
+  padding: 30px;
 }
-.reset-password {
-  padding-right: 25px;
-  margin-top: 10px;
+.reset-password-link {
+  font-size: 12px;
 }
 .login-box_header {
   border-bottom:1px solid #eee;

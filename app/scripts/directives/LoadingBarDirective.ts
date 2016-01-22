@@ -19,7 +19,7 @@ module Directives {
         }
 
         public start() {
-            this.indicator.stop(true).animate({ width: '60%' }, Math.floor(Math.random() * 1500) + 1000, 'easeOutExpo', () => {
+            this.indicator.stop(true).css({ opacity: 1, width: '0%' }).animate({ width: '60%' }, Math.floor(Math.random() * 1500) + 1000, 'easeOutExpo', () => {
                 this.indicator.stop(true).animate({ width: '80%' }, Math.floor(Math.random() * 2000) + 2500, 'easeInSine', () => {
                     this.indicator.stop(true).animate({ width: '95%' }, Math.floor(Math.random() * 5000) + 8000, 'easeOutCirc');
                 });
