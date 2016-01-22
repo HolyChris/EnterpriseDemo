@@ -131,6 +131,22 @@
 						</div>
 					</div>
 				</div>
+                <div class="save-form form-left" style="margin-top:20px;" ng-hide="newContract">
+					<div class="col-xs-12 form-title">
+						<span class="badge">5</span>
+						<span>step 5: ALERT INSURANCE ADJUSTOR </span>
+					</div>
+					<div class="form-container">
+					  <div class="col-xs-12"><span>Let the insurance adjustor know that they have information available for review.</span></div>
+						<div class="form-group col-sm-6">
+							<input ng-click="sendInsuranceAdjustorEmail()" class="btn save-btn" value="SEND TO ADJUSTOR" confirm="Are you sure you want to send an email to {{customer.email}}?">
+							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-3"></span>
+						</div>
+						<div class="form-group col-sm-6 text-right">
+							<input class="btn save-btn" value="GET PORTAL LOGIN" data-toggle="modal" data-target="#insuranceAdjustorModal">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -156,6 +172,31 @@
         	<div class="col-xs-12">
         		<label class="control-label">Password:</label>
         		<input type="text" disabled value="{{project.po_number}}" class="form-control">
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="insuranceAdjustorModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="infoModalLabel">Insurance Adjustor Portal Information</h4>
+      </div>
+      <div class="modal-body">
+      	<small>Copy the URL and Password below to send to the insurance adjustor for access to their Portal.</small>
+        <div class="row">
+        	<div class="col-xs-12">
+        	  <br>
+        		<label class="control-label">Insurance Adjustor Portal URL:</label>
+        		<input type="text" readonly value="{{insuranceAdjustorPortalUrl}}" class="form-control">
+        		<br>
         	</div>
         </div>
       </div>
