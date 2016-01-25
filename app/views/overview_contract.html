@@ -1,208 +1,250 @@
 <div class="proj-over-container overview-contract">
-	<div class="proj-over-content">
-		<div class="row">
-			<div class="col-md-12 container-title">
-				<u>CONTRACT</u>
-			</div>
-			<div class="col-md-12 container-note" ng-show="newContract">
+    <div class="proj-over-content">
+        <div class="row">
+            <div class="col-md-12 container-title">
+                <u>CONTRACT</u>
+            </div>
+            <div class="col-md-12 container-note" ng-show="newContract">
 				<span class="note">
 					<img src="/images/pin2.png">
 					Note: There's currently no contract signed. Fill out the fields below.
 				</span>
-			</div>
-			<div class="col-md-12 container-head">
-				<span class="head">{{newContract ? 'ADD' : 'UPDATE'}} CONTRACT</span>
-			</div>
-		</div>
-		<div class="row row-no-margin">
-			<div class="col-md-6">
-				<div class="contract-detail-form form-left">
-					<div class="form-title col-xs-12">
-						<span class="badge">1</span>
-						<span>step 1: CONTRACT INFO</span>
-					</div>	
-					<div class="form-container">
-						<div class="form-group col-sm-6" ng-hide="newContract">
-							<label class="control-label">PO Number: <b class="text-muted">{{ contract.po_number }}</b></label>
-						</div>
-						<div class="form-group col-sm-6" ng-hide="newContract">
-							<label class="control-label">Contract ID: <b class="text-muted">{{ contract.id }}</b></label>
-						</div>
-						<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.document}">
-							<label class="control-label">Document<sup>*</sup> {{contractErrors.document[0]}}</label>
-							<div class="attachment" ng-hide="contract.document_url.length > 0">
-								<label for="upload">
-									<img src="/images/clip.png">
-									<span>ADD ATTACHMENT</span>
-								</label>
-								<input type="file" name="upload" id="upload" class="form-control" onchange="angular.element(this).scope().uploadFile(this.files)">
-							</div>
-							<label ng-hide="contract.document_url.length > 0">{{ contract.document.name }}</label>
-							<div class="" ng-show="contract.document_url.length > 0">
-								<a href="{{contract.document_url}}" target="_blank">{{contract.documentName}}</a>
-								<a ng-click="removeDocument()" class="btn-small btn btn-danger">Remove Document</a>
-							</div>
-						</div>
-						
-						<div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
-							<label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
-							<p class="input-group">
-								<input type="text" class="form-control" datepicker-popup="" ng-model="contract.signed_at" is-open="opened" ng-required="true" close-text="Close" />
-								<span class="input-group-btn">
-		              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-		            </span>
-							</p>
-						</div>
+            </div>
+            <div class="col-md-12 container-head">
+                <span class="head">{{newContract ? 'ADD' : 'UPDATE'}} CONTRACT</span>
+            </div>
+        </div>
+        <div class="row row-no-margin">
+            <div class="col-md-6">
+                <div class="contract-detail-form form-left">
+                    <div class="form-title col-xs-12">
+                        <span class="badge">1</span>
+                        <span>step 1: CONTRACT INFO</span>
+                    </div>
+                    <div class="form-container">
+                        <div class="form-group col-sm-6" ng-hide="newContract">
+                            <label class="control-label">PO Number: <b class="text-muted">{{ contract.po_number
+                                }}</b></label>
+                        </div>
+                        <div class="form-group col-sm-6" ng-hide="newContract">
+                            <label class="control-label">Contract ID: <b class="text-muted">{{ contract.id
+                                }}</b></label>
+                        </div>
+                        <div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.document}">
+                            <label class="control-label">Document<sup>*</sup> {{contractErrors.document[0]}}</label>
 
-						<div class="form-group col-sm-12">
-							<label class="control-label">Notes</label>
-							<textarea class="form-control textarea" ng-model="contract.notes"></textarea>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-left">
-					<div class="form-title col-xs-12">
-						<span class="badge">2</span>
-						<span>step 2: CONTRACT DETAILS</span>
-					</div>
-					<div class="form-container">
-						<div class="form-group col-lg-6">
-							<label for="">Type of Contract</label>
-							<select name="" id="" class="form-control" ng-model="contract.contract_type">
-								<option value=""></option>
-								<option value="1">Cash</option>
-								<option value="2">Insurance</option>
-								<option value="3">Maintenance</option>
-							</select>
-						</div>
-						<div class="form-group col-lg-6">
-							<label class="control-label">Price</label>
-							<div class="input-group">
-								<div class="input-group-addon">$</div>
-              	<input type="text" name="" class="form-control" id="" ng-model="contract.price" ng-currency currency-symbol="">
-              </div>
-						</div>
-						<div class="form-group col-lg-12">
-							<label class="control-label">Type of work to be completed</label>
-							<div>
-								<small><input id="" name="" type="checkbox" value="1" ng-model="work_types.work_type_1"> Roof </small> &nbsp; 
-								<small><input id="" name="" type="checkbox" value="2" ng-model="work_types.work_type_2"> Gutters </small> &nbsp; 
-								<small><input id="" name="" type="checkbox" value="3" ng-model="work_types.work_type_3"> Solar </small> &nbsp; 
-								<small><input id="" name="" type="checkbox" value="4" ng-model="work_types.work_type_4"> Skylights </small> &nbsp; 
-								<small><input id="" name="" type="checkbox" value="5" ng-model="work_types.work_type_5"> Other </small> &nbsp; 
-							</div>
-						</div>
-						<div class="form-group col-lg-12">
-							<label class="control-label">Special Instructions</label>
-							<textarea class="form-control textarea" ng-model="contract.special_instructions"></textarea>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-				<div class="save-form form-left" style="margin-top:20px;">
-					<div class="col-xs-12 form-title">
-						<span class="badge">3</span>
-						<span>step 3: SAVE </span>
-					</div>
-					<div class="form-container">
-						<div class="col-xs-12"><span>When you’re done - click the save button below.</span></div>
-						<div class="form-group col-xs-12">
-							<input type="submit" class="btn save-btn" value="SAVE CONTRACT" ng-click="saveContract(contract)">
-							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-1"></span>
-						</div>
-					</div>
-				</div>
-				<div class="save-form form-left" style="margin-top:20px;" ng-hide="newContract">
-					<div class="col-xs-12 form-title">
-						<span class="badge">4</span>
-						<span>step 4: ALERT CUSTOMER </span>
-					</div>
-					<div class="form-container">
-					  <div class="col-xs-12"><span>Let the customer know that they have information available for review.</span></div>
-						<div class="form-group col-sm-6">
-							<input ng-click="sendEmail()" class="btn save-btn" value="SEND TO CUSTOMER" confirm="Are you sure you want to send an email to {{customer.email}}?">
-							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-2"></span>
-						</div>
-						<div class="form-group col-sm-6 text-right">
-							<input class="btn save-btn" value="GET PORTAL LOGIN" data-toggle="modal" data-target="#infoModal">
-						</div>
-					</div>
-				</div>
+                            <div class="attachment" ng-hide="contract.document_url.length > 0">
+                                <label for="upload">
+                                    <img src="/images/clip.png">
+                                    <span>ADD ATTACHMENT</span>
+                                </label>
+                                <input type="file" name="upload" id="upload" class="form-control"
+                                       onchange="angular.element(this).scope().uploadFile(this.files)">
+                            </div>
+                            <label ng-hide="contract.document_url.length > 0">{{ contract.document.name }}</label>
+
+                            <div class="" ng-show="contract.document_url.length > 0">
+                                <a href="{{contract.document_url}}" target="_blank">{{contract.documentName}}</a>
+                                <a ng-click="removeDocument()" class="btn-small btn btn-danger">Remove Document</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-6" ng-class="{'has-error' : contractErrors.signed_at[0]}">
+                            <label class="control-label">Signed on<sup>*</sup> {{contractErrors.signed_at[0]}}</label>
+
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup=""
+                                       ng-model="contract.signed_at" is-open="opened" ng-required="true"
+                                       close-text="Close"/>
+								<span class="input-group-btn">
+		              <button type="button" class="btn btn-default" ng-click="openDate($event)"><i
+                              class="glyphicon glyphicon-calendar"></i></button>
+		            </span>
+                            </p>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label class="control-label">Notes</label>
+                            <textarea class="form-control textarea" ng-model="contract.notes"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-left">
+                    <div class="form-title col-xs-12">
+                        <span class="badge">2</span>
+                        <span>step 2: CONTRACT DETAILS</span>
+                    </div>
+                    <div class="form-container">
+                        <div class="form-group col-lg-6">
+                            <label for="">Type of Contract</label>
+                            <select name="" id="" class="form-control" ng-model="contract.contract_type">
+                                <option value=""></option>
+                                <option value="1">Cash</option>
+                                <option value="2">Insurance</option>
+                                <option value="3">Maintenance</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="control-label">Price</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" name="" class="form-control" id="" ng-model="contract.price"
+                                       ng-currency currency-symbol="">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="control-label">Type of work to be completed</label>
+
+                            <div>
+                                <small><input id="" name="" type="checkbox" value="1" ng-model="work_types.work_type_1">
+                                    Roof
+                                </small>
+                                &nbsp;
+                                <small><input id="" name="" type="checkbox" value="2" ng-model="work_types.work_type_2">
+                                    Gutters
+                                </small>
+                                &nbsp;
+                                <small><input id="" name="" type="checkbox" value="3" ng-model="work_types.work_type_3">
+                                    Solar
+                                </small>
+                                &nbsp;
+                                <small><input id="" name="" type="checkbox" value="4" ng-model="work_types.work_type_4">
+                                    Skylights
+                                </small>
+                                &nbsp;
+                                <small><input id="" name="" type="checkbox" value="5" ng-model="work_types.work_type_5">
+                                    Other
+                                </small>
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="control-label">Special Instructions</label>
+                            <textarea class="form-control textarea" ng-model="contract.special_instructions"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="save-form form-left" style="margin-top:20px;">
+                    <div class="col-xs-12 form-title">
+                        <span class="badge">3</span>
+                        <span>step 3: SAVE </span>
+                    </div>
+                    <div class="form-container">
+                        <div class="col-xs-12"><span>When you’re done - click the save button below.</span></div>
+                        <div class="form-group col-xs-12">
+                            <input type="submit" class="btn save-btn" value="SAVE CONTRACT"
+                                   ng-click="saveContract(contract)">
+                            <span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}"
+                                  spinner-key="spinner-1"></span>
+                        </div>
+                    </div>
+                </div>
                 <div class="save-form form-left" style="margin-top:20px;" ng-hide="newContract">
-					<div class="col-xs-12 form-title">
-						<span class="badge">5</span>
-						<span>step 5: ALERT INSURANCE ADJUSTOR </span>
-					</div>
-					<div class="form-container">
-					  <div class="col-xs-12"><span>Let the insurance adjustor know that they have information available for review.</span></div>
-						<div class="form-group col-sm-6">
-							<input ng-click="sendInsuranceAdjustorEmail()" class="btn save-btn" value="SEND TO ADJUSTOR" confirm="Are you sure you want to send an email to {{customer.email}}?">
-							<span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}" spinner-key="spinner-3"></span>
-						</div>
-						<div class="form-group col-sm-6 text-right">
-							<input class="btn save-btn" value="GET PORTAL LOGIN" data-toggle="modal" data-target="#insuranceAdjustorModal">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="col-xs-12 form-title">
+                        <span class="badge">4</span>
+                        <span>step 4: ALERT CUSTOMER </span>
+                    </div>
+                    <div class="form-container">
+                        <div class="col-xs-12"><span>Let the customer know that they have information available for review.</span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <input ng-click="sendEmail()" class="btn save-btn" value="SEND TO CUSTOMER"
+                                   confirm="Are you sure you want to send an email to {{customer.email}}?">
+                            <span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}"
+                                  spinner-key="spinner-2"></span>
+                        </div>
+                        <div class="form-group col-sm-6 text-right">
+                            <input class="btn save-btn" value="GET PORTAL LOGIN" data-toggle="modal"
+                                   data-target="#infoModal">
+                        </div>
+                    </div>
+                </div>
+                <div class="save-form form-left" style="margin-top:20px;" ng-hide="newContract">
+                    <div class="col-xs-12 form-title">
+                        <span class="badge">5</span>
+                        <span>step 5: ALERT INSURANCE ADJUSTOR </span>
+                    </div>
+                    <div class="form-container">
+                        <div class="col-xs-12">
+                            <span>Let the insurance adjustor know that they have information available for review.</span>
+                            <div class="alert alert-warning text-12" ng-if="!project.insurance_adjustor">Please specify the insurance adjustor details in <a href="/#/projects/{{ project.id }}/overview">overview</a> to enable these options.</div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <input type="button" ng-disabled="!project.insurance_adjustor"
+                                   ng-click="sendInsuranceAdjustorEmail()" class="btn save-btn" value="SEND TO ADJUSTOR"
+                                   confirm="Are you sure you want to send an email to {{project.insurance_adjustor.email}}?">
+                            <span class="us-spinner" us-spinner="{radius:4, width:2, length: 6, lines: 12}"
+                                  spinner-key="spinner-3"></span>
+                        </div>
+                        <div class="form-group col-sm-6 text-right">
+                            <input type="button" ng-disabled="!project.insurance_adjustor" class="btn save-btn"
+                                   value="GET PORTAL LOGIN" data-toggle="modal" data-target="#insuranceAdjustorModal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-        <h4 class="modal-title" id="infoModalLabel">Customer Portal Information</h4>
-      </div>
-      <div class="modal-body">
-      	<small>Copy the URL and Password below to send to the customer for access to their Customer Portal.</small>
-        <div class="row">
-        	<div class="col-xs-12">
-        	  <br>
-        		<label class="control-label">Customer Portal URL:</label>
-        		<input type="text" disabled value="{{customerPortalUrl}}" class="form-control">
-        		<br>
-        	</div>
-        	<div class="col-xs-12">
-        		<label class="control-label">Password:</label>
-        		<input type="text" disabled value="{{project.po_number}}" class="form-control">
-        	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                <h4 class="modal-title" id="infoModalLabel">Customer Portal Information</h4>
+            </div>
+            <div class="modal-body">
+                <small>Copy the URL and Password below to send to the customer for access to their Customer Portal.
+                </small>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <br>
+                        <label class="control-label">Customer Portal URL:</label>
+                        <input type="text" disabled value="{{customerPortalUrl}}" class="form-control">
+                        <br>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="control-label">Password:</label>
+                        <input type="text" disabled value="{{project.po_number}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="insuranceAdjustorModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="infoModalLabel">Insurance Adjustor Portal Information</h4>
-      </div>
-      <div class="modal-body">
-      	<small>Copy the URL and Password below to send to the insurance adjustor for access to their Portal.</small>
-        <div class="row">
-        	<div class="col-xs-12">
-        	  <br>
-        		<label class="control-label">Insurance Adjustor Portal URL:</label>
-        		<input type="text" readonly value="{{insuranceAdjustorPortalUrl}}" class="form-control">
-        		<br>
-        	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="infoModalLabel">Insurance Adjustor Portal Information</h4>
+            </div>
+            <div class="modal-body">
+                <small>Copy the URL and Password below to send to the insurance adjustor for access to their Portal.
+                </small>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <br>
+                        <label class="control-label">Insurance Adjustor Portal URL:</label>
+                        <input type="text" readonly value="{{insuranceAdjustorPortalUrl}}" class="form-control">
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
 </div>

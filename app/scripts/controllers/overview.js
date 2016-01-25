@@ -68,7 +68,7 @@ angular.module('ersApp')
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
                 usSpinnerService.stop('spinner-2');
             });
-        }
+        };
 
         $scope.sendInsuranceAdjustorEmail = function () {
             usSpinnerService.spin('spinner-3');
@@ -82,7 +82,7 @@ angular.module('ersApp')
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
                 usSpinnerService.stop('spinner-3');
             });
-        }
+        };
 
         $scope.saveContract = function () {
             usSpinnerService.spin('spinner-1');
@@ -211,7 +211,6 @@ angular.module('ersApp')
         //Here we find out if the url is passing a siteId
         if ($stateParams.projectId) {
             Overview.query({siteId: $stateParams.projectId}, function (overview) {
-                console.log(overview);
                 $scope.project = overview.site;
                 prepareProjectSectionsToBeEdited(overview.site);
 
@@ -219,12 +218,11 @@ angular.module('ersApp')
                     prepareContractView($scope.project.contract);
                     $scope.newContract = false;
 
-                    // get Customer Portal Data
-                    Project.getProjectDetailFromSite($stateParams.projectId, function (data) {
-                        $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + '/#/customerportal?token=' + data.project.customer.page_token;
-                    });
+                    if(overview.site.customer_token)
+                        $scope.customerPortalUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/customerportal?token=' + overview.site.customer_token;
 
-                    $scope.insuranceAdjustorPortalUrl = $location.protocol() + '://' + $location.host() + '/#/insuranceadjustorportal?token=' + overview.site.adjustor_token;
+                    if(overview.site.adjustor_token)
+                        $scope.insuranceAdjustorPortalUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/#/adjustorportal?token=' + overview.site.adjustor_token;
 
                 } else {
                     $scope.newContract = true;
