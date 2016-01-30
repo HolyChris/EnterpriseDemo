@@ -1,11 +1,15 @@
 angular.module('ersApp')
-  .controller('SettingsCtrl', function($scope, $rootScope, User, Flash, $auth, $state) {
+  .controller('SettingsCtrl', function($scope, $location, $rootScope, User, Flash, $auth, $state) {
     $scope.data = {};
     // This is not ideall but it's the only way to retrieve userd data
     // we dont have a client id in frontend
     var user = User.resource.save(function(data) {
       $scope.data.fullname = data.user.fullname;
       $scope.data.email = data.user.email;
+    });
+
+    window.analytics.page( 'Settings', {
+      name: $location.path()
     });
 
     $scope.changePassword = function() {

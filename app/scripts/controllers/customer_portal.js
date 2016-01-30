@@ -13,6 +13,10 @@ angular.module('ersApp')
 	    }
   	};
 
+    window.analytics.page( 'Customer Portal', {
+      name: $location.path()
+    });
+
   	$rootScope.hideNavigationItems = true;
 
    	$scope.$on("$destroy", function() {

@@ -4,6 +4,11 @@ angular.module('ersApp')
   $scope.newSiteObject = {};
   $scope.submitted = false;
 
+
+  window.analytics.page( 'New Site', {
+    name: $location.path()
+  });
+
   $scope.lookupLinkedCustomerInfo = function(customer_id){
     Customer.query({id: customer_id},
       function(data) {
@@ -17,7 +22,7 @@ angular.module('ersApp')
     $scope.customer_from_previous_page_flag = true;
     $scope.lookupLinkedCustomerInfo($location.search().customerId);
   }
-  
+
   $scope.show_search_customer_dialog = function() {
     var modalInstance = $modal.open({
       animation: true,
@@ -25,14 +30,14 @@ angular.module('ersApp')
       controller: 'CustomerSearchModalInstanceCtrl',
       size: 'lg',
       resolve: {
-        
+
       }
     });
 
     modalInstance.result.then(function (customer) {
       $scope.customer = customer;
     }, function() {
-      
+
     });
   };
 

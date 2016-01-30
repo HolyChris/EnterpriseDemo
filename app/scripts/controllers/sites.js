@@ -8,11 +8,15 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('SitesCtrl', function ($scope, $stateParams, Sites, Managers, ENV, Address) {
+  .controller('SitesCtrl', function ($scope, $location, $stateParams, Sites, Managers, ENV, Address) {
 
   $scope.config = {
     itemsPerPage: 10
 	};
+
+  window.analytics.page( 'All Sites', {
+    name: $location.path()
+  });
 
   $scope.searchForm = {};
 
@@ -36,7 +40,7 @@ angular.module('ersApp')
     for (var i = min; i <= max; i += step) input.push(i);
     return input;
   };
-  
+
   function querify(string) {
     // given a string add q[string]
     return 'q[' + string + ']';

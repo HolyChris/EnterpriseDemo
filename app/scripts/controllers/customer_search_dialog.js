@@ -1,7 +1,6 @@
 angular.module('ersApp').controller('CustomerSearchModalInstanceCtrl', function ($scope, $modalInstance, $http,ENV) {
 
   $scope.showResults=false;
-  
 
   $scope.selectCustomer = function (customer){
     $modalInstance.close(customer);
@@ -9,27 +8,27 @@ angular.module('ersApp').controller('CustomerSearchModalInstanceCtrl', function 
 
   $scope.findCustomers = function (search_by_firstname,search_by_lastname,search_by_bussiness_name,search_by_phonenumber) {
     var query_params=[];
-    
+
     if (!angular.isUndefined(search_by_firstname) && search_by_firstname.trim()!="" )
     {
       query_params.push('q[firstname_cont]=' + search_by_firstname);
     }
-    
+
     if (!angular.isUndefined(search_by_lastname) && search_by_lastname.trim()!="" )
     {
       query_params.push('q[lastname_cont]=' + search_by_lastname);
     }
-    
+
     if (!angular.isUndefined(search_by_bussiness_name) && search_by_bussiness_name.trim()!="" )
     {
       query_params.push('q[business_name_cont]=' + search_by_bussiness_name);
     }
-    
+
     if (!angular.isUndefined(search_by_phonenumber) && search_by_phonenumber.trim()!="" )
     {
       query_params.push('q[phone_numbers_number_cont]=' + search_by_phonenumber);
     }
-    
+
     var query_string=""
     var i=0;
     for (i=0;i<query_params.length;i++)
@@ -45,8 +44,8 @@ angular.module('ersApp').controller('CustomerSearchModalInstanceCtrl', function 
     {
       query_string="?" + query_string;
     }
-    
-    
+
+
     $http({
       method: 'GET',
       url: ENV.apiEndpoint + '/api/v1/customers' + query_string,
@@ -62,7 +61,7 @@ angular.module('ersApp').controller('CustomerSearchModalInstanceCtrl', function 
       alert("error");
     })
 
-    
+
 
   };
 

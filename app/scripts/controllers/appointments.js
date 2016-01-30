@@ -8,11 +8,15 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('AppointmentsCtrl', function($scope, $rootScope,$stateParams, Appointment, Flash, Overview, Managers) {
+  .controller('AppointmentsCtrl', function($scope, $location, $rootScope,$stateParams, Appointment, Flash, Overview, Managers) {
 
 	$scope.outcomes_arr=Appointment.outcomes;
 	$scope.managersArray = Managers.query();
 	$scope.format = "yyyy-MM-dd";
+
+   window.analytics.page( 'Appointments', {
+   		name: $location.path()
+   	});
 
 	//Here we find out if the url is passing a siteId
 	if ($stateParams.projectId) {
@@ -21,7 +25,7 @@ angular.module('ersApp')
 	      $rootScope.project_id=$scope.project.id;
 
 	      prepareAppointmentsForView($scope.project.appointments);
-	      
+
 	    });
 	}
 
@@ -75,9 +79,9 @@ angular.module('ersApp')
 		}
 		else
 		{
-			appointment.edition_enabled=false;	
+			appointment.edition_enabled=false;
 		}
-		
+
 	}
 
 
@@ -86,7 +90,7 @@ angular.module('ersApp')
 		$scope.appointmentIndex=appointmentIndex;
 		if (appointment.assigned_to)
 		{
-			//This means that a mail got selected, we fill the attribute value 
+			//This means that a mail got selected, we fill the attribute value
 			//that API's expecting
 			appointment.user_id=appointment.assigned_to.id;
 		}
@@ -107,13 +111,13 @@ angular.module('ersApp')
 					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
 					$scope.errors = {};
 				}
-				
+
 	        }, function(error) {
 	          $scope.errors = error.data.errors;
 	          Flash.create('danger', 'Something happened. See errors below.');
 	        });
 
-			
+
 		}
 		else
 		{
@@ -123,8 +127,8 @@ angular.module('ersApp')
 				Flash.create('success', 'Appointment was successfully saved!');
 				prepareAppointmentForView(data.appointment);
 				$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
-				
-				
+
+
 	        }, function(error) {
 	          $scope.errors = error.data.errors;
 	          Flash.create('danger', 'Something happened. See errors below.');
@@ -162,7 +166,7 @@ angular.module('ersApp')
 		}
 		else
 		{
-			followup.edition_enabled=false;	
+			followup.edition_enabled=false;
 		}
 	}
 
@@ -175,14 +179,14 @@ angular.module('ersApp')
 					Flash.create('success', 'Followup was successfully created!');
 					prepareAppointmentForView(data.appointment);
 					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
-					
+
 				},
 				function(data){
 	          		Flash.create('danger', 'Something happened. See errors below.');
 	          		//TODO make errors available for visual feedback
 				}
 			);
-			
+
 		}
 		else
 		{
@@ -191,7 +195,7 @@ angular.module('ersApp')
 					Flash.create('success', 'Followup was successfully saved!');
 					prepareAppointmentForView(data.appointment);
 					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
-					
+
 				},
 				function(data){
 	          		Flash.create('danger', 'Followup could not be updated. Something happened. See errors below.');
@@ -213,7 +217,7 @@ angular.module('ersApp')
 					Flash.create('success', 'Followup was successfully deleted!');
 					prepareAppointmentForView(data.appointment);
 					$scope.project.appointments[$scope.appointmentIndex]=data.appointment;
-					
+
 				},
 				function(data){
 	          		Flash.create('danger', 'Followup could not be deleted. Something happened. See errors below.');
@@ -221,5 +225,5 @@ angular.module('ersApp')
 				}
 			);
 	}
-	
+
 });

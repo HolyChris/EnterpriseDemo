@@ -15,6 +15,11 @@ angular.module('ersApp')
       label: 'Other',
     }];
 
+
+    window.analytics.page( 'Customer', {
+      name: $location.path()
+    });
+
     var customer = Customer.get({id: $stateParams.id}, function(data) {
       $scope.model = customer;
     });
@@ -38,7 +43,7 @@ angular.module('ersApp')
         customer.customer['phone_numbers_attributes[' + key + '][number]'] = value.number;
         customer.customer['phone_numbers_attributes[' + key + '][num_type]'] = value.num_type;
         customer.customer['phone_numbers_attributes[' + key + '][primary]'] = value.primary;
-        
+
         if (value._destroy) {
           customer.customer['phone_numbers_attributes[' + key + '][_destroy]'] = value._destroy;
         }
@@ -54,11 +59,11 @@ angular.module('ersApp')
 
     $scope.addPhone = function(evt) {
       // By just adding one value to model
-      // we add one more phone item to the view 
+      // we add one more phone item to the view
       $scope.model.customer.phone_numbers.push({
-        id: null, 
-        number: "", 
-        primary: false, 
+        id: null,
+        number: "",
+        primary: false,
         num_type: 1
       });
     };

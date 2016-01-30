@@ -24,6 +24,10 @@ angular.module('ersApp')
       }
     });
 
+    window.analytics.page( 'Project Billing', {
+      name: $location.path()
+    });
+
     // Takes an ISO date formated string
     // and returns YYY-MM-DD
     function toDate(string) {
@@ -49,7 +53,7 @@ angular.module('ersApp')
           $scope.editModeLocation = false;
           $scope.editModeInsurance = false;
           Flash.create('success', 'Billing information updated!');
-        }); 
+        });
       } else {
         params.siteId = $stateParams.projectId;
         params.billingId = $scope.location.id;
@@ -63,7 +67,7 @@ angular.module('ersApp')
           $scope.editModeLocation = false;
           $scope.editModeInsurance = false;
           Flash.create('success', 'Billing information updated!');
-        }); 
+        });
       };
     };
 

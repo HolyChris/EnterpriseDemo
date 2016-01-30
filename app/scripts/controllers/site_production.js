@@ -25,6 +25,11 @@ angular.module('ersApp')
       }
     });
 
+
+    window.analytics.page( 'Project Production', {
+      name: $location.path()
+    });
+
     // Takes an ISO date formated string
     // and returns YYY-MM-DD
     function toDate(string) {
@@ -49,7 +54,7 @@ angular.module('ersApp')
           $scope.setProductionData(data);
           $scope.$parent.refreshNavStatus();
           Flash.create('success', 'Project successfully saved!');
-        }); 
+        });
       } else {
         params.productionId = globalData.site.production.id;
         delete params.id;
@@ -57,7 +62,7 @@ angular.module('ersApp')
           $scope.setProductionData(data);
           $scope.$parent.refreshNavStatus();
           Flash.create('success', 'Project successfully saved!');
-        }); 
+        });
       }
 
       $scope.disableEdition();

@@ -34,12 +34,16 @@ angular.module("ersApp")
 
     $timeout(function() {
     	if ($rootScope.isAuthenticated) {
-    		window.intercomSettings = {
-	      	app_id: "upt1rmr7",
-	      	name: $scope.user.fullname,
-	      	email: $scope.user.email,
-	      	created_at: new Date(),
-	    	};
-  		}
+    	  window.intercomSettings = {
+  	       app_id: "upt1rmr7",
+  	       name: $scope.user.fullname,
+  	       email: $scope.user.email,
+  	       created_at: new Date(),
+      	  };
+        window.analytics.identify({
+          name: $scope.user.fullname,
+          email: $scope.user.email
+        });
+      }
   	}, 1000);
   });

@@ -44,23 +44,23 @@ angular.module('ersApp')
 
   $scope.findCustomers = function(search_by_firstname,search_by_lastname,search_by_email,search_by_phone){
     var params = {};
-    
+
     if (!angular.isUndefined(search_by_firstname) && search_by_firstname.trim()!="" ) {
       params['q[firstname_cont]'] = search_by_firstname;
     }
-    
+
     if (!angular.isUndefined(search_by_lastname) && search_by_lastname.trim()!="" ) {
       params['q[lastname_cont]'] = search_by_lastname;
     }
-    
+
     if (!angular.isUndefined(search_by_email) && search_by_email.trim()!="" ) {
       params['q[email_eq]'] = search_by_email;
     }
-    
+
     if (!angular.isUndefined(search_by_phone) && search_by_phone.trim()!="" ) {
       params['q[phone_numbers_number_cont]'] = search_by_phone;
     }
-    
+
     Customer.search(params, function(data) {
       $scope.customers = data;
       $scope.custList = data.customers;

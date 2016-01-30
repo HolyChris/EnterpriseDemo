@@ -1,6 +1,6 @@
 angular.module('ersApp')
   .controller('NewCustomerCtrl', function ($scope,$http,$state,$location,ENV,Flash,Customer) {
-  
+
   $scope.user = {};
   $scope.phone_number = [];
 
@@ -13,7 +13,11 @@ angular.module('ersApp')
       'newPhone': false // new phone added from front end
     });
   }
-  
+
+  window.analytics.page( 'New Customer', {
+    name: $location.path()
+  });
+
   $scope.addPhone = function() {
     var newItemNo = $scope.phone_number.length + 1;
     $scope.phone_number.push({
@@ -51,26 +55,26 @@ angular.module('ersApp')
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-      } else {        
-        Flash.create('success', 'You have succesfully created a customer.');    
+      } else {
+        Flash.create('success', 'You have succesfully created a customer.');
         $state.go("customers");
       }
     });
   }
-  
-  $scope.newCustomerThenSite = function(user) { 
+
+  $scope.newCustomerThenSite = function(user) {
     user.phone_numbers_attributes = phonePrepare();
-    
+
     Customer.post(user, function(data) {
       if (data.errors) {
         $scope.errors = data.errors;
         Flash.create('danger', "Customer was not created see errors below");
-      } else {        
+      } else {
         Flash.create('success', 'You have succesfully created a customer.');
         $location.path("/sites/new").search({customerId: data.customer.id});
       }
     });
   }
 
-  
+
 });

@@ -12,13 +12,17 @@ angular.module('ersApp')
 
   	$scope.format = "yyyy-MM-dd";
   	$scope.opened = [];
-  	
+
 	$scope.colors_arr=Project.Colors;
 	$scope.priorities_arr=Project.Priorities;
 	$scope.site = {};
 	$scope.manufacturers_arr=Project.Manufacturers;
 	$scope.shingles_arr=Project.Shingles;
-	
+
+
+  window.analytics.page( 'Project Details', {
+   		name: $location.path()
+   	});
 
 	$scope.sendCustomerPortalEmail = function() {
 		$http.get(ENV.apiEndpoint + "/api/v1/sites/"+ $scope.site.id +"/contract/send_to_customer").success(function(response) {
@@ -59,12 +63,12 @@ angular.module('ersApp')
 			function(data){
 				Flash.create('danger', 'Project could not be queried.');
 			});
-	    
+
 	}
 
 	function fillEditableReferencesFromApi(project)
 	{
-		
+
 
 		//The project reference will be used to modify only base project attributes
 		//that's why we delete the related inner objects to prevent these from being sent to API PUT request
@@ -73,7 +77,7 @@ angular.module('ersApp')
 		delete $scope.project.insurance_and_mortgage_info;
 
 		$scope.job_submission = angular.copy(project.job_submission);
-		$scope.insurance_and_mortgage_info= angular.copy(project.insurance_and_mortgage_info);		
+		$scope.insurance_and_mortgage_info= angular.copy(project.insurance_and_mortgage_info);
 
 		return {
 			project : $scope.project,
@@ -100,11 +104,11 @@ angular.module('ersApp')
 	function prepareProjectForView(project)
 	{
 		clearErrors();
-		
+
 		//First we backup the project data from API as is
 		$scope.project_from_api=project;
 
-		//Now create the editable object copies with additional transformations for the view		
+		//Now create the editable object copies with additional transformations for the view
 		var editableSections=fillEditableReferencesFromApi(project);
 
 		//WE have to convert string dates to proper dates
@@ -113,15 +117,15 @@ angular.module('ersApp')
 		}
 
 		if (editableSections.project.last_roof_built_date){
-			editableSections.project.last_roof_built_date=new Date(editableSections.project.last_roof_built_date);	
+			editableSections.project.last_roof_built_date=new Date(editableSections.project.last_roof_built_date);
 		}
-		
+
 		//API returns priority description but expects id
 		editableSections.project.priority=$scope.priorities_arr.indexOf(editableSections.project.priority) +1;
 
 		prepareInsuranceAndMortgageInfoForView(editableSections.insurance_and_mortgage_info);
 		prepareJobSubmissionForView(editableSections.job_submission);
-		
+
 	};
 
 	function prepareInsuranceAndMortgageInfoForView(insurance_and_mortgage_info)
@@ -135,7 +139,7 @@ angular.module('ersApp')
 	function prepareJobSubmissionForView(job_submission)
 	{
 		if (job_submission){
-			
+
 
 			if (job_submission.shingle_manufacturer){
 				angular.forEach($scope.manufacturers_arr, function(value, key) {
@@ -177,8 +181,8 @@ angular.module('ersApp')
 			job_submission.roof_work_rcv=formatCurrencyForView(job_submission.roof_work_rcv);
 			job_submission.roof_upgrade_cost=formatCurrencyForView(job_submission.roof_upgrade_cost);
 			job_submission.roof_discount=formatCurrencyForView(job_submission.roof_discount);
-			
-			
+
+
 
 			job_submission.gutters_rcv=formatCurrencyForView(job_submission.gutters_rcv);
 			job_submission.gutters_acv=formatCurrencyForView(job_submission.gutters_acv);
@@ -186,7 +190,7 @@ angular.module('ersApp')
 			job_submission.gutters_discount=formatCurrencyForView(job_submission.gutters_discount);
 			job_submission.gutters_total=formatCurrencyForView(job_submission.gutters_total);
 
-			
+
 			job_submission.siding_rcv=formatCurrencyForView(job_submission.siding_rcv);
 			job_submission.siding_acv=formatCurrencyForView(job_submission.siding_acv);
 			job_submission.siding_upgrade_cost=formatCurrencyForView(job_submission.siding_upgrade_cost);
@@ -212,7 +216,7 @@ angular.module('ersApp')
 			job_submission.hvac_total=formatCurrencyForView(job_submission.hvac_total);
 		}
 
-		
+
 	};
 
 	$scope.enable_project_edition=function(){
@@ -234,7 +238,7 @@ angular.module('ersApp')
 				$scope.errors = data.errors;
           		Flash.create('danger', 'Something happened. See errors below.');
 			}
-			
+
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
@@ -262,7 +266,7 @@ angular.module('ersApp')
 			if (!data.errors){
 				Flash.create('success', 'Project was successfully saved!');
 				prepareProjectForView(data.project);
-				$scope.insurance_and_mortgage_info.edition_enabled=false;	
+				$scope.insurance_and_mortgage_info.edition_enabled=false;
 				$scope.$parent.refreshNavStatus();
 			}
 			else
@@ -270,8 +274,8 @@ angular.module('ersApp')
 				$scope.errors = data.errors;
           		Flash.create('danger', 'Something happened. See errors below.');
 			}
-			
-			
+
+
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');
@@ -299,7 +303,7 @@ angular.module('ersApp')
 			prepareProjectForView(data.project);
 			$scope.job_submission.edition_enabled=false;
 			$scope.$parent.refreshNavStatus();
-			
+
         }, function(error) {
           $scope.errors = error.data.errors;
           Flash.create('danger', 'Something happened. See errors below.');

@@ -63,7 +63,7 @@
       <p><span>ADDRESS:</span> {{site.address.address1}}, {{site.address.city}} {{site.address.state.name}}, {{site.address.zipcode}}</p>
       <p><span>PO:</span> {{site.po_number}}</p>
       <p ng-show="!editStageMode"><span>STAGE:</span> <b class="text-uppercase">{{site.new_stage}}</b> <button ng-click="enableStageEdition()">Edit</button></p>
-      <p ng-show="editStageMode"><span>STAGE:</span> 
+      <p ng-show="editStageMode"><span>STAGE:</span>
 				<select name="" ng-options="item.value as item.label for item in stagesList" ng-model="site.new_stage" ng-change="updateStage()" class="form-control"></select>
       </p>
       <p>
@@ -87,7 +87,7 @@
         <a ng-click="openCoverPhotoInLightboxModal()">
           <img class="center-block img-thumbnail cover-photo" ng-src="{{site.cover_photo_url}}" ng-show="site.cover_photo_url">
         </a>
-        
+
         <label for="coverphoto" class="center-block">
           <span class="center-block btn btn-success btn-xs">
             <img src="/images/clip.png">

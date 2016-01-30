@@ -15,7 +15,7 @@ angular.module('ersApp')
   }
 
   $scope.states_array = Address.States;
-  
+
   $scope.siteSource = ['Qualified Storm Leads','Commercial Call Leads','Self-Generated','Canvasser','Call in Leads','Mailer','Sign','Website','Friend','Neighbor','Truck Sign','Call/Knock','Other','Existing Customer' ];
 
   $scope.phoneTypes = [{
@@ -31,6 +31,11 @@ angular.module('ersApp')
       value: 0,
       label: 'Other',
     }];
+
+
+  window.analytics.page( 'Project Overview & Contract', {
+    name: $location.path()
+  });
 
   var workTypeValues = {'Cash':'1','Insurance':'2','Maintenance':'3'};
   $scope.contract = {};
@@ -74,7 +79,7 @@ angular.module('ersApp')
     usSpinnerService.spin('spinner-1');
 
     if ($scope.contract.price) {
-      $scope.contract.price = parseFloat($scope.contract.price);  
+      $scope.contract.price = parseFloat($scope.contract.price);
     } else {
       delete $scope.contract.price;
     }
@@ -92,13 +97,13 @@ angular.module('ersApp')
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       return;
     }
-    
+
     var siteId = $scope.project.id;
 
     var fd = new FormData(); // prepare as form data to handle files.
     for (var key in $scope.contract) {
       if (key !== 'work_types' && key !== 'work_type_ids') {
-        fd.append(key, $scope.contract[key]);  
+        fd.append(key, $scope.contract[key]);
       }
     }
 
@@ -118,7 +123,7 @@ angular.module('ersApp')
       } else {
         fd.append('work_type_ids[]', '');
       }
-      
+
       $scope.contract.work_type_ids = work_type_ids;
     }
 
@@ -141,7 +146,7 @@ angular.module('ersApp')
           $scope.$parent.enableProjectDetails = true;
           $scope.$parent.enableProduction = true;
           $scope.$parent.enableBilling = true;
-        }        
+        }
       });
     } else {
       Contract.put({siteId:siteId},fd, function(data) {
@@ -153,11 +158,11 @@ angular.module('ersApp')
           usSpinnerService.stop('spinner-1');
           $scope.contract.document_url = data.contract.document_url;
           if ($scope.contract.document) {
-            $scope.contract.documentName = $scope.contract.document.name;  
+            $scope.contract.documentName = $scope.contract.document.name;
           }
           Flash.create('success', 'Contract successfully saved!');
           $scope.$parent.refreshNavStatus();
-        } 
+        }
       });
     }
   }
@@ -176,7 +181,7 @@ angular.module('ersApp')
     preparePhoneNumbersDetails(site.customer.phone_numbers);
   }
 
-  
+
   function prepareContractView(contract) {
     $scope.contract = contract;
     $scope.contract.signed_at = new Date(contract.signed_at);
@@ -194,13 +199,13 @@ angular.module('ersApp')
       $scope.work_types[workType] = true;
     }
   }
-  
+
   //Here we find out if the url is passing a siteId
   if ($stateParams.projectId){
     Overview.query({siteId: $stateParams.projectId}, function(overview) {
       $scope.project = overview.site;
       prepareProjectSectionsToBeEdited(overview.site);
-      
+
       if ($scope.project.contract) {
         prepareContractView($scope.project.contract);
         $scope.newContract = false;
@@ -213,7 +218,7 @@ angular.module('ersApp')
       } else {
         $scope.newContract = true;
       }
-      
+
     });
   }
 
@@ -226,16 +231,16 @@ angular.module('ersApp')
     }
     $scope.site_edit.managers.push($item);
     $scope.site_edit.managersSelected = undefined; // clear input
-    
+
   }
   $scope.removeManager = function(id) {
 
-    //As we're removing a manager, if it happened to be the primary 
+    //As we're removing a manager, if it happened to be the primary
     //we erase this id as well
     if (id===$scope.site_edit.primary_manager_id){
       delete $scope.site_edit.primary_manager_id;
     }
-    
+
     for (var i = 0; i < $scope.site_edit.managers.length; i++) {
       if ($scope.site_edit.managers[i].id === id) {
         $scope.managersArray.users.push($scope.site_edit.managers[i]);
@@ -255,16 +260,16 @@ angular.module('ersApp')
         $scope.site_edit.managers[i].primary=true;
       }
     }
-    
+
   }
 
   $scope.addPhone = function(evt) {
       // By just adding one value to model
-      // we add one more phone item to the view 
+      // we add one more phone item to the view
       $scope.phone_numbers_edit.push({
-        id: null, 
-        number: "", 
-        primary: false, 
+        id: null,
+        number: "",
+        primary: false,
         num_type: 1
       });
     };
@@ -272,7 +277,7 @@ angular.module('ersApp')
   $scope.removePhone = function(item) {
     item["_destroy"] = 1;
   };
-  
+
 
   function prepareCustomerDetails(customer)
   {
@@ -281,7 +286,7 @@ angular.module('ersApp')
 
 
     $scope.customer_title = $scope.project.customer.firstname + " " + $scope.project.customer.lastname;
-    
+
     if ($scope.project.customer.bussinessname) {
       $scope.customer_title = $scope.project.customer.bussinessname + ' - ' + $scope.customer_title;
     }
@@ -295,7 +300,7 @@ angular.module('ersApp')
     //$scope.customer holds editable values
     //$scope.project.customer holds values from last API request
     $scope.customer=angular.copy($scope.project.customer);
-    
+
     //we delete the phone_numbers element so that customer update does not include this object in request
     delete $scope.customer.phone_numbers;
 
@@ -304,7 +309,7 @@ angular.module('ersApp')
 
   $scope.customer_info_edition_enabled=false;
   $scope.enable_customer_info_edition = function (){
-    $scope.customer_info_edition_enabled=true; 
+    $scope.customer_info_edition_enabled=true;
   }
 
   $scope.cancel_customer_info_edition = function (){
@@ -328,7 +333,7 @@ angular.module('ersApp')
             Flash.create('danger', 'Something happened. See errors below.');
           }
 
-            
+
           }, function(error) {
             $scope.errors = error.data.errors;
             Flash.create('danger', 'Something happened. See errors below.');
@@ -363,13 +368,13 @@ angular.module('ersApp')
 
   function fillEditableAddressInfoFromApiData()
   {
-    
+
     //$scope.address holds editable values
     //$scope.project.address holds values from last API request
     $scope.address=angular.copy($scope.project.address);
     $scope.bill_address=angular.copy($scope.project.bill_address);
     clearErrors();
-    
+
   }
 
   function fillEditableBillAddressInfoFromApiData()
@@ -378,12 +383,12 @@ angular.module('ersApp')
     //$scope.project.bill_address holds values from last API request
     $scope.bill_address=angular.copy($scope.project.bill_address);
     clearErrors();
-    
+
   }
 
   $scope.address_edition_enabled=false;
   $scope.enable_address_edition = function (){
-    $scope.address_edition_enabled=true; 
+    $scope.address_edition_enabled=true;
   }
 
   $scope.cancel_address_edition = function (){
@@ -401,10 +406,10 @@ angular.module('ersApp')
       };
       //then edited values are copied over to the object
       angular.copy($scope.address,addressAttributesUpdate.address_attributes);
-      
-      //State id has also to be provided in a different way 
+
+      //State id has also to be provided in a different way
       addressAttributesUpdate.address_attributes.state_id=$scope.address.state.id;
-      
+
       //We invoke the sites update api with only address information to be updated
       Sites.save({siteId: $scope.project.id}, addressAttributesUpdate, function(data) {
 
@@ -434,7 +439,7 @@ angular.module('ersApp')
 
   $scope.bill_address_edition_enabled=false;
   $scope.enable_bill_address_edition = function (){
-    $scope.bill_address_edition_enabled=true; 
+    $scope.bill_address_edition_enabled=true;
   }
 
   $scope.cancel_bill_address_edition = function (){
@@ -452,8 +457,8 @@ angular.module('ersApp')
       };
       //then edited values are copied over to the object
       angular.copy($scope.bill_address,addressAttributesUpdate.bill_address_attributes);
-      
-      //State id has also to be provided in a different way 
+
+      //State id has also to be provided in a different way
       addressAttributesUpdate.bill_address_attributes.state_id=$scope.bill_address.state.id;
 
       //We invoke the sites update api with only address information to be updated
@@ -497,7 +502,7 @@ angular.module('ersApp')
     //$scope.site_edit holds editable values
     //$scope.project.customer holds values from last API request
     $scope.site_edit=angular.copy($scope.project);
-    
+
     //we delete all other inner object we want
     //to make sure is not sent to the update API
     delete $scope.site_edit.customer;
@@ -507,11 +512,11 @@ angular.module('ersApp')
     delete $scope.site_edit.assets;
     delete $scope.site_edit.contract;
 
-    //TODO WARNING, API returns source as string but expects Id as input for update 
+    //TODO WARNING, API returns source as string but expects Id as input for update
     if ($scope.site_edit.source)
     {
       //TODO We need to move siteSource array somewhere.. relying on this lookup here is a very bad idea
-      
+
       //We will set in $scope.site_edit.source the id that API for update is expecting
       //On source_description we'll store the actual text
       $scope.site_edit.source_description = $scope.site_edit.source
@@ -526,15 +531,15 @@ angular.module('ersApp')
           $scope.site_edit.primary_manager_id=value.id;
         }
     });
-    
+
 
     clearErrors();
-    
+
   }
 
   $scope.site_info_edition_enabled=false;
   $scope.enable_site_info_edition = function (){
-    $scope.site_info_edition_enabled=true; 
+    $scope.site_info_edition_enabled=true;
   }
 
   $scope.cancel_site_info_edition = function (){
@@ -550,9 +555,9 @@ angular.module('ersApp')
       //returned or queried from site.. returns the actual string
       //We invoke the sites update api with only address information to be updated
 
-      //Manager array should be provided as manager_ids[11,221] 
+      //Manager array should be provided as manager_ids[11,221]
       //where 11 and 221 are the ids of the Users, complete list should be provided every time
-      
+
       var manager_ids=[];
       angular.forEach($scope.site_edit.managers, function(value, key) {
           manager_ids.push(value.id);
@@ -582,7 +587,7 @@ angular.module('ersApp')
       Flash.create('danger', 'Site information changes were not submitted. Check errors below.');
     }
   }
-  
+
   function preparePhoneNumbersDetails(phone_numbers)
   {
     //customer input param comes from API query or as a result of a put
@@ -597,13 +602,13 @@ angular.module('ersApp')
     //$scope.phone_numbers_edit holds editable values
     //$scope.project.customer.phone_numbers holds values from last API request
     $scope.phone_numbers_edit=angular.copy($scope.project.customer.phone_numbers);
-    
+
     clearErrors();
   }
 
   $scope.phone_numbers_info_edition_enabled=false;
   $scope.enable_phone_numbers_info_edition = function (){
-    $scope.phone_numbers_info_edition_enabled=true; 
+    $scope.phone_numbers_info_edition_enabled=true;
   }
 
   $scope.cancel_phone_numbers_info_edition = function (){
