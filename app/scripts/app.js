@@ -185,6 +185,14 @@ angular
         requireLogin: false,
         // this flag hides items inside header
         hideNavigationItems: true
+      })
+      .state('insuranceadjustorportal', {
+        url: '/adjustorportal?token',
+        templateUrl: 'views/insuranceadjustor_portal.html',
+        controller: 'InsuranceAdjustorPortalCtrl',
+        requireLogin: false,
+        // this flag hides items inside header
+        hideNavigationItems: true
       });
 
       $urlRouteProvider.otherwise('/');

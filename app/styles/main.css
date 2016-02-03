@@ -1835,6 +1835,7 @@ img.cover-photo-customer-portal {
     background-color: #fff;
     box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
     margin-bottom: 25px;
+    border-radius: 3px;
 }
 
 .customer-portal .customer-panel .customer-panel-title {
@@ -2108,4 +2109,60 @@ img.cover-photo-customer-portal {
 
 .text-12 {
     font-size: 12px;
+}
+
+.text-subtle {
+    opacity: 0.3;
+}
+
+/* Adjustor portal */
+
+.adjustor-portal-thumb-container {
+    padding-top: 15px;
+}
+
+.adjustor-portal-thumb-wrapper {
+    display: inline-block;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.adjustor-portal-thumb {
+    display: inline-block;
+    position: relative;
+    height: 80px;
+    width: 90px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.adjustor-portal-thumb img {
+    height: 100%;
+}
+
+.adjustor-portal-image-modal {
+    width: 90%;
+}
+
+.adjustor-portal-image-modal .modal-header {
+    background: #000;
+    color: #fff;
+}
+
+.adjustor-portal-image-modal-dismiss {
+    font-size: 18px;
+    color: #fff !important;
+}
+
+.adjustor-portal-image-modal {
+
+}
+
+.adjustor-portal-image-modal-image {
+    max-width: 100%;
+}
+
+.customer-title h2, .customer-title h3 {
+    margin: 0;
 }

@@ -1,0 +1,204 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div flash-message="5000"></div>
+	</div>
+</div>
+<div class="container site-content customer-portal">
+	<div id="customer-header" class="row customer-header">
+		<div class="customer-title">
+			<h2 class="customer-header-title">
+				INSURANCE ADJUSTOR PORTAL
+			</h2>
+            <h3>{{ model.site.name }}</h3>
+		</div>
+        <div class="customer-image">
+            <img class="center-block cover-photo-customer-portal" ng-if="model.site.cover_photo_url" ng-src="{{ model.site.cover_photo_url }}">
+            <img class="center-block img-thumbnail cover-photo" src="/images/home.png" ng-if="!model.userInfo.site.cover_photo_url">
+        </div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12 customer-panel">
+					<div class="row">
+                        <div class="clearfix">
+						    <div class="col-md-12 customer-panel-title">CUSTOMER INFO</div>
+                        </div>
+                        <loading-bar loading="loading"></loading-bar>
+						<div class="col-md-6">
+							<div class="customer-field">
+								<span class="field-title">
+									First Name
+								</span>
+								<p class="field-value">{{ model.customer.firstname }}</p>
+							</div>
+							<div class="customer-field">
+								<span class="field-title">
+									Email
+								</span>
+								<p class="field-value">{{ model.customer.email || '-' }}</p>
+							</div>
+							<div class="customer-field">
+								<span class="field-title">
+									Business Name
+								</span>
+								<p class="field-value">{{ model.customer.business_name || '-' }}</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="customer-field">
+								<span class="field-title">
+									Last Name
+								</span>
+								<p class="field-value">{{ model.customer.lastname }}</p>
+							</div>
+
+							<div class="customer-field">
+								<span class="field-title">
+									Spouse
+								</span>
+								<p class="field-value">{{ model.customer.spouse || '-' }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row" ng-hide="loading">
+				<div class="col-md-12 customer-panel">
+					<div class="row">
+						<div class="col-md-12 customer-panel-title">ADDRESS</div>
+						<div class="col-md-6">
+							<div class="customer-field">
+								<span class="field-title">
+									Address 1
+								</span>
+								<p class="field-value">{{ model.site.address.address1 || '-' }}</p>
+							</div>
+							<div class="customer-field">
+								<span class="field-title">
+									City
+								</span>
+								<p class="field-value">{{ model.site.address.city || '-' }}</p>
+							</div>
+							<div class="customer-field">
+								<span class="field-title">
+									Zipcode
+								</span>
+								<p class="field-value">{{ model.site.address.zipcode || '-' }}</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="customer-field">
+								<span class="field-title">
+									Address 2
+								</span>
+								<p class="field-value">{{ model.site.address.address2 || '-' }}</p>
+							</div>
+							<div class="customer-field">
+								<span class="field-title">
+									State
+								</span>
+								<p class="field-value">{{ model.site.address.state || '-' }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6" ng-hide="loading">
+			<div class="row">
+				<div class="col-md-12 ">
+					<div class="customer-panel">
+						<div class="row">
+							<div class="col-md-12 customer-panel-title">PHONE NUMBERS</div>
+							<div class="col-md-6">
+								<div class="customer-field" ng-repeat="phone in model.customer.phone_numbers">
+									<span class="field-title">
+										{{model.phoneTypes[phone.num_type]}}
+									</span>
+									<p class="field-value">{{phone.number}}</p>
+									<i ng-show="phone.primary">Primary</i>
+								</div>
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="customer-panel">
+						<div class="row">
+							<div class="col-md-12 customer-panel-title">SITE DETAILS</div>
+							<div class="col-md-6">
+								<div class="customer-field">
+									<span class="field-title">
+										Site Name
+									</span>
+									<p class="field-value">{{ model.site.name }}</p>
+								</div>
+								<div class="customer-field">
+									<span class="field-title">
+										Site Contact Name
+									</span>
+									<p class="field-value">{{ model.customer.firstname }} {{ model.customer.lastname }}</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="customer-field">
+									<span class="field-title">
+										Managers
+									</span>
+									<p class="field-value" ng-if="doesNotHavePrimarySalesRep || manager.primary" ng-repeat="manager in model.site.managers">{{ manager.email }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row" ng-hide="loading">
+        <div class="customer-panel">
+            <div class="row">
+                <div class="clearfix">
+                    <div class="col-md-12 customer-panel-title">SITE PHOTOS</div>
+                </div>
+                <div class="adjustor-portal-thumb-container clearfix">
+                    <div class="adjustor-portal-thumb-wrapper" ng-repeat="asset in model.site.assets">
+                        <a class="adjustor-portal-thumb" data-toggle="modal" ng-click="model.selectedAsset = asset" data-target="#imageModal">
+                            <img ng-src="{{ asset.attachments[0].thumbnail_url }}"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog adjustor-portal-image-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="pull-right adjustor-portal-image-modal-dismiss" data-dismiss="modal"><i class="fa fa-close"></i></a>
+                <h4 class="modal-title" class="{{ model.selectedAsset.title ? '' : 'text-italic text-subtle' }}">{{ model.selectedAsset.title || 'No title' }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <img class="adjustor-portal-image-modal-image" ng-src="{{ model.selectedAsset.attachments[0].url }}"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <h2 class="{{ model.selectedAsset.title ? '' : 'text-italic text-subtle' }}">{{ model.selectedAsset.title || 'No title' }}</h2>
+                        <p class="{{ model.selectedAsset.title ? '' : 'text-italic text-subtle' }}">{{ model.selectedAsset.notes || 'No notes' }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

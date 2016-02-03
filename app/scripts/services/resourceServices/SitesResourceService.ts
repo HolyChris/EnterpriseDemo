@@ -4,10 +4,10 @@ module Services.Resources {
 
     export class SitesResourceService {
 
-        private promiseService;
-        private environmentService;
-        private httpService;
-        private addressService;
+        private promiseService: any;
+        private environmentService: any;
+        private httpService: any;
+        private addressService: any;
 
         constructor(promiseService, environmentService, httpService, addressService) {
             this.promiseService = promiseService;
@@ -48,7 +48,7 @@ module Services.Resources {
             return this.get(this.environmentService.apiEndpoint + '/api/v2/sites', request);
         }
 
-        public get(url, request) {
+        public get(url, request?: any) {
             var defer = this.promiseService.defer();
             if (request)
                 url += '?' + jQuery.param(request);
