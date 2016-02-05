@@ -23,7 +23,10 @@
                   <span class="site_title">{{ site.name ? site.name : site.customer.firstname + ' ' + site.customer.lastname }}</span>
                   <div class="site_info">
                     {{site.address.address1}}, {{site.address.city}}, {{stateLookupById(site.address.state.id).abbreviation}},{{site.address.zipcode}}
-                    <i class="glyphicon glyphicon-triangle-right"></i>
+                    <i class="glyphicon glyphicon-triangle-right"></i><br/>
+                    <span ng-click="clickPhoneNumber(site.customer, $event);">
+                      {{site.customer.phone_numbers[0].number}}
+                    </span>
                   </div>
                 </a>
               </li>
@@ -85,6 +88,9 @@
                     <p class="subtle text-no-underline">
                         {{ item.address.address1 }}<br/>
                         {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}
+                        <span ng-click="clickPhoneNumber(item.customer, $event);">
+                          {{item.customer.phone_numbers[0].number}}
+                        </span>
                     </p>
                 </div>
             </a>

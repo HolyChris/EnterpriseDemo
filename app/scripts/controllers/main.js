@@ -8,37 +8,82 @@
  * Controller of the ersApp
  */
 angular.module('ersApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state) {
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $window, $location, $timeout, Sites, SitesResourceService, ENV, $state, Customer, $q) {
     // Site listings
     $scope.loadingRecent = true;
     SitesResourceService.recent().then(function(response) {
-        $scope.loadingRecent = false;
-        $scope.recent_sites = response;
+        angular.forEach(response.data, function(site) {
+            // Site attributes already have customer info so makes more sense to add this in the backend
+            var customerId = site.attributes.customer.id;
+            var customer = Customer.get({id: customerId}, function(data) {
+                site.attributes.customer.phone_numbers = data.customer.phone_numbers
+
+                $scope.loadingRecent = false;
+                $scope.recent_sites = response;
+            });
+        });
     });
 
     $scope.loadingOpportunity = true;
     SitesResourceService.opportunities().then(function(response) {
-        $scope.loadingOpportunity = false;
-        $scope.opportunities = response;
+        angular.forEach(response.data, function(site) {
+            // Site attributes already have customer info so makes more sense to add this in the backend
+            var customerId = site.attributes.customer.id;
+            var customer = Customer.get({id: customerId}, function(data) {
+                site.attributes.customer.phone_numbers = data.customer.phone_numbers
+
+                $scope.loadingOpportunity = false;
+                $scope.opportunities = response;
+            });
+        });
     });
 
     $scope.loadingContracts = true;
     SitesResourceService.contracts().then(function(response) {
-        $scope.loadingContracts = false;
-        $scope.contracts = response;
+        angular.forEach(response.data, function(site) {
+            // Site attributes already have customer info so makes more sense to add this in the backend
+            var customerId = site.attributes.customer.id;
+            var customer = Customer.get({id: customerId}, function(data) {
+                site.attributes.customer.phone_numbers = data.customer.phone_numbers
+
+                $scope.loadingContracts = false;
+                $scope.contracts = response;
+            });
+        });
     });
 
     $scope.loadingProductions = true;
     SitesResourceService.productions().then(function(response) {
-        $scope.loadingProductions = false;
-        $scope.productions = response;
+        angular.forEach(response.data, function(site) {
+            // Site attributes already have customer info so makes more sense to add this in the backend
+            var customerId = site.attributes.customer.id;
+            var customer = Customer.get({id: customerId}, function(data) {
+                site.attributes.customer.phone_numbers = data.customer.phone_numbers
+
+                $scope.loadingProductions = false;
+                $scope.productions = response;
+            });
+        });
     });
 
     $scope.loadingBillings = true;
     SitesResourceService.billings().then(function(response) {
-        $scope.loadingBillings = false;
-        $scope.billings = response;
+        angular.forEach(response.data, function(site) {
+            // Site attributes already have customer info so makes more sense to add this in the backend
+            var customerId = site.attributes.customer.id;
+            var customer = Customer.get({id: customerId}, function(data) {
+                site.attributes.customer.phone_numbers = data.customer.phone_numbers
+
+                $scope.loadingBillings = false;
+                $scope.billings = response;
+            });
+        });
     });
+
+    $scope.clickPhoneNumber = function(customer, $event) {
+        $event.preventDefault();
+        window.location.href="tel://"+customer.phone_numbers[0].number;
+    };
 
     $scope.updateStage = function (model, column) {
         var site = model.item;
