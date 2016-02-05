@@ -2019,6 +2019,7 @@ img.cover-photo-customer-portal {
 
 .card-content {
     padding: 15px;
+    padding-right: 30px;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -2038,6 +2039,9 @@ img.cover-photo-customer-portal {
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
+    .card-content {
+        padding-right: 15px;
+    }
     .card {
         height: 150px;
     }
