@@ -87,7 +87,7 @@
                     <h5>{{ item.customer.firstname }} {{ item.customer.lastname }} <span ng-if="item.poNumber" class="text-italic text-thin text-no-underline text-12">- PO# {{ item.poNumber }}</span></h5>
                     <p class="subtle text-no-underline">
                         {{ item.address.address1 }}<br/>
-                        {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}
+                        {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}<br/>
                         <span ng-click="clickPhoneNumber(item.customer, $event);">
                           {{item.customer.phone_numbers[0].number}}
                         </span>
