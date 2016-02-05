@@ -88,10 +88,10 @@
                     <p class="subtle text-no-underline">
                         {{ item.address.address1 }}<br/>
                         {{ item.address.city }}, {{ item.address.state }}, {{ item.address.zipcode }}<br/>
-                        <span ng-click="clickPhoneNumber(item.customer, $event);">
-                          {{item.customer.phone_numbers[0].number}}
-                        </span>
                     </p>
+                    <div class="card-phone" ng-click="clickPhoneNumber(item.customer, $event);">
+                      <img src="images/phone–icon.png">
+                    </div>
                 </div>
             </a>
         </div>
