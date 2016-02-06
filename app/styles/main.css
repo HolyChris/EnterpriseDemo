@@ -1991,6 +1991,7 @@ img.cover-photo-customer-portal {
     margin-bottom: 15px;
     height: 100px;
     border-bottom: solid 2px #499c4b;
+    position: relative;
 }
 
 .card:hover {
@@ -2018,9 +2019,36 @@ img.cover-photo-customer-portal {
 
 .card-content {
     padding: 15px;
+    padding-right: 30px;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.card-phone {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -16px;
+}
+
+.card-phone img {
+    width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .card-content {
+        padding-right: 15px;
+    }
+    .card {
+        height: 150px;
+    }
+    .card-phone {
+        margin-top: 0;
+        position: static;
+    }
 }
 
 .card-list {
