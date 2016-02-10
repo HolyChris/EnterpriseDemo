@@ -432,7 +432,7 @@ module.exports = function (grunt) {
         site: 'http://eco-roof-and-solar.bitballoon.com/'
       },
       gafroofing: {
-        site: 'http://ga-roof.bitballoon.com/'
+        site: 'http://gaf-roofing.bitballoon.com/'
       },
       assuranceroof: {
         site: 'http://assurance-roof.bitballoon.com/'
