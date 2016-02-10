@@ -87,7 +87,12 @@ angular.module('ersApp')
 
     $scope.updateStage = function (model, column) {
         var site = model.item;
-        column.getModel().items.unshift(site);
+        var t = column.getModel();
+
+        if (t) {
+          items.unshift(site);
+        }
+
         var previousColumnItems = model.previousColumn.getModel().items;
         var previousColumnIndex = previousColumnItems.indexOf(site);
         if(previousColumnIndex > -1)
