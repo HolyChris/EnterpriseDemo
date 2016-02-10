@@ -431,9 +431,6 @@ module.exports = function (grunt) {
       staging: {
         site: 'http://eco-roof-and-solar.bitballoon.com/'
       },
-      gafroofing: {
-        site: 'http://gaf-roofing.bitballoon.com/'
-      },
       assuranceroof: {
         site: 'http://assurance-roof.bitballoon.com/'
       },
@@ -551,10 +548,12 @@ module.exports = function (grunt) {
         options: {
           dest: '<%= yeoman.app %>/scripts/config.js'
         },
+	constants: {
         ENV: {
           name: 'gafroofing',
           apiEndpoint: 'http://gaf-roofing.herokuapp.com'
-        }
+          }
+	}
       },
       assuranceroof: {
         options: {
