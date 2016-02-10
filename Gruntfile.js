@@ -431,6 +431,9 @@ module.exports = function (grunt) {
       staging: {
         site: 'http://eco-roof-and-solar.bitballoon.com/'
       },
+      gafroofing: {
+        site: 'http://ga-roof.bitballoon.com/'
+      },
       assuranceroof: {
         site: 'http://assurance-roof.bitballoon.com/'
       },
@@ -456,6 +459,9 @@ module.exports = function (grunt) {
         site: 'http://startclosing.bitballoon.com/'
       },
       summitpoint: {
+        site: 'http://summit-point.bitballoon.com/'
+      },
+      newonenow: {
         site: 'http://summit-point.bitballoon.com/'
       }
     },
@@ -483,6 +489,7 @@ module.exports = function (grunt) {
               default: 'staging',
               choices: [
                 'staging',
+                'gafroofing',
                 'assuranceroof',
                 'ecoroof',
                 'endeavor',
@@ -538,6 +545,15 @@ module.exports = function (grunt) {
             name: 'staging',
             apiEndpoint: 'http://staging-eco-roof.herokuapp.com'
           }
+        }
+      },
+      gafroofing: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        ENV: {
+          name: 'gafroofing',
+          apiEndpoint: 'http://gaf-roofing.herokuapp.com'
         }
       },
       assuranceroof: {
