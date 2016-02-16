@@ -192,7 +192,11 @@ angular.module('ersApp')
 
         function prepareContractView(contract) {
             $scope.contract = contract;
-            $scope.contract.signed_at = new Date(contract.signed_at);
+            /// this is a date conversion problem, as it depends on browser
+            /// the base problem is we should be storing as UTC and convert to localtime using a library
+            /// see solution http://stackoverflow.com/questions/5619202/converting-string-to-date-in-js
+            $scope.contract.signed_at = new Date(contract.signed_at+"T11:00:00");
+            /// recomended solution, store as UTC in backend and use moment to convert to local time (and to UTC when sending to server)
             $scope.contract.contract_type = workTypeValues[contract.contract_type];
             if (contract.price) {
                 var price = contract.price.replace('$', '').replace(/,/g, '');
