@@ -1,9 +1,3 @@
-# Eco Roof and Solar
-
-## Make sure you understand our process
-
-https://github.com/HolyChris/ERS_MVP_FrontEnd/wiki
-
 ## Build & Development
 
 1. Run 'npm install -g grunt-cli' to install grunt cli.
@@ -17,6 +11,3 @@ https://github.com/HolyChris/ERS_MVP_FrontEnd/wiki
 1. Run 'grunt build'
 2. add grunt-bitballoon.json file with proper token
 3. grunt bitballoon:dev
-
-##Review Site
-1. http://eco-roof-and-solar.bitballoon.com/#/
